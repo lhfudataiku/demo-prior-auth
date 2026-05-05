@@ -1,0 +1,3623 @@
+{
+    "policy_id": "0655",
+    "document_type": "COVERAGE_POLICY",
+    "title": "Adalimumab",
+    "source": {
+        "policy_url": "https://www.aetna.com/cpb/medical/data/600_699/0655.html"
+    },
+    "billing_code_sets": [
+        {
+            "code": "J0139",
+            "system": "HCPCS",
+            "description": "Injection, adalimumab, 1 mg",
+            "code_role": "request",
+            "coverage_status": "covered",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "HCPCS codes covered if selection criteria are met"
+                ],
+                "page_start": 24,
+                "page_end": 27
+            }
+        },
+        {
+            "code": "Q5140",
+            "system": "HCPCS",
+            "description": "Injection, adalimumab-fkjp, biosimilar, 1 mg",
+            "code_role": "request",
+            "coverage_status": "covered",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "HCPCS codes covered if selection criteria are met"
+                ],
+                "page_start": 24,
+                "page_end": 27
+            }
+        },
+        {
+            "code": "Q5141",
+            "system": "HCPCS",
+            "description": "Injection, adalimumab-aaty, biosimilar, 1 mg",
+            "code_role": "request",
+            "coverage_status": "covered",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "HCPCS codes covered if selection criteria are met"
+                ],
+                "page_start": 24,
+                "page_end": 27
+            }
+        },
+        {
+            "code": "Q5142",
+            "system": "HCPCS",
+            "description": "Injection, adalimumab-aaty, biosimilar, 1 mg",
+            "code_role": "request",
+            "coverage_status": "covered",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "HCPCS codes covered if selection criteria are met"
+                ],
+                "page_start": 24,
+                "page_end": 27
+            }
+        },
+        {
+            "code": "Q5143",
+            "system": "HCPCS",
+            "description": "Injection, adalimumab-adbm, biosimilar, 1 mg",
+            "code_role": "request",
+            "coverage_status": "covered",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "HCPCS codes covered if selection criteria are met"
+                ],
+                "page_start": 24,
+                "page_end": 27
+            }
+        },
+        {
+            "code": "Q5144",
+            "system": "HCPCS",
+            "description": "Injection, adalimumab-aacf (idacio), biosimilar, 1 mg",
+            "code_role": "request",
+            "coverage_status": "covered",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "HCPCS codes covered if selection criteria are met"
+                ],
+                "page_start": 24,
+                "page_end": 27
+            }
+        },
+        {
+            "code": "Q5145",
+            "system": "HCPCS",
+            "description": "Injection, adalimumab-afzb (abrilada), biosimilar, 1 mg",
+            "code_role": "request",
+            "coverage_status": "covered",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "HCPCS codes covered if selection criteria are met"
+                ],
+                "page_start": 24,
+                "page_end": 27
+            }
+        },
+        {
+            "code": "H20.051 - H20.9; H44.111 - H44.139",
+            "system": "ICD-10",
+            "description": "Non-infectious uveitis (age 2 and older) including panuveitis and sympathetic uveitis",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "K50.00 - K50.919",
+            "system": "ICD-10",
+            "description": "Crohn’s disease [active]",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "K51.00 - K51.919",
+            "system": "ICD-10",
+            "description": "Ulcerative colitis",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "L40.0 - L40.3; L40.50 - L40.9",
+            "system": "ICD-10",
+            "description": "Psoriasis [age 18 and older]",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "L73.2",
+            "system": "ICD-10",
+            "description": "Hidradenitis suppurativa [age 12 and older]",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "L88",
+            "system": "ICD-10",
+            "description": "Pyoderma gangrenosum",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "M05.00 - M06.9",
+            "system": "ICD-10",
+            "description": "Rheumatoid arthritis [moderately to severely active in adults]",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "M08.00 - M08.99",
+            "system": "ICD-10",
+            "description": "Juvenile idiopathic arthritis [age 2 and older]",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "M35.2",
+            "system": "ICD-10",
+            "description": "Behcet’s disease",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "M45.0 - M45.AB",
+            "system": "ICD-10",
+            "description": "Ankylosing spondylitis [active and failed two or more NSAIDs] [age 18 and older]",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        },
+        {
+            "code": "T45.AX5A",
+            "system": "ICD-10",
+            "description": "Adverse effect of immune checkpoint inhibitors and immunostimulant drugs [inflammatory arthritis]",
+            "code_role": "diagnosis_inclusion",
+            "coverage_status": "related",
+            "locator": {
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 27,
+                "page_end": 29
+            }
+        }
+    ],
+    "request_routes": [
+        {
+            "route_id": "RR_ADA_1",
+            "label": "Adalimumab and biosimilars (HCPCS J0139, Q5140–Q5145)",
+            "coverage_status": "covered",
+            "terminal_disposition": "continue",
+            "billing_codes": [
+                "J0139",
+                "Q5140",
+                "Q5141",
+                "Q5142",
+                "Q5143",
+                "Q5144",
+                "Q5145"
+            ],
+            "route_kind": "covered_request",
+            "phase_prompt_required": true,
+            "phase_branches": [
+                {
+                    "phase": "initial",
+                    "is_default": true,
+                    "route_guard_ids": [
+                        "RG_TB_SCREEN",
+                        "RG_NO_CONCOM_BIO_TS"
+                    ],
+                    "cluster_ids": [
+                        "CL_RA_INIT",
+                        "CL_JIA_INIT",
+                        "CL_PSA_INIT",
+                        "CL_AXSPA_INIT",
+                        "CL_CD_INIT",
+                        "CL_UC_INIT",
+                        "CL_PSO_INIT",
+                        "CL_HS_INIT",
+                        "CL_UV_INIT",
+                        "CL_BEHCET_INIT",
+                        "CL_PG_INIT",
+                        "CL_ICI_INIT"
+                    ]
+                },
+                {
+                    "phase": "continuation",
+                    "is_default": false,
+                    "route_guard_ids": [
+                        "RG_TB_SCREEN",
+                        "RG_NO_CONCOM_BIO_TS"
+                    ],
+                    "cluster_ids": [
+                        "CL_RA_CONT",
+                        "CL_JIA_CONT",
+                        "CL_PSA_CONT",
+                        "CL_AXSPA_CONT",
+                        "CL_CD_CONT",
+                        "CL_UC_CONT",
+                        "CL_PSO_CONT",
+                        "CL_HS_CONT",
+                        "CL_UV_CONT",
+                        "CL_ICI_CONT",
+                        "CL_OTHER_CONT"
+                    ]
+                }
+            ],
+            "routing_notes": "Route applies to adalimumab reference and listed biosimilars when selection criteria are met. All other indications are considered experimental/investigational or unproven.",
+            "evidence": "Aetna considers adalimumab, or its biosimilar, medically necessary for the following indications when criteria are met: [RA, JIA, PsA, AS and nr-axSpA, CD, UC, Plaque psoriasis, Hidradenitis suppurativa, Uveitis, Behcet’s disease, Pyoderma gangrenosum, Immune checkpoint inhibitor-related toxicity]. Aetna considers all other indications as experimental, investigational, or unproven.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval"
+                ],
+                "page_start": 2,
+                "page_end": 9
+            }
+        }
+    ],
+    "route_guards": [
+        {
+            "guard_id": "RG_TB_SCREEN",
+            "label": "Tuberculosis screening and management before initiation",
+            "guard_type": "safety",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "ask_timing": "before_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_TB_TEST_NEG_12MO"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_NO_ACTIVE_TB_IF_POS_SCREEN"
+                    }
+                ]
+            },
+            "evidence": "For all indications: Member has had a documented negative tuberculosis (TB) test ... within 12 months of initiating therapy for persons who are naïve to biologic drugs or targeted synthetic drugs ... If the screening testing for TB is positive, there must be further testing to confirm there is no active disease (e.g., chest x-ray). Do not administer the requested medication to members with active TB infection. If there is latent disease, TB treatment must be started before initiation of the requested medication.",
+            "locator": {
+                "section_path": [
+                    "IV. Other"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        },
+        {
+            "guard_id": "RG_NO_CONCOM_BIO_TS",
+            "label": "No concomitant biologic or targeted synthetic for same indication",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "ask_timing": "before_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_NO_CONCOMITANT_BIO_TS"
+                    }
+                ]
+            },
+            "evidence": "For all indications: Member cannot use the requested medication concomitantly with any other biologic drug or targeted synthetic drug for the same indication.",
+            "locator": {
+                "section_path": [
+                    "IV. Other"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        }
+    ],
+    "cluster_entry_guards": [
+        {
+            "guard_id": "CG_RA_ADULT",
+            "label": "Adult age requirement for RA",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_RA_INIT",
+                "CL_RA_CONT"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_ADULT_18PLUS"
+                    }
+                ]
+            },
+            "evidence": "Rheumatoid arthritis (RA): For adult members ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 2,
+                "page_end": 4
+            }
+        },
+        {
+            "guard_id": "CG_PSO_ADULT",
+            "label": "Adult age requirement for plaque psoriasis",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_PSO_INIT",
+                "CL_PSO_CONT"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_ADULT_18PLUS"
+                    }
+                ]
+            },
+            "evidence": "Plaque psoriasis (PsO): For adult members ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "G. Plaque psoriasis (PSO)"
+                ],
+                "page_start": 7,
+                "page_end": 8
+            }
+        },
+        {
+            "guard_id": "CG_PSA_ADULT",
+            "label": "Adult age requirement for psoriatic arthritis",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_PSA_INIT",
+                "CL_PSA_CONT"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_ADULT_18PLUS"
+                    }
+                ]
+            },
+            "evidence": "Psoriatic arthritis (PsA): For adult members ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        },
+        {
+            "guard_id": "CG_AXSPA_ADULT",
+            "label": "Adult age requirement for AS and nr-axSpA",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_AXSPA_INIT",
+                "CL_AXSPA_CONT"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_ADULT_18PLUS"
+                    }
+                ]
+            },
+            "evidence": "Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA): For adult members ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "guard_id": "CG_JIA_AGE2PLUS",
+            "label": "Age ≥ 2 years for articular JIA",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_JIA_INIT",
+                "CL_JIA_CONT"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_AGE_2PLUS"
+                    }
+                ]
+            },
+            "evidence": "Articular juvenile idiopathic arthritis (JIA): For members 2 years of age or older ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "B. Articular juvenile idiopathic arthritis (JIA)"
+                ],
+                "page_start": 5,
+                "page_end": 5
+            }
+        },
+        {
+            "guard_id": "CG_UV_AGE2PLUS",
+            "label": "Age ≥ 2 years for non-infectious uveitis",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_UV_INIT",
+                "CL_UV_CONT"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_AGE_2PLUS"
+                    }
+                ]
+            },
+            "evidence": "Uveitis (non-infectious intermediate, posterior and panuveitis): For members 2 years of age or older ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "I. Uveitis (non-infectious intermediate, posterior and panuveitis)"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "guard_id": "CG_HS_AGE12PLUS",
+            "label": "Age ≥ 12 years for hidradenitis suppurativa",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+                "RR_ADA_1"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_HS_INIT",
+                "CL_HS_CONT"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_AGE_12PLUS"
+                    }
+                ]
+            },
+            "evidence": "Hidradenitis suppurativa: For members 12 years of age or older ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 7,
+                "page_end": 8
+            }
+        }
+    ],
+    "condition_clusters": [
+        {
+            "cluster_id": "CL_RA_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "rheumatoid_arthritis_adults",
+            "condition_label": "Rheumatoid arthritis, adults",
+            "condition_synonyms": [
+                "RA"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M05.00 - M06.9"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CG_RA_ADULT"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_RA_PREV_BIO_TS_120D"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "all",
+                        "children": [
+                            {
+                                "node_type": "group",
+                                "operator": "any",
+                                "children": [
+                                    {
+                                        "node_type": "criterion_ref",
+                                        "criterion_id": "CR_RA_BIOMARKER_POS_RF_OR_CCP"
+                                    },
+                                    {
+                                        "node_type": "criterion_ref",
+                                        "criterion_id": "CR_RA_TESTED_RF_CCP_CRP_ESR"
+                                    }
+                                ]
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_RA_MTX_CSDMARD_PATHWAYS"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "Rheumatoid arthritis (RA): 1) For adult members who have previously received a biologic or targeted synthetic drug ... within the past 120 days; or 2) For adult members for treatment of moderately to severely active RA when both of the following criteria are met: a) biomarker testing criteria; and b/c) MTX and csDMARD failure/intolerance/contraindication pathways or moderate to high disease activity.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 2,
+                "page_end": 4
+            }
+        },
+        {
+            "cluster_id": "CL_RA_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "rheumatoid_arthritis_adults",
+            "condition_label": "Rheumatoid arthritis, adults (continuation)",
+            "condition_synonyms": [
+                "RA"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M05.00 - M06.9"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_RA_INIT"
+            ],
+            "cluster_entry_guard_ids": [
+                "CG_RA_ADULT"
+            ],
+            "logic_profile_id": "LP_CONT_RA",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_RA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For adult members ... who are using the requested medication for moderately to severely active rheumatoid arthritis and who achieve or maintain a positive clinical response as evidenced by disease activity improvement of at least 20% from baseline in tender joint count, swollen joint count, pain, or disability;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 9,
+                "page_end": 10
+            }
+        },
+        {
+            "cluster_id": "CL_JIA_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "articular_juvenile_idiopathic_arthritis",
+            "condition_label": "Articular juvenile idiopathic arthritis",
+            "condition_synonyms": [
+                "polyarticular JIA",
+                "articular JIA"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M08.00 - M08.99"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CG_JIA_AGE2PLUS"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_JIA_PREV_BIO_TS"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_JIA_INITIAL_PATHWAYS"
+                    }
+                ]
+            },
+            "evidence": "For members 2 years of age or older who have previously received a biologic or targeted synthetic drug ...; or for treatment of moderate to severely active articular JIA when any of the following is met: inadequate response to MTX or another csDMARD; or inadequate response to scheduled NSAIDs and/or intra-articular glucocorticoids with specified risk factors; or high-risk joints/disease activity/severity risk factors (Appendix B).",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "B. Articular juvenile idiopathic arthritis (JIA)"
+                ],
+                "page_start": 5,
+                "page_end": 5
+            }
+        },
+        {
+            "cluster_id": "CL_JIA_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "articular_juvenile_idiopathic_arthritis",
+            "condition_label": "Articular juvenile idiopathic arthritis (continuation)",
+            "condition_synonyms": [
+                "polyarticular JIA",
+                "articular JIA"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M08.00 - M08.99"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_JIA_INIT"
+            ],
+            "cluster_entry_guard_ids": [
+                "CG_JIA_AGE2PLUS"
+            ],
+            "logic_profile_id": "LP_CONT_JIA",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_JIA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all members 2 years of age or older ... who achieve or maintain a positive clinical response as evidenced by low disease activity or improvement in signs and symptoms when improvement in (joints with active arthritis; joints with limitation of movement; functional ability).",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "B. Articular juvenile idiopathic arthritis (JIA)"
+                ],
+                "page_start": 10,
+                "page_end": 10
+            }
+        },
+        {
+            "cluster_id": "CL_PSA_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "psoriatic_arthritis_adults",
+            "condition_label": "Psoriatic arthritis, adults",
+            "condition_synonyms": [
+                "PsA"
+            ],
+            "diagnosis_basis": "narrative_primary",
+            "diagnosis_code_candidates": [],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CG_PSA_ADULT"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_PSA_PREV_BIO_TS"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_PSA_MILD_MOD_CS_DMARD_FAIL_OR_INTOL"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_PSA_ENTHESITIS_OR_AXIAL"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_PSA_SEVERE_DISEASE"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "Psoriatic arthritis (PsA): 1) For adult members who have previously received a biologic or targeted synthetic drug ...; or 2) For treatment of active PsA when either: a) mild to moderate disease with prior csDMARD inadequate response or intolerance; or enthesitis or predominantly axial disease; or b) severe disease.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        },
+        {
+            "cluster_id": "CL_PSA_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "psoriatic_arthritis_adults",
+            "condition_label": "Psoriatic arthritis, adults (continuation)",
+            "condition_synonyms": [
+                "PsA"
+            ],
+            "diagnosis_basis": "narrative_primary",
+            "diagnosis_code_candidates": [],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_PSA_INIT"
+            ],
+            "cluster_entry_guard_ids": [
+                "CG_PSA_ADULT"
+            ],
+            "logic_profile_id": "LP_CONT_PSA",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_PSA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all adult members ... who achieve or maintain a positive clinical response as evidenced by low disease activity or improvement when improvement in any of: swollen/tender joints, dactylitis, enthesitis, axial disease, skin/nail involvement, functional status, CRP.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 10,
+                "page_end": 10
+            }
+        },
+        {
+            "cluster_id": "CL_AXSPA_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "ankylosing_spondylitis_nr_axspa",
+            "condition_label": "Ankylosing spondylitis or non-radiographic axial spondyloarthritis, adults",
+            "condition_synonyms": [
+                "AS",
+                "nr-axSpA"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M45.0 - M45.AB"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CG_AXSPA_ADULT"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_AXSPA_PREV_BIO_TS"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_AXSPA_INADEQUATE_RESPONSE_2_NSAIDS"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_AXSPA_INTOL_CONTRA_2_NSAIDS"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "For adult members who have previously received a biologic or targeted synthetic drug ...; or For treatment of active AS or active nr-axSpA when either: inadequate response to at least two NSAIDs; or intolerance/contraindication to two or more NSAIDs.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "cluster_id": "CL_AXSPA_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "ankylosing_spondylitis_nr_axspa",
+            "condition_label": "Ankylosing spondylitis or non-radiographic axial spondyloarthritis, adults (continuation)",
+            "condition_synonyms": [
+                "AS",
+                "nr-axSpA"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M45.0 - M45.AB"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_AXSPA_INIT"
+            ],
+            "cluster_entry_guard_ids": [
+                "CG_AXSPA_ADULT"
+            ],
+            "logic_profile_id": "LP_CONT_AXSPA",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_AXSPA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all adult members ... who achieve or maintain positive clinical response ... improvement in any of: functional status, total spinal pain, inflammation (e.g., morning stiffness), swollen/tender joints, CRP;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+                ],
+                "page_start": 10,
+                "page_end": 11
+            }
+        },
+        {
+            "cluster_id": "CL_CD_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "crohns_disease",
+            "condition_label": "Crohn’s disease (moderately to severely active)",
+            "condition_synonyms": [
+                "CD"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "K50.00 - K50.919"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CD_MOD_SEV_ACTIVE"
+                    }
+                ]
+            },
+            "evidence": "For treatment of moderately to severely active Crohn’s disease;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "E. Crohn’s disease (CD)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "cluster_id": "CL_CD_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "crohns_disease",
+            "condition_label": "Crohn’s disease (continuation)",
+            "condition_synonyms": [
+                "CD"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "K50.00 - K50.919"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_CD_INIT"
+            ],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "LP_CONT_CD",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_CD_REMISSION"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_CD_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For members ... using for moderately to severely active CD and who achieve or maintain remission; or ... positive clinical response with improvement in abdominal pain/tenderness, diarrhea, body weight, abdominal mass, hematocrit, mucosal appearance on endoscopy/CTE/MRE/ultrasound, or disease activity score (e.g., CDAI).",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "E. Crohn’s disease (CD)"
+                ],
+                "page_start": 11,
+                "page_end": 11
+            }
+        },
+        {
+            "cluster_id": "CL_UC_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "ulcerative_colitis",
+            "condition_label": "Ulcerative colitis (moderately to severely active)",
+            "condition_synonyms": [
+                "UC"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "K51.00 - K51.919"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_UC_MOD_SEV_ACTIVE"
+                    }
+                ]
+            },
+            "evidence": "For treatment of moderately to severely active ulcerative colitis;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "F. Ulcerative colitis (UC)"
+                ],
+                "page_start": 6,
+                "page_end": 7
+            }
+        },
+        {
+            "cluster_id": "CL_UC_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "ulcerative_colitis",
+            "condition_label": "Ulcerative colitis (continuation)",
+            "condition_synonyms": [
+                "UC"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "K51.00 - K51.919"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_UC_INIT"
+            ],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "LP_CONT_UC",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_UC_REMISSION"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_UC_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For members ... using for moderately to severely active UC and who achieve or maintain remission; or ... positive clinical response with improvement in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance on endoscopy/CT/MRE/ultrasound, or disease activity scores (e.g., UCEIS, Mayo).",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "F. Ulcerative colitis (UC)"
+                ],
+                "page_start": 11,
+                "page_end": 12
+            }
+        },
+        {
+            "cluster_id": "CL_PSO_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "plaque_psoriasis_adults",
+            "condition_label": "Plaque psoriasis, adults",
+            "condition_synonyms": [
+                "PsO",
+                "plaque psoriasis"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "L40.0 - L40.3",
+                "L40.50 - L40.9"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CG_PSO_ADULT"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_PSO_PREV_BIO_TS"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_PSO_CRUCIAL_AREAS"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_PSO_BSA_10PCT"
+                            },
+                            {
+                                "node_type": "group",
+                                "operator": "all",
+                                "children": [
+                                    {
+                                        "node_type": "criterion_ref",
+                                        "criterion_id": "CR_PSO_BSA_3PCT"
+                                    },
+                                    {
+                                        "node_type": "criterion_ref",
+                                        "criterion_id": "CR_PSO_PHOTO_OR_SYSTEMIC_FAIL_INTOL_OR_AVOID"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "For adult members ... when any of: crucial body areas affected; or ≥10% BSA; or ≥3% BSA and inadequate response or intolerance to phototherapy or methotrexate/cyclosporine/acitretin; or clinical reason to avoid methotrexate, cyclosporine, and acitretin.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "G. Plaque psoriasis (PSO)"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "cluster_id": "CL_PSO_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "plaque_psoriasis_adults",
+            "condition_label": "Plaque psoriasis, adults (continuation)",
+            "condition_synonyms": [
+                "PsO"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "L40.0 - L40.3",
+                "L40.50 - L40.9"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_PSO_INIT"
+            ],
+            "cluster_entry_guard_ids": [
+                "CG_PSO_ADULT"
+            ],
+            "logic_profile_id": "LP_CONT_PSO",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_PSO_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all adult members ... who achieve or maintain a positive clinical response as evidenced by low disease activity or improvement ... reduction in BSA affected or improvement in signs/symptoms (e.g., itching, redness, flaking, scaling, burning, cracking, pain).",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "G. Plaque psoriasis (PsO)"
+                ],
+                "page_start": 12,
+                "page_end": 12
+            }
+        },
+        {
+            "cluster_id": "CL_HS_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "hidradenitis_suppurativa",
+            "condition_label": "Hidradenitis suppurativa (age ≥12)",
+            "condition_synonyms": [
+                "HS"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "L73.2"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CG_HS_AGE12PLUS"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_HS_PREV_BIO"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_HS_ABX_90D_INADEQUATE_RESPONSE"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_HS_ABX_INTOL_CONTRA"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "For members 12 years of age or older who have previously received a biologic ...; or for treatment of moderate to severe HS when either: inadequate response to an oral antibiotic used for HS for at least 90 days; or intolerance/contraindication to oral antibiotics used for HS.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 7,
+                "page_end": 8
+            }
+        },
+        {
+            "cluster_id": "CL_HS_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "hidradenitis_suppurativa",
+            "condition_label": "Hidradenitis suppurativa (continuation)",
+            "condition_synonyms": [
+                "HS"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "L73.2"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_HS_INIT"
+            ],
+            "cluster_entry_guard_ids": [
+                "CG_HS_AGE12PLUS"
+            ],
+            "logic_profile_id": "LP_CONT_HS",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_HS_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all members 12 years of age or older ... positive clinical response ... reduction in abscess/inflammatory nodule count, reduced sinus tracts/scarring, decreased inflammatory lesions, reduction in pain/suppuration, fewer relapses, improved QoL, or improvement on a disease severity tool.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 12,
+                "page_end": 13
+            }
+        },
+        {
+            "cluster_id": "CL_UV_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "noninfectious_uveitis",
+            "condition_label": "Uveitis (non-infectious intermediate, posterior and panuveitis)",
+            "condition_synonyms": [
+                "non-infectious uveitis",
+                "intermediate uveitis",
+                "posterior uveitis",
+                "panuveitis"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "H20.051 - H20.9",
+                "H44.111 - H44.139"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CG_UV_AGE2PLUS"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_UV_PREV_BIO"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_UV_INADEQUATE_RESP_STEROIDS_IMMUNO"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_UV_INTOL_CONTRA_STEROIDS_IMMUNO"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "For members 2 years of age or older who have previously received a biologic indicated for non-infectious uveitis; or for treatment when either: inadequate response to corticosteroids or immunosuppressive therapy; or intolerance/contraindication to corticosteroids and immunosuppressive therapy.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "I. Uveitis (non-infectious intermediate, posterior and panuveitis)"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "cluster_id": "CL_UV_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "noninfectious_uveitis",
+            "condition_label": "Uveitis (non-infectious) (continuation)",
+            "condition_synonyms": [
+                "uveitis"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "H20.051 - H20.9",
+                "H44.111 - H44.139"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_UV_INIT"
+            ],
+            "cluster_entry_guard_ids": [
+                "CG_UV_AGE2PLUS"
+            ],
+            "logic_profile_id": "LP_CONT_UVEITIS",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_UV_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all members 2 years of age or older ... positive clinical response ... reduced flare frequency, stability/improvement in AC cell grade, vitreous haze grade, visual acuity, reduction in glucocorticoid requirements, or no new active inflammatory lesions.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "I. Uveitis"
+                ],
+                "page_start": 13,
+                "page_end": 13
+            }
+        },
+        {
+            "cluster_id": "CL_BEHCET_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "behcets_disease",
+            "condition_label": "Behcet’s disease",
+            "condition_synonyms": [
+                "Behçet’s"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M35.2"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_BEHCET_PREV_APREM_OR_BIO"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_BEHCET_INADEQUATE_RESP_NON_BIO"
+                    }
+                ]
+            },
+            "evidence": "1) For members who have previously received apremilast (Otezla) or a biologic indicated for Behcet’s; or 2) For treatment when inadequate response to at least one non-biologic medication for Behcet’s disease.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "J. Behcet’s disease"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "cluster_id": "CL_PG_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "pyoderma_gangrenosum",
+            "condition_label": "Pyoderma gangrenosum",
+            "condition_synonyms": [
+                "PG"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "L88"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_PG_PREV_BIO"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_PG_INADEQUATE_RESP_STEROIDS_IMMUNO"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_PG_INTOL_CONTRA_STEROIDS_IMMUNO"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "1) For members who have previous received a biologic indicated for PG; or 2) For treatment when either: inadequate response to corticosteroids or immunosuppressive therapy; or intolerance/contraindication to corticosteroids and immunosuppressive therapy.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "K. Pyoderma gangrenosum"
+                ],
+                "page_start": 8,
+                "page_end": 9
+            }
+        },
+        {
+            "cluster_id": "CL_ICI_INIT",
+            "route_id": "RR_ADA_1",
+            "phase": "initial",
+            "condition_key": "ici_related_inflammatory_arthritis",
+            "condition_label": "Immune checkpoint inhibitor-related inflammatory arthritis",
+            "condition_synonyms": [
+                "ICI-related toxicity",
+                "immunotherapy-related inflammatory arthritis"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "T45.AX5A"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_ICI_MOD_SEV_ARTHRITIS"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_ICI_INADEQUATE_RESP_STEROIDS_OR_CSDMARD"
+                            },
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_ICI_INTOL_CONTRA_STEROIDS_AND_CSDMARD"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "For treatment of immune checkpoint inhibitor-related toxicity when the member has moderate or severe immunotherapy-related inflammatory arthritis and meets either: inadequate response to corticosteroids or a conventional synthetic drug; or intolerance/contraindication to corticosteroids and a conventional synthetic drug.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "L. Immune checkpoint inhibitor-related toxicity"
+                ],
+                "page_start": 9,
+                "page_end": 9
+            }
+        },
+        {
+            "cluster_id": "CL_ICI_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "ici_related_inflammatory_arthritis",
+            "condition_label": "Immune checkpoint inhibitor-related inflammatory arthritis (continuation)",
+            "condition_synonyms": [
+                "ICI-related toxicity"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "T45.AX5A"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_ICI_INIT"
+            ],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "LP_CONT_ICI",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_ICI_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all members ... using the requested medication for immunotherapy-related inflammatory arthritis and who achieve or maintain a positive clinical response ...",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "J. Immune checkpoint inhibitor-related toxicity"
+                ],
+                "page_start": 13,
+                "page_end": 14
+            }
+        },
+        {
+            "cluster_id": "CL_OTHER_CONT",
+            "route_id": "RR_ADA_1",
+            "phase": "continuation",
+            "condition_key": "other_indications_from_section_ii",
+            "condition_label": "Continuation for all other covered indications in Section II",
+            "condition_synonyms": [],
+            "diagnosis_basis": "narrative_primary",
+            "diagnosis_code_candidates": [],
+            "inherits_diagnosis_from_cluster_ids": [
+                "CL_BEHCET_INIT",
+                "CL_PG_INIT"
+            ],
+            "cluster_entry_guard_ids": [],
+            "logic_profile_id": "LP_CONT_OTHER",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_OTHER_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "For all members ... using the requested medication for an indication outlined in Section II and who achieve or maintain a positive clinical response ...",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "K. All other indications"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        }
+    ],
+    "logic_profiles": [
+        {
+            "logic_profile_id": "LP_CONT_RA",
+            "label": "Continuation — Rheumatoid arthritis",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_RA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Positive clinical response ... improvement ≥20% from baseline in tender joint count, swollen joint count, pain, or disability.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 9,
+                "page_end": 10
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_JIA",
+            "label": "Continuation — Articular JIA",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_JIA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Low disease activity or improvement in number of joints with active arthritis, joints with limitation of movement, or functional ability.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "B. Articular juvenile idiopathic arthritis (JIA)"
+                ],
+                "page_start": 10,
+                "page_end": 10
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_PSA",
+            "label": "Continuation — Psoriatic arthritis",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_PSA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Low disease activity or improvement in any of: swollen/tender joints, dactylitis, enthesitis, axial disease, skin/nail involvement, functional status, CRP.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 10,
+                "page_end": 10
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_AXSPA",
+            "label": "Continuation — AS and nr-axSpA",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_AXSPA_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Low disease activity or improvement in any of: functional status, total spinal pain, inflammation (morning stiffness), swollen/tender joints, CRP.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "D. AS and nr-axSpA"
+                ],
+                "page_start": 10,
+                "page_end": 11
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_CD",
+            "label": "Continuation — Crohn’s disease",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_CD_REMISSION"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_CD_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Maintain remission; or positive response via improvement in abdominal pain/tenderness, diarrhea, body weight, abdominal mass, hematocrit, mucosal appearance on endoscopy/CTE/MRE/ultrasound, or disease activity score.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "E. Crohn’s disease (CD)"
+                ],
+                "page_start": 11,
+                "page_end": 11
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_UC",
+            "label": "Continuation — Ulcerative colitis",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_UC_REMISSION"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_UC_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Maintain remission; or positive response via improvement in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance on endoscopy/CT/MRE/ultrasound, or disease activity scores.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "F. Ulcerative colitis (UC)"
+                ],
+                "page_start": 11,
+                "page_end": 12
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_PSO",
+            "label": "Continuation — Plaque psoriasis",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_PSO_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Low disease activity or improvement such as reduction in BSA or improvement in signs and symptoms.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "G. Plaque psoriasis (PsO)"
+                ],
+                "page_start": 12,
+                "page_end": 12
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_HS",
+            "label": "Continuation — Hidradenitis suppurativa",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_HS_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Positive response via HS-specific improvements (abscess/nodule count, sinus tracts/scarring, lesions, pain, suppuration, relapse frequency, QoL, severity tool).",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 12,
+                "page_end": 13
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_UVEITIS",
+            "label": "Continuation — Uveitis (non-infectious)",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_UV_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Positive response via ocular inflammation control measures as listed in policy.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "I. Uveitis"
+                ],
+                "page_start": 13,
+                "page_end": 13
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_ICI",
+            "label": "Continuation — ICI-related inflammatory arthritis",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_ICI_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Low disease activity or improvement in signs and symptoms with requested medication.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "J. Immune checkpoint inhibitor-related toxicity"
+                ],
+                "page_start": 13,
+                "page_end": 14
+            }
+        },
+        {
+            "logic_profile_id": "LP_CONT_OTHER",
+            "label": "Continuation — Other Section II covered indications",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_CONT_OTHER_POS_RESPONSE"
+                    }
+                ]
+            },
+            "evidence": "Positive clinical response with low disease activity or improvement in signs/symptoms for indications outlined in Section II.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "K. All other indications"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        }
+    ],
+    "criteria_catalog": [
+        {
+            "criterion_id": "CR_TB_TEST_NEG_12MO",
+            "criterion_kind": "route_guard",
+            "prompt": "Has the member had a documented negative tuberculosis (TB) test (TST or IGRA) within 12 months prior to initiating adalimumab (for biologic/tsDMARD-naïve persons)?",
+            "clinical_intent": "Mitigate risk of TB reactivation before initiating TNF-α inhibitor",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document",
+                "procedure"
+            ],
+            "policy_time_language": "within 12 months prior to initiation",
+            "retrieval_priority": "high",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Member has had a documented negative tuberculosis (TB) test ... within 12 months of initiating therapy ...",
+            "locator": {
+                "section_path": [
+                    "IV. Other"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        },
+        {
+            "criterion_id": "CR_NO_ACTIVE_TB_IF_POS_SCREEN",
+            "criterion_kind": "route_guard",
+            "prompt": "If TB screening was positive, has active TB been excluded and (if latent) TB treatment started prior to adalimumab initiation?",
+            "clinical_intent": "Ensure no active TB and latent TB is treated before therapy",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "document",
+                "observation",
+                "procedure"
+            ],
+            "policy_time_language": "before initiation",
+            "retrieval_priority": "high",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "If the screening testing for TB is positive, there must be further testing to confirm there is no active disease ... If there is latent disease, TB treatment must be started before initiation ...",
+            "locator": {
+                "section_path": [
+                    "IV. Other"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        },
+        {
+            "criterion_id": "CR_NO_CONCOMITANT_BIO_TS",
+            "criterion_kind": "route_guard",
+            "prompt": "Confirm the member will not use adalimumab concomitantly with another biologic drug or targeted synthetic drug for the same indication.",
+            "clinical_intent": "Avoid unsafe/unsupported combination biologic/tsDMARD therapy",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication"
+            ],
+            "policy_time_language": "concomitant use",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member cannot use the requested medication concomitantly with any other biologic drug or targeted synthetic drug for the same indication.",
+            "locator": {
+                "section_path": [
+                    "IV. Other"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        },
+        {
+            "criterion_id": "CR_ADULT_18PLUS",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Is the member an adult (age ≥ 18 years)?",
+            "clinical_intent": "Confirm adult-only indications eligibility",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "at start of therapy",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For adult members ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval"
+                ],
+                "page_start": 2,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_AGE_2PLUS",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Is the member age ≥ 2 years?",
+            "clinical_intent": "Confirm pediatric age eligibility for JIA/uveitis",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "M08.00 - M08.99",
+                    "H20.051 - H20.9",
+                    "H44.111 - H44.139"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "at start of therapy",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For members 2 years of age or older ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "B. JIA / I. Uveitis"
+                ],
+                "page_start": 5,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_AGE_12PLUS",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Is the member age ≥ 12 years?",
+            "clinical_intent": "Confirm age eligibility for hidradenitis suppurativa",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "L73.2"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "at start of therapy",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For members 12 years of age or older ... hidradenitis suppurativa",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 7,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_RA_PREV_BIO_TS_120D",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Has the adult member previously received a biologic or targeted synthetic drug indicated for moderately to severely active RA within the past 120 days?",
+            "clinical_intent": "Allow coverage based on recent prior advanced therapy use",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "M05.00 - M06.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "within the past 120 days",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For adult members who have previously received a biologic or targeted synthetic drug ... within the past 120 days;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 2,
+                "page_end": 2
+            }
+        },
+        {
+            "criterion_id": "CR_RA_BIOMARKER_POS_RF_OR_CCP",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "RA biomarkers: Positive rheumatoid factor (RF) or anti-cyclic citrullinated peptide (anti-CCP) test?",
+            "clinical_intent": "Confirm RA activity/diagnostic support per policy",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "86140",
+                    "86200",
+                    "86430",
+                    "86431"
+                ],
+                "code_role": "related"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "prior to initiation",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Member has been tested for either of the following biomarkers and the test was positive: RF; or Anti-CCP;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 2,
+                "page_end": 3
+            }
+        },
+        {
+            "criterion_id": "CR_RA_TESTED_RF_CCP_CRP_ESR",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "RA biomarkers: Has the member been tested for RF, anti-CCP, and CRP and/or ESR?",
+            "clinical_intent": "Ensure biomarker assessment per policy when not seropositive",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "86140",
+                    "85651",
+                    "85652",
+                    "86200",
+                    "86430",
+                    "86431"
+                ],
+                "code_role": "related"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "prior to initiation",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Member has been tested for all of the following biomarkers: RF; and Anti-CCP; and C-reactive protein (CRP) and/or erythrocyte sedimentation rate (ESR);",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 2,
+                "page_end": 3
+            }
+        },
+        {
+            "criterion_id": "CR_RA_MTX_CSDMARD_PATHWAYS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For RA, does the member meet at least one methotrexate/csDMARD pathway per policy (e.g., inadequate response after ≥3 months MTX ≥15 mg/week, intolerance or contraindication to MTX or other csDMARDs, or moderate to high disease activity with specified csDMARD history)?",
+            "clinical_intent": "Verify step-therapy failure, intolerance, or contraindication consistent with policy",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "J8610",
+                    "J7512",
+                    "J7500",
+                    "J7515",
+                    "J7516"
+                ],
+                "code_role": "related"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "after 3-month trials at maximum/tolerated doses where specified",
+            "retrieval_priority": "high",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has failed to achieve a low disease activity after a 3-month trial of MTX monotherapy at a maximum titrated dose of at least 15 mg per week and meets any of the following conditions: inadequate response to MTX with other csDMARD(s); intolerable adverse events; contraindications; moderate to high disease activity; or unable to tolerate MTX 3-month trial with specified csDMARD conditions; or MTX contraindication with specified csDMARD conditions.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 2,
+                "page_end": 4
+            }
+        },
+        {
+            "criterion_id": "CR_JIA_PREV_BIO_TS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For articular JIA (age ≥2), has the member previously received a biologic or targeted synthetic drug indicated for moderately to severely active articular JIA?",
+            "clinical_intent": "Prior advanced therapy allowance",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "M08.00 - M08.99"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For members 2 years of age or older who have previously received a biologic or targeted synthetic drug ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "B. Articular juvenile idiopathic arthritis (JIA)"
+                ],
+                "page_start": 5,
+                "page_end": 5
+            }
+        },
+        {
+            "criterion_id": "CR_JIA_INITIAL_PATHWAYS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For articular JIA, does the member meet at least one initial-approval pathway (e.g., inadequate response to MTX/other csDMARDs at adequate dose/duration; or inadequate response to scheduled NSAIDs and/or intra-articular glucocorticoids plus specified poor-outcome risk factors; or high-risk joints/high disease activity/high risk for disabling joint disease)?",
+            "clinical_intent": "Confirm csDMARD/NSAID failure with risk factors or high-risk disease per policy",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "M08.00 - M08.99"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "procedure",
+                "document"
+            ],
+            "policy_time_language": "after adequate trial(s) as defined",
+            "retrieval_priority": "high",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Inadequate response to MTX or another csDMARD administered at an adequate dose and duration; or inadequate response to scheduled NSAIDs and/or intra-articular glucocorticoids and one of the listed poor-outcome risk factors; or high-risk joints involved / high disease activity / high risk for disabling joint disease.",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "B. Articular juvenile idiopathic arthritis (JIA)"
+                ],
+                "page_start": 5,
+                "page_end": 5
+            }
+        },
+        {
+            "criterion_id": "CR_PSA_PREV_BIO_TS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For PsA (adults), has the member previously received a biologic or targeted synthetic drug indicated for active PsA?",
+            "clinical_intent": "Prior advanced therapy allowance",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For adult members who have previously received a biologic or targeted synthetic drug indicated for active psoriatic arthritis;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_PSA_MILD_MOD_CS_DMARD_FAIL_OR_INTOL",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For PsA with mild-to-moderate disease, has the member had an inadequate response or intolerance to methotrexate, leflunomide, or another csDMARD (e.g., sulfasalazine) at an adequate dose and duration?",
+            "clinical_intent": "Verify csDMARD step-therapy for PsA mild-to-moderate disease",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "after adequate dose and duration",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has had an inadequate response to methotrexate, leflunomide, or another csDMARD ...; or intolerance/contraindication ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_PSA_ENTHESITIS_OR_AXIAL",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For PsA, does the member have enthesitis or predominantly axial disease?",
+            "clinical_intent": "Alternate pathway for PsA eligibility",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "current presentation",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has enthesitis or predominantly axial disease;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_PSA_SEVERE_DISEASE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For PsA, does the member have severe disease?",
+            "clinical_intent": "Allow initiation in severe PsA without prior csDMARD failure",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "current severity",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has severe disease;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "C. Psoriatic arthritis (PsA)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_AXSPA_PREV_BIO_TS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For AS/nr-axSpA (adults), has the member previously received a biologic or targeted synthetic drug indicated for active AS or active nr-axSpA?",
+            "clinical_intent": "Prior advanced therapy allowance",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "M45.0 - M45.AB"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For adult members who have previously received a biologic or targeted synthetic drug ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_AXSPA_INADEQUATE_RESPONSE_2_NSAIDS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For AS/nr-axSpA, has the member had an inadequate response to at least two NSAIDs?",
+            "clinical_intent": "Confirm NSAID failure per policy",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior treatment history",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has had an inadequate response to at least two NSAIDs;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "D. Ankylosing spondylitis (AS) and nr-axSpA"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_AXSPA_INTOL_CONTRA_2_NSAIDS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For AS/nr-axSpA, does the member have intolerance or contraindication to two or more NSAIDs?",
+            "clinical_intent": "Allow initiation when NSAIDs not tolerated/contraindicated",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "document",
+                "condition"
+            ],
+            "policy_time_language": "prior history",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has an intolerance or contraindication to two or more NSAIDs;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "D. Ankylosing spondylitis (AS) and nr-axSpA"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_CD_MOD_SEV_ACTIVE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Is the member diagnosed with moderately to severely active Crohn’s disease?",
+            "clinical_intent": "Confirm disease activity severity for CD initiation",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "K50.00 - K50.919"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document",
+                "observation"
+            ],
+            "policy_time_language": "current activity",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "For treatment of moderately to severely active Crohn’s disease;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "E. Crohn’s disease (CD)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_UC_MOD_SEV_ACTIVE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Is the member diagnosed with moderately to severely active ulcerative colitis?",
+            "clinical_intent": "Confirm disease activity severity for UC initiation",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "K51.00 - K51.919"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document",
+                "observation"
+            ],
+            "policy_time_language": "current activity",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "For treatment of moderately to severely active ulcerative colitis;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "F. Ulcerative colitis (UC)"
+                ],
+                "page_start": 6,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_PSO_PREV_BIO_TS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For plaque psoriasis (adults), has the member previously received a biologic or targeted synthetic drug indicated for moderate to severe plaque psoriasis?",
+            "clinical_intent": "Prior advanced therapy allowance",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L40.0 - L40.3",
+                    "L40.50 - L40.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For adult members who have previously received a biologic or targeted synthetic drug ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "G. Plaque psoriasis (PSO)"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_PSO_CRUCIAL_AREAS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Are crucial body areas affected (e.g., hands, feet, face, neck, scalp, genitals/groin, intertriginous areas)?",
+            "clinical_intent": "Define moderate-to-severe PsO eligibility based on special sites",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L40.0 - L40.3",
+                    "L40.50 - L40.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "current involvement",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Crucial body areas ... are affected;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "G. Plaque psoriasis (PSO)"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_PSO_BSA_10PCT",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Is ≥ 10% body surface area (BSA) affected by plaque psoriasis?",
+            "clinical_intent": "Severity threshold for PsO eligibility",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L40.0 - L40.3",
+                    "L40.50 - L40.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "current assessment",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "At least 10% of the body surface area (BSA) is affected;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "G. Plaque psoriasis (PSO)"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_PSO_BSA_3PCT",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Is ≥ 3% body surface area (BSA) affected by plaque psoriasis?",
+            "clinical_intent": "Define lesser extent threshold combined with treatment history",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L40.0 - L40.3",
+                    "L40.50 - L40.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "current assessment",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "At least 3% of body surface area (BSA) is affected and ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "G. Plaque psoriasis (PSO)"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_PSO_PHOTO_OR_SYSTEMIC_FAIL_INTOL_OR_AVOID",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For PsO with ≥3% BSA, has the member had inadequate response or intolerance to phototherapy or methotrexate/cyclosporine/acitretin, or has a clinical reason to avoid these systemic agents (per Appendix A)?",
+            "clinical_intent": "Verify prior therapy failure/intolerance or contraindication for PsO",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "procedure",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Inadequate response or intolerance to phototherapy or pharmacologic treatment with methotrexate, cyclosporine, or acitretin; or a clinical reason to avoid methotrexate, cyclosporine and acitretin (see Appendix A).",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "G. Plaque psoriasis (PSO)"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_HS_PREV_BIO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For HS (age ≥12), has the member previously received a biologic indicated for moderate to severe HS?",
+            "clinical_intent": "Prior biologic allowance for HS",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L73.2"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For members 12 years of age or older who have previously received a biologic indicated for the treatment of moderate to severe hidradenitis suppurativa;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_HS_ABX_90D_INADEQUATE_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For HS, has the member had an inadequate response to an oral antibiotic used for HS for at least 90 days?",
+            "clinical_intent": "Verify antibiotic trial per policy",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "J0120",
+                    "J2280",
+                    "J2281",
+                    "J2804",
+                    "J3300 - J3303"
+                ],
+                "code_role": "related"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "at least 90 days",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has had an inadequate response to an oral antibiotic used for the treatment of hidradenitis suppurativa for at least 90 days (e.g., clindamycin, metronidazole, moxifloxacin, rifampin, tetracyclines);",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 7,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_HS_ABX_INTOL_CONTRA",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For HS, does the member have intolerance or contraindication to oral antibiotics used for HS?",
+            "clinical_intent": "Allow initiation when antibiotics cannot be used",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L73.2"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "document"
+            ],
+            "policy_time_language": "prior history",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has an intolerance or contraindication to oral antibiotics used for the treatment of hidradenitis suppurativa;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "H. Hidradenitis suppurativa"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_UV_PREV_BIO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For non-infectious uveitis (age ≥2), has the member previously received a biologic indicated for non-infectious uveitis?",
+            "clinical_intent": "Prior biologic allowance for uveitis",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "H20.051 - H20.9",
+                    "H44.111 - H44.139"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For members 2 years of age or older who have previously received a biologic indicated for non-infectious intermediate, posterior, and panuveitis;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "I. Uveitis"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_UV_INADEQUATE_RESP_STEROIDS_IMMUNO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For non-infectious uveitis, has the member had an inadequate response to corticosteroids or immunosuppressive therapy (e.g., azathioprine, cyclosporine, methotrexate, mycophenolate mofetil)?",
+            "clinical_intent": "Verify prior therapy failure for uveitis",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has had an inadequate response to corticosteroids or immunosuppressive therapy (e.g., azathioprine, cyclosporine, methotrexate, mycophenolate mofetil);",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "I. Uveitis"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_UV_INTOL_CONTRA_STEROIDS_IMMUNO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For non-infectious uveitis, does the member have intolerance or contraindication to corticosteroids and immunosuppressive therapy?",
+            "clinical_intent": "Allow initiation when standard therapies not tolerated/contraindicated",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "document"
+            ],
+            "policy_time_language": "prior history",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has an intolerance or contraindication to corticosteroids and immunosuppressive therapy ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "I. Uveitis"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_BEHCET_PREV_APREM_OR_BIO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For Behcet’s disease, has the member previously received apremilast or a biologic indicated for Behcet’s disease?",
+            "clinical_intent": "Prior therapy allowance",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "M35.2"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For members who have previously received apremilast (Otezla) or a biologic indicated for the treatment of Behcet’s disease;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "J. Behcet’s disease"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_BEHCET_INADEQUATE_RESP_NON_BIO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For Behcet’s disease, has the member had an inadequate response to at least one non-biologic medication for Behcet’s disease (e.g., azathioprine, colchicine, cyclosporine, systemic corticosteroids)?",
+            "clinical_intent": "Verify failure of non-biologic therapy for Behcet’s",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "M35.2"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior therapy",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Inadequate response to at least one non-biologic medication for Behcet’s disease ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "J. Behcet’s disease"
+                ],
+                "page_start": 8,
+                "page_end": 8
+            }
+        },
+        {
+            "criterion_id": "CR_PG_PREV_BIO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For pyoderma gangrenosum, has the member previously received a biologic indicated for PG?",
+            "clinical_intent": "Prior biologic allowance for PG",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L88"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior to request",
+            "retrieval_priority": "low",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For members who have previous received a biologic indicated for the treatment of pyoderma gangrenosum;",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "K. Pyoderma gangrenosum"
+                ],
+                "page_start": 8,
+                "page_end": 9
+            }
+        },
+        {
+            "criterion_id": "CR_PG_INADEQUATE_RESP_STEROIDS_IMMUNO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For pyoderma gangrenosum, has the member had an inadequate response to corticosteroids or immunosuppressive therapy (e.g., cyclosporine or mycophenolate mofetil)?",
+            "clinical_intent": "Verify failure of standard therapy for PG",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L88"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior therapy",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Inadequate response to corticosteroids or immunosuppressive therapy (e.g., cyclosporine or mycophenolate mofetil);",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "K. Pyoderma gangrenosum"
+                ],
+                "page_start": 9,
+                "page_end": 9
+            }
+        },
+        {
+            "criterion_id": "CR_PG_INTOL_CONTRA_STEROIDS_IMMUNO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For pyoderma gangrenosum, does the member have intolerance or contraindication to corticosteroids and immunosuppressive therapy?",
+            "clinical_intent": "Allow initiation when standard therapies not tolerated/contraindicated",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "L88"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "document"
+            ],
+            "policy_time_language": "prior history",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Intolerance or contraindication to corticosteroids and immunosuppressive therapy ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "K. Pyoderma gangrenosum"
+                ],
+                "page_start": 9,
+                "page_end": 9
+            }
+        },
+        {
+            "criterion_id": "CR_ICI_MOD_SEV_ARTHRITIS",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Does the member have moderate or severe immunotherapy-related inflammatory arthritis due to immune checkpoint inhibitors?",
+            "clinical_intent": "Confirm ICI-related toxicity severity for eligibility",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "T45.AX5A"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "current severity",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has moderate or severe immunotherapy-related inflammatory arthritis ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "L. Immune checkpoint inhibitor-related toxicity"
+                ],
+                "page_start": 9,
+                "page_end": 9
+            }
+        },
+        {
+            "criterion_id": "CR_ICI_INADEQUATE_RESP_STEROIDS_OR_CSDMARD",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For ICI-related inflammatory arthritis, has the member had an inadequate response to corticosteroids or a conventional synthetic drug (e.g., methotrexate, sulfasalazine, leflunomide, hydroxychloroquine)?",
+            "clinical_intent": "Verify failure of first-line therapy for ICI-related arthritis",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "document"
+            ],
+            "policy_time_language": "prior therapy",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has had an inadequate response to corticosteroids or a conventional synthetic drug ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "L. Immune checkpoint inhibitor-related toxicity"
+                ],
+                "page_start": 9,
+                "page_end": 9
+            }
+        },
+        {
+            "criterion_id": "CR_ICI_INTOL_CONTRA_STEROIDS_AND_CSDMARD",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For ICI-related inflammatory arthritis, does the member have intolerance or contraindication to corticosteroids and a conventional synthetic drug?",
+            "clinical_intent": "Allow initiation when first-line therapies not tolerated/contraindicated",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "document"
+            ],
+            "policy_time_language": "prior history",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Member has an intolerance or contraindication to corticosteroids and a conventional synthetic drug ...",
+            "locator": {
+                "section_path": [
+                    "II. Criteria for Initial Approval",
+                    "L. Immune checkpoint inhibitor-related toxicity"
+                ],
+                "page_start": 9,
+                "page_end": 9
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_RA_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For RA continuation, has the member achieved or maintained a positive clinical response with ≥20% improvement from baseline in tender joint count, swollen joint count, pain, or disability?",
+            "clinical_intent": "Demonstrate continued benefit for RA",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "M05.00 - M06.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Positive clinical response as evidenced by disease activity improvement of at least 20% from baseline in tender joint count, swollen joint count, pain, or disability;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 9,
+                "page_end": 10
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_JIA_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For articular JIA continuation, is there low disease activity or improvement from baseline in any of: number of joints with active arthritis, number of joints with limitation of movement, or functional ability?",
+            "clinical_intent": "Demonstrate continued benefit for JIA",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "M08.00 - M08.99"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Low disease activity or improvement ... when there is improvement in any of: number of joints with active arthritis; number of joints with limitation of movement; functional ability;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "B. Articular JIA"
+                ],
+                "page_start": 10,
+                "page_end": 10
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_PSA_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For PsA continuation, is there low disease activity or improvement from baseline in any of: swollen/tender joints, dactylitis, enthesitis, axial disease, skin/nail involvement, functional status, or CRP?",
+            "clinical_intent": "Demonstrate continued benefit for PsA",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Positive clinical response ... improvement in any of: swollen joints; tender joints; dactylitis; enthesitis; axial disease; skin and/or nail involvement; functional status; CRP;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "C. PsA"
+                ],
+                "page_start": 10,
+                "page_end": 10
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_AXSPA_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For AS/nr-axSpA continuation, is there low disease activity or improvement from baseline in any of: functional status, total spinal pain, inflammation (e.g., morning stiffness), swollen joints, tender joints, or CRP?",
+            "clinical_intent": "Demonstrate continued benefit for AS/nr-axSpA",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "M45.0 - M45.AB"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "condition",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Positive clinical response ... improvement in any of: functional status; total spinal pain; inflammation; swollen joints; tender joints; CRP;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "D. AS and nr-axSpA"
+                ],
+                "page_start": 10,
+                "page_end": 11
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_CD_REMISSION",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For Crohn’s disease continuation, has the member achieved or maintained remission?",
+            "clinical_intent": "Allow continuation based on remission",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "K50.00 - K50.919"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document",
+                "observation"
+            ],
+            "policy_time_language": "current status",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "For ... CD ... who achieve or maintain remission;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "E. CD"
+                ],
+                "page_start": 11,
+                "page_end": 11
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_CD_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For Crohn’s disease continuation without remission, is there low disease activity or improvement from baseline in any of: abdominal pain/tenderness, diarrhea, body weight, abdominal mass, hematocrit, mucosal appearance on endoscopy/CTE/MRE/ultrasound, or disease activity score (e.g., CDAI)?",
+            "clinical_intent": "Demonstrate continued benefit for CD",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "K50.00 - K50.919"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "procedure",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Positive clinical response as evidenced by low disease activity or improvement ... listed measures.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "E. CD"
+                ],
+                "page_start": 11,
+                "page_end": 11
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_UC_REMISSION",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For ulcerative colitis continuation, has the member achieved or maintained remission?",
+            "clinical_intent": "Allow continuation based on remission",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "K51.00 - K51.919"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition",
+                "document",
+                "observation"
+            ],
+            "policy_time_language": "current status",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "For ... UC ... who achieve or maintain remission;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "F. UC"
+                ],
+                "page_start": 11,
+                "page_end": 12
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_UC_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For ulcerative colitis continuation without remission, is there low disease activity or improvement from baseline in any of: stool frequency, rectal bleeding, urgency of defecation, CRP, fecal calprotectin, mucosal appearance on endoscopy/CT/MRE/ultrasound, or disease activity scores (e.g., UCEIS, Mayo)?",
+            "clinical_intent": "Demonstrate continued benefit for UC",
+            "answer_type": "boolean",
+            "required": false,
+            "code_binding": {
+                "source_codes": [
+                    "K51.00 - K51.919"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "procedure",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Positive clinical response ... improvement in listed measures.",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "F. UC"
+                ],
+                "page_start": 11,
+                "page_end": 12
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_PSO_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For plaque psoriasis continuation, is there low disease activity or improvement from baseline such as reduction in BSA affected or improvement in signs/symptoms (e.g., itching, redness, flaking, scaling, burning, cracking, pain)?",
+            "clinical_intent": "Demonstrate continued benefit for psoriasis",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "L40.0 - L40.3",
+                    "L40.50 - L40.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Reduction in body surface area affected or improvement in signs and symptoms from baseline;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "G. PsO"
+                ],
+                "page_start": 12,
+                "page_end": 12
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_HS_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For HS continuation, is there low disease activity or improvement from baseline in any of: abscess/nodule count, sinus tracts/scarring, frequency of inflammatory lesions, pain, suppuration, relapse frequency, QoL, or disease severity tool?",
+            "clinical_intent": "Demonstrate continued benefit for HS",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "L73.2"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Improvement in listed HS-specific measures;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "H. HS"
+                ],
+                "page_start": 12,
+                "page_end": 13
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_UV_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For non-infectious uveitis continuation, is there low disease activity or improvement from baseline in ocular parameters (reduced flares, AC cell grade, vitreous haze grade, visual acuity, reduced glucocorticoid requirements, or no new active inflammatory lesions)?",
+            "clinical_intent": "Demonstrate continued benefit for uveitis",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "H20.051 - H20.9",
+                    "H44.111 - H44.139"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "from baseline",
+            "retrieval_priority": "medium",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Reduced flare frequency; stability/improvement in AC cell or VH grade; stability/improvement in visual acuity; reduction in glucocorticoid requirements; no new active inflammatory lesions;",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "I. Uveitis"
+                ],
+                "page_start": 13,
+                "page_end": 13
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_ICI_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For ICI-related inflammatory arthritis continuation, is there low disease activity or improvement in signs and symptoms with the requested medication?",
+            "clinical_intent": "Demonstrate continued benefit for ICI-related arthritis",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "T45.AX5A"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "document"
+            ],
+            "policy_time_language": "current/ongoing",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "Positive clinical response with the requested medication as evidenced by low disease activity or improvement ...",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "J. Immune checkpoint inhibitor-related toxicity"
+                ],
+                "page_start": 13,
+                "page_end": 14
+            }
+        },
+        {
+            "criterion_id": "CR_CONT_OTHER_POS_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "For other covered indications in Section II, has the member achieved or maintained a positive clinical response as evidenced by low disease activity or improvement in signs and symptoms of the condition?",
+            "clinical_intent": "Demonstrate continued benefit for other covered indications",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "document",
+                "observation"
+            ],
+            "policy_time_language": "current/ongoing",
+            "retrieval_priority": "low",
+            "prefill_allowed": false,
+            "clinician_must_confirm": true,
+            "evidence": "For all other indications ... achieve or maintain a positive clinical response ...",
+            "locator": {
+                "section_path": [
+                    "III. Continuation of Therapy",
+                    "K. All other indications"
+                ],
+                "page_start": 14,
+                "page_end": 14
+            }
+        }
+    ],
+    "notes": {
+        "parsing_notes": "Prescriber specialty and dosing content were excluded as administrative/non-clinical. Investigational/not covered ICD-10 exclusion lists were not modeled as terminal routes per instructions. Diagnosis ranges were captured as presented in the policy ICD table.",
+        "confidence": "HIGH"
+    }
+}

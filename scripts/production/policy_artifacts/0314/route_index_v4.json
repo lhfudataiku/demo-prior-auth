@@ -1,0 +1,844 @@
+{
+    "policy_id": "Aetna_0314",
+    "routes": [
+        {
+            "route_id": "RT_IV_RITUXIMAB",
+            "label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+            "coverage_status": "covered",
+            "terminal_disposition": "continue",
+            "billing_codes": [
+                "J9312",
+                "Q5115",
+                "Q5119",
+                "Q5123"
+            ],
+            "phase_prompt_required": true,
+            "phases": [
+                {
+                    "phase": "initial",
+                    "is_default": true,
+                    "route_guard_ids": [],
+                    "cluster_summaries": [
+                        {
+                            "cluster_id": "CL_IV_ONC_BCELL",
+                            "condition_key": "b_cell_lymphomas_cd20",
+                            "condition_label": "B-cell lymphomas (CD20-positive) including specified subtypes",
+                            "condition_synonyms": [
+                                "DLBCL",
+                                "Follicular lymphoma",
+                                "High-grade B-cell lymphoma",
+                                "Mantle cell lymphoma",
+                                "Marginal zone lymphoma (nodal, extranodal/MALT, splenic)",
+                                "PTLD",
+                                "Castleman disease",
+                                "Pediatric aggressive mature B-cell lymphomas",
+                                "Primary mediastinal large B-cell lymphoma",
+                                "Transformed indolent lymphomas"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C82.00-C82.99",
+                                "C83.00-C83.09",
+                                "C83.10-C83.19",
+                                "C83.30-C83.3A",
+                                "C83.50-C83.59",
+                                "C83.70-C83.79",
+                                "C83.80-C83.89",
+                                "C83.90-C83.99",
+                                "C85.10-C85.19",
+                                "C85.20-C85.29",
+                                "C85.80-C85.99",
+                                "D47.Z1",
+                                "D47.Z2"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_CNS_LYMPHOMA",
+                            "condition_key": "cns_lymphoma_cd20",
+                            "condition_label": "CNS lymphoma (leptomeningeal metastases from lymphomas or primary CNS lymphoma)",
+                            "condition_synonyms": [
+                                "Leptomeningeal lymphoma metastases",
+                                "Primary CNS lymphoma"
+                            ],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_CLL",
+                            "condition_key": "cll_sll",
+                            "condition_label": "Chronic lymphocytic leukemia / small lymphocytic lymphoma",
+                            "condition_synonyms": [
+                                "CLL",
+                                "SLL"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C91.10-C91.12"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_HCL",
+                            "condition_key": "hairy_cell_leukemia",
+                            "condition_label": "Hairy cell leukemia",
+                            "condition_synonyms": [
+                                "HCL"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C91.40-C91.42"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_NLPHL",
+                            "condition_key": "hodgkin_nlphl",
+                            "condition_label": "Hodgkin lymphoma, nodular lymphocyte-predominant",
+                            "condition_synonyms": [
+                                "NLPHL",
+                                "Lymphocyte-rich Hodgkin lymphoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C81.00-C81.09",
+                                "C81.40-C81.49"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_PCBC",
+                            "condition_key": "primary_cutaneous_b_cell_lymphoma",
+                            "condition_label": "Primary cutaneous B-cell lymphoma",
+                            "condition_synonyms": [
+                                "Cutaneous marginal zone lymphoma",
+                                "Cutaneous follicle center lymphoma"
+                            ],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_ROSAI",
+                            "condition_key": "rosai_dorfman",
+                            "condition_label": "Rosai-Dorfman disease",
+                            "condition_synonyms": [
+                                "Sinus histiocytosis with massive lymphadenopathy"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "D76.3"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_WALDEN",
+                            "condition_key": "waldenstrom_lpl_bing_neel",
+                            "condition_label": "Waldenström’s macroglobulinemia / LPL / Bing-Neel syndrome",
+                            "condition_synonyms": [
+                                "LPL",
+                                "Bing-Neel"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C88.00-C88.01"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_ONC_BALL",
+                            "condition_key": "b_cell_all",
+                            "condition_label": "B-cell acute lymphoblastic leukemia (CD20-positive)",
+                            "condition_synonyms": [
+                                "B-ALL"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C91.00-C91.01"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_ONC_CD20"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_HEM_ITP",
+                            "condition_key": "refractory_itp",
+                            "condition_label": "Immune/idiopathic thrombocytopenic purpura (refractory)",
+                            "condition_synonyms": [
+                                "ITP"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "D69.3"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_HEM_AIHA",
+                            "condition_key": "autoimmune_hemolytic_anemia",
+                            "condition_label": "Autoimmune hemolytic anemia (refractory)",
+                            "condition_synonyms": [
+                                "AIHA"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "D59.0-D59.19"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_HEM_TTP",
+                            "condition_key": "thrombotic_thrombocytopenic_purpura",
+                            "condition_label": "Thrombotic thrombocytopenic purpura (refractory)",
+                            "condition_synonyms": [
+                                "TTP"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "M31.10-M31.19"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_HEM_CGVHD",
+                            "condition_key": "chronic_gvhd",
+                            "condition_label": "Chronic graft-versus-host disease",
+                            "condition_synonyms": [
+                                "Chronic GVHD"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "D89.811"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_HEM_EBV_PTLD_PREV",
+                            "condition_key": "ptld_prevention_ebv_related",
+                            "condition_label": "Prevention of EBV-related PTLD (post-transplant)",
+                            "condition_synonyms": [
+                                "EBV PTLD prevention"
+                            ],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [
+                                "Z94.0-Z94.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_HEM_NONMYELO_COND",
+                            "condition_key": "non_myeloablative_conditioning_allo_tx",
+                            "condition_label": "Non-myeloablative conditioning regimen for allogeneic transplant (component)",
+                            "condition_synonyms": [
+                                "Reduced-intensity conditioning (component)"
+                            ],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_ICI_TOX",
+                            "condition_key": "immune_checkpoint_inhibitor_toxicities",
+                            "condition_label": "Immune checkpoint inhibitor-related toxicities",
+                            "condition_synonyms": [
+                                "ICI toxicities",
+                                "Checkpoint inhibitor adverse events"
+                            ],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [
+                                "G04.81"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_RA",
+                            "condition_key": "rheumatoid_arthritis_adult",
+                            "condition_label": "Rheumatoid arthritis (adult, moderately to severely active)",
+                            "condition_synonyms": [
+                                "RA"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "M05.00-M14.89"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_RA_NO_CONCOMITANT_BIO_TS"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_VASCULITIDES",
+                            "condition_key": "anca_associated_vasculitis_gpa_mpa_egpa",
+                            "condition_label": "ANCA-associated vasculitides: GPA (Wegener’s), MPA, EGPA",
+                            "condition_synonyms": [
+                                "GPA",
+                                "Wegener’s granulomatosis",
+                                "Microscopic polyangiitis",
+                                "Eosinophilic granulomatosis with polyangiitis"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "M31.30-M31.31",
+                                "M31.7",
+                                "M30.1"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_GC_USE"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_PAUCIGN",
+                            "condition_key": "pauci_immune_glomerulonephritis",
+                            "condition_label": "Pauci-immune glomerulonephritis",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "N01.3"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_GC_USE"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_SJOGREN",
+                            "condition_key": "sjogrens",
+                            "condition_label": "Sjögren’s syndrome (after failure of corticosteroids and other immunosuppressants)",
+                            "condition_synonyms": [
+                                "Sicca syndrome"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "M35.00-M35.09"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_MS_RR",
+                            "condition_key": "relapsing_remitting_ms",
+                            "condition_label": "Multiple sclerosis, relapsing remitting",
+                            "condition_synonyms": [
+                                "RRMS"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "G35.A-G35.D"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_MS_NO_DMT"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_NMO",
+                            "condition_key": "nmosd",
+                            "condition_label": "Neuromyelitis optica spectrum disorder (Devic disease)",
+                            "condition_synonyms": [
+                                "NMOSD",
+                                "Devic disease"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "G36.0"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_NMO_NO_BIO"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_AIBD",
+                            "condition_key": "autoimmune_blistering_diseases",
+                            "condition_label": "Autoimmune blistering diseases",
+                            "condition_synonyms": [
+                                "Pemphigus vulgaris",
+                                "Pemphigus foliaceus",
+                                "Bullous pemphigoid",
+                                "Cicatricial pemphigoid",
+                                "Epidermolysis bullosa acquisita",
+                                "Paraneoplastic pemphigus"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "L10.0",
+                                "L10.2",
+                                "L10.81",
+                                "L12.0",
+                                "L12.1",
+                                "L12.30-L12.35"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_CRYOGLOB",
+                            "condition_key": "cryoglobulinemia",
+                            "condition_label": "Cryoglobulinemia (refractory to corticosteroids and other immunosuppressants)",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "D89.1"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_TRANSPLANT_TREAT",
+                            "condition_key": "amr_treatment_solid_organ",
+                            "condition_label": "Antibody-mediated rejection treatment (solid organ transplant)",
+                            "condition_synonyms": [
+                                "AMR treatment"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "T86.00-T86.99"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_TRANSPLANT_PREV",
+                            "condition_key": "amr_prevention_desensitization",
+                            "condition_label": "Prevention (desensitization) of AMR in highly sensitized solid organ transplant recipients",
+                            "condition_synonyms": [
+                                "AMR prevention"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "Z94.0-Z94.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_OMA",
+                            "condition_key": "opsoclonus_myoclonus_ataxia_neuroblastoma",
+                            "condition_label": "Opsoclonus-myoclonus-ataxia associated with neuroblastoma (refractory to steroids and chemotherapy)",
+                            "condition_synonyms": [
+                                "OMA syndrome"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "H55.89"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_SLE",
+                            "condition_key": "sle_refractory",
+                            "condition_label": "Systemic lupus erythematosus (refractory to immunosuppressive therapy)",
+                            "condition_synonyms": [
+                                "SLE"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "M32.0-M32.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_MG",
+                            "condition_key": "myasthenia_gravis_refractory",
+                            "condition_label": "Myasthenia gravis (refractory)",
+                            "condition_synonyms": [
+                                "MuSK-MG"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "G70.00-G70.01"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_MGN",
+                            "condition_key": "membranous_nephropathy_mod_high_risk",
+                            "condition_label": "Membranous nephropathy (moderate to high risk for progression)",
+                            "condition_synonyms": [
+                                "Membranous GN"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "N04.20-N04.29",
+                                "N06.20-N06.29"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_SUSAC",
+                            "condition_key": "susac_syndrome",
+                            "condition_label": "Susac syndrome",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "G93.49"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        }
+                    ]
+                },
+                {
+                    "phase": "continuation",
+                    "is_default": false,
+                    "route_guard_ids": [],
+                    "cluster_summaries": [
+                        {
+                            "cluster_id": "CL_IV_CONT_ONC_GROUP",
+                            "condition_key": "oncologic_indications_continuation",
+                            "condition_label": "Continuation – Oncologic indications",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "mixed",
+                            "diagnosis_code_candidates": [
+                                "C82.00-C82.99",
+                                "C83.00-C83.09",
+                                "C83.10-C83.19",
+                                "C83.30-C83.3A",
+                                "C83.50-C83.59",
+                                "C83.70-C83.79",
+                                "C83.80-C83.89",
+                                "C83.90-C83.99",
+                                "C85.10-C85.19",
+                                "C85.20-C85.29",
+                                "C85.80-C85.99",
+                                "C81.00-C81.09",
+                                "C81.40-C81.49",
+                                "C91.10-C91.12",
+                                "C91.40-C91.42",
+                                "C91.00-C91.01",
+                                "D47.Z1",
+                                "D47.Z2",
+                                "D76.3",
+                                "C88.00-C88.01"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_HEM_GROUP",
+                            "condition_key": "hematologic_indications_continuation",
+                            "condition_label": "Continuation – Hematologic indications",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "mixed",
+                            "diagnosis_code_candidates": [
+                                "D69.3",
+                                "D59.0-D59.19",
+                                "M31.10-M31.19",
+                                "D89.811",
+                                "Z94.0-Z94.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_ICI",
+                            "condition_key": "ici_toxicities_continuation",
+                            "condition_label": "Continuation – Immune checkpoint inhibitor-related toxicities",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [
+                                "G04.81"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_RA",
+                            "condition_key": "ra_continuation",
+                            "condition_label": "Continuation – Rheumatoid arthritis",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "M05.00-M14.89"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_RA_NO_CONCOMITANT_BIO_TS"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_MS_RR",
+                            "condition_key": "rrms_continuation",
+                            "condition_label": "Continuation – Relapsing remitting multiple sclerosis",
+                            "condition_synonyms": [
+                                "RRMS continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "G35.A-G35.D"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_MS_NO_DMT"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_NMO",
+                            "condition_key": "nmo_continuation",
+                            "condition_label": "Continuation – Neuromyelitis optica spectrum disorder",
+                            "condition_synonyms": [
+                                "NMOSD continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "G36.0"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CG_NMO_NO_BIO"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_AUTOIMMUNE_GROUP",
+                            "condition_key": "other_autoimmune_continuation",
+                            "condition_label": "Continuation – Other autoimmune indications",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "mixed",
+                            "diagnosis_code_candidates": [
+                                "M35.00-M35.09",
+                                "L10.0",
+                                "L10.2",
+                                "L10.81",
+                                "L12.0",
+                                "L12.1",
+                                "L12.30-L12.35",
+                                "D89.1",
+                                "M32.0-M32.9",
+                                "G70.00-G70.01",
+                                "N04.20-N04.29",
+                                "N06.20-N06.29",
+                                "H55.89",
+                                "G93.49"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_TRANSPLANT_TREAT",
+                            "condition_key": "amr_treatment_continuation",
+                            "condition_label": "Continuation – AMR treatment (solid organ)",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "T86.00-T86.99"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_IV_CONT_TRANSPLANT_PREV",
+                            "condition_key": "amr_prevention_continuation",
+                            "condition_label": "Continuation – AMR prevention (desensitization)",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "Z94.0-Z94.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        }
+                    ]
+                }
+            ],
+            "ui_label": "Rituximab IV (J9312/Q5115/Q5119/Q5123)"
+        },
+        {
+            "route_id": "RT_SC_HYCELA",
+            "label": "Rituximab and hyaluronidase (Rituxan Hycela) SC",
+            "coverage_status": "covered",
+            "terminal_disposition": "continue",
+            "billing_codes": [
+                "J9311"
+            ],
+            "phase_prompt_required": true,
+            "phases": [
+                {
+                    "phase": "initial",
+                    "is_default": true,
+                    "route_guard_ids": [
+                        "RG_HYCELA_CD20",
+                        "RG_HYCELA_PRIOR_IV"
+                    ],
+                    "cluster_summaries": [
+                        {
+                            "cluster_id": "CL_SC_CLL",
+                            "condition_key": "sc_hycela_cll_sll",
+                            "condition_label": "CLL/SLL (CD20-positive) – SC rituximab/hyaluronidase",
+                            "condition_synonyms": [
+                                "Chronic lymphocytic leukemia",
+                                "Small lymphocytic lymphoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C91.10-C91.12"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_SC_HCL",
+                            "condition_key": "sc_hycela_hairy_cell_leukemia",
+                            "condition_label": "Hairy cell leukemia (CD20-positive) – SC rituximab/hyaluronidase",
+                            "condition_synonyms": [
+                                "HCL"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C91.40-C91.42"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_SC_BCELL_LYMPHOMAS",
+                            "condition_key": "sc_hycela_b_cell_lymphomas",
+                            "condition_label": "B-cell lymphomas (CD20-positive) – SC rituximab/hyaluronidase",
+                            "condition_synonyms": [
+                                "DLBCL",
+                                "Follicular lymphoma",
+                                "High-grade B-cell lymphoma",
+                                "Histologic transformation to DLBCL",
+                                "Mantle cell lymphoma",
+                                "PTLD",
+                                "Marginal zone lymphomas (nodal, MALT, splenic)",
+                                "Castleman disease"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C82.00-C82.99",
+                                "C83.30-C83.3A",
+                                "C85.10-C85.19",
+                                "C85.20-C85.29",
+                                "C85.80-C85.99",
+                                "D47.Z1",
+                                "D47.Z2"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_SC_PCBC",
+                            "condition_key": "sc_hycela_primary_cutaneous_b_cell",
+                            "condition_label": "Primary cutaneous B-cell lymphoma – SC rituximab/hyaluronidase",
+                            "condition_synonyms": [
+                                "Cutaneous marginal zone lymphoma",
+                                "Cutaneous follicle center lymphoma"
+                            ],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_SC_WALDEN",
+                            "condition_key": "sc_hycela_waldenstrom",
+                            "condition_label": "Waldenström macroglobulinemia / lymphoplasmacytic lymphoma – SC rituximab/hyaluronidase",
+                            "condition_synonyms": [
+                                "LPL"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C88.00-C88.01"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_SC_NLPHL",
+                            "condition_key": "sc_hycela_nlphl",
+                            "condition_label": "Hodgkin lymphoma, nodular lymphocyte predominant – SC rituximab/hyaluronidase",
+                            "condition_synonyms": [
+                                "NLPHL"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C81.00-C81.09"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        }
+                    ]
+                },
+                {
+                    "phase": "continuation",
+                    "is_default": false,
+                    "route_guard_ids": [],
+                    "cluster_summaries": [
+                        {
+                            "cluster_id": "CL_SC_CONT_ALL",
+                            "condition_key": "sc_hycela_continuation",
+                            "condition_label": "Continuation – Rituximab and hyaluronidase indications",
+                            "condition_synonyms": [],
+                            "diagnosis_basis": "mixed",
+                            "diagnosis_code_candidates": [
+                                "C91.10-C91.12",
+                                "C91.40-C91.42",
+                                "C82.00-C82.99",
+                                "C83.30-C83.3A",
+                                "C85.10-C85.19",
+                                "C85.20-C85.29",
+                                "C85.80-C85.99",
+                                "D47.Z1",
+                                "D47.Z2",
+                                "C88.00-C88.01",
+                                "C81.00-C81.09"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        }
+                    ]
+                }
+            ],
+            "ui_label": "Rituximab + Hyaluronidase SC (J9311)"
+        },
+        {
+            "route_id": "RT_NOT_COV_96450",
+            "label": "Intrathecal chemotherapy administration (96450) - Not covered under CPB 0314",
+            "coverage_status": "not_covered",
+            "terminal_disposition": "stop_not_covered",
+            "billing_codes": [
+                "96450"
+            ],
+            "phase_prompt_required": false,
+            "phases": [
+                {
+                    "phase": "other",
+                    "is_default": true,
+                    "route_guard_ids": [],
+                    "cluster_summaries": []
+                }
+            ],
+            "ui_label": "Not covered: 96450"
+        },
+        {
+            "route_id": "RT_NOT_COV_62350_62351",
+            "label": "Intrathecal/epidural catheter implantation (62350/62351) - Not covered under CPB 0314",
+            "coverage_status": "not_covered",
+            "terminal_disposition": "stop_not_covered",
+            "billing_codes": [
+                "62350",
+                "62351"
+            ],
+            "phase_prompt_required": false,
+            "phases": [
+                {
+                    "phase": "other",
+                    "is_default": true,
+                    "route_guard_ids": [],
+                    "cluster_summaries": []
+                }
+            ],
+            "ui_label": "Not covered: 62350/62351"
+        },
+        {
+            "route_id": "RT_NOT_COV_83520",
+            "label": "Anti-chimeric antibody testing (83520) - Not covered",
+            "coverage_status": "not_covered",
+            "terminal_disposition": "stop_not_covered",
+            "billing_codes": [
+                "83520"
+            ],
+            "phase_prompt_required": false,
+            "phases": [
+                {
+                    "phase": "other",
+                    "is_default": true,
+                    "route_guard_ids": [],
+                    "cluster_summaries": []
+                }
+            ],
+            "ui_label": "Not covered: 83520"
+        }
+    ]
+}
