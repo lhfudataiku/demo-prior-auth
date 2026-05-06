@@ -1,0 +1,477 @@
+{
+    "policy_id": "0685",
+    "routes": [
+        {
+            "route_id": "RR_0685_NON_OCULAR_BEV",
+            "label": "Bevacizumab and biosimilars for approved non-ocular oncology indications",
+            "coverage_status": "covered",
+            "terminal_disposition": "continue",
+            "billing_codes": [
+                "J9035",
+                "Q5107",
+                "Q5118",
+                "Q5126",
+                "Q5129",
+                "Q5160"
+            ],
+            "phase_prompt_required": true,
+            "phases": [
+                {
+                    "phase": "initial",
+                    "is_default": true,
+                    "route_guard_ids": [
+                        "RG_0685_NO_CETUX"
+                    ],
+                    "cluster_summaries": [
+                        {
+                            "cluster_id": "CL_0685_AMP_initial",
+                            "condition_key": "ampullary_adenocarcinoma",
+                            "condition_label": "Intestinal-type ampullary adenocarcinoma (progressive or metastatic)",
+                            "condition_synonyms": [
+                                "Ampullary adenocarcinoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C24.1"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_APPEND_COLON_initial",
+                            "condition_key": "appendiceal_colorectal_anal",
+                            "condition_label": "Appendiceal, colorectal, or anal neoplasm or carcinoma",
+                            "condition_synonyms": [
+                                "Appendiceal adenocarcinoma",
+                                "Goblet cell adenocarcinoma",
+                                "Anal adenocarcinoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C18.0-C21.8"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_CNS_initial",
+                            "condition_key": "central_nervous_system_cancers",
+                            "condition_label": "Central nervous system cancers as listed",
+                            "condition_synonyms": [
+                                "Glioblastoma",
+                                "High-grade astrocytoma with piloid features",
+                                "IDH mutant astrocytoma",
+                                "Oligodendroglioma",
+                                "Primary CNS lymphoma",
+                                "Meningiomas",
+                                "Brain metastases",
+                                "Metastatic spine tumors"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C71.0-C71.9",
+                                "C72.0-C72.9",
+                                "D32.0-D32.9",
+                                "Q85.02",
+                                "Q85.03"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_CERVICAL_initial",
+                            "condition_key": "cervical_cancer",
+                            "condition_label": "Persistent, recurrent, or metastatic cervical cancer",
+                            "condition_synonyms": [
+                                "Cervical carcinoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C53.0-C53.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_ENDOMETRIAL_initial",
+                            "condition_key": "endometrial_carcinoma",
+                            "condition_label": "Stage III-IV or persistent, recurrent, or metastatic endometrial carcinoma",
+                            "condition_synonyms": [
+                                "Advanced endometrial cancer"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C54.1",
+                                "C55"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_HCC_initial",
+                            "condition_key": "hepatocellular_carcinoma",
+                            "condition_label": "Unresectable or extrahepatic/metastatic hepatocellular carcinoma in combination with atezolizumab",
+                            "condition_synonyms": [
+                                "Advanced HCC"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C22.0"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_MESO_initial",
+                            "condition_key": "mesothelioma",
+                            "condition_label": "Pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma meeting listed therapy scenarios",
+                            "condition_synonyms": [
+                                "Pleural mesothelioma",
+                                "Peritoneal mesothelioma",
+                                "Pericardial mesothelioma",
+                                "Tunica vaginalis testis mesothelioma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C45.0",
+                                "C45.1",
+                                "C45.2",
+                                "C45.7"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_NSCLC_initial",
+                            "condition_key": "nsclc_non_squamous",
+                            "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+                            "condition_synonyms": [
+                                "NSCLC non-squamous"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C34.00-C34.92"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CEG_0685_NSCLC_PEM_MAINT"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_0685_OGYN_initial",
+                            "condition_key": "gynecologic_ovarian_peritoneal",
+                            "condition_label": "Epithelial ovarian, fallopian tube, primary peritoneal cancer, or malignant sex cord-stromal tumors",
+                            "condition_synonyms": [
+                                "Ovarian cancer",
+                                "Primary peritoneal cancer",
+                                "Sex cord-stromal tumor"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C56.1-C56.9",
+                                "C57.00-C57.4"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_RCC_initial",
+                            "condition_key": "renal_cell_carcinoma",
+                            "condition_label": "Relapsed or stage IV renal cell carcinoma",
+                            "condition_synonyms": [
+                                "RCC"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C64.1-C64.9"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CEG_0685_RCC_NO_ATEZO"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_0685_SMALLBOWEL_initial",
+                            "condition_key": "small_bowel_adenocarcinoma",
+                            "condition_label": "Small bowel adenocarcinoma",
+                            "condition_synonyms": [
+                                "Small intestine cancer"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C17.0-C17.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_SOFT_ANGIO_initial",
+                            "condition_key": "soft_tissue_angiosarcoma",
+                            "condition_label": "Soft tissue angiosarcoma",
+                            "condition_synonyms": [
+                                "Angiosarcoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C49.0-C49.9",
+                                "C38.4"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_SOFT_SFT_HPC_initial",
+                            "condition_key": "soft_tissue_sft_hpc",
+                            "condition_label": "Solitary fibrous tumor or hemangiopericytoma soft tissue sarcoma",
+                            "condition_synonyms": [
+                                "Solitary fibrous tumor",
+                                "Hemangiopericytoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C38.4",
+                                "C49.0-C49.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_VAGINA_initial",
+                            "condition_key": "vaginal_cancer",
+                            "condition_label": "Recurrent or metastatic vaginal cancer",
+                            "condition_synonyms": [
+                                "Vaginal carcinoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C52"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_VULVA_initial",
+                            "condition_key": "vulvar_cancer",
+                            "condition_label": "Advanced, recurrent, or metastatic vulvar cancer",
+                            "condition_synonyms": [
+                                "Vulvar carcinoma"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C51.0-C51.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        }
+                    ]
+                },
+                {
+                    "phase": "continuation",
+                    "is_default": false,
+                    "route_guard_ids": [
+                        "RG_0685_NO_CETUX"
+                    ],
+                    "cluster_summaries": [
+                        {
+                            "cluster_id": "CL_0685_AMP_continuation",
+                            "condition_key": "ampullary_adenocarcinoma_continuation",
+                            "condition_label": "Continuation for intestinal-type ampullary adenocarcinoma",
+                            "condition_synonyms": [
+                                "Ampullary adenocarcinoma continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C24.1"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_APPEND_COLON_continuation",
+                            "condition_key": "appendiceal_colorectal_anal_continuation",
+                            "condition_label": "Continuation for appendiceal, colorectal, or anal neoplasms",
+                            "condition_synonyms": [
+                                "Colorectal cancer continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C18.0-C21.8"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_CNS_continuation",
+                            "condition_key": "cns_cancers_continuation",
+                            "condition_label": "Continuation for CNS cancers",
+                            "condition_synonyms": [
+                                "CNS tumor continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C71.0-C71.9",
+                                "C72.0-C72.9",
+                                "D32.0-D32.9",
+                                "Q85.02",
+                                "Q85.03"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_CERVICAL_continuation",
+                            "condition_key": "cervical_cancer_continuation",
+                            "condition_label": "Continuation for cervical cancer",
+                            "condition_synonyms": [
+                                "Cervical carcinoma continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C53.0-C53.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_ENDOMETRIAL_continuation",
+                            "condition_key": "endometrial_carcinoma_continuation",
+                            "condition_label": "Continuation for endometrial carcinoma",
+                            "condition_synonyms": [
+                                "Endometrial cancer continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C54.1",
+                                "C55"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_HCC_continuation",
+                            "condition_key": "hepatocellular_carcinoma_continuation",
+                            "condition_label": "Continuation for hepatocellular carcinoma with atezolizumab",
+                            "condition_synonyms": [
+                                "HCC continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C22.0"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_MESO_continuation",
+                            "condition_key": "mesothelioma_continuation",
+                            "condition_label": "Continuation for mesothelioma",
+                            "condition_synonyms": [
+                                "Mesothelioma continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C45.0",
+                                "C45.1",
+                                "C45.2",
+                                "C45.7"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_NSCLC_continuation",
+                            "condition_key": "nsclc_non_squamous_continuation",
+                            "condition_label": "Continuation for non-squamous non-small cell lung cancer",
+                            "condition_synonyms": [
+                                "NSCLC non-squamous continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C34.00-C34.92"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CEG_0685_NSCLC_PEM_MAINT"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_0685_OGYN_continuation",
+                            "condition_key": "gynecologic_ovarian_peritoneal_continuation",
+                            "condition_label": "Continuation for ovarian/fallopian tube/primary peritoneal cancer or malignant sex cord-stromal tumors",
+                            "condition_synonyms": [
+                                "Ovarian cancer continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C56.1-C56.9",
+                                "C57.00-C57.4"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_RCC_continuation",
+                            "condition_key": "renal_cell_carcinoma_continuation",
+                            "condition_label": "Continuation for renal cell carcinoma",
+                            "condition_synonyms": [
+                                "RCC continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C64.1-C64.9"
+                            ],
+                            "cluster_entry_guard_ids": [
+                                "CEG_0685_RCC_NO_ATEZO"
+                            ]
+                        },
+                        {
+                            "cluster_id": "CL_0685_SMALLBOWEL_continuation",
+                            "condition_key": "small_bowel_adenocarcinoma_continuation",
+                            "condition_label": "Continuation for small bowel adenocarcinoma",
+                            "condition_synonyms": [
+                                "Small intestine cancer continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C17.0-C17.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_SOFT_ANGIO_continuation",
+                            "condition_key": "soft_tissue_angiosarcoma_continuation",
+                            "condition_label": "Continuation for angiosarcoma",
+                            "condition_synonyms": [
+                                "Angiosarcoma continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C49.0-C49.9",
+                                "C38.4"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_SOFT_SFT_HPC_continuation",
+                            "condition_key": "soft_tissue_sft_hpc_continuation",
+                            "condition_label": "Continuation for solitary fibrous tumor or hemangiopericytoma",
+                            "condition_synonyms": [
+                                "SFT continuation",
+                                "Hemangiopericytoma continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C38.4",
+                                "C49.0-C49.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_VAGINA_continuation",
+                            "condition_key": "vaginal_cancer_continuation",
+                            "condition_label": "Continuation for vaginal cancer",
+                            "condition_synonyms": [
+                                "Vaginal carcinoma continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C52"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "CL_0685_VULVA_continuation",
+                            "condition_key": "vulvar_cancer_continuation",
+                            "condition_label": "Continuation for vulvar cancer",
+                            "condition_synonyms": [
+                                "Vulvar carcinoma continuation"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "C51.0-C51.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        }
+                    ]
+                }
+            ],
+            "ui_label": "Bevacizumab and biosimilars for approved non-ocular oncology indications"
+        }
+    ]
+}

@@ -1,0 +1,860 @@
+{
+    "status": "ok",
+    "next_action": "collect_cluster_guards",
+    "route_summary": {
+        "route_id": "ROUTE_IV_RITUXIMAB",
+        "label": "Intravenous rituximab (Rituxan) or biosimilar therapy",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+            "J9312",
+            "Q5115",
+            "Q5119",
+            "Q5123"
+        ],
+        "phase_prompt_required": true,
+        "phases": [
+            {
+                "phase": "initial",
+                "is_default": true,
+                "route_guard_ids": [],
+                "cluster_summaries": [
+                    {
+                        "cluster_id": "CL_ONC_INIT",
+                        "condition_key": "oncologic_cd20",
+                        "condition_label": "CD20-positive hematologic or oncologic disorder",
+                        "condition_synonyms": [
+                            "CD20-positive B-cell lymphoma",
+                            "Chronic lymphocytic leukemia or Waldenstr\\u00f6m macroglobulinemia"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "C81.00 - C81.99",
+                            "C82.00 - C82.99",
+                            "C83.00 - C83.99",
+                            "C85.10 - C85.29",
+                            "C85.80 - C85.99",
+                            "C88.00 - C88.41",
+                            "C91.00 - C91.42",
+                            "D47.Z1",
+                            "D47.Z2",
+                            "D89.1"
+                        ],
+                        "cluster_entry_guard_ids": [
+                            "CEG_ONC_CD20"
+                        ]
+                    },
+                    {
+                        "cluster_id": "CL_HEM_INIT",
+                        "condition_key": "hematologic_immune",
+                        "condition_label": "Refractory hematologic autoimmune disorder or transplant conditioning requirement",
+                        "condition_synonyms": [
+                            "Refractory ITP or autoimmune hemolytic anemia",
+                            "Thrombotic thrombocytopenic purpura or chronic GVHD"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "D59.0 - D59.19",
+                            "D69.3",
+                            "M31.10 - M31.19",
+                            "D76.3",
+                            "D89.811",
+                            "D47.Z1",
+                            "D47.Z2",
+                            "T86.00 - T86.99"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_CHECK_INIT",
+                        "condition_key": "checkpoint_toxicity",
+                        "condition_label": "Immune checkpoint inhibitor-related toxicity",
+                        "condition_synonyms": [
+                            "Immune checkpoint inhibitor-related encephalitis"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G04.81"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_RA_INIT",
+                        "condition_key": "rheumatoid_arthritis",
+                        "condition_label": "Moderately to severely active rheumatoid arthritis",
+                        "condition_synonyms": [
+                            "RA after inadequate biologic response",
+                            "Autoimmune arthritis requiring rituximab"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M05.00 - M14.89"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_VASC_INIT",
+                        "condition_key": "vasculitis",
+                        "condition_label": "Granulomatosis with polyangiitis, microscopic polyangiitis, eosinophilic granulomatosis with polyangiitis, or pauci-immune glomerulonephritis",
+                        "condition_synonyms": [
+                            "GPA",
+                            "MPA",
+                            "EGPA",
+                            "Pauci-immune GN"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M30.1",
+                            "M31.10 - M31.19",
+                            "M31.30 - M31.31",
+                            "M31.7"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_SJOGREN_INIT",
+                        "condition_key": "sjogren_syndrome",
+                        "condition_label": "Sj\\u00f6gren\\u2019s syndrome refractory to corticosteroids or other immunosuppressive agents",
+                        "condition_synonyms": [
+                            "Sicca syndrome with refractory features"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M35.00 - M35.09"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_MS_INIT",
+                        "condition_key": "multiple_sclerosis",
+                        "condition_label": "Relapsing remitting multiple sclerosis (MS)",
+                        "condition_synonyms": [
+                            "RRMS treatment with rituximab"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G35.A - G35.D"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_NMOSD_INIT",
+                        "condition_key": "nmospd",
+                        "condition_label": "Neuromyelitis optica spectrum disorder (NMOSD)",
+                        "condition_synonyms": [
+                            "Devic disease"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G36.0"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_BLISTER_INIT",
+                        "condition_key": "autoimmune_blistering",
+                        "condition_label": "Autoimmune blistering disease refractory to corticosteroids or other immunosuppressants",
+                        "condition_synonyms": [
+                            "Pemphigus vulgaris",
+                            "Pemphigus foliaceus",
+                            "Bullous pemphigoid"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "L10.0",
+                            "L10.2",
+                            "L10.81",
+                            "L12.0 - L12.35"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_CRYOGLOB_INIT",
+                        "condition_key": "cryoglobulinemia",
+                        "condition_label": "Cryoglobulinemia refractory to corticosteroids or other immunosuppressive agents",
+                        "condition_synonyms": [
+                            "Cryoglobulinemia requiring rituximab"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "D89.1"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_TRANSPLANT_INIT",
+                        "condition_key": "solid_organ_transplant",
+                        "condition_label": "Solid organ transplant treatment or prevention of antibody mediated rejection",
+                        "condition_synonyms": [
+                            "Highly sensitized transplant recipients",
+                            "Antibody mediated rejection prevention"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "T86.00 - T86.99",
+                            "Z94.0 - Z94.9"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_MEMBRANOUS_INIT",
+                        "condition_key": "membranous_nephropathy",
+                        "condition_label": "Membranous nephropathy at moderate to high risk for progression",
+                        "condition_synonyms": [
+                            "High-risk membranous nephropathy"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "N04.20 - N04.29",
+                            "N06.20 - N06.29"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_SLE_INIT",
+                        "condition_key": "systemic_lupus",
+                        "condition_label": "Systemic lupus erythematosus refractory to immunosuppressive therapy",
+                        "condition_synonyms": [
+                            "Refractory SLE"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M32.0 - M32.9"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_MYASTHENIA_INIT",
+                        "condition_key": "myasthenia_gravis",
+                        "condition_label": "Refractory myasthenia gravis",
+                        "condition_synonyms": [
+                            "Myasthenia gravis requiring rituximab"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G70.00 - G70.01"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_OPSCLONUS_INIT",
+                        "condition_key": "opsoclonus_myoclonus",
+                        "condition_label": "Opsoclonus-myoclonus-ataxia associated with neuroblastoma refractory to steroids and chemotherapy",
+                        "condition_synonyms": [
+                            "Neuroblastoma-associated opsoclonus"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "H55.89"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_SUSAC_INIT",
+                        "condition_key": "susac_syndrome",
+                        "condition_label": "Susac syndrome",
+                        "condition_synonyms": [
+                            "Microangiopathy-associated encephalopathy"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G93.49"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    }
+                ]
+            },
+            {
+                "phase": "continuation",
+                "is_default": false,
+                "route_guard_ids": [],
+                "cluster_summaries": [
+                    {
+                        "cluster_id": "CL_ONC_CONT",
+                        "condition_key": "oncologic_cd20",
+                        "condition_label": "CD20-positive hematologic or oncologic disorder continuation",
+                        "condition_synonyms": [
+                            "Ongoing CD20-positive malignancy therapy",
+                            "Maintenance rituximab for B-cell malignancies"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "C81.00 - C81.99",
+                            "C82.00 - C82.99",
+                            "C83.00 - C83.99",
+                            "C85.10 - C85.29",
+                            "C85.80 - C85.99",
+                            "C88.00 - C88.41",
+                            "C91.00 - C91.42",
+                            "D47.Z1",
+                            "D47.Z2",
+                            "D89.1"
+                        ],
+                        "cluster_entry_guard_ids": [
+                            "CEG_ONC_CD20"
+                        ]
+                    },
+                    {
+                        "cluster_id": "CL_HEM_CONT",
+                        "condition_key": "hematologic_immune",
+                        "condition_label": "Refractory hematologic autoimmune disorder continuation",
+                        "condition_synonyms": [
+                            "Maintenance rituximab for refractory hematologic autoimmune processes"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "D59.0 - D59.19",
+                            "D69.3",
+                            "M31.10 - M31.19",
+                            "D76.3",
+                            "D89.811",
+                            "D47.Z1",
+                            "D47.Z2",
+                            "T86.00 - T86.99"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_CHECK_CONT",
+                        "condition_key": "checkpoint_toxicity",
+                        "condition_label": "Immune checkpoint inhibitor-related toxicity continuation",
+                        "condition_synonyms": [
+                            "Reauthorization for checkpoint inhibitor-related toxicity"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G04.81"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_RA_CONT",
+                        "condition_key": "rheumatoid_arthritis",
+                        "condition_label": "Rheumatoid arthritis continuation",
+                        "condition_synonyms": [
+                            "Ongoing RA therapy with rituximab"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M05.00 - M14.89"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_VASC_CONT",
+                        "condition_key": "vasculitis",
+                        "condition_label": "Granulomatosis or pauci-immune glomerulonephritis continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for GPA/MPA/EGPA"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M30.1",
+                            "M31.10 - M31.19",
+                            "M31.30 - M31.31",
+                            "M31.7"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_SJOGREN_CONT",
+                        "condition_key": "sjogren_syndrome",
+                        "condition_label": "Sj\\u00f6gren\\u2019s syndrome continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for Sj\\u00f6gren\\u2019s syndrome"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M35.00 - M35.09"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_MS_CONT",
+                        "condition_key": "multiple_sclerosis",
+                        "condition_label": "Relapsing remitting MS continuation",
+                        "condition_synonyms": [
+                            "MS maintenance with rituximab"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G35.A - G35.D"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_NMOSD_CONT",
+                        "condition_key": "nmospd",
+                        "condition_label": "NMOSD continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for Devic disease"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G36.0"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_BLISTER_CONT",
+                        "condition_key": "autoimmune_blistering",
+                        "condition_label": "Autoimmune blistering disease continuation",
+                        "condition_synonyms": [
+                            "Maintenance rituximab for blistering diseases"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "L10.0",
+                            "L10.2",
+                            "L10.81",
+                            "L12.0 - L12.35"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_CRYOGLOB_CONT",
+                        "condition_key": "cryoglobulinemia",
+                        "condition_label": "Cryoglobulinemia continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for cryoglobulinemia"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "D89.1"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_TRANSPLANT_CONT",
+                        "condition_key": "solid_organ_transplant",
+                        "condition_label": "Solid organ transplant continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for transplant rejection prevention"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "T86.00 - T86.99",
+                            "Z94.0 - Z94.9"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_MEMBRANOUS_CONT",
+                        "condition_key": "membranous_nephropathy",
+                        "condition_label": "Membranous nephropathy continuation",
+                        "condition_synonyms": [
+                            "Ongoing treatment for membranous nephropathy"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "N04.20 - N04.29",
+                            "N06.20 - N06.29"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_SLE_CONT",
+                        "condition_key": "systemic_lupus",
+                        "condition_label": "Systemic lupus erythematosus continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for lupus"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "M32.0 - M32.9"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_MYASTHENIA_CONT",
+                        "condition_key": "myasthenia_gravis",
+                        "condition_label": "Myasthenia gravis continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for myasthenia gravis"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G70.00 - G70.01"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_OPSCLONUS_CONT",
+                        "condition_key": "opsoclonus_myoclonus",
+                        "condition_label": "Opsoclonus-myoclonus-ataxia continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for opsoclonus associated with neuroblastoma"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "H55.89"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    {
+                        "cluster_id": "CL_SUSAC_CONT",
+                        "condition_key": "susac_syndrome",
+                        "condition_label": "Susac syndrome continuation",
+                        "condition_synonyms": [
+                            "Ongoing rituximab for Susac syndrome"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "G93.49"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    }
+                ]
+            }
+        ],
+        "ui_label": "Intravenous rituximab (Rituxan) or biosimilar therapy"
+    },
+    "cluster_shortlist": [
+        {
+            "cluster_id": "CL_ONC_INIT",
+            "condition_key": "oncologic_cd20",
+            "condition_label": "CD20-positive hematologic or oncologic disorder",
+            "condition_synonyms": [
+                "CD20-positive B-cell lymphoma",
+                "Chronic lymphocytic leukemia or Waldenstr\\u00f6m macroglobulinemia"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "C81.00 - C81.99",
+                "C82.00 - C82.99",
+                "C83.00 - C83.99",
+                "C85.10 - C85.29",
+                "C85.80 - C85.99",
+                "C88.00 - C88.41",
+                "C91.00 - C91.42",
+                "D47.Z1",
+                "D47.Z2",
+                "D89.1"
+            ],
+            "cluster_entry_guard_ids": [
+                "CEG_ONC_CD20"
+            ]
+        },
+        {
+            "cluster_id": "CL_HEM_INIT",
+            "condition_key": "hematologic_immune",
+            "condition_label": "Refractory hematologic autoimmune disorder or transplant conditioning requirement",
+            "condition_synonyms": [
+                "Refractory ITP or autoimmune hemolytic anemia",
+                "Thrombotic thrombocytopenic purpura or chronic GVHD"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "D59.0 - D59.19",
+                "D69.3",
+                "M31.10 - M31.19",
+                "D76.3",
+                "D89.811",
+                "D47.Z1",
+                "D47.Z2",
+                "T86.00 - T86.99"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_CHECK_INIT",
+            "condition_key": "checkpoint_toxicity",
+            "condition_label": "Immune checkpoint inhibitor-related toxicity",
+            "condition_synonyms": [
+                "Immune checkpoint inhibitor-related encephalitis"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "G04.81"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_RA_INIT",
+            "condition_key": "rheumatoid_arthritis",
+            "condition_label": "Moderately to severely active rheumatoid arthritis",
+            "condition_synonyms": [
+                "RA after inadequate biologic response",
+                "Autoimmune arthritis requiring rituximab"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M05.00 - M14.89"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_VASC_INIT",
+            "condition_key": "vasculitis",
+            "condition_label": "Granulomatosis with polyangiitis, microscopic polyangiitis, eosinophilic granulomatosis with polyangiitis, or pauci-immune glomerulonephritis",
+            "condition_synonyms": [
+                "GPA",
+                "MPA",
+                "EGPA",
+                "Pauci-immune GN"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M30.1",
+                "M31.10 - M31.19",
+                "M31.30 - M31.31",
+                "M31.7"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_SJOGREN_INIT",
+            "condition_key": "sjogren_syndrome",
+            "condition_label": "Sj\\u00f6gren\\u2019s syndrome refractory to corticosteroids or other immunosuppressive agents",
+            "condition_synonyms": [
+                "Sicca syndrome with refractory features"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M35.00 - M35.09"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_MS_INIT",
+            "condition_key": "multiple_sclerosis",
+            "condition_label": "Relapsing remitting multiple sclerosis (MS)",
+            "condition_synonyms": [
+                "RRMS treatment with rituximab"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "G35.A - G35.D"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_NMOSD_INIT",
+            "condition_key": "nmospd",
+            "condition_label": "Neuromyelitis optica spectrum disorder (NMOSD)",
+            "condition_synonyms": [
+                "Devic disease"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "G36.0"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_BLISTER_INIT",
+            "condition_key": "autoimmune_blistering",
+            "condition_label": "Autoimmune blistering disease refractory to corticosteroids or other immunosuppressants",
+            "condition_synonyms": [
+                "Pemphigus vulgaris",
+                "Pemphigus foliaceus",
+                "Bullous pemphigoid"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "L10.0",
+                "L10.2",
+                "L10.81",
+                "L12.0 - L12.35"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_CRYOGLOB_INIT",
+            "condition_key": "cryoglobulinemia",
+            "condition_label": "Cryoglobulinemia refractory to corticosteroids or other immunosuppressive agents",
+            "condition_synonyms": [
+                "Cryoglobulinemia requiring rituximab"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "D89.1"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_TRANSPLANT_INIT",
+            "condition_key": "solid_organ_transplant",
+            "condition_label": "Solid organ transplant treatment or prevention of antibody mediated rejection",
+            "condition_synonyms": [
+                "Highly sensitized transplant recipients",
+                "Antibody mediated rejection prevention"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "T86.00 - T86.99",
+                "Z94.0 - Z94.9"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_MEMBRANOUS_INIT",
+            "condition_key": "membranous_nephropathy",
+            "condition_label": "Membranous nephropathy at moderate to high risk for progression",
+            "condition_synonyms": [
+                "High-risk membranous nephropathy"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "N04.20 - N04.29",
+                "N06.20 - N06.29"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_SLE_INIT",
+            "condition_key": "systemic_lupus",
+            "condition_label": "Systemic lupus erythematosus refractory to immunosuppressive therapy",
+            "condition_synonyms": [
+                "Refractory SLE"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M32.0 - M32.9"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_MYASTHENIA_INIT",
+            "condition_key": "myasthenia_gravis",
+            "condition_label": "Refractory myasthenia gravis",
+            "condition_synonyms": [
+                "Myasthenia gravis requiring rituximab"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "G70.00 - G70.01"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_OPSCLONUS_INIT",
+            "condition_key": "opsoclonus_myoclonus",
+            "condition_label": "Opsoclonus-myoclonus-ataxia associated with neuroblastoma refractory to steroids and chemotherapy",
+            "condition_synonyms": [
+                "Neuroblastoma-associated opsoclonus"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "H55.89"
+            ],
+            "cluster_entry_guard_ids": []
+        },
+        {
+            "cluster_id": "CL_SUSAC_INIT",
+            "condition_key": "susac_syndrome",
+            "condition_label": "Susac syndrome",
+            "condition_synonyms": [
+                "Microangiopathy-associated encephalopathy"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "G93.49"
+            ],
+            "cluster_entry_guard_ids": []
+        }
+    ],
+    "route_guard_ids": [],
+    "cluster_entry_guard_ids": [
+        "CEG_ONC_CD20"
+    ],
+    "scoped_policy_context": {
+        "policy_id": "0314",
+        "selected_route_id": "ROUTE_IV_RITUXIMAB",
+        "selected_route_label": "Intravenous rituximab (Rituxan) or biosimilar therapy",
+        "selected_phase": "initial",
+        "selected_cluster_id": "CL_ONC_INIT",
+        "selected_cluster_label": "CD20-positive hematologic or oncologic disorder",
+        "effective_diagnosis_code_candidates": [
+            "C81.00 - C81.99",
+            "C82.00 - C82.99",
+            "C83.00 - C83.99",
+            "C85.10 - C85.29",
+            "C85.80 - C85.99",
+            "C88.00 - C88.41",
+            "C91.00 - C91.42",
+            "D47.Z1",
+            "D47.Z2",
+            "D89.1"
+        ],
+        "selected_logic_profile_ids": [],
+        "selected_route_guard_criterion_ids": [],
+        "selected_cluster_entry_guard_criterion_ids": [
+            "CR_CD20_TEST_POSITIVE"
+        ],
+        "selected_cluster_criterion_ids": [
+            "CR_DIAG_ONCOLOGY"
+        ],
+        "selected_criteria_catalog": [
+            {
+                "criterion_id": "CR_DIAG_ONCOLOGY",
+                "criterion_kind": "cluster_criterion",
+                "prompt": "Confirm the member has a diagnosis of a CD20-positive hematologic or oncologic disorder listed in Section I.A (e.g., B-cell lymphoma, CLL/SLL, PTLD, ROSAI-Dorfman, or Waldenstr\\u00f6m macroglobulinemia).",
+                "clinical_intent": "Establish the covered CD20-positive malignancy.",
+                "answer_type": "boolean",
+                "required": true,
+                "code_binding": {
+                    "source_codes": [
+                        "C81.00 - C81.99",
+                        "C82.00 - C82.99",
+                        "C83.00 - C83.99",
+                        "C85.10 - C85.29",
+                        "C85.80 - C85.99",
+                        "C88.00 - C88.41",
+                        "C91.00 - C91.42",
+                        "D47.Z1",
+                        "D47.Z2",
+                        "D89.1"
+                    ],
+                    "code_role": "diagnosis_inclusion"
+                },
+                "preferred_data_domains": [
+                    "condition"
+                ],
+                "policy_time_language": "Current or previously documented diagnosis",
+                "retrieval_priority": "high",
+                "prefill_allowed": true,
+                "clinician_must_confirm": true,
+                "evidence": "Aetna considers rituximab medically necessary for the oncologic disorders listed in Section I.A when they are CD20-positive.",
+                "locator": {
+                    "section_path": [
+                        "Treatment of Hematologic and Oncologic Conditions",
+                        "I. Criteria for Initial Approval",
+                        "A. Oncologic indications"
+                    ],
+                    "page_start": 2,
+                    "page_end": 3
+                }
+            },
+            {
+                "criterion_id": "CR_CD20_TEST_POSITIVE",
+                "criterion_kind": "cluster_entry_guard",
+                "prompt": "Has CD20 positivity been confirmed for the oncologic disorder by testing or analysis?",
+                "clinical_intent": "Document the required CD20 positivity for the oncologic indication.",
+                "answer_type": "boolean",
+                "required": true,
+                "code_binding": {
+                    "source_codes": [],
+                    "code_role": "UNKNOWN"
+                },
+                "preferred_data_domains": [
+                    "observation"
+                ],
+                "policy_time_language": "Confirmed by testing or analysis prior to therapy",
+                "retrieval_priority": "high",
+                "prefill_allowed": true,
+                "clinician_must_confirm": true,
+                "evidence": "Oncologic disorders must be CD20-positive as confirmed by testing or analysis.",
+                "locator": {
+                    "section_path": [
+                        "Treatment of Hematologic and Oncologic Conditions",
+                        "I. Criteria for Initial Approval",
+                        "A. Oncologic indications"
+                    ],
+                    "page_start": 2,
+                    "page_end": 3
+                }
+            }
+        ]
+    }
+}

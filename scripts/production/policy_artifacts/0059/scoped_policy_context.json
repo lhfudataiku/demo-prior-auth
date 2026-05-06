@@ -1,0 +1,155 @@
+{
+    "status": "ok",
+    "next_action": "proceed_screen_2",
+    "route_summary": {
+        "route_id": "route_standard_peak_flow_devices",
+        "label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+            "A4614",
+            "A4627",
+            "S8096",
+            "S8097",
+            "S8100",
+            "S8101",
+            "S8110"
+        ],
+        "phase_prompt_required": false,
+        "phases": [
+            {
+                "phase": "other",
+                "is_default": true,
+                "route_guard_ids": [
+                    "RG_NOT_FOR_COPD_DIAGNOSIS"
+                ],
+                "cluster_summaries": [
+                    {
+                        "cluster_id": "cluster_obstructive_condition",
+                        "condition_key": "obstructive_pulmonary_condition",
+                        "condition_label": "Asthma or other obstructive pulmonary condition",
+                        "condition_synonyms": [
+                            "Asthma",
+                            "Bronchitis",
+                            "Emphysema",
+                            "Obstructive pulmonary disease"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "J20.0-J21.9",
+                            "J40-J47.9",
+                            "J67.0-J67.9"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    }
+                ]
+            }
+        ],
+        "ui_label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions"
+    },
+    "cluster_shortlist": [
+        {
+            "cluster_id": "cluster_obstructive_condition",
+            "condition_key": "obstructive_pulmonary_condition",
+            "condition_label": "Asthma or other obstructive pulmonary condition",
+            "condition_synonyms": [
+                "Asthma",
+                "Bronchitis",
+                "Emphysema",
+                "Obstructive pulmonary disease"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "J20.0-J21.9",
+                "J40-J47.9",
+                "J67.0-J67.9"
+            ],
+            "cluster_entry_guard_ids": []
+        }
+    ],
+    "route_guard_ids": [
+        "RG_NOT_FOR_COPD_DIAGNOSIS"
+    ],
+    "cluster_entry_guard_ids": [],
+    "scoped_policy_context": {
+        "policy_id": "0059",
+        "selected_route_id": "route_standard_peak_flow_devices",
+        "selected_route_label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions",
+        "selected_phase": "other",
+        "selected_cluster_id": "cluster_obstructive_condition",
+        "selected_cluster_label": "Asthma or other obstructive pulmonary condition",
+        "effective_diagnosis_code_candidates": [
+            "J20.0-J21.9",
+            "J40-J47.9",
+            "J67.0-J67.9"
+        ],
+        "selected_logic_profile_ids": [],
+        "selected_route_guard_criterion_ids": [
+            "CR_ROUTE_NOT_DIAGNOSE_COPD"
+        ],
+        "selected_cluster_entry_guard_criterion_ids": [],
+        "selected_cluster_criterion_ids": [
+            "CR_CLUSTER_OBSTRUCTIVE_DIAG"
+        ],
+        "selected_criteria_catalog": [
+            {
+                "criterion_id": "CR_ROUTE_NOT_DIAGNOSE_COPD",
+                "criterion_kind": "route_guard",
+                "prompt": "Is the peak flow meter being requested solely to diagnose chronic obstructive pulmonary disease (COPD)?",
+                "clinical_intent": "Ensure the device is not being used solely for COPD diagnosis.",
+                "answer_type": "boolean",
+                "required": true,
+                "code_binding": {
+                    "source_codes": [],
+                    "code_role": "UNKNOWN"
+                },
+                "preferred_data_domains": [
+                    "condition"
+                ],
+                "policy_time_language": "UNKNOWN",
+                "retrieval_priority": "high",
+                "prefill_allowed": true,
+                "clinician_must_confirm": true,
+                "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
+                "locator": {
+                    "section_path": [
+                        "III. Policy Limitations and Exclusions"
+                    ],
+                    "page_start": 2,
+                    "page_end": 2
+                }
+            },
+            {
+                "criterion_id": "CR_CLUSTER_OBSTRUCTIVE_DIAG",
+                "criterion_kind": "cluster_criterion",
+                "prompt": "Does the member have a diagnosis of asthma, bronchitis, emphysema, or another obstructive pulmonary disease (ICD-10 J20.0-J21.9, J40-J47.9, or J67.0-J67.9)?",
+                "clinical_intent": "Document the obstructive pulmonary diagnosis that justifies peak flow meter coverage.",
+                "answer_type": "boolean",
+                "required": true,
+                "code_binding": {
+                    "source_codes": [
+                        "J20.0-J21.9",
+                        "J40-J47.9",
+                        "J67.0-J67.9"
+                    ],
+                    "code_role": "diagnosis_inclusion"
+                },
+                "preferred_data_domains": [
+                    "condition"
+                ],
+                "policy_time_language": "UNKNOWN",
+                "retrieval_priority": "high",
+                "prefill_allowed": true,
+                "clinician_must_confirm": true,
+                "evidence": "ICD-10 codes J20.0-J21.9, J40-J47.9, and J67.0-J67.9 describe the covered diagnoses for obstructive pulmonary conditions eligible for covered peak flow meters.",
+                "locator": {
+                    "section_path": [
+                        "CPT Codes / HCPCS Codes / ICD-10 Codes"
+                    ],
+                    "page_start": 2,
+                    "page_end": 2
+                }
+            }
+        ]
+    }
+}
