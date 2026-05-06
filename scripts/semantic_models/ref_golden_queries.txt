@@ -1,0 +1,15 @@
+'goldenQueries': [{'name': 'ARC_code_reference_expansion',
+  'question': 'Expand code type `ICD10-CM` range(s) `M05.00-M05.09, M05.20-M06.39, M06.80-M06.9` to explicit individual codes and labels. Return raw rows only.',
+  'generatedSql': 'SELECT DISTINCT\n'
+                  '  ref."code",\n'
+                  '  ref."code_label",\n'
+                  '  ref."code_type"\n'
+                  'FROM "DKU_SOLUTION_DESIGN"."SOL_DESIGN"."PREAUTHPOC_REFERENCE_CODES" AS ref\n'
+                  'WHERE\n'
+                  '  ref."code_type" = \'ICD10CM\'\n'
+                  '  AND (\n'
+                  '    (ref."code" BETWEEN \'M05.00\' AND \'M05.09\')\n'
+                  '    OR (ref."code" BETWEEN \'M05.20\' AND \'M06.39\')\n'
+                  '    OR (ref."code" BETWEEN \'M06.80\' AND \'M06.9\')\n'
+                  '  )',
+  'created': {'on': '2026-04-17T21:01:34.318Z'}}]

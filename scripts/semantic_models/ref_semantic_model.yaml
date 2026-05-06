@@ -1,0 +1,38 @@
+archetypes:
+  - archetype: ARC_code_reference_expansion
+
+    semantic_question_template: >
+      Expand code type {code_type} range(s) {ranges} to explicit valid individual codes and labels. Return raw rows only.
+
+    sql_template: |
+      SELECT DISTINCT
+        ref."code",
+        ref."code_label",
+        ref."code_type"
+      FROM "DKU_SOLUTION_DESIGN"."SOL_DESIGN"."PREAUTHPOC_REFERENCE_CODES" AS ref
+      WHERE
+        ref."code_type" = '{normalized_code_type}'
+        {optional_range_filter}
+
+    returns: [code, code_label, code_type]
+
+    status_hint: >
+      Found if reference codes exist in the requested ranges. Normalize code type to the canonical stored value before filtering.
+      Ambiguous if requested code type naming differs from table conventions or if range endpoints are underspecified.
+
+    generated_question: >
+      Expand code type `ICD10-CM` range(s) `M05.00-M05.09, M05.20-M06.39, M06.80-M06.9` to explicit codes and labels.
+
+    expected_sql: |
+      SELECT DISTINCT
+        ref."code",
+        ref."code_label",
+        ref."code_type"
+      FROM "DKU_SOLUTION_DESIGN"."SOL_DESIGN"."PREAUTHPOC_REFERENCE_CODES" AS ref
+      WHERE
+        ref."code_type" = 'ICD10CM'
+        AND (
+          (ref."code" BETWEEN 'M05.00' AND 'M05.09')
+          OR (ref."code" BETWEEN 'M05.20' AND 'M06.39')
+          OR (ref."code" BETWEEN 'M06.80' AND 'M06.9')
+        )
