@@ -1,0 +1,243 @@
+{
+    "status": "ok",
+    "next_action": "collect_cluster_guards",
+    "route_summary": {
+        "route_id": "ROUTE_HYCELA",
+        "label": "Rituxan Hycela subcutaneous rituximab/hyaluronidase",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+            "J9311"
+        ],
+        "phase_prompt_required": true,
+        "phases": [
+            {
+                "phase": "initial",
+                "is_default": true,
+                "route_guard_ids": [
+                    "RG_HYCELA_PREV_IV"
+                ],
+                "cluster_summaries": [
+                    {
+                        "cluster_id": "CL_ONC_HYCELA_INIT",
+                        "condition_key": "oncologic_cd20_hycela",
+                        "condition_label": "CD20-positive hematologic or oncologic disorder (Rituxan Hycela)",
+                        "condition_synonyms": [
+                            "CD20-positive lymphoma eligible for subcutaneous therapy"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "C81.00 - C81.99",
+                            "C82.00 - C82.99",
+                            "C83.00 - C83.99",
+                            "C85.10 - C85.29",
+                            "C85.80 - C85.99",
+                            "C88.00 - C88.41",
+                            "C91.00 - C91.42",
+                            "D47.Z1",
+                            "D47.Z2",
+                            "D89.1"
+                        ],
+                        "cluster_entry_guard_ids": [
+                            "CEG_ONC_CD20"
+                        ]
+                    }
+                ]
+            },
+            {
+                "phase": "continuation",
+                "is_default": false,
+                "route_guard_ids": [],
+                "cluster_summaries": [
+                    {
+                        "cluster_id": "CL_ONC_HYCELA_CONT",
+                        "condition_key": "oncologic_cd20_hycela",
+                        "condition_label": "CD20-positive oncologic disorder continuation (Rituxan Hycela)",
+                        "condition_synonyms": [
+                            "Continued subcutaneous rituximab for CD20-positive malignancy"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "C81.00 - C81.99",
+                            "C82.00 - C82.99",
+                            "C83.00 - C83.99",
+                            "C85.10 - C85.29",
+                            "C85.80 - C85.99",
+                            "C88.00 - C88.41",
+                            "C91.00 - C91.42",
+                            "D47.Z1",
+                            "D47.Z2",
+                            "D89.1"
+                        ],
+                        "cluster_entry_guard_ids": [
+                            "CEG_ONC_CD20"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "ui_label": "Rituxan Hycela subcutaneous rituximab/hyaluronidase"
+    },
+    "cluster_shortlist": [
+        {
+            "cluster_id": "CL_ONC_HYCELA_CONT",
+            "condition_key": "oncologic_cd20_hycela",
+            "condition_label": "CD20-positive oncologic disorder continuation (Rituxan Hycela)",
+            "condition_synonyms": [
+                "Continued subcutaneous rituximab for CD20-positive malignancy"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "C81.00 - C81.99",
+                "C82.00 - C82.99",
+                "C83.00 - C83.99",
+                "C85.10 - C85.29",
+                "C85.80 - C85.99",
+                "C88.00 - C88.41",
+                "C91.00 - C91.42",
+                "D47.Z1",
+                "D47.Z2",
+                "D89.1"
+            ],
+            "cluster_entry_guard_ids": [
+                "CEG_ONC_CD20"
+            ]
+        }
+    ],
+    "route_guard_ids": [],
+    "cluster_entry_guard_ids": [
+        "CEG_ONC_CD20"
+    ],
+    "scoped_policy_context": {
+        "policy_id": "0314",
+        "selected_route_id": "ROUTE_HYCELA",
+        "selected_route_label": "Rituxan Hycela subcutaneous rituximab/hyaluronidase",
+        "selected_phase": "continuation",
+        "selected_cluster_id": "CL_ONC_HYCELA_CONT",
+        "selected_cluster_label": "CD20-positive oncologic disorder continuation (Rituxan Hycela)",
+        "effective_diagnosis_code_candidates": [
+            "C81.00 - C81.99",
+            "C82.00 - C82.99",
+            "C83.00 - C83.99",
+            "C85.10 - C85.29",
+            "C85.80 - C85.99",
+            "C88.00 - C88.41",
+            "C91.00 - C91.42",
+            "D47.Z1",
+            "D47.Z2",
+            "D89.1"
+        ],
+        "selected_logic_profile_ids": [
+            "LP_CONT_ONC_NO_TOX"
+        ],
+        "selected_route_guard_criterion_ids": [],
+        "selected_cluster_entry_guard_criterion_ids": [
+            "CR_CD20_TEST_POSITIVE"
+        ],
+        "selected_cluster_criterion_ids": [
+            "CR_DIAG_ONCOLOGY",
+            "CR_ONC_CONT_NO_UNACCEPTABLE_TOX"
+        ],
+        "selected_criteria_catalog": [
+            {
+                "criterion_id": "CR_ONC_CONT_NO_UNACCEPTABLE_TOX",
+                "criterion_kind": "logic_profile",
+                "prompt": "Is there no evidence of unacceptable rituximab toxicity for the oncologic indication?",
+                "clinical_intent": "Document the toxicity threshold for oncologic continuation.",
+                "answer_type": "boolean",
+                "required": true,
+                "code_binding": {
+                    "source_codes": [],
+                    "code_role": "UNKNOWN"
+                },
+                "preferred_data_domains": [
+                    "condition",
+                    "document"
+                ],
+                "policy_time_language": "At the time of reauthorization",
+                "retrieval_priority": "medium",
+                "prefill_allowed": true,
+                "clinician_must_confirm": true,
+                "evidence": "Continuation for oncologic indications requires no evidence of unacceptable toxicity.",
+                "locator": {
+                    "section_path": [
+                        "Treatment of Hematologic and Oncologic Conditions",
+                        "II. Continuation of Therapy",
+                        "A. Oncologic indications"
+                    ],
+                    "page_start": 4,
+                    "page_end": 4
+                }
+            },
+            {
+                "criterion_id": "CR_DIAG_ONCOLOGY",
+                "criterion_kind": "cluster_criterion",
+                "prompt": "Confirm the member has a diagnosis of a CD20-positive hematologic or oncologic disorder listed in Section I.A (e.g., B-cell lymphoma, CLL/SLL, PTLD, ROSAI-Dorfman, or Waldenstr\\u00f6m macroglobulinemia).",
+                "clinical_intent": "Establish the covered CD20-positive malignancy.",
+                "answer_type": "boolean",
+                "required": true,
+                "code_binding": {
+                    "source_codes": [
+                        "C81.00 - C81.99",
+                        "C82.00 - C82.99",
+                        "C83.00 - C83.99",
+                        "C85.10 - C85.29",
+                        "C85.80 - C85.99",
+                        "C88.00 - C88.41",
+                        "C91.00 - C91.42",
+                        "D47.Z1",
+                        "D47.Z2",
+                        "D89.1"
+                    ],
+                    "code_role": "diagnosis_inclusion"
+                },
+                "preferred_data_domains": [
+                    "condition"
+                ],
+                "policy_time_language": "Current or previously documented diagnosis",
+                "retrieval_priority": "high",
+                "prefill_allowed": true,
+                "clinician_must_confirm": true,
+                "evidence": "Aetna considers rituximab medically necessary for the oncologic disorders listed in Section I.A when they are CD20-positive.",
+                "locator": {
+                    "section_path": [
+                        "Treatment of Hematologic and Oncologic Conditions",
+                        "I. Criteria for Initial Approval",
+                        "A. Oncologic indications"
+                    ],
+                    "page_start": 2,
+                    "page_end": 3
+                }
+            },
+            {
+                "criterion_id": "CR_CD20_TEST_POSITIVE",
+                "criterion_kind": "cluster_entry_guard",
+                "prompt": "Has CD20 positivity been confirmed for the oncologic disorder by testing or analysis?",
+                "clinical_intent": "Document the required CD20 positivity for the oncologic indication.",
+                "answer_type": "boolean",
+                "required": true,
+                "code_binding": {
+                    "source_codes": [],
+                    "code_role": "UNKNOWN"
+                },
+                "preferred_data_domains": [
+                    "observation"
+                ],
+                "policy_time_language": "Confirmed by testing or analysis prior to therapy",
+                "retrieval_priority": "high",
+                "prefill_allowed": true,
+                "clinician_must_confirm": true,
+                "evidence": "Oncologic disorders must be CD20-positive as confirmed by testing or analysis.",
+                "locator": {
+                    "section_path": [
+                        "Treatment of Hematologic and Oncologic Conditions",
+                        "I. Criteria for Initial Approval",
+                        "A. Oncologic indications"
+                    ],
+                    "page_start": 2,
+                    "page_end": 3
+                }
+            }
+        ]
+    }
+}

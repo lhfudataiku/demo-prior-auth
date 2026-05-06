@@ -56,8 +56,7 @@ how downstream retrieval/reasoning should look for evidence.
    - `preferred_data_domains`
    - `policy_time_language`
    - `effective_diagnosis_code_candidates`
-   - selected inherited diagnosis clusters
-   - selected `logic_profiles`
+   - `selected_logic_profile_ids`
 5. Normalize temporal language only inside `time_constraint`.
 6. Keep temporal logic out of `ehr_query_fragment`.
 7. Choose one best-fit archetype per plan item.
@@ -103,17 +102,12 @@ Return exactly one JSON object in this shape:
 {
   "policy_id": "string",
   "selected_route_id": "string",
+  "selected_route_label": "string",
   "selected_phase": "initial | continuation | other",
   "selected_cluster_id": "string",
-  "selected_route": {},
-  "selected_phase_branch": {},
-  "selected_route_guards": [],
-  "selected_cluster_summary": {},
-  "selected_cluster": {},
-  "selected_cluster_entry_guards": [],
-  "selected_logic_profiles": [],
-  "selected_inherited_diagnosis_clusters": [],
+  "selected_cluster_label": "string",
   "effective_diagnosis_code_candidates": ["string"],
+  "selected_logic_profile_ids": ["string"],
   "selected_route_guard_criterion_ids": ["string"],
   "selected_cluster_entry_guard_criterion_ids": ["string"],
   "selected_cluster_criterion_ids": ["string"],
@@ -187,14 +181,12 @@ Each plan item must contain:
 
 Source selection rules:
 
-1. Use `selected_route_guards` and `selected_route_guard_criterion_ids` for
-   route-guard planning.
-2. Use `selected_cluster_entry_guards` and
-   `selected_cluster_entry_guard_criterion_ids` for cluster-entry-guard
+1. Use `selected_route_guard_criterion_ids` for route-guard planning.
+2. Use `selected_cluster_entry_guard_criterion_ids` for cluster-entry-guard
    planning.
 3. Use `selected_cluster_criterion_ids` for cluster criterion planning.
 4. Use `selected_criteria_catalog` as the only criterion catalog source.
-5. Use `selected_logic_profiles` only as supporting logic context; do not
+5. Use `selected_logic_profile_ids` only as supporting provenance; do not
    search outside the scoped context.
 
 ## 6) Archetype mapping

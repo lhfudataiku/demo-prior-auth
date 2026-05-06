@@ -3,7 +3,7 @@
     "document_type": "COVERAGE_POLICY",
     "title": "Peak Flow Meters",
     "source": {
-        "policy_url": "https://www.aetna.com/cpb/medical/data/1_99/0059.html"
+        "policy_url": "https://www.aetna.com/cpb/medical/data/1_99/0059.html#dummyLink4"
     },
     "billing_code_sets": [
         {
@@ -105,7 +105,7 @@
             }
         },
         {
-            "code": "J20.0 - J21.9",
+            "code": "J20.0-J21.9",
             "system": "ICD-10",
             "description": "Acute bronchitis and acute bronchiolitis",
             "code_role": "diagnosis_inclusion",
@@ -119,7 +119,7 @@
             }
         },
         {
-            "code": "J40 - J47.9",
+            "code": "J40-J47.9",
             "system": "ICD-10",
             "description": "Chronic lower respiratory diseases",
             "code_role": "diagnosis_inclusion",
@@ -133,7 +133,7 @@
             }
         },
         {
-            "code": "J67.0 - J67.9",
+            "code": "J67.0-J67.9",
             "system": "ICD-10",
             "description": "Hypersensitivity pneumonitis due to organic dust",
             "code_role": "diagnosis_inclusion",
@@ -149,8 +149,8 @@
     ],
     "request_routes": [
         {
-            "route_id": "RR_0059_PFM_SPACER",
-            "label": "Standard mechanical peak flow meters and spacers (DME) / peak flow services",
+            "route_id": "route_standard_peak_flow_devices",
+            "label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions",
             "coverage_status": "covered",
             "terminal_disposition": "continue",
             "billing_codes": [
@@ -169,17 +169,15 @@
                     "phase": "other",
                     "is_default": true,
                     "route_guard_ids": [
-                        "RG_0059_DEVICE_TYPE"
+                        "RG_NOT_FOR_COPD_DIAGNOSIS"
                     ],
                     "cluster_ids": [
-                        "CL_0059_J20_J21",
-                        "CL_0059_J40_J47",
-                        "CL_0059_J67"
+                        "cluster_obstructive_condition"
                     ]
                 }
             ],
-            "routing_notes": "HCPCS codes listed are covered if selection criteria are met.",
-            "evidence": "I. Medical Necessity: Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+            "routing_notes": "Coverage limited to standard mechanical peak flow meters/spacers for patients with asthma or other obstructive pulmonary conditions; not for diagnosing COPD.",
+            "evidence": "Aetna considers standard mechanical peak flow meters and spacers for meter-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
             "locator": {
                 "section_path": [
                     "I. Medical Necessity"
@@ -191,11 +189,11 @@
     ],
     "route_guards": [
         {
-            "guard_id": "RG_0059_DEVICE_TYPE",
-            "label": "Requested item is a standard mechanical peak flow meter or spacer (not electronic)",
-            "guard_type": "coverage_gate",
+            "guard_id": "RG_NOT_FOR_COPD_DIAGNOSIS",
+            "label": "Not being used to diagnose chronic obstructive pulmonary disease",
+            "guard_type": "limitation",
             "applies_to_route_ids": [
-                "RR_0059_PFM_SPACER"
+                "route_standard_peak_flow_devices"
             ],
             "applies_to_phases": [
                 "other"
@@ -207,14 +205,14 @@
                 "children": [
                     {
                         "node_type": "criterion_ref",
-                        "criterion_id": "CR_0059_DEVICE_TYPE_MECH_OR_SPACER"
+                        "criterion_id": "CR_ROUTE_NOT_DIAGNOSE_COPD"
                     }
                 ]
             },
-            "evidence": "I. Medical Necessity: Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary... II. Experimental, Investigational, or Unproven: Aetna considers electronic peak flow meters experimental, investigational, or unproven because their effectiveness has not been established.",
+            "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
             "locator": {
                 "section_path": [
-                    "II. Experimental, Investigational, or Unproven"
+                    "III. Policy Limitations and Exclusions"
                 ],
                 "page_start": 2,
                 "page_end": 2
@@ -224,51 +222,22 @@
     "cluster_entry_guards": [],
     "condition_clusters": [
         {
-            "cluster_id": "CL_0059_J20_J21",
-            "route_id": "RR_0059_PFM_SPACER",
+            "cluster_id": "cluster_obstructive_condition",
+            "route_id": "route_standard_peak_flow_devices",
             "phase": "other",
-            "condition_key": "acute_bronchitis_bronchiolitis",
-            "condition_label": "Acute bronchitis and acute bronchiolitis",
-            "condition_synonyms": [],
-            "diagnosis_basis": "code_table_primary",
-            "diagnosis_code_candidates": [
-                "J20.0 - J21.9"
-            ],
-            "inherits_diagnosis_from_cluster_ids": [],
-            "cluster_entry_guard_ids": [],
-            "logic_profile_id": "UNKNOWN",
-            "logic_root": {
-                "node_type": "group",
-                "operator": "all",
-                "children": [
-                    {
-                        "node_type": "criterion_ref",
-                        "criterion_id": "CR_0059_DX_J20_J21"
-                    }
-                ]
-            },
-            "evidence": "ICD-10 codes covered if selection criteria are met: J20.0 - J21.9 Acute bronchitis and acute bronchiolitis",
-            "locator": {
-                "section_path": [
-                    "CPT Codes / HCPCS Codes / ICD-10 Codes"
-                ],
-                "page_start": 2,
-                "page_end": 2
-            }
-        },
-        {
-            "cluster_id": "CL_0059_J40_J47",
-            "route_id": "RR_0059_PFM_SPACER",
-            "phase": "other",
-            "condition_key": "chronic_lower_respiratory_diseases",
-            "condition_label": "Chronic lower respiratory diseases",
+            "condition_key": "obstructive_pulmonary_condition",
+            "condition_label": "Asthma or other obstructive pulmonary condition",
             "condition_synonyms": [
-                "asthma",
-                "emphysema"
+                "Asthma",
+                "Bronchitis",
+                "Emphysema",
+                "Obstructive pulmonary disease"
             ],
             "diagnosis_basis": "code_table_primary",
             "diagnosis_code_candidates": [
-                "J40 - J47.9"
+                "J20.0-J21.9",
+                "J40-J47.9",
+                "J67.0-J67.9"
             ],
             "inherits_diagnosis_from_cluster_ids": [],
             "cluster_entry_guard_ids": [],
@@ -279,60 +248,27 @@
                 "children": [
                     {
                         "node_type": "criterion_ref",
-                        "criterion_id": "CR_0059_DX_J40_J47"
+                        "criterion_id": "CR_CLUSTER_OBSTRUCTIVE_DIAG"
                     }
                 ]
             },
-            "evidence": "ICD-10 codes covered if selection criteria are met: J40 - J47.9 Chronic lower respiratory diseases",
+            "evidence": "Aetna considers standard mechanical peak flow meters and spacers for meter-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions. ICD-10 codes J20.0-J21.9, J40-J47.9, and J67.0-J67.9 describe the covered diagnoses.",
             "locator": {
                 "section_path": [
-                    "CPT Codes / HCPCS Codes / ICD-10 Codes"
+                    "I. Medical Necessity"
                 ],
-                "page_start": 2,
-                "page_end": 2
-            }
-        },
-        {
-            "cluster_id": "CL_0059_J67",
-            "route_id": "RR_0059_PFM_SPACER",
-            "phase": "other",
-            "condition_key": "hypersensitivity_pneumonitis",
-            "condition_label": "Hypersensitivity pneumonitis due to organic dust",
-            "condition_synonyms": [],
-            "diagnosis_basis": "code_table_primary",
-            "diagnosis_code_candidates": [
-                "J67.0 - J67.9"
-            ],
-            "inherits_diagnosis_from_cluster_ids": [],
-            "cluster_entry_guard_ids": [],
-            "logic_profile_id": "UNKNOWN",
-            "logic_root": {
-                "node_type": "group",
-                "operator": "all",
-                "children": [
-                    {
-                        "node_type": "criterion_ref",
-                        "criterion_id": "CR_0059_DX_J67"
-                    }
-                ]
-            },
-            "evidence": "ICD-10 codes covered if selection criteria are met: J67.0 - J67.9 Hypersensitivity pneumonitis due to organic dust",
-            "locator": {
-                "section_path": [
-                    "CPT Codes / HCPCS Codes / ICD-10 Codes"
-                ],
-                "page_start": 2,
-                "page_end": 2
+                "page_start": 1,
+                "page_end": 1
             }
         }
     ],
     "logic_profiles": [],
     "criteria_catalog": [
         {
-            "criterion_id": "CR_0059_DEVICE_TYPE_MECH_OR_SPACER",
+            "criterion_id": "CR_ROUTE_NOT_DIAGNOSE_COPD",
             "criterion_kind": "route_guard",
-            "prompt": "Is the requested item a standard mechanical peak flow meter or a spacer/holding chamber for a metered-dose inhaler (not an electronic peak flow meter)?",
-            "clinical_intent": "Confirm the requested product is a covered device type (mechanical peak flow meter or spacer) and not an investigational electronic peak flow meter.",
+            "prompt": "Is the peak flow meter being requested solely to diagnose chronic obstructive pulmonary disease (COPD)?",
+            "clinical_intent": "Ensure the device is not being used solely for COPD diagnosis.",
             "answer_type": "boolean",
             "required": true,
             "code_binding": {
@@ -340,31 +276,33 @@
                 "code_role": "UNKNOWN"
             },
             "preferred_data_domains": [
-                "UNKNOWN"
+                "condition"
             ],
             "policy_time_language": "UNKNOWN",
-            "retrieval_priority": "medium",
+            "retrieval_priority": "high",
             "prefill_allowed": true,
             "clinician_must_confirm": true,
-            "evidence": "I. Medical Necessity: Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary... II. Experimental, Investigational, or Unproven: Aetna considers electronic peak flow meters experimental, investigational, or unproven...",
+            "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
             "locator": {
                 "section_path": [
-                    "II. Experimental, Investigational, or Unproven"
+                    "III. Policy Limitations and Exclusions"
                 ],
                 "page_start": 2,
                 "page_end": 2
             }
         },
         {
-            "criterion_id": "CR_0059_DX_J20_J21",
+            "criterion_id": "CR_CLUSTER_OBSTRUCTIVE_DIAG",
             "criterion_kind": "cluster_criterion",
-            "prompt": "Does the patient have a diagnosis within ICD-10 J20.0 - J21.9 (acute bronchitis and acute bronchiolitis)?",
-            "clinical_intent": "Establish covered diagnosis supporting use of peak flow meters or spacers.",
+            "prompt": "Does the member have a diagnosis of asthma, bronchitis, emphysema, or another obstructive pulmonary disease (ICD-10 J20.0-J21.9, J40-J47.9, or J67.0-J67.9)?",
+            "clinical_intent": "Document the obstructive pulmonary diagnosis that justifies peak flow meter coverage.",
             "answer_type": "boolean",
             "required": true,
             "code_binding": {
                 "source_codes": [
-                    "J20.0 - J21.9"
+                    "J20.0-J21.9",
+                    "J40-J47.9",
+                    "J67.0-J67.9"
                 ],
                 "code_role": "diagnosis_inclusion"
             },
@@ -375,65 +313,7 @@
             "retrieval_priority": "high",
             "prefill_allowed": true,
             "clinician_must_confirm": true,
-            "evidence": "ICD-10 codes covered if selection criteria are met: J20.0 - J21.9 Acute bronchitis and acute bronchiolitis",
-            "locator": {
-                "section_path": [
-                    "CPT Codes / HCPCS Codes / ICD-10 Codes"
-                ],
-                "page_start": 2,
-                "page_end": 2
-            }
-        },
-        {
-            "criterion_id": "CR_0059_DX_J40_J47",
-            "criterion_kind": "cluster_criterion",
-            "prompt": "Does the patient have a diagnosis within ICD-10 J40 - J47.9 (chronic lower respiratory diseases)?",
-            "clinical_intent": "Establish covered diagnosis supporting use of peak flow meters or spacers.",
-            "answer_type": "boolean",
-            "required": true,
-            "code_binding": {
-                "source_codes": [
-                    "J40 - J47.9"
-                ],
-                "code_role": "diagnosis_inclusion"
-            },
-            "preferred_data_domains": [
-                "condition"
-            ],
-            "policy_time_language": "UNKNOWN",
-            "retrieval_priority": "high",
-            "prefill_allowed": true,
-            "clinician_must_confirm": true,
-            "evidence": "ICD-10 codes covered if selection criteria are met: J40 - J47.9 Chronic lower respiratory diseases",
-            "locator": {
-                "section_path": [
-                    "CPT Codes / HCPCS Codes / ICD-10 Codes"
-                ],
-                "page_start": 2,
-                "page_end": 2
-            }
-        },
-        {
-            "criterion_id": "CR_0059_DX_J67",
-            "criterion_kind": "cluster_criterion",
-            "prompt": "Does the patient have a diagnosis within ICD-10 J67.0 - J67.9 (hypersensitivity pneumonitis due to organic dust)?",
-            "clinical_intent": "Establish covered diagnosis supporting use of peak flow meters or spacers.",
-            "answer_type": "boolean",
-            "required": true,
-            "code_binding": {
-                "source_codes": [
-                    "J67.0 - J67.9"
-                ],
-                "code_role": "diagnosis_inclusion"
-            },
-            "preferred_data_domains": [
-                "condition"
-            ],
-            "policy_time_language": "UNKNOWN",
-            "retrieval_priority": "high",
-            "prefill_allowed": true,
-            "clinician_must_confirm": true,
-            "evidence": "ICD-10 codes covered if selection criteria are met: J67.0 - J67.9 Hypersensitivity pneumonitis due to organic dust",
+            "evidence": "ICD-10 codes J20.0-J21.9, J40-J47.9, and J67.0-J67.9 describe the covered diagnoses for obstructive pulmonary conditions eligible for covered peak flow meters.",
             "locator": {
                 "section_path": [
                     "CPT Codes / HCPCS Codes / ICD-10 Codes"
@@ -444,7 +324,7 @@
         }
     ],
     "notes": {
-        "parsing_notes": "Modeled a single covered route for standard mechanical peak flow meters, spacers/holding chambers, and peak flow services based on the medical necessity statement and the HCPCS list. Implemented a route-level coverage gate to exclude electronic peak flow meters per the investigational section; no specific investigational billing codes were provided in the policy text. Diagnosis clusters follow the ICD-10 covered ranges in the code table. Advisory note about not using peak flow meters to diagnose COPD was not converted into criteria as it does not define coverage eligibility.",
+        "parsing_notes": "Derived coverage logic from sections I-III focusing on standard mechanical devices and listed ICD diagnoses; no additional clinical subcategories provided.",
         "confidence": "HIGH"
     }
 }

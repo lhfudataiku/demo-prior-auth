@@ -1,4 +1,18 @@
-"""Deterministic Selection Resolver for prior-auth Screen 1 scope reduction."""
+"""Deterministic Selection Resolver for prior-auth Screen 1 scope reduction.
+
+This module returns two conceptual outputs in one response payload:
+
+1. A Screen 1/UI-facing resolution payload:
+   - route summary
+   - cluster shortlist
+   - applicable guard IDs
+
+2. A planner-facing ``scoped_policy_context``:
+   - minimal selected scope metadata
+   - effective diagnosis candidates
+   - criterion IDs grouped by source
+   - only the criterion catalog objects needed by the retrieval planner
+"""
 
 from __future__ import annotations
 
@@ -59,8 +73,9 @@ def resolve_selection_scope(
 ) -> Dict[str, Any]:
     """Resolve Screen 1 selection into a minimal scoped policy context.
 
-    The returned payload is intentionally reduced for downstream use by the
-    retrieval planner and cluster executor.
+    The returned payload is intentionally split between:
+    - Screen 1/UI response fields
+    - a minimal ``scoped_policy_context`` for downstream retrieval planning
     """
 
     routes = route_index_v4.get("routes", [])
@@ -199,9 +214,7 @@ def resolve_selection_scope(
         if isinstance(guard_id, str) and guard_id
     ]
 
-    selected_route_guards = [
-        route_guard_map[guard_id] for guard_id in route_guard_ids if guard_id in route_guard_map
-    ]
+    selected_route_guards = [route_guard_map[guard_id] for guard_id in route_guard_ids if guard_id in route_guard_map]
     selected_cluster_entry_guards = [
         cluster_guard_map[guard_id] for guard_id in cluster_entry_guard_ids if guard_id in cluster_guard_map
     ]
@@ -254,17 +267,16 @@ def resolve_selection_scope(
     scoped_policy_context = {
         "policy_id": policy_master_v4.get("policy_id", "UNKNOWN"),
         "selected_route_id": selected_route_id,
+        "selected_route_label": selected_route.get("label", "UNKNOWN"),
         "selected_phase": selected_phase_value,
         "selected_cluster_id": selected_cluster_id,
-        "selected_route": selected_route,
-        "selected_phase_branch": phase_branch,
-        "selected_route_guards": selected_route_guards,
-        "selected_cluster_summary": selected_cluster_summary,
-        "selected_cluster": selected_cluster,
-        "selected_cluster_entry_guards": selected_cluster_entry_guards,
-        "selected_logic_profiles": selected_logic_profiles,
-        "selected_inherited_diagnosis_clusters": selected_inherited_diagnosis_clusters,
+        "selected_cluster_label": selected_cluster.get("condition_label", "UNKNOWN"),
         "effective_diagnosis_code_candidates": effective_diagnosis_code_candidates,
+        "selected_logic_profile_ids": [
+            profile.get("logic_profile_id")
+            for profile in selected_logic_profiles
+            if isinstance(profile.get("logic_profile_id"), str) and profile.get("logic_profile_id")
+        ],
         "selected_route_guard_criterion_ids": sorted(selected_route_guard_criterion_ids),
         "selected_cluster_entry_guard_criterion_ids": sorted(selected_cluster_entry_guard_criterion_ids),
         "selected_cluster_criterion_ids": sorted(selected_cluster_criterion_ids),

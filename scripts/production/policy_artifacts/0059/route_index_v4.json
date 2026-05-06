@@ -2,8 +2,8 @@
     "policy_id": "0059",
     "routes": [
         {
-            "route_id": "RR_0059_PFM_SPACER",
-            "label": "Standard mechanical peak flow meters and spacers (DME) / peak flow services",
+            "route_id": "route_standard_peak_flow_devices",
+            "label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions",
             "coverage_status": "covered",
             "terminal_disposition": "continue",
             "billing_codes": [
@@ -21,49 +21,31 @@
                     "phase": "other",
                     "is_default": true,
                     "route_guard_ids": [
-                        "RG_0059_DEVICE_TYPE"
+                        "RG_NOT_FOR_COPD_DIAGNOSIS"
                     ],
                     "cluster_summaries": [
                         {
-                            "cluster_id": "CL_0059_J20_J21",
-                            "condition_key": "acute_bronchitis_bronchiolitis",
-                            "condition_label": "Acute bronchitis and acute bronchiolitis",
-                            "condition_synonyms": [],
-                            "diagnosis_basis": "code_table_primary",
-                            "diagnosis_code_candidates": [
-                                "J20.0 - J21.9"
-                            ],
-                            "cluster_entry_guard_ids": []
-                        },
-                        {
-                            "cluster_id": "CL_0059_J40_J47",
-                            "condition_key": "chronic_lower_respiratory_diseases",
-                            "condition_label": "Chronic lower respiratory diseases",
+                            "cluster_id": "cluster_obstructive_condition",
+                            "condition_key": "obstructive_pulmonary_condition",
+                            "condition_label": "Asthma or other obstructive pulmonary condition",
                             "condition_synonyms": [
-                                "asthma",
-                                "emphysema"
+                                "Asthma",
+                                "Bronchitis",
+                                "Emphysema",
+                                "Obstructive pulmonary disease"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
-                                "J40 - J47.9"
-                            ],
-                            "cluster_entry_guard_ids": []
-                        },
-                        {
-                            "cluster_id": "CL_0059_J67",
-                            "condition_key": "hypersensitivity_pneumonitis",
-                            "condition_label": "Hypersensitivity pneumonitis due to organic dust",
-                            "condition_synonyms": [],
-                            "diagnosis_basis": "code_table_primary",
-                            "diagnosis_code_candidates": [
-                                "J67.0 - J67.9"
+                                "J20.0-J21.9",
+                                "J40-J47.9",
+                                "J67.0-J67.9"
                             ],
                             "cluster_entry_guard_ids": []
                         }
                     ]
                 }
             ],
-            "ui_label": "Peak flow meters/spacers (mechanical) – covered indications"
+            "ui_label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions"
         }
     ]
 }
