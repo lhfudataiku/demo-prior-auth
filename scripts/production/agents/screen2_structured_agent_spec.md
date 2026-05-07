@@ -160,6 +160,9 @@ Recommended DSS 14.5+ flow:
      - `subject_id`
      - `scoped_policy_context`
    - save result to `state["retrieval_plan_v1"]`
+   - note: `retrieval_plan_v1` is tool-agnostic; it carries archetypes,
+     retrieval strategies, query fragments, and time rules, but not concrete
+     tool-routing objects
 
 4. `execute_plan` — `FOR_EACH`
    - iterate over `state["retrieval_plan_v1"]["plan_items"]`
@@ -171,6 +174,9 @@ Recommended DSS 14.5+ flow:
      - `subject_id`
      - `current_plan_item`
      - optional clinician answers already present for this criterion
+   - the reasoning agent derives tool order from
+     `current_plan_item.execution_hints.retrieval_strategy` and
+     `current_plan_item.execution_hints.criterion_archetype`
    - save result to `scratchpad["current_reasoning_result"]`
 
 6. `accumulate_result` — `PYTHON_CODE`

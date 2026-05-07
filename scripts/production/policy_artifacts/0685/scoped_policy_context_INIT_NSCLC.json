@@ -14,11 +14,11 @@
             "Q5129",
             "Q5160"
         ],
-        "phase_prompt_required": true,
+        "phase_prompt_required": "true",
         "phases": [
             {
                 "phase": "initial",
-                "is_default": true,
+                "is_default": "true",
                 "route_guard_ids": [
                     "RG_0685_NO_CETUX"
                 ],
@@ -252,7 +252,7 @@
             },
             {
                 "phase": "continuation",
-                "is_default": false,
+                "is_default": "false",
                 "route_guard_ids": [
                     "RG_0685_NO_CETUX"
                 ],
@@ -733,7 +733,7 @@
                 "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
                 "clinical_intent": "Prevent coverage for the investigational maintenance combination.",
                 "answer_type": "boolean",
-                "required": true,
+                "required": "true",
                 "code_binding": {
                     "source_codes": [],
                     "code_role": "UNKNOWN"
@@ -743,8 +743,8 @@
                 ],
                 "policy_time_language": "At the time of request.",
                 "retrieval_priority": "high",
-                "prefill_allowed": true,
-                "clinician_must_confirm": true,
+                "prefill_allowed": "true",
+                "clinician_must_confirm": "true",
                 "evidence": "Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental, investigational, or unproven.",
                 "locator": {
                     "section_path": [
@@ -762,7 +762,7 @@
                 "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer (ICD-10 C34.00-C34.92)?",
                 "clinical_intent": "Confirm NSCLC indication with the required histology and stage.",
                 "answer_type": "boolean",
-                "required": true,
+                "required": "true",
                 "code_binding": {
                     "source_codes": [
                         "C34.00-C34.92"
@@ -774,8 +774,8 @@
                 ],
                 "policy_time_language": "At the time of request.",
                 "retrieval_priority": "high",
-                "prefill_allowed": true,
-                "clinician_must_confirm": true,
+                "prefill_allowed": "true",
+                "clinician_must_confirm": "true",
                 "evidence": "I. Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC.",
                 "locator": {
                     "section_path": [
@@ -793,7 +793,7 @@
                 "prompt": "Is bevacizumab being administered without concomitant cetuximab or panitumumab?",
                 "clinical_intent": "Confirm the regimen does not include an investigational combination.",
                 "answer_type": "boolean",
-                "required": true,
+                "required": "true",
                 "code_binding": {
                     "source_codes": [],
                     "code_role": "UNKNOWN"
@@ -803,8 +803,8 @@
                 ],
                 "policy_time_language": "At the time of request.",
                 "retrieval_priority": "high",
-                "prefill_allowed": true,
-                "clinician_must_confirm": true,
+                "prefill_allowed": "true",
+                "clinician_must_confirm": "true",
                 "evidence": "Aetna considers bevacizumab and its biosimilars in combination with cetuximab (Erbitux) or panitumumab (Vectibix) experimental, investigational, or unproven.",
                 "locator": {
                     "section_path": [

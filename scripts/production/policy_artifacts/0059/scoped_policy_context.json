@@ -15,11 +15,11 @@
             "S8101",
             "S8110"
         ],
-        "phase_prompt_required": false,
+        "phase_prompt_required": "false",
         "phases": [
             {
                 "phase": "other",
-                "is_default": true,
+                "is_default": "true",
                 "route_guard_ids": [
                     "RG_NOT_FOR_COPD_DIAGNOSIS"
                 ],
@@ -98,7 +98,7 @@
                 "prompt": "Is the peak flow meter being requested solely to diagnose chronic obstructive pulmonary disease (COPD)?",
                 "clinical_intent": "Ensure the device is not being used solely for COPD diagnosis.",
                 "answer_type": "boolean",
-                "required": true,
+                "required": "true",
                 "code_binding": {
                     "source_codes": [],
                     "code_role": "UNKNOWN"
@@ -108,8 +108,8 @@
                 ],
                 "policy_time_language": "UNKNOWN",
                 "retrieval_priority": "high",
-                "prefill_allowed": true,
-                "clinician_must_confirm": true,
+                "prefill_allowed": "true",
+                "clinician_must_confirm": "true",
                 "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
                 "locator": {
                     "section_path": [
@@ -125,7 +125,7 @@
                 "prompt": "Does the member have a diagnosis of asthma, bronchitis, emphysema, or another obstructive pulmonary disease (ICD-10 J20.0-J21.9, J40-J47.9, or J67.0-J67.9)?",
                 "clinical_intent": "Document the obstructive pulmonary diagnosis that justifies peak flow meter coverage.",
                 "answer_type": "boolean",
-                "required": true,
+                "required": "true",
                 "code_binding": {
                     "source_codes": [
                         "J20.0-J21.9",
@@ -139,8 +139,8 @@
                 ],
                 "policy_time_language": "UNKNOWN",
                 "retrieval_priority": "high",
-                "prefill_allowed": true,
-                "clinician_must_confirm": true,
+                "prefill_allowed": "true",
+                "clinician_must_confirm": "true",
                 "evidence": "ICD-10 codes J20.0-J21.9, J40-J47.9, and J67.0-J67.9 describe the covered diagnoses for obstructive pulmonary conditions eligible for covered peak flow meters.",
                 "locator": {
                     "section_path": [

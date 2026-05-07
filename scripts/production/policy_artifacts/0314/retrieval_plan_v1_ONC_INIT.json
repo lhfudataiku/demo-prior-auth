@@ -1,0 +1,168 @@
+{
+    "schema_version": "retrieval_plan_v1",
+    "policy_id": "0314",
+    "selected_route_id": "ROUTE_IV_RITUXIMAB",
+    "selected_route_label": "Intravenous rituximab (Rituxan) or biosimilar therapy",
+    "selected_phase": "initial",
+    "selected_cluster_id": "CL_ONC_INIT",
+    "selected_cluster_label": "CD20-positive hematologic or oncologic disorder",
+    "selected_route_guard_criterion_ids": [],
+    "selected_cluster_entry_guard_criterion_ids": [
+        "CR_CD20_TEST_POSITIVE"
+    ],
+    "selected_cluster_criterion_ids": [
+        "CR_DIAG_ONCOLOGY"
+    ],
+    "plan_items": [
+        {
+            "criterion_id": "CR_CD20_TEST_POSITIVE",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Has CD20 positivity been confirmed for the oncologic disorder by testing or analysis?",
+            "clinical_intent": "Document the required CD20 positivity for the oncologic indication.",
+            "execution_hints": {
+                "criterion_archetype": "ARC_qualitative_observation_result",
+                "retrieval_strategy": "sql_first",
+                "semantic_model_entity": "observation",
+                "time_anchor_field": "effective_datetime"
+            },
+            "ehr_query_fragment": {
+                "field": "observation",
+                "operator": "equals",
+                "value": "CD20 positivity confirmed",
+                "codes": []
+            },
+            "time_constraint": {
+                "type": "none",
+                "anchor": "NONE",
+                "value": 0,
+                "unit": "UNKNOWN",
+                "direction": "UNKNOWN",
+                "notes": "Evidence should be documented before therapy, but the policy does not specify a fixed lookback."
+            },
+            "note_search_tokens": [
+                "CD20 positive",
+                "B-cell lymphoma",
+                "rituximab"
+            ],
+            "preferred_data_domains": [
+                "observation"
+            ],
+            "route_plan": {
+                "primary_tool": "ehr_sql_query_tool",
+                "fallback_tool": "none",
+                "max_tool_hops": 2,
+                "stop_when_primary_resolves": true,
+                "sql_only_for_missing": true
+            },
+            "prefill_strategy": "suggest",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+                "policy_time_language": "Confirmed by testing or analysis prior to therapy",
+                "code_binding": {
+                "origin": "UNKNOWN",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
+                },
+                "locator": {
+                "section_path": [
+                    "Treatment of Hematologic and Oncologic Conditions",
+                    "I. Criteria for Initial Approval",
+                    "A. Oncologic indications"
+                ],
+                "page_start": 2,
+                "page_end": 3
+                }
+            }
+        },
+        {
+            "criterion_id": "CR_DIAG_ONCOLOGY",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Confirm the member has a diagnosis of a CD20-positive hematologic or oncologic disorder listed in Section I.A (e.g., B-cell lymphoma, CLL/SLL, PTLD, ROSAI-Dorfman, or Waldenstr\u0000m macroglobulinemia).",
+            "clinical_intent": "Establish the covered CD20-positive malignancy.",
+            "execution_hints": {
+                "criterion_archetype": "ARC_dx_code_range_with_lookback",
+                "retrieval_strategy": "sql_first",
+                "semantic_model_entity": "condition",
+                "time_anchor_field": "effective_datetime"
+            },
+            "ehr_query_fragment": {
+                "field": "condition",
+                "operator": "exists",
+                "value": "CD20-positive hematologic or oncologic disorder",
+                "codes": [
+                "C81.00 - C81.99",
+                "C82.00 - C82.99",
+                "C83.00 - C83.99",
+                "C85.10 - C85.29",
+                "C85.80 - C85.99",
+                "C88.00 - C88.41",
+                "C91.00 - C91.42",
+                "D47.Z1",
+                "D47.Z2",
+                "D89.1"
+                ]
+            },
+            "time_constraint": {
+                "type": "lookback",
+                "anchor": "effective_datetime",
+                "value": 0,
+                "unit": "days",
+                "direction": "within_prior",
+                "notes": "Current or previously documented diagnosis is acceptable."
+            },
+            "note_search_tokens": [
+                "CD20-positive B-cell lymphoma",
+                "Chronic lymphocytic leukemia",
+                "Waldenstr\u0000m macroglobulinemia"
+            ],
+            "preferred_data_domains": [
+                "condition"
+            ],
+            "route_plan": {
+                "primary_tool": "ehr_sql_query_tool",
+                "fallback_tool": "none",
+                "max_tool_hops": 2,
+                "stop_when_primary_resolves": true,
+                "sql_only_for_missing": true
+            },
+            "prefill_strategy": "auto",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+                "policy_time_language": "Current or previously documented diagnosis",
+                "code_binding": {
+                "origin": "code_table_primary",
+                "confidence": "HIGH",
+                "source_codes": [
+                    "C81.00 - C81.99",
+                    "C82.00 - C82.99",
+                    "C83.00 - C83.99",
+                    "C85.10 - C85.29",
+                    "C85.80 - C85.99",
+                    "C88.00 - C88.41",
+                    "C91.00 - C91.42",
+                    "D47.Z1",
+                    "D47.Z2",
+                    "D89.1"
+                ],
+                "code_role": "diagnosis_inclusion",
+                "status": "mapped"
+                },
+                "locator": {
+                "section_path": [
+                    "Treatment of Hematologic and Oncologic Conditions",
+                    "I. Criteria for Initial Approval",
+                    "A. Oncologic indications"
+                ],
+                "page_start": 2,
+                "page_end": 3
+                }
+            }
+        }
+    ],
+    "notes": {
+        "planning_notes": "Plan derived from scoped CD20-positive oncologic criteria for initial rituximab therapy.",
+        "confidence": "HIGH"
+    }
+    }

@@ -1,0 +1,214 @@
+{
+    "schema_version": "retrieval_plan_v1",
+    "policy_id": "0685",
+    "selected_route_id": "RR_0685_NON_OCULAR_BEV",
+    "selected_route_label": "Bevacizumab and biosimilars for approved non-ocular oncology indications",
+    "selected_phase": "initial",
+    "selected_cluster_id": "CL_0685_NSCLC_initial",
+    "selected_cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+    "selected_route_guard_criterion_ids": [
+        "CR_0685_RG_NO_CETUX"
+    ],
+    "selected_cluster_entry_guard_criterion_ids": [
+        "CR_0685_GUARD_NSCLC_NO_PEM_MAINT"
+    ],
+    "selected_cluster_criterion_ids": [
+        "CR_0685_DIAG_NSCLC"
+    ],
+    "plan_items": [
+        {
+            "criterion_id": "CR_0685_RG_NO_CETUX",
+            "criterion_kind": "route_guard",
+            "prompt": "Is bevacizumab being administered without concomitant cetuximab or panitumumab?",
+            "clinical_intent": "Confirm the regimen does not include an investigational combination.",
+            "execution_hints": {
+                "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+                "retrieval_strategy": "hybrid",
+                "semantic_model_entity": "medication",
+                "time_anchor_field": "NONE"
+            },
+            "ehr_query_fragment": {
+                "field": "medication",
+                "operator": "not_exists",
+                "value": "Concurrent cetuximab or panitumumab",
+                "codes": []
+            },
+            "time_constraint": {
+                "type": "none",
+                "anchor": "NONE",
+                "value": 0,
+                "unit": "days",
+                "direction": "UNKNOWN",
+                "notes": "At the time of request."
+            },
+            "note_search_tokens": [
+                "bevacizumab",
+                "cetuximab",
+                "panitumumab",
+                "combination therapy"
+            ],
+            "preferred_data_domains": [
+                "medication"
+            ],
+            "route_plan": {
+                "primary_tool": "ehr_sql_query_tool",
+                "fallback_tool": "clinical_note_semantic_search_tool",
+                "max_tool_hops": 2,
+                "stop_when_primary_resolves": true,
+                "sql_only_for_missing": false
+            },
+            "prefill_strategy": "suggest",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+                "policy_time_language": "At the time of request.",
+                "code_binding": {
+                "origin": "none",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
+                },
+                "locator": {
+                "section_path": [
+                    "Policy",
+                    "Experimental, Investigational, or Unproven",
+                    "II. Aetna considers bevacizumab ... in combination with cetuximab or panitumumab experimental"
+                ],
+                "page_start": 11,
+                "page_end": 11
+                }
+            }
+        },
+        {
+            "criterion_id": "CR_0685_GUARD_NSCLC_NO_PEM_MAINT",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+            "clinical_intent": "Prevent coverage for the investigational maintenance combination.",
+            "execution_hints": {
+                "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+                "retrieval_strategy": "hybrid",
+                "semantic_model_entity": "medication",
+                "time_anchor_field": "NONE"
+            },
+            "ehr_query_fragment": {
+                "field": "medication",
+                "operator": "not_exists",
+                "value": "Bevacizumab administered with pemetrexed maintenance",
+                "codes": []
+            },
+            "time_constraint": {
+                "type": "none",
+                "anchor": "NONE",
+                "value": 0,
+                "unit": "days",
+                "direction": "UNKNOWN",
+                "notes": "At the time of request."
+            },
+            "note_search_tokens": [
+                "bevacizumab",
+                "pemetrexed",
+                "maintenance therapy"
+            ],
+            "preferred_data_domains": [
+                "medication"
+            ],
+            "route_plan": {
+                "primary_tool": "ehr_sql_query_tool",
+                "fallback_tool": "clinical_note_semantic_search_tool",
+                "max_tool_hops": 2,
+                "stop_when_primary_resolves": true,
+                "sql_only_for_missing": false
+            },
+            "prefill_strategy": "suggest",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+                "policy_time_language": "At the time of request.",
+                "code_binding": {
+                "origin": "none",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
+                },
+                "locator": {
+                "section_path": [
+                    "Policy",
+                    "Experimental, Investigational, or Unproven",
+                    "IV. Aetna considers bevacizumab ... in combination with pemetrexed as maintenance therapy"
+                ],
+                "page_start": 11,
+                "page_end": 11
+                }
+            }
+        },
+        {
+            "criterion_id": "CR_0685_DIAG_NSCLC",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer (ICD-10 C34.00-C34.92)?",
+            "clinical_intent": "Confirm NSCLC indication with the required histology and stage.",
+            "execution_hints": {
+                "criterion_archetype": "ARC_dx_code_range_with_lookback",
+                "retrieval_strategy": "sql_first",
+                "semantic_model_entity": "condition",
+                "time_anchor_field": "NONE"
+            },
+            "ehr_query_fragment": {
+                "field": "condition",
+                "operator": "in",
+                "value": "Recurrent, unresectable, advanced, or metastatic non-squamous NSCLC",
+                "codes": [
+                "C34.00-C34.92"
+                ]
+            },
+            "time_constraint": {
+                "type": "none",
+                "anchor": "NONE",
+                "value": 0,
+                "unit": "days",
+                "direction": "UNKNOWN",
+                "notes": "At the time of request."
+            },
+            "note_search_tokens": [
+                "non-squamous non-small cell lung cancer",
+                "NSCLC"
+            ],
+            "preferred_data_domains": [
+                "condition"
+            ],
+            "route_plan": {
+                "primary_tool": "ehr_sql_query_tool",
+                "fallback_tool": "none",
+                "max_tool_hops": 2,
+                "stop_when_primary_resolves": true,
+                "sql_only_for_missing": true
+            },
+            "prefill_strategy": "auto",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+                "policy_time_language": "At the time of request.",
+                "code_binding": {
+                "origin": "code_table_primary",
+                "confidence": "HIGH",
+                "source_codes": [
+                    "C34.00-C34.92"
+                ],
+                "code_role": "diagnosis_inclusion",
+                "status": "mapped"
+                },
+                "locator": {
+                "section_path": [
+                    "Policy",
+                    "I. Criteria for Initial Approval",
+                    "I. Non-small cell lung cancer (NSCLC)"
+                ],
+                "page_start": 4,
+                "page_end": 4
+                }
+            }
+        }
+    ],
+    "notes": {
+        "planning_notes": "All scoped route, entry guard, and cluster criteria mapped within the selected non-squamous NSCLC initial phase context.",
+        "confidence": "HIGH"
+    }
+    }

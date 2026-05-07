@@ -54,6 +54,59 @@ archetypes:
         AND o."effective_datetime" >= DATEADD('day', -180, CURRENT_DATE())
         AND o."effective_datetime" <= CURRENT_DATE()
 
+  - archetype: ARC_qualitative_observation_result
+
+    semantic_question_template: >
+      For patient {subject_id}, find qualitative observation {category_or_synonym | observation_display} within {lookback_clause}.
+
+    sql_template: |
+      SELECT DISTINCT
+        o."subject_id",
+        o."observation_id",
+        o."category_code",
+        o."observation_code",
+        o."observation_display",
+        o."value_numeric",
+        o."value_text",
+        o."value_unit",
+        o."effective_datetime",
+        o."encounter_id"
+      FROM "DKU_SOLUTION_DESIGN"."SOL_DESIGN"."PREAUTHPOC_OBSERVATION" AS o
+      WHERE
+        o."subject_id" = '{subject_id}'
+        {optional_category_filter}
+        {optional_observation_filter}
+        {optional_time_filter}
+
+    returns: [observation_id, encounter_id, category_code, observation_code, observation_display, value_numeric, value_unit, value_text, effective_datetime]
+
+    status_hint: >
+      Found if a matching qualitative observation exists. Prefer observation_display or canonical category filters first.
+      Do not filter directly on value_text in SQL because it is free text and not normalized. Downstream reasoning should inspect returned
+      value_text values to determine whether they satisfy the qualitative criterion.
+
+    generated_question: >
+      For patient `27980ad8-77b7-5360-b211-bf4fac9c468c`, find qualitative observation `Labs` | `CD20` within `10 years`.
+
+    expected_sql: |
+      SELECT DISTINCT
+        o."subject_id",
+        o."observation_id",
+        o."category_code",
+        o."observation_code",
+        o."observation_display",
+        o."value_numeric",
+        o."value_text",
+        o."value_unit",
+        o."effective_datetime",
+        o."encounter_id"
+      FROM "DKU_SOLUTION_DESIGN"."SOL_DESIGN"."PREAUTHPOC_OBSERVATION" AS o
+      WHERE
+        o."subject_id" = '27980ad8-77b7-5360-b211-bf4fac9c468c'
+        AND (o."category_code" = 'Labs' AND o."observation_display" ILIKE '%CD20%')
+        AND o."effective_datetime" >= DATEADD('year', -10, CURRENT_DATE())
+        AND o."effective_datetime" <= CURRENT_DATE()
+
   - archetype: ARC_dx_code_range_with_lookback
 
     semantic_question_template: >
