@@ -25,19 +25,22 @@
                 "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
                 "retrieval_strategy": "hybrid",
                 "semantic_model_entity": "medication",
-                "time_anchor_field": "NONE"
+                "time_anchor_field": "order_datetime"
             },
             "ehr_query_fragment": {
                 "field": "medication",
-                "operator": "not_exists",
-                "value": "Concurrent cetuximab or panitumumab",
+                "operator": "not_in",
+                "value": [
+                "cetuximab",
+                "panitumumab"
+                ],
                 "codes": []
             },
             "time_constraint": {
                 "type": "none",
                 "anchor": "NONE",
                 "value": 0,
-                "unit": "days",
+                "unit": "UNKNOWN",
                 "direction": "UNKNOWN",
                 "notes": "At the time of request."
             },
@@ -45,24 +48,17 @@
                 "bevacizumab",
                 "cetuximab",
                 "panitumumab",
-                "combination therapy"
+                "investigational combination"
             ],
             "preferred_data_domains": [
                 "medication"
             ],
-            "route_plan": {
-                "primary_tool": "ehr_sql_query_tool",
-                "fallback_tool": "clinical_note_semantic_search_tool",
-                "max_tool_hops": 2,
-                "stop_when_primary_resolves": true,
-                "sql_only_for_missing": false
-            },
             "prefill_strategy": "suggest",
             "clinician_must_confirm": true,
             "source_criterion_snapshot": {
                 "policy_time_language": "At the time of request.",
                 "code_binding": {
-                "origin": "none",
+                "origin": "UNKNOWN",
                 "confidence": "UNKNOWN",
                 "source_codes": [],
                 "code_role": "UNKNOWN",
@@ -88,43 +84,36 @@
                 "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
                 "retrieval_strategy": "hybrid",
                 "semantic_model_entity": "medication",
-                "time_anchor_field": "NONE"
+                "time_anchor_field": "order_datetime"
             },
             "ehr_query_fragment": {
                 "field": "medication",
                 "operator": "not_exists",
-                "value": "Bevacizumab administered with pemetrexed maintenance",
+                "value": "pemetrexed maintenance use with bevacizumab",
                 "codes": []
             },
             "time_constraint": {
                 "type": "none",
                 "anchor": "NONE",
                 "value": 0,
-                "unit": "days",
+                "unit": "UNKNOWN",
                 "direction": "UNKNOWN",
                 "notes": "At the time of request."
             },
             "note_search_tokens": [
+                "pemetrexed maintenance",
                 "bevacizumab",
-                "pemetrexed",
-                "maintenance therapy"
+                "non-squamous NSCLC regimen"
             ],
             "preferred_data_domains": [
                 "medication"
             ],
-            "route_plan": {
-                "primary_tool": "ehr_sql_query_tool",
-                "fallback_tool": "clinical_note_semantic_search_tool",
-                "max_tool_hops": 2,
-                "stop_when_primary_resolves": true,
-                "sql_only_for_missing": false
-            },
             "prefill_strategy": "suggest",
             "clinician_must_confirm": true,
             "source_criterion_snapshot": {
                 "policy_time_language": "At the time of request.",
                 "code_binding": {
-                "origin": "none",
+                "origin": "UNKNOWN",
                 "confidence": "UNKNOWN",
                 "source_codes": [],
                 "code_role": "UNKNOWN",
@@ -155,7 +144,7 @@
             "ehr_query_fragment": {
                 "field": "condition",
                 "operator": "in",
-                "value": "Recurrent, unresectable, advanced, or metastatic non-squamous NSCLC",
+                "value": "Recurrent, unresectable, advanced, or metastatic non-squamous NSCLC diagnosis",
                 "codes": [
                 "C34.00-C34.92"
                 ]
@@ -164,24 +153,18 @@
                 "type": "none",
                 "anchor": "NONE",
                 "value": 0,
-                "unit": "days",
+                "unit": "UNKNOWN",
                 "direction": "UNKNOWN",
                 "notes": "At the time of request."
             },
             "note_search_tokens": [
                 "non-squamous non-small cell lung cancer",
-                "NSCLC"
+                "NSCLC",
+                "advanced NSCLC"
             ],
             "preferred_data_domains": [
                 "condition"
             ],
-            "route_plan": {
-                "primary_tool": "ehr_sql_query_tool",
-                "fallback_tool": "none",
-                "max_tool_hops": 2,
-                "stop_when_primary_resolves": true,
-                "sql_only_for_missing": true
-            },
             "prefill_strategy": "auto",
             "clinician_must_confirm": true,
             "source_criterion_snapshot": {
@@ -208,7 +191,7 @@
         }
     ],
     "notes": {
-        "planning_notes": "All scoped route, entry guard, and cluster criteria mapped within the selected non-squamous NSCLC initial phase context.",
+        "planning_notes": "Generated retrieval plan for the scoped NSCLC initial route/cluster guard and diagnosis requirements.",
         "confidence": "HIGH"
     }
     }

@@ -29,21 +29,21 @@
             "ehr_query_fragment": {
                 "field": "observation",
                 "operator": "equals",
-                "value": "CD20 positive by testing or analysis",
+                "value": "CD20 positive result",
                 "codes": []
             },
             "time_constraint": {
-                "type": "lookback",
-                "anchor": "effective_datetime",
+                "type": "none",
+                "anchor": "NONE",
                 "value": 0,
                 "unit": "days",
-                "direction": "within_prior",
-                "notes": "Confirmed by testing or analysis prior to therapy; lookback extent unspecified."
+                "direction": "UNKNOWN",
+                "notes": "Confirmed by testing or analysis prior to therapy; prior positive result acceptable."
             },
             "note_search_tokens": [
-                "CD20 positive",
-                "rituximab",
-                "CD20 testing"
+                "CD20 positivity",
+                "rituxan hycela",
+                "CD20-positive lymphoma"
             ],
             "preferred_data_domains": [
                 "observation"
@@ -53,27 +53,27 @@
             "source_criterion_snapshot": {
                 "policy_time_language": "Confirmed by testing or analysis prior to therapy",
                 "code_binding": {
-                    "origin": "none",
-                    "confidence": "UNKNOWN",
-                    "source_codes": [],
-                    "code_role": "UNKNOWN",
-                    "status": "UNKNOWN"
+                "origin": "none",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
                 },
                 "locator": {
-                    "section_path": [
-                        "Treatment of Hematologic and Oncologic Conditions",
-                        "I. Criteria for Initial Approval",
-                        "A. Oncologic indications"
-                    ],
-                    "page_start": 2,
-                    "page_end": 3
+                "section_path": [
+                    "Treatment of Hematologic and Oncologic Conditions",
+                    "I. Criteria for Initial Approval",
+                    "A. Oncologic indications"
+                ],
+                "page_start": 2,
+                "page_end": 3
                 }
             }
         },
         {
             "criterion_id": "CR_DIAG_ONCOLOGY",
             "criterion_kind": "cluster_criterion",
-            "prompt": "Confirm the member has a diagnosis of a CD20-positive hematologic or oncologic disorder listed in Section I.A (e.g., B-cell lymphoma, CLL/SLL, PTLD, ROSAI-Dorfman, or Waldenstr\"om macroglobulinemia).",
+            "prompt": "Confirm the member has a diagnosis of a CD20-positive hematologic or oncologic disorder listed in Section I.A (e.g., B-cell lymphoma, CLL/SLL, PTLD, ROSAI-Dorfman, or Waldenström macroglobulinemia).",
             "clinical_intent": "Establish the covered CD20-positive malignancy.",
             "execution_hints": {
                 "criterion_archetype": "ARC_dx_code_range_with_lookback",
@@ -84,8 +84,44 @@
             "ehr_query_fragment": {
                 "field": "condition",
                 "operator": "in",
-                "value": "CD20-positive hematologic or oncologic disorder from policy list",
+                "value": "CD20-positive hematologic or oncologic disorder",
                 "codes": [
+                "C81.00 - C81.99",
+                "C82.00 - C82.99",
+                "C83.00 - C83.99",
+                "C85.10 - C85.29",
+                "C85.80 - C85.99",
+                "C88.00 - C88.41",
+                "C91.00 - C91.42",
+                "D47.Z1",
+                "D47.Z2",
+                "D89.1"
+                ]
+            },
+            "time_constraint": {
+                "type": "none",
+                "anchor": "NONE",
+                "value": 0,
+                "unit": "days",
+                "direction": "UNKNOWN",
+                "notes": "Current or previously documented diagnosis is acceptable."
+            },
+            "note_search_tokens": [
+                "B-cell lymphoma",
+                "CLL/SLL",
+                "Waldenström macroglobulinemia"
+            ],
+            "preferred_data_domains": [
+                "condition"
+            ],
+            "prefill_strategy": "auto",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+                "policy_time_language": "Current or previously documented diagnosis",
+                "code_binding": {
+                "origin": "code_table_primary",
+                "confidence": "HIGH",
+                "source_codes": [
                     "C81.00 - C81.99",
                     "C82.00 - C82.99",
                     "C83.00 - C83.99",
@@ -96,50 +132,18 @@
                     "D47.Z1",
                     "D47.Z2",
                     "D89.1"
-                ]
-            },
-            "time_constraint": {
-                "type": "lookback",
-                "anchor": "effective_datetime",
-                "value": 0,
-                "unit": "days",
-                "direction": "within_prior",
-                "notes": "Current or previously documented diagnosis; no specific lookback window."
-            },
-            "note_search_tokens": [],
-            "preferred_data_domains": [
-                "condition"
-            ],
-            "prefill_strategy": "auto",
-            "clinician_must_confirm": true,
-            "source_criterion_snapshot": {
-                "policy_time_language": "Current or previously documented diagnosis",
-                "code_binding": {
-                    "origin": "code_table_primary",
-                    "confidence": "MEDIUM",
-                    "source_codes": [
-                        "C81.00 - C81.99",
-                        "C82.00 - C82.99",
-                        "C83.00 - C83.99",
-                        "C85.10 - C85.29",
-                        "C85.80 - C85.99",
-                        "C88.00 - C88.41",
-                        "C91.00 - C91.42",
-                        "D47.Z1",
-                        "D47.Z2",
-                        "D89.1"
-                    ],
-                    "code_role": "diagnosis_inclusion",
-                    "status": "mapped"
+                ],
+                "code_role": "diagnosis_inclusion",
+                "status": "mapped"
                 },
                 "locator": {
-                    "section_path": [
-                        "Treatment of Hematologic and Oncologic Conditions",
-                        "I. Criteria for Initial Approval",
-                        "A. Oncologic indications"
-                    ],
-                    "page_start": 2,
-                    "page_end": 3
+                "section_path": [
+                    "Treatment of Hematologic and Oncologic Conditions",
+                    "I. Criteria for Initial Approval",
+                    "A. Oncologic indications"
+                ],
+                "page_start": 2,
+                "page_end": 3
                 }
             }
         },
@@ -149,58 +153,59 @@
             "prompt": "Is there no evidence of unacceptable rituximab toxicity for the oncologic indication?",
             "clinical_intent": "Document the toxicity threshold for oncologic continuation.",
             "execution_hints": {
-                "criterion_archetype": "ARC_note_only",
-                "retrieval_strategy": "note_first",
+                "criterion_archetype": "ARC_hybrid_structured_note",
+                "retrieval_strategy": "hybrid",
                 "semantic_model_entity": "document",
                 "time_anchor_field": "NONE"
             },
             "ehr_query_fragment": {
                 "field": "document",
-                "operator": "qualifier_exists",
-                "value": "No evidence of unacceptable rituximab toxicity noted",
+                "operator": "exists",
+                "value": "rituximab toxicity assessment",
                 "codes": []
             },
             "time_constraint": {
                 "type": "none",
                 "anchor": "NONE",
                 "value": 0,
-                "unit": "UNKNOWN",
+                "unit": "days",
                 "direction": "UNKNOWN",
-                "notes": "At the time of reauthorization; current evidence required."
+                "notes": "At the time of reauthorization; no explicit lookback window provided."
             },
             "note_search_tokens": [
                 "rituximab toxicity",
                 "unacceptable toxicity",
-                "continuation of therapy"
+                "continuation assessment"
             ],
             "preferred_data_domains": [
+                "condition",
                 "document"
             ],
-            "prefill_strategy": "suggest",
+            "prefill_strategy": "auto",
             "clinician_must_confirm": true,
             "source_criterion_snapshot": {
                 "policy_time_language": "At the time of reauthorization",
                 "code_binding": {
-                    "origin": "none",
-                    "confidence": "UNKNOWN",
-                    "source_codes": [],
-                    "code_role": "UNKNOWN",
-                    "status": "UNKNOWN"
+                "origin": "none",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
                 },
                 "locator": {
-                    "section_path": [
-                        "Treatment of Hematologic and Oncologic Conditions",
-                        "II. Continuation of Therapy",
-                        "A. Oncologic indications"
-                    ],
-                    "page_start": 4,
-                    "page_end": 4
+                "section_path": [
+                    "Treatment of Hematologic and Oncologic Conditions",
+                    "II. Continuation of Therapy",
+                    "A. Oncologic indications"
+                ],
+                "page_start": 4,
+                "page_end": 4
                 }
             }
         }
     ],
     "notes": {
-        "planning_notes": "Generated retrieval items for the scoped CD20 positivity guard, oncologic diagnosis confirmation, and continuation toxicity evaluation requirements.",
-        "confidence": "HIGH"
+        "planning_notes": "Generated retrieval plan for the continuation cluster of Rituxan Hycela with no route guard criteria in scope.",
+        "confidence": "MEDIUM"
     }
-}
+    }

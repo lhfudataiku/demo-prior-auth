@@ -130,7 +130,7 @@ Prompt:
 
 Responsibility:
 - evaluate one atomic criterion using chart evidence
-- return `Found`, `Missing`, `Ambiguous`, or `Unreviewed`
+- return a consistent `status` / `meets_criterion` pair
 - provide evidence and justification
 
 ## Selection Resolver
@@ -261,12 +261,34 @@ Use only if the webapp must support resume/reload.
 
 The evaluator runs after `criterion_result_map` is complete.
 
+`criterion_result_map` design rule:
+- `extracted_value` should contain only compact normalized result content useful
+  for prefill or downstream logic
+- raw structured rows and note excerpts belong in `sources`
+- `sources.structured` should include all relevant returned EHR records rather
+  than a single aggregated source item
+- `sources.notes` should use clinician-reviewable excerpts plus a brief
+  explanation of why each excerpt matters
+- each note excerpt should be a focused local passage, not the full retrieved
+  chunk
+- reasoning belongs in `justification`
+
 ### Criterion normalization
 - `Found` + `meets_criterion=true` -> satisfied
 - `Found` + `meets_criterion=false` -> not satisfied
-- `Missing` -> not satisfied
-- `Ambiguous` -> unresolved
+- `Missing` + `meets_criterion=false` -> not satisfied due to missing chart evidence
+- `Ambiguous` + `meets_criterion=false` -> unresolved
 - `Unreviewed` -> unresolved
+
+Contract:
+- `status` is the chart-evidence resolution field used to decide whether the
+  webapp should prompt the clinician
+- `meets_criterion` is the pass/fail adjudication field and may be `true` only
+  when `status = Found`
+- for exclusionary criteria, chart silence is not enough to satisfy the
+  criterion; documented absence of the disqualifying fact is required
+- if that documented absence is not found, return `Missing` +
+  `meets_criterion=false`
 
 ### Operators
 - `all`

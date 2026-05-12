@@ -20,18 +20,16 @@
             "prompt": "Is the peak flow meter being requested solely to diagnose chronic obstructive pulmonary disease (COPD)?",
             "clinical_intent": "Ensure the device is not being used solely for COPD diagnosis.",
             "execution_hints": {
-                "criterion_archetype": "ARC_dx_code_range_with_lookback",
-                "retrieval_strategy": "sql_first",
-                "semantic_model_entity": "condition",
-                "time_anchor_field": "effective_datetime"
+                "criterion_archetype": "ARC_note_only",
+                "retrieval_strategy": "note_first",
+                "semantic_model_entity": "document",
+                "time_anchor_field": "NONE"
             },
             "ehr_query_fragment": {
-                "field": "condition",
-                "operator": "in",
-                "value": "COPD diagnosis (e.g., J44.*)",
-                "codes": [
-                    "J44.0-J44.9"
-                ]
+                "field": "document",
+                "operator": "qualifier_exists",
+                "value": "Statements describing the indication for the peak flow meter and whether it is intended to diagnose COPD",
+                "codes": []
             },
             "time_constraint": {
                 "type": "none",
@@ -39,32 +37,34 @@
                 "value": 0,
                 "unit": "UNKNOWN",
                 "direction": "UNKNOWN",
-                "notes": "NONE"
+                "notes": "No specific timing language provided."
             },
             "note_search_tokens": [
                 "COPD",
-                "chronic obstructive pulmonary disease"
+                "peak flow request",
+                "diagnosis intent",
+                "obstructive pulmonary condition"
             ],
             "preferred_data_domains": [
-                "condition"
+                "document"
             ],
-            "prefill_strategy": "auto",
+            "prefill_strategy": "suggest",
             "clinician_must_confirm": true,
             "source_criterion_snapshot": {
                 "policy_time_language": "UNKNOWN",
                 "code_binding": {
-                    "origin": "UNKNOWN",
-                    "confidence": "UNKNOWN",
-                    "source_codes": [],
-                    "code_role": "UNKNOWN",
-                    "status": "UNKNOWN"
+                "origin": "none",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
                 },
                 "locator": {
-                    "section_path": [
-                        "III. Policy Limitations and Exclusions"
-                    ],
-                    "page_start": 2,
-                    "page_end": 2
+                "section_path": [
+                    "III. Policy Limitations and Exclusions"
+                ],
+                "page_start": 2,
+                "page_end": 2
                 }
             }
         },
@@ -82,11 +82,11 @@
             "ehr_query_fragment": {
                 "field": "condition",
                 "operator": "in",
-                "value": "Obstructive pulmonary disease diagnosis",
+                "value": "Asthma or other obstructive pulmonary disease diagnosis codes",
                 "codes": [
-                    "J20.0-J21.9",
-                    "J40-J47.9",
-                    "J67.0-J67.9"
+                "J20.0-J21.9",
+                "J40-J47.9",
+                "J67.0-J67.9"
                 ]
             },
             "time_constraint": {
@@ -95,12 +95,13 @@
                 "value": 0,
                 "unit": "UNKNOWN",
                 "direction": "UNKNOWN",
-                "notes": "NONE"
+                "notes": "No explicit timing requirement."
             },
             "note_search_tokens": [
                 "Asthma",
                 "Bronchitis",
-                "Emphysema"
+                "Emphysema",
+                "Obstructive pulmonary disease"
             ],
             "preferred_data_domains": [
                 "condition"
@@ -110,28 +111,28 @@
             "source_criterion_snapshot": {
                 "policy_time_language": "UNKNOWN",
                 "code_binding": {
-                    "origin": "code_table_primary",
-                    "confidence": "HIGH",
-                    "source_codes": [
-                        "J20.0-J21.9",
-                        "J40-J47.9",
-                        "J67.0-J67.9"
-                    ],
-                    "code_role": "diagnosis_inclusion",
-                    "status": "mapped"
+                "origin": "code_table_primary",
+                "confidence": "HIGH",
+                "source_codes": [
+                    "J20.0-J21.9",
+                    "J40-J47.9",
+                    "J67.0-J67.9"
+                ],
+                "code_role": "diagnosis_inclusion",
+                "status": "mapped"
                 },
                 "locator": {
-                    "section_path": [
-                        "CPT Codes / HCPCS Codes / ICD-10 Codes"
-                    ],
-                    "page_start": 2,
-                    "page_end": 2
+                "section_path": [
+                    "CPT Codes / HCPCS Codes / ICD-10 Codes"
+                ],
+                "page_start": 2,
+                "page_end": 2
                 }
             }
         }
     ],
     "notes": {
-        "planning_notes": "Structured condition queries for COPD exclusion and obstructive pulmonary diagnosis coverage are scoped to the selected route.",
+        "planning_notes": "Planned evidence retrieval for the selected route guard and cluster criterion within the scoped obstructive pulmonary condition policy context.",
         "confidence": "HIGH"
     }
-}
+    }

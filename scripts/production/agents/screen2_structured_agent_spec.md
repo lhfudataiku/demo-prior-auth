@@ -229,12 +229,36 @@ Recommended DSS 14.5+ flow:
   "CRITERION_ID": {
     "status": "Found | Missing | Ambiguous | Unreviewed",
     "meets_criterion": true,
-    "extracted_value": "typed value or null",
+    "extracted_value": "compact normalized value or null",
     "sources": {},
     "justification": "string or null"
   }
 }
 ```
+
+Guidance:
+- `status` is the chart-evidence resolution field:
+  - `Found` means the chart is sufficient to classify the criterion
+  - `Missing` means the chart does not contain the required supporting evidence
+  - `Ambiguous` means relevant evidence exists but the qualifier-level
+    conclusion is unresolved
+  - `Unreviewed` means not yet evaluated
+- `meets_criterion` is the adjudication field and may be `true` only when
+  `status = Found`
+- `extracted_value` should be a compact normalized result for UI prefill or
+  downstream logic, not a duplicate of raw sources
+- `sources.structured` should hold all relevant returned EHR records, not an
+  aggregated summary row
+- `sources.notes` should hold clinician-reviewable excerpts plus why they
+  matter, not a single merged snippet
+- `sources.notes[].excerpt` should be a focused 1-3 sentence local passage,
+  usually about 300-600 characters, preserving the original note wording
+- `sources.notes[].why_it_matters` should briefly explain why that passage was
+  selected for this criterion
+- `justification` should explain the decision, not restate the raw evidence
+- for exclusionary criteria, chart silence is not enough for satisfaction; if
+  documented absence of the disqualifying fact is not found, use
+  `status = Missing` and `meets_criterion = false`
 
 ### `logic_evaluation`
 

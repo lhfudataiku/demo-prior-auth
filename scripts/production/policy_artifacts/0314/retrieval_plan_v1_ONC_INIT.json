@@ -27,39 +27,31 @@
             },
             "ehr_query_fragment": {
                 "field": "observation",
-                "operator": "equals",
+                "operator": "qualifier_exists",
                 "value": "CD20 positivity confirmed",
                 "codes": []
             },
             "time_constraint": {
-                "type": "none",
-                "anchor": "NONE",
+                "type": "lookback",
+                "anchor": "effective_datetime",
                 "value": 0,
-                "unit": "UNKNOWN",
-                "direction": "UNKNOWN",
-                "notes": "Evidence should be documented before therapy, but the policy does not specify a fixed lookback."
+                "unit": "days",
+                "direction": "within_prior",
+                "notes": "Confirmed by testing or analysis prior to therapy as required by policy."
             },
             "note_search_tokens": [
-                "CD20 positive",
-                "B-cell lymphoma",
-                "rituximab"
+                "CD20 positive result",
+                "CD20 positivity testing"
             ],
             "preferred_data_domains": [
                 "observation"
             ],
-            "route_plan": {
-                "primary_tool": "ehr_sql_query_tool",
-                "fallback_tool": "none",
-                "max_tool_hops": 2,
-                "stop_when_primary_resolves": true,
-                "sql_only_for_missing": true
-            },
             "prefill_strategy": "suggest",
             "clinician_must_confirm": true,
             "source_criterion_snapshot": {
                 "policy_time_language": "Confirmed by testing or analysis prior to therapy",
                 "code_binding": {
-                "origin": "UNKNOWN",
+                "origin": "none",
                 "confidence": "UNKNOWN",
                 "source_codes": [],
                 "code_role": "UNKNOWN",
@@ -79,7 +71,7 @@
         {
             "criterion_id": "CR_DIAG_ONCOLOGY",
             "criterion_kind": "cluster_criterion",
-            "prompt": "Confirm the member has a diagnosis of a CD20-positive hematologic or oncologic disorder listed in Section I.A (e.g., B-cell lymphoma, CLL/SLL, PTLD, ROSAI-Dorfman, or Waldenstr\u0000m macroglobulinemia).",
+            "prompt": "Confirm the member has a diagnosis of a CD20-positive hematologic or oncologic disorder listed in Section I.A (e.g., B-cell lymphoma, CLL/SLL, PTLD, ROSAI-Dorfman, or Waldenström macroglobulinemia).",
             "clinical_intent": "Establish the covered CD20-positive malignancy.",
             "execution_hints": {
                 "criterion_archetype": "ARC_dx_code_range_with_lookback",
@@ -89,8 +81,8 @@
             },
             "ehr_query_fragment": {
                 "field": "condition",
-                "operator": "exists",
-                "value": "CD20-positive hematologic or oncologic disorder",
+                "operator": "in",
+                "value": "CD20-positive hematologic/oncologic diagnosis",
                 "codes": [
                 "C81.00 - C81.99",
                 "C82.00 - C82.99",
@@ -105,28 +97,20 @@
                 ]
             },
             "time_constraint": {
-                "type": "lookback",
-                "anchor": "effective_datetime",
+                "type": "none",
+                "anchor": "NONE",
                 "value": 0,
-                "unit": "days",
-                "direction": "within_prior",
-                "notes": "Current or previously documented diagnosis is acceptable."
+                "unit": "UNKNOWN",
+                "direction": "UNKNOWN",
+                "notes": "Current or previously documented diagnosis per policy language."
             },
             "note_search_tokens": [
-                "CD20-positive B-cell lymphoma",
-                "Chronic lymphocytic leukemia",
-                "Waldenstr\u0000m macroglobulinemia"
+                "CD20-positive lymphoma",
+                "Waldenström macroglobulinemia"
             ],
             "preferred_data_domains": [
                 "condition"
             ],
-            "route_plan": {
-                "primary_tool": "ehr_sql_query_tool",
-                "fallback_tool": "none",
-                "max_tool_hops": 2,
-                "stop_when_primary_resolves": true,
-                "sql_only_for_missing": true
-            },
             "prefill_strategy": "auto",
             "clinician_must_confirm": true,
             "source_criterion_snapshot": {
@@ -162,7 +146,7 @@
         }
     ],
     "notes": {
-        "planning_notes": "Plan derived from scoped CD20-positive oncologic criteria for initial rituximab therapy.",
+        "planning_notes": "Plan covers the scoped initial-phase oncologic cluster with CD20 positivity guard and diagnosis confirmation.",
         "confidence": "HIGH"
     }
     }

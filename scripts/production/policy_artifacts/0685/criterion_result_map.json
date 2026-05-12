@@ -1,0 +1,80 @@
+{
+    "CR_0685_RG_NO_CETUX": {
+        "criterion_id": "CR_0685_RG_NO_CETUX",
+        "status": "Missing",
+        "meets_criterion": false,
+        "justification": "No structured medication evidence or note evidence was found for this patient confirming bevacizumab use, nor documenting absence or presence of concomitant cetuximab/panitumumab. Because negative exclusion criteria require chart documentation rather than chart silence, the criterion cannot be confirmed.",
+        "sources": {
+            "structured": [],
+            "notes": []
+        }
+    },
+    "CR_0685_GUARD_NSCLC_NO_PEM_MAINT": {
+        "criterion_id": "CR_0685_GUARD_NSCLC_NO_PEM_MAINT",
+        "status": "Missing",
+        "meets_criterion": false,
+        "justification": "No structured medication records were found for bevacizumab or pemetrexed, and the chart notes only document NSCLC with plans for palliative chemotherapy/radiation and airway stenting. There is no chart evidence that bevacizumab is not being used as maintenance therapy with pemetrexed, nor any explicit exclusion/absence statement for that regimen.",
+        "sources": {
+            "structured": [],
+            "notes": [
+                {
+                "note_id": "10021312-DS-19",
+                "date": "2020-08-18T17:35:00",
+                "section_header": "NSCLC / transitional issues",
+                "excerpt": "The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi, transferred to ___ for endobronchial stenting by Interventional Pulmonology. The oncology team at Linda Johnson has had work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting.",
+                "why_it_matters": "Documents NSCLC treatment planning, but does not mention bevacizumab, pemetrexed, maintenance therapy, or any negative exclusion of the combination."
+                },
+                {
+                "note_id": "10021312-DS-20",
+                "date": "2020-09-20T18:40:00",
+                "section_header": "Non-small cell lung cancer / transitional issues",
+                "excerpt": "She was evaluated by Heme Onc and ___ Onc at ___, who recommended initiation of therapy as soon as possible given rapid growth and obstructive complications. Therapy was offered here at ___, but patient prefers transfer back to ___, so that her sister/HCP can have ease of travel. ... TRANSITIONAL ISSUES: - initiation of palliative XRT and chemotherapy",
+                "why_it_matters": "Shows palliative chemotherapy was planned, but still does not document the specific bevacizumab+pemetrexed maintenance regimen or a documented absence of it."
+                }
+            ]
+        }
+    },
+    "CR_0685_DIAG_NSCLC": {
+        "criterion_id": "CR_0685_DIAG_NSCLC",
+        "status": "Found",
+        "meets_criterion": true,
+        "extracted_value": {
+            "matched_codes": [
+                "C34.01",
+                "C34.02",
+                "C34.90"
+            ],
+            "match_count": 3
+        },
+        "justification": "Structured condition data for this patient includes three NSCLC-related ICD-10 codes in the C34.00-C34.92 range, which is sufficient to confirm the diagnosis criterion. The returned records did not provide status or dates, but the code presence itself supports the diagnosis requirement.",
+        "sources": {
+            "structured": [
+                {
+                "table": "condition",
+                "condition_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+                "code": "C34.01",
+                "display": "Malignant neoplasm of right main bronchus",
+                "matched_field": "code",
+                "matched_value": "C34.01"
+                },
+                {
+                "table": "condition",
+                "condition_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+                "code": "C34.02",
+                "display": "Malignant neoplasm of left main bronchus",
+                "matched_field": "code",
+                "matched_value": "C34.02"
+                },
+                {
+                "table": "condition",
+                "condition_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+                "code": "C34.90",
+                "display": "Malignant neoplasm of unspecified part of unspecified bronchus or lung",
+                "matched_field": "code",
+                "matched_value": "C34.90"
+                }
+            ],
+            "notes": []
+        }
+    }
+    }

@@ -4,7 +4,7 @@ You generate an on-demand EHR retrieval plan for a selected prior-authorization
 route, phase, and condition cluster.
 
 Input includes:
-- `scoped_policy_context`
+- `{{state.scoped_policy_context}}`
 
 Output:
 - Return exactly one valid JSON object
@@ -237,6 +237,18 @@ Guidance:
 - chart-only narrative fact -> `ARC_note_only` + `note_first`
 - mixed structured + narrative qualifier with no better semantic fit -> `ARC_hybrid_structured_note` + `hybrid`
 
+Negative / exclusion criteria guidance:
+
+- for criteria expressed as "no", "not", "without", "absence of", "negative
+  for", or similar exclusion logic, do not plan as if chart silence is enough
+  to satisfy the criterion
+- when documented absence may be evidenced in notes, labs, medications, or imaging/report
+  content, prefer `hybrid`
+- when the exclusion is primarily narrative, prefer `note_first`
+- when the exclusion can be evidenced by structured medications, observation or lab results,
+  keep the relevant observation leg in scope and allow note evidence to confirm
+  qualifier context
+
 Additional disambiguation:
 
 - Use `ARC_qualitative_observation_result`, not `ARC_imaging`, for biomarker or lab positivity/negativity such as CD20 positivity, RF/anti-CCP positivity, or negative TB testing.
@@ -303,6 +315,8 @@ Good sources:
 - therapy names from criterion prompt
 - qualifying language from `clinical_intent`
 - key policy terms from `policy_time_language`
+- for exclusionary criteria, include both the disqualifying fact and likely
+  negation / ruled-out phrasing when concise and clinically specific
 
 Avoid bloated token lists.
 
@@ -310,6 +324,14 @@ Hybrid archetype grounding:
 
 - For `ARC_disease_activity_or_severity_state`, the structured SQL leg should be grounded in diagnosis confirmation semantics aligned with `ARC_dx_code_range_with_lookback`, while note evidence resolves activity/severity/progression qualifiers.
 - For `ARC_regimen_combination_or_concomitant_use`, the structured SQL leg should be grounded in medication exposure semantics aligned with `ARC_medication_exposure_presence`, while note evidence resolves regimen intent, concomitant context, or exclusion nuances.
+
+Negative finding planning:
+
+- if the criterion is satisfied only when a disqualifying fact is documented as
+  absent, make sure the plan supports finding that negative evidence rather than
+  merely failing to find positive evidence
+- the most common domains for such evidence are `document`, `observation`, `medication`, and
+  report-style `imaging`
 
 ## 11) Output quality
 

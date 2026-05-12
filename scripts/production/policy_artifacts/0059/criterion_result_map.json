@@ -1,0 +1,87 @@
+{
+    "CR_ROUTE_NOT_DIAGNOSE_COPD": {
+        "criterion_id": "CR_ROUTE_NOT_DIAGNOSE_COPD",
+        "status": "Ambiguous",
+        "meets_criterion": false,
+        "justification": "Available patient-scoped note evidence does not mention a peak flow meter request or a COPD-only diagnostic indication. The record shows asthma/chronic cough history, but no direct statement that the device is being requested solely to diagnose COPD versus other obstructive pulmonary disease or asthma.",
+        "sources": {
+            "structured": [],
+            "notes": [
+                {
+                "note_id": "10039708-DS-18",
+                "date": "2025-09-19T18:36:00",
+                "section_header": "Past Medical History / HPI",
+                "excerpt": "Past Medical History:\nEtOh Cirrhosis \nStage IV CKD\nAnemia\nWernicke's Encephalopathy\nAsthma\nTobacco Use\nHTN\nHypothyroidism\n...\nShe denied CP. She had chronic cough and belly pain.",
+                "why_it_matters": "Mentions asthma and chronic cough, but does not document a peak flow meter order or clarify COPD-only diagnostic intent."
+                }
+            ]
+        }
+    },
+    "CR_CLUSTER_OBSTRUCTIVE_DIAG": {
+        "criterion_id": "CR_CLUSTER_OBSTRUCTIVE_DIAG",
+        "status": "Found",
+        "meets_criterion": true,
+        "extracted_value": {
+            "matched_codes": [
+                "J45.909"
+            ],
+            "match_count": 5
+        },
+        "justification": "Five patient-specific condition records match the requested obstructive pulmonary disease code range, all coded J45.909 (Unspecified asthma, uncomplicated). This satisfies the diagnosis criterion.",
+        "sources": {
+            "structured": [
+                {
+                "table": "condition",
+                "record_id": "66dca9ef-4edb-5e25-93a3-28747049034f",
+                "encounter_id": "0c4ee8c1-a9fb-5407-90d2-610a6921e92b",
+                "date": "2026-01-19",
+                "matched_field": "code",
+                "matched_value": "J45.909",
+                "code": "J45.909",
+                "display": "Unspecified asthma, uncomplicated"
+                },
+                {
+                "table": "condition",
+                "record_id": "c0c5eaad-0772-5a45-984a-6adf786c40b4",
+                "encounter_id": "68577c30-8973-5b58-a5d7-20497d146dfa",
+                "date": "2025-09-26",
+                "matched_field": "code",
+                "matched_value": "J45.909",
+                "code": "J45.909",
+                "display": "Unspecified asthma, uncomplicated"
+                },
+                {
+                "table": "condition",
+                "record_id": "b9225571-7eb0-5863-b3ce-884d4492cc14",
+                "encounter_id": "f6ba0112-a909-5ff8-b696-d8340fea922c",
+                "date": "2024-07-06",
+                "matched_field": "code",
+                "matched_value": "J45.909",
+                "code": "J45.909",
+                "display": "Unspecified asthma, uncomplicated"
+                },
+                {
+                "table": "condition",
+                "record_id": "fcc2651a-1209-566e-99bf-10e0ae38db7b",
+                "encounter_id": "b486c1ce-4567-57a8-94f3-7254272c50e4",
+                "date": "2022-06-18",
+                "matched_field": "code",
+                "matched_value": "J45.909",
+                "code": "J45.909",
+                "display": "Unspecified asthma, uncomplicated"
+                },
+                {
+                "table": "condition",
+                "record_id": "d12baf5d-ed9f-5615-b6f9-79c24d01ee2f",
+                "encounter_id": "2c10e025-bc96-58d4-90c2-79bebdb0e7e5",
+                "date": "2022-01-23",
+                "matched_field": "code",
+                "matched_value": "J45.909",
+                "code": "J45.909",
+                "display": "Unspecified asthma, uncomplicated"
+                }
+            ],
+            "notes": []
+        }
+    }
+    }
