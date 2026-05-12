@@ -155,7 +155,7 @@ Recommended DSS 14.5+ flow:
    - otherwise go to `plan_retrieval`
 
 3. `plan_retrieval` — `DELEGATE_TO_OTHER_AGENT`
-   - call `retrieval_planner_agent_prompt_v1.md`
+   - call `scripts/production/agents/retrieval_planner_agent_prompt_v1.md`
    - input:
      - `subject_id`
      - `scoped_policy_context`
@@ -169,7 +169,7 @@ Recommended DSS 14.5+ flow:
    - for each item, set `scratchpad["current_plan_item"]`
 
 5. `reason_one_criterion` — `DELEGATE_TO_OTHER_AGENT`
-   - call `criterion_reasoning_agent_prompt.md`
+   - call `scripts/production/agents/criterion_reasoning_agent_prompt.md`
    - input:
      - `subject_id`
      - `current_plan_item`
@@ -274,6 +274,17 @@ Guidance:
   }
 }
 ```
+
+Guidance:
+- `selected_cluster_status = satisfied`
+  - cluster logic passes from chart-backed evidence alone
+- `selected_cluster_status = not_satisfied`
+  - at least one criterion is chart-backed and fails
+- `selected_cluster_status = unresolved`
+  - one or more criteria still require clinician follow-up because evidence is
+    missing, ambiguous, or unreviewed
+- `unresolved_criterion_ids` should drive the Screen 2 prompt list for
+  clinician response
 
 ## First POC Build Scope
 

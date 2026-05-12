@@ -55,8 +55,8 @@ def _normalize_criterion_result(criterion_id: str, criterion_result_map: Criteri
         normalized["status"] = "not_satisfied"
         normalized["_not_satisfied_ids"].add(criterion_id)
     elif status == "Missing":
-        normalized["status"] = "not_satisfied"
-        normalized["_not_satisfied_ids"].add(criterion_id)
+        normalized["status"] = "unresolved"
+        normalized["_unresolved_ids"].add(criterion_id)
     else:
         normalized["status"] = "unresolved"
         normalized["_unresolved_ids"].add(criterion_id)

@@ -28,7 +28,7 @@
             "ehr_query_fragment": {
                 "field": "document",
                 "operator": "qualifier_exists",
-                "value": "Statements describing the indication for the peak flow meter and whether it is intended to diagnose COPD",
+                "value": "COPD diagnosis intent or chronic obstructive pulmonary disease evaluation for peak flow meter",
                 "codes": []
             },
             "time_constraint": {
@@ -37,16 +37,16 @@
                 "value": 0,
                 "unit": "UNKNOWN",
                 "direction": "UNKNOWN",
-                "notes": "No specific timing language provided."
+                "notes": "UNKNOWN"
             },
             "note_search_tokens": [
                 "COPD",
-                "peak flow request",
-                "diagnosis intent",
-                "obstructive pulmonary condition"
+                "chronic obstructive pulmonary disease",
+                "peak flow meter",
+                "diagnose COPD"
             ],
             "preferred_data_domains": [
-                "document"
+                "condition"
             ],
             "prefill_strategy": "suggest",
             "clinician_must_confirm": true,
@@ -82,7 +82,7 @@
             "ehr_query_fragment": {
                 "field": "condition",
                 "operator": "in",
-                "value": "Asthma or other obstructive pulmonary disease diagnosis codes",
+                "value": "Obstructive pulmonary diagnosis (asthma, bronchitis, emphysema, or similar)",
                 "codes": [
                 "J20.0-J21.9",
                 "J40-J47.9",
@@ -95,7 +95,7 @@
                 "value": 0,
                 "unit": "UNKNOWN",
                 "direction": "UNKNOWN",
-                "notes": "No explicit timing requirement."
+                "notes": "UNKNOWN"
             },
             "note_search_tokens": [
                 "Asthma",
@@ -132,7 +132,7 @@
         }
     ],
     "notes": {
-        "planning_notes": "Planned evidence retrieval for the selected route guard and cluster criterion within the scoped obstructive pulmonary condition policy context.",
+        "planning_notes": "Plan covers the COPD intent guard and the obstructive pulmonary diagnosis confirmation requirements for peak flow meter coverage.",
         "confidence": "HIGH"
     }
     }

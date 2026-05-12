@@ -43,6 +43,17 @@ The webapp should show:
 - unresolved items that need clinician input
 - explicit chart conflicts
 
+Recommended UI behavior:
+- `status = Found` and `meets_criterion = true`
+  - show as chart-supported and satisfied
+- `status = Found` and `meets_criterion = false`
+  - show as chart-supported and not satisfied
+- `status = Missing`
+  - show as unresolved and prompt clinician review or manual confirmation
+- `status = Ambiguous`
+  - show as unresolved and prompt clinician resolution of conflicting or
+    incomplete evidence
+
 ### Screen 3: Final Review
 The webapp should summarize:
 - answered criteria
@@ -126,7 +137,7 @@ Responsibility:
 
 #### 4. Criterion Reasoning Agent
 Prompt:
-- `scripts/criterion_reasoning_agent_prompt.md`
+- `scripts/production/agents/criterion_reasoning_agent_prompt.md`
 
 Responsibility:
 - evaluate one atomic criterion using chart evidence
@@ -276,7 +287,7 @@ The evaluator runs after `criterion_result_map` is complete.
 ### Criterion normalization
 - `Found` + `meets_criterion=true` -> satisfied
 - `Found` + `meets_criterion=false` -> not satisfied
-- `Missing` + `meets_criterion=false` -> not satisfied due to missing chart evidence
+- `Missing` + `meets_criterion=false` -> unresolved and should prompt clinician follow-up
 - `Ambiguous` + `meets_criterion=false` -> unresolved
 - `Unreviewed` -> unresolved
 
@@ -288,7 +299,7 @@ Contract:
 - for exclusionary criteria, chart silence is not enough to satisfy the
   criterion; documented absence of the disqualifying fact is required
 - if that documented absence is not found, return `Missing` +
-  `meets_criterion=false`
+  `meets_criterion=false`, and let the webapp prompt for clinician review
 
 ### Operators
 - `all`
@@ -342,5 +353,6 @@ The POC is successful if:
 - `scripts/production/functions/route_index_builder.py`
 - `scripts/production/functions/selection_resolver.py`
 - `scripts/production/functions/logic_tree_evaluator.py`
-- `scripts/criterion_reasoning_agent_prompt.md`
+- `scripts/production/functions/evaluator_regression.py`
+- `scripts/production/agents/criterion_reasoning_agent_prompt.md`
 - `scripts/production/prior-auth_assistant_flowchart.md`
