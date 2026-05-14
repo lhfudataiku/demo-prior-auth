@@ -2,8 +2,8 @@
     "policy_id": "0655",
     "routes": [
         {
-            "route_id": "RT_ADALIMUMAB_COVERED",
-            "label": "Adalimumab and biosimilars for covered indications",
+            "route_id": "RR_ADAL",
+            "label": "Adalimumab and biosimilars (medical)",
             "coverage_status": "covered",
             "terminal_disposition": "continue",
             "billing_codes": [
@@ -21,16 +21,17 @@
                     "phase": "initial",
                     "is_default": true,
                     "route_guard_ids": [
-                        "RG_TB_SCREEN",
-                        "RG_NO_CONCOMITANT"
+                        "RG_ADAL_TB_SCREEN",
+                        "RG_ADAL_NO_CONCOM"
                     ],
                     "cluster_summaries": [
                         {
-                            "cluster_id": "CL_RA_INITIAL",
-                            "condition_key": "rheumatoid_arthritis",
-                            "condition_label": "Rheumatoid arthritis (moderately to severely active)",
+                            "cluster_id": "CC_INITIAL_RA",
+                            "condition_key": "RA_initial",
+                            "condition_label": "Moderately to severely active rheumatoid arthritis (adult)",
                             "condition_synonyms": [
-                                "RA"
+                                "Rheumatoid arthritis",
+                                "Moderately to severely active RA"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
@@ -41,10 +42,11 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_JIA_INITIAL",
-                            "condition_key": "juvenile_idiopathic_arthritis",
-                            "condition_label": "Articular juvenile idiopathic arthritis (JIA)",
+                            "cluster_id": "CC_INITIAL_JIA",
+                            "condition_key": "JIA_initial",
+                            "condition_label": "Moderate to severely active articular juvenile idiopathic arthritis (age 2+)",
                             "condition_synonyms": [
+                                "Articular juvenile idiopathic arthritis",
                                 "JIA"
                             ],
                             "diagnosis_basis": "code_table_primary",
@@ -54,25 +56,24 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_PSA_INITIAL",
-                            "condition_key": "psoriatic_arthritis",
-                            "condition_label": "Psoriatic arthritis",
+                            "cluster_id": "CC_INITIAL_PSA",
+                            "condition_key": "PsA_initial",
+                            "condition_label": "Active psoriatic arthritis (adult)",
                             "condition_synonyms": [
+                                "Psoriatic arthritis",
                                 "PsA"
                             ],
-                            "diagnosis_basis": "code_table_primary",
-                            "diagnosis_code_candidates": [
-                                "L40.50 - L40.9"
-                            ],
+                            "diagnosis_basis": "narrative_primary",
+                            "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_AS_INITIAL",
-                            "condition_key": "ankylosing_spondylitis",
-                            "condition_label": "Ankylosing spondylitis / non-radiographic axial spondyloarthritis",
+                            "cluster_id": "CC_INITIAL_AS",
+                            "condition_key": "AS_initial",
+                            "condition_label": "Active ankylosing spondylitis or non-radiographic axial spondyloarthritis (adult)",
                             "condition_synonyms": [
-                                "AS",
-                                "nr-axSpA"
+                                "Ankylosing spondylitis",
+                                "Non-radiographic axial spondyloarthritis"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
@@ -81,11 +82,11 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_CD_INITIAL",
-                            "condition_key": "crohns_disease",
-                            "condition_label": "Crohn’s disease (moderately to severely active)",
+                            "cluster_id": "CC_INITIAL_CD",
+                            "condition_key": "Crohn_initial",
+                            "condition_label": "Moderately to severely active Crohn's disease",
                             "condition_synonyms": [
-                                "CD"
+                                "Crohn's disease"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
@@ -94,11 +95,11 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_UC_INITIAL",
-                            "condition_key": "ulcerative_colitis",
-                            "condition_label": "Ulcerative colitis (moderately to severely active)",
+                            "cluster_id": "CC_INITIAL_UC",
+                            "condition_key": "UC_initial",
+                            "condition_label": "Moderately to severely active ulcerative colitis",
                             "condition_synonyms": [
-                                "UC"
+                                "Ulcerative colitis"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
@@ -107,24 +108,25 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_PSO_INITIAL",
-                            "condition_key": "plaque_psoriasis",
-                            "condition_label": "Plaque psoriasis",
+                            "cluster_id": "CC_INITIAL_PSO",
+                            "condition_key": "Psoriasis_initial",
+                            "condition_label": "Moderate to severe plaque psoriasis (adult)",
                             "condition_synonyms": [
-                                "PsO"
+                                "Plaque psoriasis",
+                                "Psoriasis (adult)"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
-                                "L40.0 - L04.3",
-                                "L40.50 - L40.9"
+                                "L40.0 - L04.3, L40.50 - L40.9"
                             ],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_HS_INITIAL",
-                            "condition_key": "hidradenitis_suppurativa",
-                            "condition_label": "Hidradenitis suppurativa",
+                            "cluster_id": "CC_INITIAL_HS",
+                            "condition_key": "HS_initial",
+                            "condition_label": "Moderate to severe hidradenitis suppurativa (age 12+)",
                             "condition_synonyms": [
+                                "Hidradenitis suppurativa",
                                 "HS"
                             ],
                             "diagnosis_basis": "code_table_primary",
@@ -134,11 +136,12 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_UVEITIS_INITIAL",
-                            "condition_key": "uveitis",
-                            "condition_label": "Non-infectious intermediate, posterior, and panuveitis",
+                            "cluster_id": "CC_INITIAL_UVEITIS",
+                            "condition_key": "Uveitis_initial",
+                            "condition_label": "Non-infectious intermediate, posterior, and panuveitis (age 2+)",
                             "condition_synonyms": [
-                                "Uveitis"
+                                "Non-infectious uveitis",
+                                "Intermediate/posterior/panuveitis"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
@@ -149,11 +152,11 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_BEHCET_INITIAL",
-                            "condition_key": "behcets_disease",
-                            "condition_label": "Behçet’s disease",
+                            "cluster_id": "CC_INITIAL_BEHCET",
+                            "condition_key": "Behcet_initial",
+                            "condition_label": "Behcet's disease",
                             "condition_synonyms": [
-                                "Behçet’s"
+                                "Behcet’s disease"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
@@ -162,11 +165,11 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_PG_INITIAL",
-                            "condition_key": "pyoderma_gangrenosum",
+                            "cluster_id": "CC_INITIAL_PG",
+                            "condition_key": "Pyoderma_initial",
                             "condition_label": "Pyoderma gangrenosum",
                             "condition_synonyms": [
-                                "PG"
+                                "Pyoderma gangrenosum"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
@@ -175,15 +178,16 @@
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_ICIT_INITIAL",
-                            "condition_key": "immune_checkpoint_related_toxicity",
-                            "condition_label": "Immune checkpoint inhibitor-related inflammatory arthritis",
+                            "cluster_id": "CC_INITIAL_ICI",
+                            "condition_key": "ICI_initial",
+                            "condition_label": "Immune checkpoint inhibitor-related toxicity (moderate or severe inflammatory arthritis)",
                             "condition_synonyms": [
-                                "ICIT"
+                                "Immune checkpoint inhibitor-related toxicity",
+                                "ICI-related inflammatory arthritis"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
-                                "T45.AX5A"
+                                "T45.AX5A - T45.AX5S"
                             ],
                             "cluster_entry_guard_ids": []
                         }
@@ -193,147 +197,147 @@
                     "phase": "continuation",
                     "is_default": false,
                     "route_guard_ids": [
-                        "RG_TB_SCREEN",
-                        "RG_NO_CONCOMITANT"
+                        "RG_ADAL_NO_CONCOM"
                     ],
                     "cluster_summaries": [
                         {
-                            "cluster_id": "CL_RA_CONTINUATION",
-                            "condition_key": "rheumatoid_arthritis_continuation",
-                            "condition_label": "Rheumatoid arthritis continuation",
+                            "cluster_id": "CC_CONT_RA",
+                            "condition_key": "RA_continuation",
+                            "condition_label": "Continued therapy for rheumatoid arthritis",
                             "condition_synonyms": [
-                                "RA"
+                                "Rheumatoid arthritis continuation",
+                                "RA maintenance"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_JIA_CONTINUATION",
-                            "condition_key": "juvenile_idiopathic_arthritis_continuation",
-                            "condition_label": "Articular JIA continuation",
+                            "cluster_id": "CC_CONT_JIA",
+                            "condition_key": "JIA_continuation",
+                            "condition_label": "Continued therapy for articular juvenile idiopathic arthritis",
                             "condition_synonyms": [
-                                "JIA"
+                                "JIA continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_PSA_CONTINUATION",
-                            "condition_key": "psoriatic_arthritis_continuation",
-                            "condition_label": "Psoriatic arthritis continuation",
+                            "cluster_id": "CC_CONT_PSA",
+                            "condition_key": "PsA_continuation",
+                            "condition_label": "Continued therapy for psoriatic arthritis",
                             "condition_synonyms": [
-                                "PsA"
+                                "Psoriatic arthritis continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_AS_CONTINUATION",
-                            "condition_key": "ankylosing_spondylitis_continuation",
-                            "condition_label": "Ankylosing spondylitis continuation",
+                            "cluster_id": "CC_CONT_AS",
+                            "condition_key": "AS_continuation",
+                            "condition_label": "Continued therapy for ankylosing spondylitis and nr-axSpA",
                             "condition_synonyms": [
-                                "AS",
-                                "nr-axSpA"
+                                "Ankylosing spondylitis continuation",
+                                "nr-axSpA continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_CD_CONTINUATION",
-                            "condition_key": "crohns_disease_continuation",
-                            "condition_label": "Crohn’s disease continuation",
+                            "cluster_id": "CC_CONT_CD",
+                            "condition_key": "Crohn_continuation",
+                            "condition_label": "Continued therapy for Crohn's disease",
                             "condition_synonyms": [
-                                "CD"
+                                "Crohn’s disease continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_UC_CONTINUATION",
-                            "condition_key": "ulcerative_colitis_continuation",
-                            "condition_label": "Ulcerative colitis continuation",
+                            "cluster_id": "CC_CONT_UC",
+                            "condition_key": "UC_continuation",
+                            "condition_label": "Continued therapy for ulcerative colitis",
                             "condition_synonyms": [
-                                "UC"
+                                "Ulcerative colitis continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_PSO_CONTINUATION",
-                            "condition_key": "plaque_psoriasis_continuation",
-                            "condition_label": "Plaque psoriasis continuation",
+                            "cluster_id": "CC_CONT_PSO",
+                            "condition_key": "Psoriasis_continuation",
+                            "condition_label": "Continued therapy for plaque psoriasis",
                             "condition_synonyms": [
-                                "PsO"
+                                "Plaque psoriasis continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_HS_CONTINUATION",
-                            "condition_key": "hidradenitis_suppurativa_continuation",
-                            "condition_label": "Hidradenitis suppurativa continuation",
+                            "cluster_id": "CC_CONT_HS",
+                            "condition_key": "HS_continuation",
+                            "condition_label": "Continued therapy for hidradenitis suppurativa",
                             "condition_synonyms": [
-                                "HS"
+                                "Hidradenitis suppurativa continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_UVEITIS_CONTINUATION",
-                            "condition_key": "uveitis_continuation",
-                            "condition_label": "Uveitis continuation",
+                            "cluster_id": "CC_CONT_UVEITIS",
+                            "condition_key": "Uveitis_continuation",
+                            "condition_label": "Continued therapy for non-infectious intermediate, posterior, and panuveitis",
                             "condition_synonyms": [
-                                "Uveitis"
+                                "Uveitis continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_BEHCET_CONTINUATION",
-                            "condition_key": "behcets_disease_continuation",
-                            "condition_label": "Behçet’s disease continuation",
+                            "cluster_id": "CC_CONT_ICI",
+                            "condition_key": "ICI_continuation",
+                            "condition_label": "Continued therapy for immune checkpoint inhibitor-related toxicity",
                             "condition_synonyms": [
-                                "Behçet’s"
+                                "Immune checkpoint inhibitor-mediated arthritis continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_PG_CONTINUATION",
-                            "condition_key": "pyoderma_gangrenosum_continuation",
-                            "condition_label": "Pyoderma gangrenosum continuation",
+                            "cluster_id": "CC_CONT_BEHCET",
+                            "condition_key": "Behcet_continuation",
+                            "condition_label": "Continued therapy for Behcet's disease",
                             "condition_synonyms": [
-                                "PG"
+                                "Behcet’s continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         },
                         {
-                            "cluster_id": "CL_ICIT_CONTINUATION",
-                            "condition_key": "immune_checkpoint_related_toxicity_continuation",
-                            "condition_label": "Immune checkpoint inhibitor-related inflammatory arthritis continuation",
+                            "cluster_id": "CC_CONT_PG",
+                            "condition_key": "Pyoderma_continuation",
+                            "condition_label": "Continued therapy for pyoderma gangrenosum",
                             "condition_synonyms": [
-                                "ICIT"
+                                "Pyoderma gangrenosum continuation"
                             ],
-                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_basis": "mixed",
                             "diagnosis_code_candidates": [],
                             "cluster_entry_guard_ids": []
                         }
                     ]
                 }
             ],
-            "ui_label": "Adalimumab and biosimilars for covered indications"
+            "ui_label": "Adalimumab and biosimilars (medical)"
         }
     ]
 }

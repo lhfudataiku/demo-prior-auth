@@ -4,7 +4,7 @@ You convert one coverage policy document into canonical prior-authorization
 policy memory for a clinician-facing webapp.
 
 Input:
-- `{{state.policy_text}}`: full policy text
+- `{{policy_text}}`: full policy text
 
 Output:
 - Return exactly one valid JSON object
@@ -74,9 +74,12 @@ Your job is to define what must be proven clinically, not how to query the EHR.
 26. Use `UNKNOWN` only when a required string field cannot be populated from the policy text.
 27. Extract policy review dates exactly when explicitly stated.
 28. Do not invent `artifact_created_datetime`; it belongs to ingestion, not parser output.
-29. If diagnosis confirmation is required for a condition cluster, emit at least one explicit diagnosis criterion in `criteria_catalog`.
+29. If diagnosis confirmation is required for a condition cluster, emit at least one criterion whose evidence semantics explicitly anchor diagnosis confirmation.
 30. Diagnosis metadata alone is not enough. Do not represent required diagnosis only through `diagnosis_code_candidates` or `inherits_diagnosis_from_cluster_ids`.
-31. Do not emit a diagnosis-defined cluster with empty effective logic.
+31. That diagnosis-grounded criterion may be either:
+    - a standalone diagnosis criterion, or
+    - a composite disease-state criterion that combines diagnosis confirmation with activity, severity, remission, progression, stage, or response qualifiers when the policy text expresses one integrated clinical concept.
+32. Do not emit a diagnosis-defined cluster with empty effective logic.
 
 ## Top-Level Output Shape
 
@@ -281,8 +284,17 @@ Rules:
 - if a narrative condition is subsumed by a covered code range, keep it inside that code-backed cluster
 - continuation clusters may inherit diagnosis scope from initial clusters rather than repeating the same diagnosis list
 - when multiple continuation diseases share one continuation rule, keep separate disease-specific continuation clusters and point them to the same `logic_profile_id`
-- if diagnosis confirmation is clinically required, the cluster’s effective logic must include an explicit diagnosis criterion
+- if diagnosis confirmation is clinically required, the cluster’s effective logic must include diagnosis-grounded evidence, but that does not always require a standalone diagnosis criterion
 - do not leave a diagnosis-defined cluster with empty effective logic
+- use the syntax of the policy text to decide whether to split or merge criteria:
+  - if the policy states distinct logical requirements in separate clauses, bullets, or coordinated requirements, emit separate criteria
+  - if the policy states one integrated indication phrase such as "for treatment of moderately to severely active ulcerative colitis", prefer one composite cluster criterion rather than separate diagnosis and severity criteria
+- when a single phrase combines diagnosis with activity, severity, remission, progression, stage, refractory state, or response, prefer one composite criterion with diagnosis-grounded evidence semantics instead of two artificially independent criteria
+- use standalone diagnosis criteria mainly when diagnosis is explicitly stated as its own requirement or when the policy separates diagnosis confirmation from qualifier requirements
+- code-table-backed cluster scope does not by itself require a standalone diagnosis criterion
+- do not split one integrated indication phrase into `diagnosis` + `severity/activity` criteria merely because a code table exists for the disease
+- if two candidate criteria would cite the same single evidence sentence and one is diagnosis-only while the other is severity/activity-only, merge them into one composite criterion unless the policy text independently states both as separate requirements
+- do not emit cluster logic of the form `all(diagnosis_criterion, severity_criterion)` when both criteria come from the same single indication phrase and no separate clause in the policy supports the split
 
 ## `logic_profiles`
 
@@ -346,11 +358,19 @@ Rules:
   - `code_binding`
   - `preferred_data_domains`
   - `policy_time_language`
-- emit explicit diagnosis criteria whenever a cluster depends on diagnosis confirmation
-- diagnosis criteria should normally use:
+- every diagnosis-dependent cluster must include at least one diagnosis-grounded criterion, but it does not need to be a standalone diagnosis-only criterion
+- when a criterion is composite, make the prompt reflect the integrated clinical fact from the policy text instead of splitting one phrase into multiple near-duplicate prompts
+- standalone diagnosis criteria should normally use:
   - `criterion_kind = cluster_criterion`
   - `code_binding.code_role = diagnosis_inclusion`
   - `preferred_data_domains` including `condition`
+- composite diagnosis-plus-qualifier criteria should normally:
+  - keep `code_binding.code_role = diagnosis_inclusion` when code-table diagnosis evidence is part of the requirement
+  - include `preferred_data_domains` broad enough to support both diagnosis confirmation and qualifier resolution, such as `condition`, `observation`, or `document`
+  - preserve the original policy phrase in `evidence`
+- if a single policy sentence supplies both the diagnosis anchor and the qualifier language, emit one composite criterion by default
+- emit separate diagnosis and qualifier criteria only when the policy text gives separate support for each requirement, such as different bullets, clauses, exceptions, or follow-on sentences
+- before finalizing `criteria_catalog`, check for near-duplicate criteria that share the same evidence sentence and would create an artificial `diagnosis` + `severity/activity` split; merge them unless the policy explicitly distinguishes them
 
 ## `logic_root`
 

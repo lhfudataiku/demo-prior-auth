@@ -11,16 +11,14 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Any, Dict, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.production.functions.logic_tree_evaluator import evaluate_logic_tree
-from scripts.production.functions.selection_resolver import (
-    _collect_criterion_ids_from_logic_root,
-)
+from scripts.production.functions.selection_resolver import resolve_selection_scope
 
 
 CaseConfig = Dict[str, Any]
@@ -30,11 +28,14 @@ CASES: Sequence[CaseConfig] = (
     {
         "name": "0059",
         "policy_master": "scripts/production/policy_artifacts/0059/policy_master_v4.json",
+        "route_index": "scripts/production/policy_artifacts/0059/route_index_v4.json",
         "scoped": "scripts/production/policy_artifacts/0059/scoped_policy_context.json",
         "result_map": "scripts/production/policy_artifacts/0059/criterion_result_map.json",
         "expected": {
             "selected_cluster_satisfied": False,
             "selected_cluster_status": "unresolved",
+            "satisfied_criterion_ids": ["CR_CLUSTER_OBSTRUCTIVE_DIAG"],
+            "not_satisfied_criterion_ids": [],
             "criterion_counts": {
                 "satisfied": 1,
                 "not_satisfied": 0,
@@ -46,11 +47,14 @@ CASES: Sequence[CaseConfig] = (
     {
         "name": "0314_CONT_HYCELA",
         "policy_master": "scripts/production/policy_artifacts/0314/policy_master_v4.json",
+        "route_index": "scripts/production/policy_artifacts/0314/route_index_v4.json",
         "scoped": "scripts/production/policy_artifacts/0314/scoped_policy_context_SC_CLL.json",
         "result_map": "scripts/production/policy_artifacts/0314/criterion_result_map_ONC_HYCELA_CONT.json",
         "expected": {
             "selected_cluster_satisfied": False,
             "selected_cluster_status": "unresolved",
+            "satisfied_criterion_ids": ["CR_DIAG_ONCOLOGY"],
+            "not_satisfied_criterion_ids": [],
             "criterion_counts": {
                 "satisfied": 1,
                 "not_satisfied": 0,
@@ -65,20 +69,24 @@ CASES: Sequence[CaseConfig] = (
     {
         "name": "0655",
         "policy_master": "scripts/production/policy_artifacts/0655/policy_master_v4.json",
+        "route_index": "scripts/production/policy_artifacts/0655/route_index_v4.json",
         "scoped": "scripts/production/policy_artifacts/0655/scoped_policy_context.json",
         "result_map": "scripts/production/policy_artifacts/0655/criterion_result_map.json",
         "expected": {
             "selected_cluster_satisfied": False,
             "selected_cluster_status": "unresolved",
+            "satisfied_criterion_ids": ["CR_UC_DIAGNOSIS"],
+            "not_satisfied_criterion_ids": [],
             "criterion_counts": {
                 "satisfied": 1,
                 "not_satisfied": 0,
-                "unresolved": 4,
+                "unresolved": 5,
             },
             "unresolved_criterion_ids": [
                 "CR_NO_CONCOMITANT",
                 "CR_TB_NEGATIVE",
                 "CR_UC_CLINICAL_RESPONSE",
+                "CR_UC_MOD_SEV",
                 "CR_UC_REMISSION",
             ],
         },
@@ -86,11 +94,14 @@ CASES: Sequence[CaseConfig] = (
     {
         "name": "0685_INIT_NSCLC",
         "policy_master": "scripts/production/policy_artifacts/0685/policy_master_v4.json",
+        "route_index": "scripts/production/policy_artifacts/0685/route_index_v4.json",
         "scoped": "scripts/production/policy_artifacts/0685/scoped_policy_context_INIT_NSCLC.json",
         "result_map": "scripts/production/policy_artifacts/0685/criterion_result_map.json",
         "expected": {
             "selected_cluster_satisfied": False,
             "selected_cluster_status": "unresolved",
+            "satisfied_criterion_ids": ["CR_0685_DIAG_NSCLC"],
+            "not_satisfied_criterion_ids": [],
             "criterion_counts": {
                 "satisfied": 1,
                 "not_satisfied": 0,
@@ -109,110 +120,46 @@ def _load_json(relative_path: str) -> Dict[str, Any]:
     return json.loads((REPO_ROOT / relative_path).read_text())
 
 
-def _find_selected_cluster(
-    policy_master: Dict[str, Any],
-    cluster_id: str,
-    route_id: str,
-    phase: str,
-) -> Optional[Dict[str, Any]]:
-    for cluster in policy_master.get("condition_clusters", []):
-        if (
-            cluster.get("cluster_id") == cluster_id
-            and cluster.get("route_id") == route_id
-            and cluster.get("phase") == phase
-        ):
-            return cluster
-    for cluster in policy_master.get("condition_clusters", []):
-        if cluster.get("cluster_id") == cluster_id:
-            return cluster
-    return None
+def _rehydrate_scoped_policy_context(case: CaseConfig, scoped_payload: Dict[str, Any]) -> Dict[str, Any]:
+    if isinstance(scoped_payload.get("selected_cluster"), dict):
+        return scoped_payload
 
+    route_index = _load_json(case["route_index"])
+    policy_master = _load_json(case["policy_master"])
+    selected_route_id = scoped_payload["selected_route_id"]
 
-def _select_guard_roots(
-    guards: Iterable[Dict[str, Any]],
-    criterion_ids: Iterable[str],
-    route_id: str,
-    phase: str,
-    cluster_id: Optional[str] = None,
-) -> List[Tuple[str, Dict[str, Any]]]:
-    wanted = set(criterion_ids or [])
-    selected: List[Tuple[str, Dict[str, Any]]] = []
+    billing_code = None
+    for route in route_index.get("routes", []):
+        if route.get("route_id") == selected_route_id:
+            billing_codes = route.get("billing_codes", [])
+            if billing_codes:
+                billing_code = billing_codes[0]
+            break
 
-    for guard in guards:
-        if route_id not in (guard.get("applies_to_route_ids") or []):
-            continue
+    if not billing_code:
+        raise ValueError(f"Could not rehydrate scoped policy context for {case['name']}: missing billing code")
 
-        phases = guard.get("applies_to_phases") or []
-        if phase not in phases and "all" not in phases:
-            continue
+    resolved = resolve_selection_scope(
+        route_index_v4=route_index,
+        policy_master_v4=policy_master,
+        billing_code=billing_code,
+        selected_phase=scoped_payload["selected_phase"],
+        selected_cluster_id=scoped_payload["selected_cluster_id"],
+    )
+    if resolved.get("status") != "ok" or "scoped_policy_context" not in resolved:
+        raise ValueError(f"Could not rehydrate scoped policy context for {case['name']}: {resolved}")
 
-        if cluster_id is not None:
-            clusters = guard.get("applies_to_cluster_ids") or []
-            if clusters and cluster_id not in clusters:
-                continue
-
-        root = guard.get("logic_root")
-        root_ids = _collect_criterion_ids_from_logic_root(root)
-        if wanted and not (root_ids & wanted):
-            continue
-
-        if isinstance(root, dict):
-            selected.append((str(guard.get("guard_id", "UNKNOWN")), root))
-
-    return selected
-
-
-def _select_logic_profiles(
-    profiles: Iterable[Dict[str, Any]],
-    profile_ids: Iterable[str],
-) -> List[Tuple[str, Dict[str, Any]]]:
-    wanted = set(profile_ids or [])
-    selected: List[Tuple[str, Dict[str, Any]]] = []
-
-    for profile in profiles:
-        if profile.get("logic_profile_id") not in wanted:
-            continue
-        root = profile.get("logic_root")
-        if isinstance(root, dict):
-            selected.append((str(profile.get("logic_profile_id", "UNKNOWN")), root))
-
-    return selected
+    return resolved["scoped_policy_context"]
 
 
 def _evaluate_case(case: CaseConfig) -> Dict[str, Any]:
-    policy_master = _load_json(case["policy_master"])
-    scoped_payload = _load_json(case["scoped"])["scoped_policy_context"]
+    scoped_payload = _rehydrate_scoped_policy_context(
+        case,
+        _load_json(case["scoped"])["scoped_policy_context"],
+    )
     result_map = _load_json(case["result_map"])
 
-    route_id = scoped_payload["selected_route_id"]
-    phase = scoped_payload["selected_phase"]
-    cluster_id = scoped_payload["selected_cluster_id"]
-
-    cluster = _find_selected_cluster(policy_master, cluster_id, route_id, phase)
-    cluster_root = cluster.get("logic_root") if isinstance(cluster, dict) else None
-
-    route_guards = _select_guard_roots(
-        policy_master.get("route_guards", []),
-        scoped_payload.get("selected_route_guard_criterion_ids", []),
-        route_id,
-        phase,
-    )
-    cluster_entry_guards = _select_guard_roots(
-        policy_master.get("cluster_entry_guards", []),
-        scoped_payload.get("selected_cluster_entry_guard_criterion_ids", []),
-        route_id,
-        phase,
-        cluster_id,
-    )
-    logic_profiles = _select_logic_profiles(
-        policy_master.get("logic_profiles", []),
-        scoped_payload.get("selected_logic_profile_ids", []),
-    )
-
-    supporting_roots = [
-        root for _, root in route_guards + cluster_entry_guards + logic_profiles
-    ]
-    evaluation = evaluate_logic_tree(cluster_root, result_map, supporting_roots)
+    evaluation = evaluate_logic_tree(scoped_payload, result_map)
 
     return {
         "name": case["name"],

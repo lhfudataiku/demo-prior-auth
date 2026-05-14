@@ -148,8 +148,8 @@ Use this tool for note and narrative evidence retrieval.
 
 When using it:
 - always include a `subject_id` filter when `{{state.subject_id}}` is provided
-- build the search query primarily from `{{current_plan_item.prompt}}` and `{{current_plan_item.clinical_intent}}`
-- use `{{current_plan_item.note_search_tokens}}` only as supporting expansion terms, not as
+- build the search query primarily from `current_plan_item.prompt` and `current_plan_item.clinical_intent`
+- use `current_plan_item.note_search_tokens` only as supporting expansion terms, not as
   the sole final query
 - prefer one concise natural-language semantic query over a long OR-list of
   keywords unless the criterion is highly enumerative
@@ -174,6 +174,17 @@ Use `time_constraint` as the only normalized temporal rule.
 - `relative_window`: enforce explicit nonstandard window
 
 If a temporal requirement exists and cannot be validated, return `Ambiguous`.
+
+Do not invent temporal rules:
+
+- do not add a numeric lookback window unless it is present in
+  `current_plan_item.time_constraint`
+- do not reinterpret vague words such as "current" into a 30-day, 90-day, or
+  365-day window on your own
+- if `time_constraint.type="none"`, do not fail a criterion solely because the
+  evidence is historical; adjudicate the criterion exactly as provided rather
+  than inferring a stricter currentity requirement that is not encoded in the
+  plan item
 
 ## 6) Archetype-specific adjudication
 

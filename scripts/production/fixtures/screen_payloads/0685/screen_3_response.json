@@ -1,0 +1,49 @@
+{
+  "status": "complete",
+  "payload": {
+    "review_summary": {
+      "selected_scope": {
+        "selected_route_id": "route_bevacizumab_nonocular",
+        "selected_phase": "initial",
+        "selected_cluster_id": "CLUST_INIT_NSCLC"
+      },
+      "criterion_totals": {
+        "total": 1,
+        "answered": 1,
+        "unanswered_required": 0,
+        "conflicts": 0
+      },
+      "logic_evaluation": {
+        "selected_cluster_satisfied": true,
+        "selected_cluster_status": "satisfied",
+        "satisfied_criterion_ids": [
+          "CR_INIT_NSCLC"
+        ],
+        "not_satisfied_criterion_ids": [],
+        "unresolved_criterion_ids": [],
+        "criterion_counts": {
+          "satisfied": 1,
+          "not_satisfied": 0,
+          "unresolved": 0
+        }
+      }
+    },
+    "answered_criteria": [
+      {
+        "criterion_id": "CR_INIT_NSCLC",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
+        "final_answer": true,
+        "final_source": "chart",
+        "display_state": "satisfied",
+        "comment": null
+      }
+    ],
+    "unanswered_required_items": [],
+    "warnings": [],
+    "submission_ready": true
+  },
+  "messages": [
+    "Processed criterion CR_INIT_NSCLC for cluster CLUST_INIT_NSCLC."
+  ]
+}

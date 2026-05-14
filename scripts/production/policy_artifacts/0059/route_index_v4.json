@@ -2,8 +2,8 @@
     "policy_id": "0059",
     "routes": [
         {
-            "route_id": "route_standard_peak_flow_devices",
-            "label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions",
+            "route_id": "route_peak_flow_mechanical_spacers",
+            "label": "Standard mechanical peak flow meters and spacers for obstructive pulmonary conditions",
             "coverage_status": "covered",
             "terminal_disposition": "continue",
             "billing_codes": [
@@ -20,24 +20,47 @@
                 {
                     "phase": "other",
                     "is_default": true,
-                    "route_guard_ids": [
-                        "RG_NOT_FOR_COPD_DIAGNOSIS"
-                    ],
+                    "route_guard_ids": [],
                     "cluster_summaries": [
                         {
-                            "cluster_id": "cluster_obstructive_condition",
-                            "condition_key": "obstructive_pulmonary_condition",
-                            "condition_label": "Asthma or other obstructive pulmonary condition",
+                            "cluster_id": "cluster_peak_flow_acute_bronchitis",
+                            "condition_key": "acute_bronchitis_bronchiolitis",
+                            "condition_label": "Acute bronchitis or bronchiolitis",
                             "condition_synonyms": [
-                                "Asthma",
-                                "Bronchitis",
-                                "Emphysema",
-                                "Obstructive pulmonary disease"
+                                "Acute bronchitis",
+                                "Acute bronchiolitis"
                             ],
                             "diagnosis_basis": "code_table_primary",
                             "diagnosis_code_candidates": [
-                                "J20.0-J21.9",
-                                "J40-J47.9",
+                                "J20.0-J21.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "cluster_peak_flow_chronic_lower_respiratory",
+                            "condition_key": "chronic_lower_respiratory_diseases",
+                            "condition_label": "Chronic lower respiratory diseases (e.g., asthma, chronic bronchitis, emphysema)",
+                            "condition_synonyms": [
+                                "Asthma",
+                                "Chronic bronchitis",
+                                "Emphysema",
+                                "Other chronic obstructive pulmonary disease"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
+                                "J40-J47.9"
+                            ],
+                            "cluster_entry_guard_ids": []
+                        },
+                        {
+                            "cluster_id": "cluster_peak_flow_hypersensitivity_pneumonitis",
+                            "condition_key": "hypersensitivity_pneumonitis",
+                            "condition_label": "Hypersensitivity pneumonitis due to organic dust",
+                            "condition_synonyms": [
+                                "Organic dust hypersensitivity pneumonitis"
+                            ],
+                            "diagnosis_basis": "code_table_primary",
+                            "diagnosis_code_candidates": [
                                 "J67.0-J67.9"
                             ],
                             "cluster_entry_guard_ids": []
@@ -45,7 +68,7 @@
                     ]
                 }
             ],
-            "ui_label": "Standard mechanical peak flow meters or associated spacers/kits for obstructive pulmonary conditions"
+            "ui_label": "Standard mechanical peak flow meters and spacers for obstructive pulmonary conditions"
         }
     ]
 }

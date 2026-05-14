@@ -45,6 +45,8 @@ Notes:
   tree after criterion execution.
 - `retrieval_plan_v1` is optional. If present, the agent should skip planner
   delegation.
+- inside agent state, persist the inner scope object under the clearer key
+  `selected_scope_context`
 
 ### Screen 2 submit request
 
@@ -86,7 +88,6 @@ Notes:
       "selected_cluster_id": "string"
     },
     "criteria": [],
-    "criterion_result_map": {},
     "logic_evaluation": {},
     "additional_cluster_suggestions": [],
     "next_action": "stay_screen_2 | proceed_screen_3"
@@ -119,10 +120,11 @@ Persistent `state` keys:
 - `selected_route_id`
 - `selected_phase`
 - `selected_cluster_id`
-- `scoped_policy_context`
+- `selected_scope_context`
 - `policy_master_v4`
 - `retrieval_plan_v1`
 - `criterion_result_map`
+- `criterion_ui_map`
 - `logic_evaluation`
 - `screen_2_payload`
 - `screen_3_payload`
@@ -137,7 +139,7 @@ Temporary `scratchpad` keys:
 ## Required deterministic helpers
 
 The agent depends on these Python helpers outside the block graph:
-- `scripts/production/functions/logic_tree_evaluator.py`
+- `scripts/production/functions/python_code_blocks.py`
 
 The agent does not need to run the Selection Resolver. That work is already done
 before Screen 2.
@@ -149,27 +151,30 @@ Recommended DSS 14.5+ flow:
 1. `init_state` — `SET_STATE_ENTRIES`
    - initialize empty `criterion_result_map`, `messages`, and output containers
    - copy request payload fields into state
+   - map `payload.scoped_policy_context` into `state["selected_scope_context"]`
 
 2. `have_plan?` — `ROUTING`
    - if `state["retrieval_plan_v1"]` exists and has non-empty `plan_items`, go to `execute_plan`
    - otherwise go to `plan_retrieval`
 
 3. `plan_retrieval` — `DELEGATE_TO_OTHER_AGENT`
-   - call `scripts/production/agents/retrieval_planner_agent_prompt_v1.md`
+   - call `scripts/production/agents/retrieval_planner_agent_prompt_v1_1.md`
    - input:
      - `subject_id`
-     - `scoped_policy_context`
+     - `selected_scope_context`
    - save result to `state["retrieval_plan_v1"]`
    - note: `retrieval_plan_v1` is tool-agnostic; it carries archetypes,
      retrieval strategies, query fragments, and time rules, but not concrete
      tool-routing objects
+   - for diagnosis-grounded hybrid disease-state criteria, the plan must
+     preserve a diagnosis-code structured leg plus a qualifier-resolution leg
 
 4. `execute_plan` — `FOR_EACH`
    - iterate over `state["retrieval_plan_v1"]["plan_items"]`
    - for each item, set `scratchpad["current_plan_item"]`
 
 5. `reason_one_criterion` — `DELEGATE_TO_OTHER_AGENT`
-   - call `scripts/production/agents/criterion_reasoning_agent_prompt.md`
+   - call `scripts/production/agents/criterion_reasoning_agent_prompt_v1_1.md`
    - input:
      - `subject_id`
      - `current_plan_item`
@@ -177,33 +182,46 @@ Recommended DSS 14.5+ flow:
    - the reasoning agent derives tool order from
      `current_plan_item.execution_hints.retrieval_strategy` and
      `current_plan_item.execution_hints.criterion_archetype`
+   - for `ARC_disease_activity_or_severity_state`, the reasoning agent should
+     first execute diagnosis-grounded structured retrieval when diagnosis codes
+     are available, then resolve activity/severity/remission qualifiers from
+     notes and/or observations
    - save result to `scratchpad["current_reasoning_result"]`
 
 6. `accumulate_result` — `PYTHON_CODE`
-   - extract `criterion_id` from `scratchpad["current_reasoning_result"]`
+   - call
+     `scripts.production.functions.python_code_blocks.accumulate_current_reasoning_result(...)`
    - merge/update `state["criterion_result_map"][criterion_id]`
    - later iterations should overwrite earlier incomplete results for the same
      criterion if needed
 
-7. `evaluate_logic_tree` — `PYTHON_CODE`
-   - locate the selected cluster in `policy_master_v4`
-   - if the selected cluster references a `logic_profile_id`, fetch the profile
-   - call `evaluate_logic_tree(...)`
+7. `build_criterion_ui_map` — `PYTHON_CODE`
+   - merge:
+     - `selected_criteria_catalog`
+     - any existing clinician answers
+     - `criterion_result_map`
+   - compute one UI view-model row per criterion
+   - save to `state["criterion_ui_map"]`
+
+8. `evaluate_logic_tree` — `PYTHON_CODE`
+   - call
+     `scripts.production.functions.python_code_blocks.evaluate_logic_tree_from_state(...)`
+   - the helper derives the primary cluster root plus supporting route-guard,
+     cluster-entry-guard, logic-profile, and inherited-diagnosis roots from
+     `selected_scope_context`
    - save to `state["logic_evaluation"]`
 
-8. `build_screen_2_payload` — `PYTHON_CODE`
-   - build ordered criterion rows from:
-     - `selected_criteria_catalog`
-     - `criterion_result_map`
-     - any existing clinician answers
+9. `build_screen_2_payload` — `PYTHON_CODE`
+   - build ordered criterion rows from `criterion_ui_map`
    - compute `next_action`
    - save final object to `state["screen_2_payload"]`
 
-9. `emit_screen_2` — `GENERATE_OUTPUT`
+10. `emit_screen_2` — `GENERATE_OUTPUT`
    - return Screen 2 payload as JSON
 
-10. `screen_2_submit` — second entry path
+11. `screen_2_submit` — second entry path
    - merge clinician answers into state
+   - rebuild `criterion_ui_map`
    - recompute completeness and conflicts
    - build `state["screen_3_payload"]`
    - emit final review JSON
@@ -286,6 +304,86 @@ Guidance:
 - `unresolved_criterion_ids` should drive the Screen 2 prompt list for
   clinician response
 
+### `criterion_ui_map`
+
+```json
+{
+  "CRITERION_ID": {
+    "criterion_id": "string",
+    "criterion_kind": "route_guard | cluster_entry_guard | cluster_criterion",
+    "prompt": "string",
+    "required": true,
+    "clinician_input": {
+      "answer": null,
+      "value": null,
+      "comment": null,
+      "override_prefill": false,
+      "answered": false
+    },
+    "chart_result": {
+      "status": "Found | Missing | Ambiguous | Unreviewed",
+      "meets_criterion": false,
+      "extracted_value": null,
+      "justification": null,
+      "sources": {
+        "structured": [],
+        "notes": []
+      }
+    },
+    "ui_resolution": {
+      "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered",
+      "prefill_value": null,
+      "use_chart_as_prefill": false,
+      "conflict_flag": false,
+      "conflict_reason": null,
+      "final_answer": null,
+      "final_source": "chart | clinician | unresolved | system"
+    }
+  }
+}
+```
+
+Guidance:
+- `criterion_ui_map` is a webapp-facing derived state, not the canonical
+  adjudication artifact
+- `chart_result` should mirror `criterion_result_map[criterion_id]`
+- `clinician_input` should mirror the latest user-entered answer for that
+  criterion
+- `ui_resolution` should be derived by deterministic merge rules rather than
+  generated by the LLM
+- Screen 2 response payloads should emit the ordered `criteria` rows as the
+  primary frontend contract and should keep `criterion_result_map` in backend
+  state rather than duplicating it in the response payload
+
+Recommended merge rules:
+- if `chart_result.status = Found` and `clinician_input.answered = false`
+  - set `display_state = satisfied` or `not_satisfied` based on
+    `chart_result.meets_criterion`
+  - set `prefill_value` from `chart_result.extracted_value` when useful
+  - set `use_chart_as_prefill = true`
+- if `chart_result.status = Missing`
+  - set `display_state = needs_clinician`
+  - do not auto-fail the criterion in the UI
+- if `chart_result.status = Ambiguous`
+  - set `display_state = needs_clinician`
+- if `chart_result.status = Unreviewed` and clinician has not answered
+  - set `display_state = unanswered`
+- if clinician answer exists and materially agrees with chart-backed `Found`
+  result
+  - set `conflict_flag = false`
+  - keep `display_state` aligned to the agreed outcome
+- if clinician answer exists and materially conflicts with a chart-backed
+  `Found` result
+  - set `display_state = conflict`
+  - set `conflict_flag = true`
+  - explain the mismatch in `conflict_reason`
+
+Recommended presentation order:
+- show route guards first
+- then cluster-entry guards
+- then cluster criteria
+- preserve the flattened backend execution model; ordering is a UI concern
+
 ## First POC Build Scope
 
 Build the first Structured Agent with these constraints:
@@ -300,10 +398,14 @@ Agent.
 
 ## Suggested next implementation step
 
-Create a small Python helper for the two `PYTHON_CODE` blocks:
-- `screen2_state_helpers.py`
-  - `merge_criterion_result(...)`
-  - `build_screen2_payload(...)`
-  - `build_screen3_payload(...)`
+Use `python_code_blocks.py` as the shared helper module for Screen 2 Python
+blocks:
+- `initialize_placeholder_state(...)`
+- `accumulate_current_reasoning_result(...)`
+- `build_criterion_ui_map(...)`
+- `evaluate_logic_tree(...)`
+- `evaluate_logic_tree_from_state(...)`
+- `build_screen2_payload(...)`
+- `build_screen3_payload(...)`
 
 This will keep block-level Python concise and easier to debug in DSS.

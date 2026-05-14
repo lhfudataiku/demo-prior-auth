@@ -1,0 +1,75 @@
+{
+  "status": "blocked",
+  "payload": {
+    "review_summary": {
+      "selected_scope": {
+        "selected_route_id": "RR_ADAL",
+        "selected_phase": "continuation",
+        "selected_cluster_id": "CC_CONT_UC"
+      },
+      "criterion_totals": {
+        "total": 4,
+        "answered": 1,
+        "unanswered_required": 3,
+        "conflicts": 0
+      },
+      "logic_evaluation": {
+        "selected_cluster_satisfied": false,
+        "selected_cluster_status": "unresolved",
+        "satisfied_criterion_ids": [
+          "CR_INITIAL_UC_DIAG"
+        ],
+        "not_satisfied_criterion_ids": [],
+        "unresolved_criterion_ids": [
+          "CR_ADAL_NO_CONCOM",
+          "CR_CONT_UC_IMPROVE",
+          "CR_CONT_UC_REMISSION"
+        ],
+        "criterion_counts": {
+          "satisfied": 1,
+          "not_satisfied": 0,
+          "unresolved": 3
+        }
+      }
+    },
+    "answered_criteria": [
+      {
+        "criterion_id": "CR_INITIAL_UC_DIAG",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Document that the member has moderately to severely active ulcerative colitis.",
+        "final_answer": true,
+        "final_source": "chart",
+        "display_state": "satisfied",
+        "comment": null
+      }
+    ],
+    "unanswered_required_items": [
+      {
+        "criterion_id": "CR_ADAL_NO_CONCOM",
+        "criterion_kind": "route_guard",
+        "prompt": "Confirm the member is not using adalimumab concomitantly with any other biologic drug or targeted synthetic drug for the same indication.",
+        "display_state": "needs_clinician"
+      },
+      {
+        "criterion_id": "CR_CONT_UC_IMPROVE",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Document improvement from baseline in stool frequency, rectal bleeding, urgency of defecation, CRP, fecal calprotectin, mucosal appearance on imaging/endoscopy, or disease activity scoring tools (e.g., UCEIS/Mayo) for ulcerative colitis.",
+        "display_state": "needs_clinician"
+      },
+      {
+        "criterion_id": "CR_CONT_UC_REMISSION",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Document remission for ulcerative colitis in a member using adalimumab.",
+        "display_state": "needs_clinician"
+      }
+    ],
+    "warnings": [],
+    "submission_ready": false
+  },
+  "messages": [
+    "Processed criterion CR_ADAL_NO_CONCOM for cluster CC_CONT_UC.",
+    "Processed criterion CR_CONT_UC_IMPROVE for cluster CC_CONT_UC.",
+    "Processed criterion CR_CONT_UC_REMISSION for cluster CC_CONT_UC.",
+    "Processed criterion CR_INITIAL_UC_DIAG for cluster CC_CONT_UC."
+  ]
+}
