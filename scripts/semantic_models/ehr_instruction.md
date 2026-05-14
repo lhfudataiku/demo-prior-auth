@@ -37,6 +37,42 @@ WHERE
 
 Found if threshold condition met. When category is expressed in natural language, map it to the canonical category_code or a small OR-list of equivalent category_code values. Use parentheses around OR conditions. Prefer canonical category codes over literal user phrasing. Ambiguous if non-numeric values or mixed units are present.
 
+## ARC_qualitative_observation_result
+
+**semantic_question_template**
+
+For patient {subject_id}, find qualitative observation {category_or_synonym | observation_display} within {lookback_clause}.
+
+**sql_template**
+
+```sql
+SELECT DISTINCT
+  o."subject_id",
+  o."observation_id",
+  o."category_code",
+  o."observation_code",
+  o."observation_display",
+  o."value_numeric",
+  o."value_text",
+  o."value_unit",
+  o."effective_datetime",
+  o."encounter_id"
+FROM "DKU_SOLUTION_DESIGN"."SOL_DESIGN"."PREAUTHPOC_OBSERVATION" AS o
+WHERE
+  o."subject_id" = '{subject_id}'
+  {optional_category_filter}
+  {optional_observation_filter}
+  {optional_time_filter}
+```
+
+**returns**
+
+`observation_id, encounter_id, category_code, observation_code, observation_display, value_numeric, value_unit, value_text, effective_datetime`
+
+**status_hint**
+
+Found if a matching qualitative observation exists. Prefer observation_display or canonical category filters first. Do not filter directly on value_text in SQL because it is free text and not normalized. Downstream reasoning should inspect returned value_text values to determine whether they satisfy the qualitative criterion.
+
 ## ARC_dx_code_range_with_lookback
 
 **semantic_question_template**
@@ -292,4 +328,3 @@ WHERE
 **status_hint**
 
 Found if encounter matches the requested class, type, service, or priority constraint within the lookback window. When type, service, or priority is expressed in natural language, map it to canonical category_code values as needed. Ambiguous if a user-facing encounter concept maps to multiple physical fields or coding systems.
-

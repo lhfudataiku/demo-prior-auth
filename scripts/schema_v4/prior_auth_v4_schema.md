@@ -47,9 +47,7 @@ This schema is intentionally:
   continuation, reauthorization, or another phase-specific branch.
 - Condition clusters should prioritize code-table inclusion diagnoses over
   narrative disease examples.
-- Diagnosis-defined clusters must surface at least one explicit diagnosis
-  criterion that downstream retrieval can execute; diagnosis metadata alone is
-  not sufficient.
+- Diagnosis-defined clusters must retain diagnosis-grounded effective logic that downstream retrieval can execute; diagnosis metadata alone is not sufficient, but that logic may be represented by either a standalone diagnosis criterion or a composite disease-state criterion.
 - Narrative disease examples should not become separate clusters when they are
   already subsumed by a covered diagnosis code range in the policy code table.
 - Continuation clusters may inherit diagnosis scope from initial clusters when
@@ -62,6 +60,16 @@ This schema is intentionally:
   logic profiles instead of duplicated verbatim.
 - Retrieval planning is not the parser's job; the parser should define what must
   be proven, not how to query the EHR.
+
+## Schema Relationships
+
+- `request_routes` own billing-code-first request-family routing.
+- `route_guards` own pre-cluster clinical gates.
+- `cluster_entry_guards` own post-selection pre-review clinical gates.
+- `condition_clusters` own clinician-selectable disease or scenario scope.
+- `criteria_catalog` owns criterion decomposition, including standalone versus composite fact modeling.
+- `logic_root` owns boolean composition of already-defined criteria and guards.
+- Downstream retrieval planning and adjudication should trust parser-defined criterion decomposition rather than inventing new criteria.
 
 ## Artifact 1: policy_master_v4
 
@@ -315,10 +323,9 @@ Rules:
    continuation cluster.
 8. Use `logic_profile_id` when multiple clusters share the same logical rule
    pattern.
-9. If diagnosis confirmation is clinically required, the cluster's effective
-   logic must still include an explicit diagnosis criterion, either in inline
-   `logic_root` or through a referenced `logic_profile`.
-10. Do not leave a diagnosis-defined cluster with empty effective logic.
+9. If diagnosis confirmation is clinically required, the cluster's effective logic must still include diagnosis-grounded evidence, either through inline `logic_root` or a referenced `logic_profile`.
+10. `condition_clusters` define scope and should not independently decide standalone-versus-composite criterion decomposition; that decision belongs in `criteria_catalog`.
+11. Do not leave a diagnosis-defined cluster with empty effective logic.
 
 ## `logic_profiles`
 
@@ -401,8 +408,15 @@ Rules:
    - `preferred_data_domains`
    - `policy_time_language`
 4. All criteria should remain clinician-readable.
-5. Emit explicit diagnosis criteria whenever a cluster requires diagnosis
-   confirmation from the patient chart.
+5. Every diagnosis-dependent cluster must include at least one diagnosis-grounded criterion in its effective logic, but that criterion does not need to be a standalone diagnosis-only criterion.
+6. `criteria_catalog` owns whether diagnosis confirmation and qualifier language should stay together as one composite criterion or be split into separate criteria.
+
+## Criterion Decomposition Rules
+
+1. Use the policy clause structure to decide whether one integrated clinical phrase should remain one composite criterion or be split into multiple independent criteria.
+2. If a single phrase combines diagnosis with activity, severity, remission, stage, refractory state, progression, or response, prefer one composite criterion unless the policy text separately states independent requirements.
+3. If two candidate criteria would cite the same single evidence sentence and create an artificial diagnosis-plus-qualifier split, merge them.
+4. A code-table-backed cluster does not automatically require a standalone diagnosis-only criterion.
 
 ## `logic_root`
 

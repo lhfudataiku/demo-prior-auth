@@ -1,0 +1,197 @@
+{
+    "policy_id": "0059",
+    "selected_route_id": "route_peak_flow_mechanical_spacers",
+    "selected_phase": "other",
+    "selected_cluster_id": "cluster_peak_flow_chronic_lower_respiratory",
+    "selected_route": {
+        "route_id": "route_peak_flow_mechanical_spacers",
+        "label": "Standard mechanical peak flow meters and spacers for obstructive pulmonary conditions",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+            "A4614",
+            "A4627",
+            "S8096",
+            "S8097",
+            "S8100",
+            "S8101",
+            "S8110"
+        ],
+        "route_kind": "covered_request",
+        "phase_prompt_required": false,
+        "phase_branches": [
+            {
+                "phase": "other",
+                "is_default": true,
+                "route_guard_ids": [],
+                "cluster_ids": [
+                    "cluster_peak_flow_acute_bronchitis",
+                    "cluster_peak_flow_chronic_lower_respiratory",
+                    "cluster_peak_flow_hypersensitivity_pneumonitis"
+                ]
+            }
+        ],
+        "routing_notes": "Coverage limited to standard mechanical peak flow meters and spacers for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+        "evidence": "Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+        "locator": {
+            "section_path": [
+                "Policy",
+                "I. Medical Necessity"
+            ],
+            "page_start": 1,
+            "page_end": 1
+        }
+    },
+    "selected_phase_branch": {
+        "phase": "other",
+        "is_default": true,
+        "route_guard_ids": [],
+        "cluster_summaries": [
+            {
+                "cluster_id": "cluster_peak_flow_acute_bronchitis",
+                "condition_key": "acute_bronchitis_bronchiolitis",
+                "condition_label": "Acute bronchitis or bronchiolitis",
+                "condition_synonyms": [
+                    "Acute bronchitis",
+                    "Acute bronchiolitis"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "J20.0-J21.9"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "cluster_peak_flow_chronic_lower_respiratory",
+                "condition_key": "chronic_lower_respiratory_diseases",
+                "condition_label": "Chronic lower respiratory diseases (e.g., asthma, chronic bronchitis, emphysema)",
+                "condition_synonyms": [
+                    "Asthma",
+                    "Chronic bronchitis",
+                    "Emphysema",
+                    "Other chronic obstructive pulmonary disease"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "J40-J47.9"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "cluster_peak_flow_hypersensitivity_pneumonitis",
+                "condition_key": "hypersensitivity_pneumonitis",
+                "condition_label": "Hypersensitivity pneumonitis due to organic dust",
+                "condition_synonyms": [
+                    "Organic dust hypersensitivity pneumonitis"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "J67.0-J67.9"
+                ],
+                "cluster_entry_guard_ids": []
+            }
+        ]
+    },
+    "selected_route_guards": [],
+    "selected_cluster_summary": {
+        "cluster_id": "cluster_peak_flow_chronic_lower_respiratory",
+        "condition_key": "chronic_lower_respiratory_diseases",
+        "condition_label": "Chronic lower respiratory diseases (e.g., asthma, chronic bronchitis, emphysema)",
+        "condition_synonyms": [
+            "Asthma",
+            "Chronic bronchitis",
+            "Emphysema",
+            "Other chronic obstructive pulmonary disease"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+            "J40-J47.9"
+        ],
+        "cluster_entry_guard_ids": []
+    },
+    "selected_cluster": {
+        "cluster_id": "cluster_peak_flow_chronic_lower_respiratory",
+        "route_id": "route_peak_flow_mechanical_spacers",
+        "phase": "other",
+        "condition_key": "chronic_lower_respiratory_diseases",
+        "condition_label": "Chronic lower respiratory diseases (e.g., asthma, chronic bronchitis, emphysema)",
+        "condition_synonyms": [
+            "Asthma",
+            "Chronic bronchitis",
+            "Emphysema",
+            "Other chronic obstructive pulmonary disease"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+            "J40-J47.9"
+        ],
+        "inherits_diagnosis_from_cluster_ids": [],
+        "cluster_entry_guard_ids": [],
+        "logic_profile_id": "UNKNOWN",
+        "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+                {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY"
+                }
+            ]
+        },
+        "evidence": "Policy I. Medical Necessity and the CPT/HCPCS/ICD-10 Codes table indicate standard mechanical peak flow meters and spacers are medically necessary for members with chronic lower respiratory diseases such as asthma, chronic bronchitis, or emphysema (ICD-10 J40-J47.9).",
+        "locator": {
+            "section_path": [
+                "Policy",
+                "CPT / HCPCS / ICD-10 Codes",
+                "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+        }
+    },
+    "selected_cluster_entry_guards": [],
+    "selected_logic_profiles": [],
+    "selected_inherited_diagnosis_clusters": [],
+    "effective_diagnosis_code_candidates": [
+        "J40-J47.9"
+    ],
+    "selected_route_guard_criterion_ids": [],
+    "selected_cluster_entry_guard_criterion_ids": [],
+    "selected_inherited_diagnosis_criterion_ids": [],
+    "selected_cluster_criterion_ids": [
+        "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY"
+    ],
+    "selected_criteria_catalog": [
+        {
+            "criterion_id": "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Does the member have a diagnosis of a chronic lower respiratory disease such as asthma, chronic bronchitis, or emphysema (ICD-10 J40-J47.9) that warrants use of a standard mechanical peak flow meter or spacer for managing the obstructive condition?",
+            "clinical_intent": "Confirm the covered chronic obstructive pulmonary diagnosis that justifies the device.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "J40-J47.9"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition"
+            ],
+            "policy_time_language": "Ongoing",
+            "retrieval_priority": "high",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Aetna considers standard mechanical peak flow meters and spacers medically necessary for members with chronic lower respiratory diseases including asthma, chronic bronchitis, and emphysema, reflected in the CPT/HCPCS/ICD-10 codes table (ICD-10 J40-J47.9).",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "CPT / HCPCS / ICD-10 Codes",
+                    "ICD-10 codes covered if selection criteria are met"
+                ],
+                "page_start": 2,
+                "page_end": 2
+            }
+        }
+    ]
+}

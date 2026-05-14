@@ -20,6 +20,27 @@
                   '  AND o."effective_datetime" >= DATEADD(\'day\', -180, CURRENT_DATE())\n'
                   '  AND o."effective_datetime" <= CURRENT_DATE()',
   'created': {'on': '2026-04-17T21:01:34.318Z'}},
+ {'name': 'ARC_qualitative_observation_result',
+  'question': 'For patient `27980ad8-77b7-5360-b211-bf4fac9c468c`, find qualitative observation `Labs` | `CD20` within '
+              '`10 years`.',
+  'generatedSql': 'SELECT DISTINCT\n'
+                  '  o."subject_id",\n'
+                  '  o."observation_id",\n'
+                  '  o."category_code",\n'
+                  '  o."observation_code",\n'
+                  '  o."observation_display",\n'
+                  '  o."value_numeric",\n'
+                  '  o."value_text",\n'
+                  '  o."value_unit",\n'
+                  '  o."effective_datetime",\n'
+                  '  o."encounter_id"\n'
+                  'FROM "DKU_SOLUTION_DESIGN"."SOL_DESIGN"."PREAUTHPOC_OBSERVATION" AS o\n'
+                  'WHERE\n'
+                  '  o."subject_id" = \'27980ad8-77b7-5360-b211-bf4fac9c468c\'\n'
+                  '  AND (o."category_code" = \'Labs\' AND o."observation_display" ILIKE \'%CD20%\')\n'
+                  '  AND o."effective_datetime" >= DATEADD(\'year\', -10, CURRENT_DATE())\n'
+                  '  AND o."effective_datetime" <= CURRENT_DATE()',
+  'created': {'on': '2026-04-17T21:01:34.318Z'}},
  {'name': 'ARC_dx_code_range_with_lookback',
   'question': 'For patient `91f25704-6153-5259-bdd7-2ca6478de14a`, find diagnosis codes `J20.0 - J21.9, J40 - J47.9` '
               'within `5 years`.',

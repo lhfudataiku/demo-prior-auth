@@ -1,0 +1,76 @@
+{
+  "CR_INIT_NSCLC": {
+    "criterion_id": "CR_INIT_NSCLC",
+    "criterion_kind": "cluster_criterion",
+    "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
+    "answer_type": "boolean",
+    "required": true,
+    "clinician_input": {
+      "answer": null,
+      "value": null,
+      "comment": null,
+      "override_prefill": false,
+      "answered": false
+    },
+    "chart_result": {
+      "status": "Found",
+      "meets_criterion": true,
+      "extracted_value": {
+        "diagnosis_codes": [
+          "C34.90",
+          "C34.02",
+          "C34.01"
+        ],
+        "diagnosis_descriptions": [
+          "Malignant neoplasm of unspecified part of unspecified bronchus or lung",
+          "Malignant neoplasm of left main bronchus",
+          "Malignant neoplasm of right main bronchus"
+        ],
+        "note_support": "Notes explicitly document non-small cell lung cancer / adenocarcinoma with bilateral mainstem bronchial compression, obstructive complications, and plans for palliative chemo-radiation."
+      },
+      "justification": "Structured EHR evidence shows multiple C34.* lung cancer diagnoses for this patient, and narrative notes explicitly state NSCLC/non-small cell lung cancer, consistent with adenocarcinoma and clinically advanced obstructive disease requiring bronchial stenting and planned palliative therapy. This is sufficient to confirm the NSCLC indication documented in the chart.",
+      "sources": {
+        "structured": [
+          {
+            "condition_ids": [
+              "56f89fe3-90ae-56d6-a05f-ad925f7060f8",
+              "8a45232f-f7af-58c9-951e-6287d1caafa6",
+              "1fccc82d-770c-5f05-b872-326acec78f44"
+            ],
+            "codes": [
+              "C34.90",
+              "C34.02",
+              "C34.01"
+            ],
+            "descriptions": [
+              "Malignant neoplasm of unspecified part of unspecified bronchus or lung",
+              "Malignant neoplasm of left main bronchus",
+              "Malignant neoplasm of right main bronchus"
+            ]
+          }
+        ],
+        "notes": [
+          {
+            "note_id": "10021312-DS-19",
+            "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+            "excerpt": "diagnosed with NSCLC compressing her mainstem bronchi ... tumor debulking and bilateral stent placement in the main stem bronchi ... diagnosed with NSCLC compressing her main bronchi bilaterally"
+          },
+          {
+            "note_id": "10021312-DS-20",
+            "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+            "excerpt": "Non-small cell lung cancer ... adenocarcinoma of the lung ... extrinsic compression of both main stem bronchi ... recommended initiation of therapy as soon as possible given rapid growth and obstructive complications"
+          }
+        ]
+      }
+    },
+    "ui_resolution": {
+      "display_state": "satisfied",
+      "prefill_value": true,
+      "use_chart_as_prefill": true,
+      "conflict_flag": false,
+      "conflict_reason": null,
+      "final_answer": true,
+      "final_source": "chart"
+    }
+  }
+}

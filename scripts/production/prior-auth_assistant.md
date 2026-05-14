@@ -24,7 +24,7 @@ This document is the production reference for the POC.
   - apply results back to the selected logic tree
 - Condition clusters should remain clinician-selectable and disease-specific, including continuation clusters.
 - Shared continuation logic should be reused through `logic_profiles`, not by collapsing multiple diseases into one continuation bucket.
-- Diagnosis-defined clusters must expose explicit executable diagnosis criteria.
+- Diagnosis-defined clusters must retain diagnosis-grounded effective logic, whether through a standalone diagnosis criterion or a composite disease-state criterion.
 
 ## Webapp Design
 
@@ -43,6 +43,17 @@ The webapp should show:
 - unresolved items that need clinician input
 - explicit chart conflicts
 
+Recommended UI behavior:
+- `status = Found` and `meets_criterion = true`
+  - show as chart-supported and satisfied
+- `status = Found` and `meets_criterion = false`
+  - show as chart-supported and not satisfied
+- `status = Missing`
+  - show as unresolved and prompt clinician review or manual confirmation
+- `status = Ambiguous`
+  - show as unresolved and prompt clinician resolution of conflicting or
+    incomplete evidence
+
 ### Screen 3: Final Review
 The webapp should summarize:
 - answered criteria
@@ -57,6 +68,13 @@ The app may also:
 - allow manual override to add another cluster
 
 ## Runtime Architecture
+
+### Component ownership
+
+- `condition_clusters` own route/phase-specific disease scope and grouping.
+- `criteria_catalog` owns criterion decomposition, including whether a clinical requirement should be represented as a standalone criterion or a composite criterion.
+- `logic_root` owns boolean composition of already-defined criteria and guards.
+- Retrieval and adjudication layers should trust parser-defined criterion decomposition rather than re-splitting or re-merging criteria downstream.
 
 ### Canonical and Derived Artifacts
 
@@ -75,19 +93,19 @@ Responsibilities:
 - run the Selection Resolver
 - validate route guard answers
 - validate cluster-entry guard answers
-- build `scoped_policy_context`
+- build the Screen 1 payload field `scoped_policy_context`
 - read/write retrieval-plan cache
 
 Implementation helpers:
 - `scripts/production/functions/route_index_builder.py`
 - `scripts/production/functions/selection_resolver.py`
-- `scripts/production/functions/logic_tree_evaluator.py`
+- `scripts/production/functions/python_code_blocks.py`
 
 ### Agent Layer
 
 #### 1. Policy Parser Agent
 Prompt:
-- `scripts/production/agents/policy_parser_agent_prompt_v4.md`
+- `scripts/production/agents/policy_parser_agent_prompt_v4_1.md`
 
 Responsibility:
 - parse raw policy text
@@ -117,20 +135,25 @@ Implementation spec:
 
 #### 3. Retrieval Planner Agent
 Prompt:
-- `scripts/production/agents/retrieval_planner_agent_prompt_v1.md`
+- `scripts/production/agents/retrieval_planner_agent_prompt_v1_1.md`
 
 Responsibility:
 - consume `subject_id + scoped_policy_context`
 - generate `retrieval_plan_v1` only for the selected scope
+- preserve parser-defined criterion decomposition in the plan
+- for diagnosis-grounded hybrid disease-state criteria, preserve a diagnosis-code
+  structured leg plus a qualifier-resolution leg
 - define retrieval planning only, not adjudication
 
 #### 4. Criterion Reasoning Agent
 Prompt:
-- `scripts/criterion_reasoning_agent_prompt.md`
+- `scripts/production/agents/criterion_reasoning_agent_prompt_v1_1.md`
 
 Responsibility:
 - evaluate one atomic criterion using chart evidence
-- return `Found`, `Missing`, `Ambiguous`, or `Unreviewed`
+- execute hybrid disease-state criteria with diagnosis-grounded structured
+  retrieval first when diagnosis codes are available
+- return a consistent `status` / `meets_criterion` pair
 - provide evidence and justification
 
 ## Selection Resolver
@@ -151,25 +174,34 @@ Behavior:
 - prompt for phase only when required
 - build the disease-specific cluster shortlist for the selected phase
 - hydrate relevant route guards and cluster-entry guards from `policy_master_v4`
-- return a planner-facing `scoped_policy_context`
+- return a planner-facing `scoped_policy_context` payload whose inner runtime object becomes `selected_scope_context` inside the Structured Agent
 
 Implementation:
 - `scripts/production/functions/selection_resolver.py`
 
 ### `scoped_policy_context` contract
 
+`scoped_policy_context` is the Screen 1 / API payload field name. Its inner object is
+persisted in Structured Agent state as `selected_scope_context`.
+
 ```json
 {
   "policy_id": "string",
   "selected_route_id": "string",
-  "selected_route_label": "string",
   "selected_phase": "initial | continuation | other",
   "selected_cluster_id": "string",
-  "selected_cluster_label": "string",
+  "selected_route": {},
+  "selected_phase_branch": {},
+  "selected_route_guards": [],
+  "selected_cluster_summary": {},
+  "selected_cluster": {},
+  "selected_cluster_entry_guards": [],
+  "selected_logic_profiles": [],
+  "selected_inherited_diagnosis_clusters": [],
   "effective_diagnosis_code_candidates": ["string"],
-  "selected_logic_profile_ids": ["string"],
   "selected_route_guard_criterion_ids": ["string"],
   "selected_cluster_entry_guard_criterion_ids": ["string"],
+  "selected_inherited_diagnosis_criterion_ids": ["string"],
   "selected_cluster_criterion_ids": ["string"],
   "selected_criteria_catalog": []
 }
@@ -178,7 +210,7 @@ Implementation:
 Critical assumptions:
 - continuation shortlist entries should remain disease-specific
 - diagnosis metadata alone is not sufficient for downstream planning
-- if a cluster depends on diagnosis confirmation, the required diagnosis criterion must appear in `selected_criteria_catalog`
+- if a cluster depends on diagnosis confirmation, the selected scope must still include diagnosis-grounded effective logic, which may be represented by either a standalone diagnosis criterion or a composite disease-state criterion
 
 ## Screen Ownership
 
@@ -193,6 +225,7 @@ Backend should:
 7. return disease-specific cluster shortlist
 8. return cluster-entry guards for the chosen cluster
 9. build `scoped_policy_context` only after the selected scope is valid
+10. persist the inner scoped object in Structured Agent state as `selected_scope_context`
 
 ### Screen 2: Structured Agent
 Structured Agent should:
@@ -201,8 +234,14 @@ Structured Agent should:
 3. iterate over flattened `plan_items`
 4. call Criterion Reasoning Agent once per unique criterion
 5. build `criterion_result_map`
-6. apply results to the selected logic tree
-7. return prefills, unresolved items, conflicts, and logic evaluation
+6. build a deterministic webapp-facing `criterion_ui_map`
+7. apply results to the selected logic tree
+8. return prefills, unresolved items, conflicts, and logic evaluation
+
+Implementation note:
+- persist the inner selected scope object in agent state as
+  `selected_scope_context`
+- reserve `scoped_policy_context` for the Screen 1 / API payload field name
 
 ### Screen 3: Structured Agent
 Structured Agent should:
@@ -261,12 +300,34 @@ Use only if the webapp must support resume/reload.
 
 The evaluator runs after `criterion_result_map` is complete.
 
+`criterion_result_map` design rule:
+- `extracted_value` should contain only compact normalized result content useful
+  for prefill or downstream logic
+- raw structured rows and note excerpts belong in `sources`
+- `sources.structured` should include all relevant returned EHR records rather
+  than a single aggregated source item
+- `sources.notes` should use clinician-reviewable excerpts plus a brief
+  explanation of why each excerpt matters
+- each note excerpt should be a focused local passage, not the full retrieved
+  chunk
+- reasoning belongs in `justification`
+
 ### Criterion normalization
 - `Found` + `meets_criterion=true` -> satisfied
 - `Found` + `meets_criterion=false` -> not satisfied
-- `Missing` -> not satisfied
-- `Ambiguous` -> unresolved
+- `Missing` + `meets_criterion=false` -> unresolved and should prompt clinician follow-up
+- `Ambiguous` + `meets_criterion=false` -> unresolved
 - `Unreviewed` -> unresolved
+
+Contract:
+- `status` is the chart-evidence resolution field used to decide whether the
+  webapp should prompt the clinician
+- `meets_criterion` is the pass/fail adjudication field and may be `true` only
+  when `status = Found`
+- for exclusionary criteria, chart silence is not enough to satisfy the
+  criterion; documented absence of the disqualifying fact is required
+- if that documented absence is not found, return `Missing` +
+  `meets_criterion=false`, and let the webapp prompt for clinician review
 
 ### Operators
 - `all`
@@ -288,6 +349,94 @@ The evaluator runs after `criterion_result_map` is complete.
 
 POC rule:
 - repeated `criterion_ref` nodes should be evaluated once and reused everywhere in the logic tree
+- `evaluate_logic_tree(selected_scope_context, criterion_result_map)` derives its
+  primary and supporting logic roots directly from `selected_scope_context`,
+  including:
+  - `selected_cluster.logic_root`
+  - `selected_route_guards[].logic_root`
+  - `selected_cluster_entry_guards[].logic_root`
+  - `selected_logic_profiles[].logic_root`
+  - `selected_inherited_diagnosis_clusters[].logic_root`
+
+## Screen 2 Merge Model
+
+Use three per-criterion layers:
+- clinician input
+- chart-backed result
+- UI resolution
+
+Canonical backend artifact:
+- `criterion_result_map`
+
+Derived webapp-facing artifact:
+- `criterion_ui_map`
+
+Recommended shape:
+
+```json
+{
+  "CRITERION_ID": {
+    "criterion_id": "string",
+    "criterion_kind": "route_guard | cluster_entry_guard | cluster_criterion",
+    "prompt": "string",
+    "required": true,
+    "clinician_input": {
+      "answer": null,
+      "value": null,
+      "comment": null,
+      "override_prefill": false,
+      "answered": false
+    },
+    "chart_result": {
+      "status": "Found | Missing | Ambiguous | Unreviewed",
+      "meets_criterion": false,
+      "extracted_value": null,
+      "justification": null,
+      "sources": {
+        "structured": [],
+        "notes": []
+      }
+    },
+    "ui_resolution": {
+      "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered",
+      "prefill_value": null,
+      "use_chart_as_prefill": false,
+      "conflict_flag": false,
+      "conflict_reason": null,
+      "final_answer": null,
+      "final_source": "chart | clinician | unresolved | system"
+    }
+  }
+}
+```
+
+Rules:
+- `chart_result` mirrors the backend-produced `criterion_result_map`
+- `clinician_input` mirrors the latest user answer
+- `ui_resolution` is deterministic frontend/backend merge logic, not LLM output
+
+Recommended merge behavior:
+- `Found + meets_criterion=true`
+  - can prefill as satisfied
+- `Found + meets_criterion=false`
+  - can prefill as not satisfied
+- `Missing`
+  - do not auto-fail in the UI
+  - show as `needs_clinician`
+- `Ambiguous`
+  - show as `needs_clinician`
+- `Unreviewed`
+  - show as `unanswered` until processed
+- clinician/chart disagreement on a chart-backed `Found` result
+  - show as `conflict`
+
+Recommended presentation order:
+- route guards first
+- cluster-entry guards second
+- cluster criteria third
+
+This preserves a staged clinician workflow while keeping the backend execution
+flattened and uniform.
 
 ## Work Plan
 
@@ -314,11 +463,13 @@ The POC is successful if:
 
 ## Reference Files
 
-- `scripts/production/agents/policy_parser_agent_prompt_v4.md`
+- `scripts/production/agents/policy_parser_agent_prompt_v4_1.md`
 - `scripts/production/agents/screen2_structured_agent_spec.md`
-- `scripts/production/agents/retrieval_planner_agent_prompt_v1.md`
+- `scripts/production/agents/retrieval_planner_agent_prompt_v1_1.md`
 - `scripts/production/functions/route_index_builder.py`
 - `scripts/production/functions/selection_resolver.py`
+- `scripts/production/functions/python_code_blocks.py`
 - `scripts/production/functions/logic_tree_evaluator.py`
-- `scripts/criterion_reasoning_agent_prompt.md`
+- `scripts/production/functions/evaluator_regression.py`
+- `scripts/production/agents/criterion_reasoning_agent_prompt_v1_1.md`
 - `scripts/production/prior-auth_assistant_flowchart.md`

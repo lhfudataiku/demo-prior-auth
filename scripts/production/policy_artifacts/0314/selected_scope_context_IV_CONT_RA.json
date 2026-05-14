@@ -1,0 +1,755 @@
+{
+    "policy_id": "0314",
+    "selected_route_id": "RT_RITUXIMAB_IV",
+    "selected_phase": "continuation",
+    "selected_cluster_id": "CL_IV_RA_CONTINUATION",
+    "selected_route": {
+        "route_id": "RT_RITUXIMAB_IV",
+        "label": "Intravenous rituximab (Rituxan and biosimilars)",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+            "J9312",
+            "Q5115",
+            "Q5119",
+            "Q5123"
+        ],
+        "route_kind": "covered_request",
+        "phase_prompt_required": true,
+        "phase_branches": [
+            {
+                "phase": "initial",
+                "is_default": true,
+                "route_guard_ids": [],
+                "cluster_ids": [
+                    "CL_IV_ONCOLOGY_INITIAL",
+                    "CL_IV_HEMATOLOGY_INITIAL",
+                    "CL_IV_IMMUNE_CHECKPOINT_INITIAL",
+                    "CL_IV_RA_INITIAL",
+                    "CL_IV_VASCULITIS_INITIAL",
+                    "CL_IV_SJOGRENS_INITIAL",
+                    "CL_IV_MS_INITIAL",
+                    "CL_IV_NMOSD_INITIAL",
+                    "CL_IV_BLISTERING_INITIAL",
+                    "CL_IV_CRYOGLOB_INITIAL",
+                    "CL_IV_TRANSPLANT_INITIAL",
+                    "CL_IV_OPSOC_INITIAL",
+                    "CL_IV_SLE_INITIAL",
+                    "CL_IV_MG_INITIAL",
+                    "CL_IV_MEMBRANOUS_INITIAL",
+                    "CL_IV_SUSAC_INITIAL"
+                ]
+            },
+            {
+                "phase": "continuation",
+                "is_default": false,
+                "route_guard_ids": [],
+                "cluster_ids": [
+                    "CL_IV_ONCOLOGY_CONTINUATION",
+                    "CL_IV_HEMATOLOGY_CONTINUATION",
+                    "CL_IV_IMMUNE_CHECKPOINT_CONTINUATION",
+                    "CL_IV_RA_CONTINUATION",
+                    "CL_IV_VASCULITIS_CONTINUATION",
+                    "CL_IV_SJOGRENS_CONTINUATION",
+                    "CL_IV_MS_CONTINUATION",
+                    "CL_IV_NMOSD_CONTINUATION",
+                    "CL_IV_BLISTERING_CONTINUATION",
+                    "CL_IV_CRYOGLOB_CONTINUATION",
+                    "CL_IV_TRANSPLANT_CONTINUATION",
+                    "CL_IV_OPSOC_CONTINUATION",
+                    "CL_IV_SLE_CONTINUATION",
+                    "CL_IV_MG_CONTINUATION",
+                    "CL_IV_MEMBRANOUS_CONTINUATION",
+                    "CL_IV_SUSAC_CONTINUATION"
+                ]
+            }
+        ],
+        "routing_notes": "Initial and continuation coverage spans hematologic/oncologic diagnoses as well as rheumatoid arthritis and other autoimmune/neurologic disorders listed in the policy.",
+        "evidence": "Aetna considers rituximab (Rituxan), rituximab-abbs (Truxima), rituximab-arrx (Riabni), or rituximab-pvvr (Ruxience) as medically necessary for the listed hematologic, oncologic, and select autoimmune conditions.",
+        "locator": {
+            "section_path": [
+                "Policy",
+                "Treatment of Hematologic and Oncologic Conditions"
+            ],
+            "page_start": 2,
+            "page_end": 7
+        }
+    },
+    "selected_phase_branch": {
+        "phase": "continuation",
+        "is_default": false,
+        "route_guard_ids": [],
+        "cluster_summaries": [
+            {
+                "cluster_id": "CL_IV_ONCOLOGY_CONTINUATION",
+                "condition_key": "oncologic_cd20_bcell_cont",
+                "condition_label": "Continuation of CD20-positive B-cell hematologic malignancy",
+                "condition_synonyms": [
+                    "Ongoing B-cell malignancy therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "C81.00 - C81.09",
+                    "C81.40 - C81.49",
+                    "C82.00 - C82.99",
+                    "C83.00 - C83.09",
+                    "C83.10 - C83.19",
+                    "C83.30 - C83.3A",
+                    "C83.50 - C83.59",
+                    "C83.70 - C83.79",
+                    "C83.80 - C83.89",
+                    "C83.90 - C83.99",
+                    "C84.00 - C84.79",
+                    "C84.A0 - C84.Z9",
+                    "C84.90 - C84.99",
+                    "C85.10 - C85.19",
+                    "C85.20 - C85.29",
+                    "C85.80 - C85.99",
+                    "C86.00 - C86.41",
+                    "C86.50 - C86.51",
+                    "C86.60 - C86.61",
+                    "C88.00 - C88.01",
+                    "C88.40 - C88.41",
+                    "C91.00 - C91.01",
+                    "C91.10 - C91.12",
+                    "C91.40 - C91.42",
+                    "D47.Z1",
+                    "D47.Z2"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_HEMATOLOGY_CONTINUATION",
+                "condition_key": "hematologic_autoimmune_cont",
+                "condition_label": "Continuation for hematologic autoimmune/transplant indications",
+                "condition_synonyms": [
+                    "Ongoing autoimmune hematologic therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "D59.0 - D59.19",
+                    "D69.3",
+                    "M31.10 - M31.19",
+                    "D76.3",
+                    "D89.1",
+                    "D89.811",
+                    "D47.Z1",
+                    "D47.Z2",
+                    "T86.00 - T86.99",
+                    "Z94.0 - Z94.9"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_IMMUNE_CHECKPOINT_CONTINUATION",
+                "condition_key": "immune_checkpoint_cont",
+                "condition_label": "Continuation for immune checkpoint inhibitor-related toxicities",
+                "condition_synonyms": [
+                    "Ongoing immune checkpoint toxicity therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "G04.81"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_RA_CONTINUATION",
+                "condition_key": "ra_continuation",
+                "condition_label": "Rheumatoid arthritis continuation",
+                "condition_synonyms": [
+                    "RA ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "M05.00 - M14.89"
+                ],
+                "cluster_entry_guard_ids": [
+                    "CEG_RA_NO_OTHER_BIO"
+                ]
+            },
+            {
+                "cluster_id": "CL_IV_VASCULITIS_CONTINUATION",
+                "condition_key": "vasculitis_continuation",
+                "condition_label": "Continuation for ANCA-associated vasculitis",
+                "condition_synonyms": [
+                    "GPA ongoing therapy",
+                    "MPA ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "M30.1",
+                    "M31.10 - M31.19",
+                    "M31.30 - M31.31",
+                    "M31.7",
+                    "I77.6",
+                    "I77.82",
+                    "N01.3"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_SJOGRENS_CONTINUATION",
+                "condition_key": "sjogrens_cont",
+                "condition_label": "Continuation for Sjögren’s syndrome",
+                "condition_synonyms": [
+                    "Sicca syndrome ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "M35.00 - M35.09"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_MS_CONTINUATION",
+                "condition_key": "ms_continuation",
+                "condition_label": "Multiple sclerosis continuation",
+                "condition_synonyms": [
+                    "RRMS ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "G35.A - G35.D"
+                ],
+                "cluster_entry_guard_ids": [
+                    "CEG_MS_NO_DMT"
+                ]
+            },
+            {
+                "cluster_id": "CL_IV_NMOSD_CONTINUATION",
+                "condition_key": "nmosd_continuation",
+                "condition_label": "Neuromyelitis optica continuation",
+                "condition_synonyms": [
+                    "NMOSD ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "G36.0"
+                ],
+                "cluster_entry_guard_ids": [
+                    "CEG_NMOSD_NO_OTHER_BIO"
+                ]
+            },
+            {
+                "cluster_id": "CL_IV_BLISTERING_CONTINUATION",
+                "condition_key": "blistering_continuation",
+                "condition_label": "Autoimmune blistering disease continuation",
+                "condition_synonyms": [
+                    "Pemphigus ongoing therapy",
+                    "Bullous pemphigoid ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "L10.0",
+                    "L10.2",
+                    "L10.81",
+                    "L12.0",
+                    "L12.1",
+                    "L12.30 - L12.35"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_CRYOGLOB_CONTINUATION",
+                "condition_key": "cryoglob_cont",
+                "condition_label": "Cryoglobulinemia continuation",
+                "condition_synonyms": [
+                    "Cryoglobulin-mediated vasculitis ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "D89.1"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_TRANSPLANT_CONTINUATION",
+                "condition_key": "transplant_cont",
+                "condition_label": "Solid organ transplant continuation",
+                "condition_synonyms": [
+                    "Transplant rejection prophylaxis ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "T86.00 - T86.99",
+                    "Z94.0 - Z94.9"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_OPSOC_CONTINUATION",
+                "condition_key": "opsoc_cont",
+                "condition_label": "Opsoclonus-myoclonus-ataxia continuation",
+                "condition_synonyms": [
+                    "Opsoclonus ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "H55.89"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_SLE_CONTINUATION",
+                "condition_key": "sle_continuation",
+                "condition_label": "SLE continuation",
+                "condition_synonyms": [
+                    "SLE ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "M32.0 - M32.9"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_MG_CONTINUATION",
+                "condition_key": "mg_continuation",
+                "condition_label": "Myasthenia gravis continuation",
+                "condition_synonyms": [
+                    "Refractory MG ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "G70.00 - G70.01"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_MEMBRANOUS_CONTINUATION",
+                "condition_key": "membranous_continuation",
+                "condition_label": "Membranous nephropathy continuation",
+                "condition_synonyms": [
+                    "Membranous nephropathy ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "N04.20 - N04.29",
+                    "N06.20 - N06.29"
+                ],
+                "cluster_entry_guard_ids": []
+            },
+            {
+                "cluster_id": "CL_IV_SUSAC_CONTINUATION",
+                "condition_key": "susac_continuation",
+                "condition_label": "Susac syndrome continuation",
+                "condition_synonyms": [
+                    "Susac ongoing therapy"
+                ],
+                "diagnosis_basis": "code_table_primary",
+                "diagnosis_code_candidates": [
+                    "G93.49"
+                ],
+                "cluster_entry_guard_ids": []
+            }
+        ]
+    },
+    "selected_route_guards": [],
+    "selected_cluster_summary": {
+        "cluster_id": "CL_IV_RA_CONTINUATION",
+        "condition_key": "ra_continuation",
+        "condition_label": "Rheumatoid arthritis continuation",
+        "condition_synonyms": [
+            "RA ongoing therapy"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+            "M05.00 - M14.89"
+        ],
+        "cluster_entry_guard_ids": [
+            "CEG_RA_NO_OTHER_BIO"
+        ]
+    },
+    "selected_cluster": {
+        "cluster_id": "CL_IV_RA_CONTINUATION",
+        "route_id": "RT_RITUXIMAB_IV",
+        "phase": "continuation",
+        "condition_key": "ra_continuation",
+        "condition_label": "Rheumatoid arthritis continuation",
+        "condition_synonyms": [
+            "RA ongoing therapy"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+            "M05.00 - M14.89"
+        ],
+        "inherits_diagnosis_from_cluster_ids": [
+            "CL_IV_RA_INITIAL"
+        ],
+        "cluster_entry_guard_ids": [
+            "CEG_RA_NO_OTHER_BIO"
+        ],
+        "logic_profile_id": "UNKNOWN",
+        "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+                {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_RA_CONT_RESPONSE"
+                }
+            ]
+        },
+        "evidence": "Continuation for RA in adults achieving or maintaining positive clinical response after at least two doses evidenced by ≥20% improvement in tender joint count, swollen joint count, pain, or disability.",
+        "locator": {
+            "section_path": [
+                "Policy",
+                "Treatment of Rheumatoid Arthritis and Other Conditions",
+                "IV. Continuation of Therapy",
+                "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 7,
+            "page_end": 7
+        }
+    },
+    "selected_cluster_entry_guards": [
+        {
+            "guard_id": "CEG_RA_NO_OTHER_BIO",
+            "label": "No concurrent biologic or targeted synthetic RA therapy",
+            "guard_type": "limitation",
+            "applies_to_route_ids": [
+                "RT_RITUXIMAB_IV"
+            ],
+            "applies_to_phases": [
+                "initial",
+                "continuation"
+            ],
+            "applies_to_cluster_ids": [
+                "CL_IV_RA_INITIAL",
+                "CL_IV_RA_CONTINUATION"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_RA_NO_CONCOMITANT_BIO"
+                    }
+                ]
+            },
+            "evidence": "Member will not receive Rituxan, Ruxience, Truxima, or Riabni with any other biologic drug or targeted synthetic drug for RA.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "II. Exclusions"
+                ],
+                "page_start": 5,
+                "page_end": 5
+            }
+        }
+    ],
+    "selected_logic_profiles": [],
+    "selected_inherited_diagnosis_clusters": [
+        {
+            "cluster_id": "CL_IV_RA_INITIAL",
+            "route_id": "RT_RITUXIMAB_IV",
+            "phase": "initial",
+            "condition_key": "rheumatoid_arthritis",
+            "condition_label": "Moderately to severely active rheumatoid arthritis",
+            "condition_synonyms": [
+                "RA refractory to other biologics",
+                "RA with positive biomarker testing"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+                "M05.00 - M14.89"
+            ],
+            "inherits_diagnosis_from_cluster_ids": [],
+            "cluster_entry_guard_ids": [
+                "CEG_RA_NO_OTHER_BIO"
+            ],
+            "logic_profile_id": "UNKNOWN",
+            "logic_root": {
+                "node_type": "group",
+                "operator": "all",
+                "children": [
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_RA_MODERATE_SEVERE"
+                    },
+                    {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_RA_COMBO_MT_OR_LEF"
+                    },
+                    {
+                        "node_type": "group",
+                        "operator": "any",
+                        "children": [
+                            {
+                                "node_type": "criterion_ref",
+                                "criterion_id": "CR_RA_PRIOR_BIO"
+                            },
+                            {
+                                "node_type": "group",
+                                "operator": "all",
+                                "children": [
+                                    {
+                                        "node_type": "criterion_ref",
+                                        "criterion_id": "CR_RA_BIOMARKER_TESTING"
+                                    },
+                                    {
+                                        "node_type": "criterion_ref",
+                                        "criterion_id": "CR_RA_MTX_RESPONSE"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "evidence": "Adults previously treated with a biologic or targeted synthetic drug for moderately to severely active RA, or those meeting biomarker and methotrexate response criteria, and receiving rituximab with methotrexate or leflunomide unless clinically contraindicated.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "III. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 5,
+                "page_end": 7
+            }
+        }
+    ],
+    "effective_diagnosis_code_candidates": [
+        "M05.00 - M14.89"
+    ],
+    "selected_route_guard_criterion_ids": [],
+    "selected_cluster_entry_guard_criterion_ids": [
+        "CR_RA_NO_CONCOMITANT_BIO"
+    ],
+    "selected_inherited_diagnosis_criterion_ids": [
+        "CR_RA_BIOMARKER_TESTING",
+        "CR_RA_COMBO_MT_OR_LEF",
+        "CR_RA_MODERATE_SEVERE",
+        "CR_RA_MTX_RESPONSE",
+        "CR_RA_PRIOR_BIO"
+    ],
+    "selected_cluster_criterion_ids": [
+        "CR_RA_BIOMARKER_TESTING",
+        "CR_RA_COMBO_MT_OR_LEF",
+        "CR_RA_CONT_RESPONSE",
+        "CR_RA_MODERATE_SEVERE",
+        "CR_RA_MTX_RESPONSE",
+        "CR_RA_PRIOR_BIO"
+    ],
+    "selected_criteria_catalog": [
+        {
+            "criterion_id": "CR_RA_MTX_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Has the member had an inadequate response to at least a 3-month trial of methotrexate at ≥15 mg/week, or has the member had an intolerable adverse effect or contraindication to methotrexate with an inadequate response to another conventional DMARD?",
+            "clinical_intent": "Confirm methotrexate failure or intolerance per policy.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "condition"
+            ],
+            "policy_time_language": "Inadequate response or intolerance to methotrexate is required before this pathway.",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Inadequate response to at least a 3-month trial of methotrexate at ≥15 mg/week, or an intolerable adverse effect or contraindication to methotrexate plus an inadequate response to another conventional drug.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "III. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_RA_NO_CONCOMITANT_BIO",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Is rituximab being used without any other biologic or targeted synthetic rheumatoid arthritis therapy concurrently?",
+            "clinical_intent": "Prevent combination with other RA biologics or targeted synthetic drugs.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication"
+            ],
+            "policy_time_language": "The member will not receive rituximab with any other biologic or targeted synthetic drug for RA.",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Member will not receive Rituxan, Ruxience, Truxima, or Riabni with any other biologic drug or targeted synthetic drug for RA.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "II. Exclusions"
+                ],
+                "page_start": 5,
+                "page_end": 5
+            }
+        },
+        {
+            "criterion_id": "CR_RA_CONT_RESPONSE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "After at least two doses of rituximab, has the member achieved or maintained a positive clinical response defined by at least a 20% improvement from baseline in tender joint count, swollen joint count, pain, or disability?",
+            "clinical_intent": "Document the required clinical improvement for RA continuation.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "observation",
+                "condition"
+            ],
+            "policy_time_language": "Improvement must be ≥20% in key RA disease activity parameters after at least two doses.",
+            "retrieval_priority": "high",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Continuation requires a positive clinical response after at least two doses evidenced by at least 20% improvement in tender joint count, swollen joint count, pain, or disability.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "IV. Continuation of Therapy",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 7,
+                "page_end": 7
+            }
+        },
+        {
+            "criterion_id": "CR_RA_MODERATE_SEVERE",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Does the member have moderately to severely active rheumatoid arthritis documented by the appropriate RA ICD-10 codes?",
+            "clinical_intent": "Confirm the RA diagnosis meets the severity level cited in the policy.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [
+                    "M05.00 - M14.89"
+                ],
+                "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+                "condition"
+            ],
+            "policy_time_language": "Moderately to severely active disease is required for therapy.",
+            "retrieval_priority": "high",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For treatment of adults with moderately to severely active rheumatoid arthritis when criteria are met.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "III. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_RA_COMBO_MT_OR_LEF",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Is rituximab prescribed with methotrexate or leflunomide, or is there a clinical reason not to use methotrexate or leflunomide?",
+            "clinical_intent": "Ensure combination therapy or documented contraindication explains monotherapy.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication",
+                "condition"
+            ],
+            "policy_time_language": "Combination therapy is required unless there is a clinical reason not to use methotrexate or leflunomide.",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "The requested medication must be prescribed in combination with methotrexate or leflunomide unless the member has a clinical reason not to use these agents.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "III. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_RA_BIOMARKER_TESTING",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Has the member been tested for rheumatoid factor (RF) and anti-CCP (with positive result), or been tested for RF, anti-CCP, and CRP and/or ESR as specified?",
+            "clinical_intent": "Document required biomarker testing for the alternative RA pathway.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "observation"
+            ],
+            "policy_time_language": "Biomarker testing is required for the second pathway.",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "The member has been tested for RF and/or anti-CCP or has been tested for RF, anti-CCP, and CRP/ESR per policy.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "III. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 6,
+                "page_end": 6
+            }
+        },
+        {
+            "criterion_id": "CR_RA_PRIOR_BIO",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Has the member previously received a biologic or targeted synthetic drug indicated for moderately to severely active rheumatoid arthritis?",
+            "clinical_intent": "Document prior biologic or targeted synthetic therapy as required in Pathway 1.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+                "source_codes": [],
+                "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+                "medication"
+            ],
+            "policy_time_language": "Prior biologic or targeted synthetic use satisfies one pathway.",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "For adults who have previously received a biologic or targeted synthetic drug indicated for the treatment of moderately to severely active rheumatoid arthritis.",
+            "locator": {
+                "section_path": [
+                    "Policy",
+                    "Treatment of Rheumatoid Arthritis and Other Conditions",
+                    "III. Criteria for Initial Approval",
+                    "A. Rheumatoid arthritis (RA)"
+                ],
+                "page_start": 5,
+                "page_end": 6
+            }
+        }
+    ]
+}

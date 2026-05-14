@@ -1,22 +1,10 @@
-"""Deterministic Selection Resolver for prior-auth Screen 1 scope reduction.
-
-This module returns two conceptual outputs in one response payload:
-
-1. A Screen 1/UI-facing resolution payload:
-   - route summary
-   - cluster shortlist
-   - applicable guard IDs
-
-2. A planner-facing ``scoped_policy_context``:
-   - minimal selected scope metadata
-   - effective diagnosis candidates
-   - criterion IDs grouped by source
-   - only the criterion catalog objects needed by the retrieval planner
-"""
+"""Deterministic Selection Resolver for prior-auth Screen 1 scope reduction."""
 
 from __future__ import annotations
 
-from typing import Any, Dict, Iterable, List, Optional, Set
+from pathlib import Path
+import json
+from typing import Any, Dict, Iterable, List, Optional, Set, Union
 
 
 def _index_by_id(items: Iterable[Dict[str, Any]], key: str) -> Dict[str, Dict[str, Any]]:
@@ -64,6 +52,19 @@ def _effective_diagnosis_code_candidates(
     return ordered_codes
 
 
+def _find_billing_code_for_route(route_index_v4: Dict[str, Any], selected_route_id: str) -> Optional[str]:
+    """Return a stable billing code that resolves to the selected route."""
+
+    for route in route_index_v4.get("routes", []):
+        if not isinstance(route, dict) or route.get("route_id") != selected_route_id:
+            continue
+        billing_codes = route.get("billing_codes", [])
+        for billing_code in billing_codes:
+            if isinstance(billing_code, str) and billing_code:
+                return billing_code
+    return None
+
+
 def resolve_selection_scope(
     route_index_v4: Dict[str, Any],
     policy_master_v4: Dict[str, Any],
@@ -73,9 +74,8 @@ def resolve_selection_scope(
 ) -> Dict[str, Any]:
     """Resolve Screen 1 selection into a minimal scoped policy context.
 
-    The returned payload is intentionally split between:
-    - Screen 1/UI response fields
-    - a minimal ``scoped_policy_context`` for downstream retrieval planning
+    The returned payload is intentionally reduced for downstream use by the
+    retrieval planner and cluster executor.
     """
 
     routes = route_index_v4.get("routes", [])
@@ -214,7 +214,9 @@ def resolve_selection_scope(
         if isinstance(guard_id, str) and guard_id
     ]
 
-    selected_route_guards = [route_guard_map[guard_id] for guard_id in route_guard_ids if guard_id in route_guard_map]
+    selected_route_guards = [
+        route_guard_map[guard_id] for guard_id in route_guard_ids if guard_id in route_guard_map
+    ]
     selected_cluster_entry_guards = [
         cluster_guard_map[guard_id] for guard_id in cluster_entry_guard_ids if guard_id in cluster_guard_map
     ]
@@ -238,6 +240,18 @@ def resolve_selection_scope(
     selected_cluster_criterion_ids = _collect_criterion_ids_from_logic_root(selected_cluster.get("logic_root"))
     for profile in selected_logic_profiles:
         selected_cluster_criterion_ids.update(_collect_criterion_ids_from_logic_root(profile.get("logic_root")))
+
+    selected_inherited_diagnosis_criterion_ids: Set[str] = set()
+    for inherited_cluster in selected_inherited_diagnosis_clusters:
+        selected_inherited_diagnosis_criterion_ids.update(
+            _collect_criterion_ids_from_logic_root(inherited_cluster.get("logic_root"))
+        )
+
+    # Inherited diagnosis logic should participate in downstream retrieval and
+    # adjudication for the selected cluster, so fold those criterion IDs into
+    # the selected cluster criterion set while also preserving a dedicated
+    # traceability field.
+    selected_cluster_criterion_ids.update(selected_inherited_diagnosis_criterion_ids)
 
     selected_route_guard_criterion_ids: Set[str] = set()
     for guard in selected_route_guards:
@@ -267,18 +281,20 @@ def resolve_selection_scope(
     scoped_policy_context = {
         "policy_id": policy_master_v4.get("policy_id", "UNKNOWN"),
         "selected_route_id": selected_route_id,
-        "selected_route_label": selected_route.get("label", "UNKNOWN"),
         "selected_phase": selected_phase_value,
         "selected_cluster_id": selected_cluster_id,
-        "selected_cluster_label": selected_cluster.get("condition_label", "UNKNOWN"),
+        "selected_route": selected_route,
+        "selected_phase_branch": phase_branch,
+        "selected_route_guards": selected_route_guards,
+        "selected_cluster_summary": selected_cluster_summary,
+        "selected_cluster": selected_cluster,
+        "selected_cluster_entry_guards": selected_cluster_entry_guards,
+        "selected_logic_profiles": selected_logic_profiles,
+        "selected_inherited_diagnosis_clusters": selected_inherited_diagnosis_clusters,
         "effective_diagnosis_code_candidates": effective_diagnosis_code_candidates,
-        "selected_logic_profile_ids": [
-            profile.get("logic_profile_id")
-            for profile in selected_logic_profiles
-            if isinstance(profile.get("logic_profile_id"), str) and profile.get("logic_profile_id")
-        ],
         "selected_route_guard_criterion_ids": sorted(selected_route_guard_criterion_ids),
         "selected_cluster_entry_guard_criterion_ids": sorted(selected_cluster_entry_guard_criterion_ids),
+        "selected_inherited_diagnosis_criterion_ids": sorted(selected_inherited_diagnosis_criterion_ids),
         "selected_cluster_criterion_ids": sorted(selected_cluster_criterion_ids),
         "selected_criteria_catalog": selected_criteria_catalog,
     }
@@ -292,3 +308,67 @@ def resolve_selection_scope(
         "cluster_entry_guard_ids": cluster_entry_guard_ids,
         "scoped_policy_context": scoped_policy_context,
     }
+
+
+def regenerate_scoped_policy_context(
+    route_index_v4: Dict[str, Any],
+    policy_master_v4: Dict[str, Any],
+    existing_payload: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Regenerate a saved `scoped_policy_context*.json` artifact only.
+
+    The input may be either the full saved wrapper payload or the inner
+    `scoped_policy_context` object. The function re-resolves the selected
+    route/phase/cluster against the current route index and policy master while
+    preserving the saved artifact shape returned by `resolve_selection_scope`.
+    """
+
+    scoped_policy_context = existing_payload.get("scoped_policy_context", existing_payload)
+    if not isinstance(scoped_policy_context, dict):
+        raise ValueError("existing_payload must contain a scoped_policy_context object")
+
+    selected_route_id = scoped_policy_context.get("selected_route_id")
+    selected_phase = scoped_policy_context.get("selected_phase")
+    selected_cluster_id = scoped_policy_context.get("selected_cluster_id")
+    if not all(isinstance(value, str) and value for value in [selected_route_id, selected_phase, selected_cluster_id]):
+        raise ValueError("existing scoped policy context is missing selected route, phase, or cluster identifiers")
+
+    billing_code = _find_billing_code_for_route(route_index_v4, selected_route_id)
+    if not billing_code:
+        raise ValueError(f"Could not find a billing code for route {selected_route_id}")
+
+    regenerated = resolve_selection_scope(
+        route_index_v4=route_index_v4,
+        policy_master_v4=policy_master_v4,
+        billing_code=billing_code,
+        selected_phase=selected_phase,
+        selected_cluster_id=selected_cluster_id,
+    )
+    if regenerated.get("status") != "ok" or "scoped_policy_context" not in regenerated:
+        raise ValueError(f"Could not regenerate scoped policy context: {regenerated}")
+
+    regenerated_scoped = regenerated["scoped_policy_context"]
+    if regenerated_scoped.get("selected_route_id") != selected_route_id:
+        raise ValueError(
+            "Regenerated scoped policy context does not match the original selected route "
+            f"({regenerated_scoped.get('selected_route_id')} != {selected_route_id})"
+        )
+    return regenerated
+
+
+def regenerate_scoped_policy_context_file(
+    scoped_policy_context_path: Union[str, Path],
+    route_index_v4: Dict[str, Any],
+    policy_master_v4: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Rewrite one saved `scoped_policy_context*.json` artifact in place."""
+
+    path = Path(scoped_policy_context_path)
+    existing_payload = json.loads(path.read_text())
+    regenerated = regenerate_scoped_policy_context(
+        route_index_v4=route_index_v4,
+        policy_master_v4=policy_master_v4,
+        existing_payload=existing_payload,
+    )
+    path.write_text(json.dumps(regenerated, indent=2) + "\n")
+    return regenerated

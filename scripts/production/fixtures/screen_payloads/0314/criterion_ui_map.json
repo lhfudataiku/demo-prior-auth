@@ -1,0 +1,87 @@
+{
+  "CR_ONCO_CD20_BCELL": {
+    "criterion_id": "CR_ONCO_CD20_BCELL",
+    "criterion_kind": "cluster_criterion",
+    "prompt": "Does the member have one of the listed CD20-positive B-cell oncologic disorders (e.g., B-cell ALL, B-cell lymphomas, CLL/SLL, Hodgkin lymphoma, Waldenstr\u00f6m macroglobulinemia, Rosai-Dorfman disease, PTLD, hairy cell leukemia) confirmed to be CD20-positive by testing or analysis?",
+    "answer_type": "boolean",
+    "required": true,
+    "clinician_input": {
+      "answer": null,
+      "value": null,
+      "comment": null,
+      "override_prefill": false,
+      "answered": false
+    },
+    "chart_result": {
+      "status": "Found",
+      "meets_criterion": false,
+      "extracted_value": {
+        "condition_count": 21,
+        "diagnosis_codes": [
+          "C91.10",
+          "C91.11"
+        ],
+        "description": "chronic lymphocytic leukemia of B-cell type",
+        "date_range": "2020-07-2024",
+        "cd20_testing_evidence": "none documented"
+      },
+      "justification": "The patient has 21 condition records matching the requested CD20-positive B-cell oncologic disorder code ranges, all for chronic lymphocytic leukemia of B-cell type (C91.10/C91.11). However, the chart does not contain any documented CD20-positive testing or analysis for these encounters, and the criterion requires confirmation of CD20 positivity.",
+      "sources": {
+        "structured": [
+          {
+            "source": "EHR_Query_Tool",
+            "evidence": "21 condition records with codes in requested ranges; chronic lymphocytic leukemia of B-cell type; no CD20-specific observation recorded"
+          }
+        ],
+        "notes": []
+      }
+    },
+    "ui_resolution": {
+      "display_state": "not_satisfied",
+      "prefill_value": false,
+      "use_chart_as_prefill": true,
+      "conflict_flag": false,
+      "conflict_reason": null,
+      "final_answer": false,
+      "final_source": "chart"
+    }
+  },
+  "CR_ONCO_CONT_NO_TOXICITY": {
+    "criterion_id": "CR_ONCO_CONT_NO_TOXICITY",
+    "criterion_kind": "cluster_criterion",
+    "prompt": "Is there no evidence of unacceptable toxicity while continuing rituximab for the oncologic indication?",
+    "answer_type": "boolean",
+    "required": true,
+    "clinician_input": {
+      "answer": null,
+      "value": null,
+      "comment": null,
+      "override_prefill": false,
+      "answered": false
+    },
+    "chart_result": {
+      "status": "Missing",
+      "meets_criterion": false,
+      "extracted_value": null,
+      "justification": "Structured observation retrieval for subject_id cb70e6ae-90b1-562b-8ab0-467c65d18d5e found no matching rows indicating evidence of unacceptable toxicity or severe adverse reaction to rituximab Hycela. No documentation of absence was retrieved, so the chart lacks sufficient evidence to confirm the criterion.",
+      "sources": {
+        "structured": [
+          {
+            "tool": "EHR_Query_Tool",
+            "evidence": "No matching rows were found for subject_id cb70e6ae-90b1-562b-8ab0-467c65d18d5e indicating unacceptable toxicity or severe adverse reaction to rituximab Hycela in the provided observation data."
+          }
+        ],
+        "notes": []
+      }
+    },
+    "ui_resolution": {
+      "display_state": "needs_clinician",
+      "prefill_value": null,
+      "use_chart_as_prefill": false,
+      "conflict_flag": false,
+      "conflict_reason": null,
+      "final_answer": null,
+      "final_source": "unresolved"
+    }
+  }
+}

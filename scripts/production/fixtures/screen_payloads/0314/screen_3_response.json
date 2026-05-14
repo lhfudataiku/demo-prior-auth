@@ -1,0 +1,59 @@
+{
+  "status": "blocked",
+  "payload": {
+    "review_summary": {
+      "selected_scope": {
+        "selected_route_id": "RT_RITUXAN_HYCELA",
+        "selected_phase": "continuation",
+        "selected_cluster_id": "CL_HYCELA_ONCOLOGY_CONTINUATION"
+      },
+      "criterion_totals": {
+        "total": 2,
+        "answered": 1,
+        "unanswered_required": 1,
+        "conflicts": 0
+      },
+      "logic_evaluation": {
+        "selected_cluster_satisfied": false,
+        "selected_cluster_status": "not_satisfied",
+        "satisfied_criterion_ids": [],
+        "not_satisfied_criterion_ids": [
+          "CR_ONCO_CD20_BCELL"
+        ],
+        "unresolved_criterion_ids": [
+          "CR_ONCO_CONT_NO_TOXICITY"
+        ],
+        "criterion_counts": {
+          "satisfied": 0,
+          "not_satisfied": 1,
+          "unresolved": 1
+        }
+      }
+    },
+    "answered_criteria": [
+      {
+        "criterion_id": "CR_ONCO_CD20_BCELL",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Does the member have one of the listed CD20-positive B-cell oncologic disorders (e.g., B-cell ALL, B-cell lymphomas, CLL/SLL, Hodgkin lymphoma, Waldenstr\u00f6m macroglobulinemia, Rosai-Dorfman disease, PTLD, hairy cell leukemia) confirmed to be CD20-positive by testing or analysis?",
+        "final_answer": false,
+        "final_source": "chart",
+        "display_state": "not_satisfied",
+        "comment": null
+      }
+    ],
+    "unanswered_required_items": [
+      {
+        "criterion_id": "CR_ONCO_CONT_NO_TOXICITY",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Is there no evidence of unacceptable toxicity while continuing rituximab for the oncologic indication?",
+        "display_state": "needs_clinician"
+      }
+    ],
+    "warnings": [],
+    "submission_ready": false
+  },
+  "messages": [
+    "Processed criterion CR_ONCO_CD20_BCELL for cluster CL_HYCELA_ONCOLOGY_CONTINUATION.",
+    "Processed criterion CR_ONCO_CONT_NO_TOXICITY for cluster CL_HYCELA_ONCOLOGY_CONTINUATION."
+  ]
+}
