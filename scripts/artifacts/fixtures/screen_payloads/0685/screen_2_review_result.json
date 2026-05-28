@@ -1,0 +1,94 @@
+{
+  "approval_status": "approved",
+  "approved_criterion_answers": {},
+  "reviewed_screen_2_payload": {
+      "status": "ok",
+      "payload": {
+        "selected_scope": {
+            "selected_route_id": "route_bevacizumab_nonocular",
+            "selected_phase": "initial",
+            "selected_cluster_id": "CLUST_INIT_NSCLC"
+        },
+        "selected_scope_display": {
+            "route_label": "Bevacizumab for non-ocular oncology indications",
+            "phase_label": "Initial",
+            "cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer"
+        },
+        "criteria": [
+            {
+              "criterion_id": "CR_INIT_NSCLC",
+              "criterion_kind": "cluster_criterion",
+              "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
+              "answer_type": "boolean",
+              "required": true,
+              "clinician_input": {
+                  "override_prefill": false,
+                  "answered": false
+              },
+              "chart_result": {
+                  "status": "Found",
+                  "meets_criterion": true,
+                  "extracted_value": {
+                    "condition_records": [
+                        {
+                          "condition_id": "1fccc82d-770c-5f05-b872-326acec78f44",
+                          "condition_code": "C34.01",
+                          "condition_name": "Malignant neoplasm of right main bronchus"
+                        },
+                        {
+                          "condition_id": "8a45232f-f7af-58c9-951e-6287d1caafa6",
+                          "condition_code": "C34.02",
+                          "condition_name": "Malignant neoplasm of left main bronchus"
+                        },
+                        {
+                          "condition_id": "56f89fe3-90ae-56d6-a05f-ad925f7060f8",
+                          "condition_code": "C34.90",
+                          "condition_name": "Malignant neoplasm of unspecified part of unspecified bronchus or lung"
+                        }
+                    ]
+                  },
+                  "justification": "Patient has structured diagnosis evidence in the requested C34.00-C34.92 range consistent with non-small cell lung cancer. The retrieved condition records include C34.01, C34.02, and C34.90. No note evidence was needed to establish the coded diagnosis criterion, and no conflicting evidence was found in the retrieval result.",
+                  "sources": {
+                    "structured": [
+                        {
+                          "source": "EHR_Query_Tool",
+                          "evidence": "Patient e7e213ac-81c0-5c7f-8d57-81519132353e has three condition records with codes in the C34.00–C34.92 range: condition_id 1fccc82d-770c-5f05-b872-326acec78f44 (C34.01, \"Malignant neoplasm of right main bronchus\"), 8a45232f-f7af-58c9-951e-6287d1caafa6 (C34.02, \"Malignant neoplasm of left main bronchus\"), and 56f89fe3-90ae-56d6-a05f-ad925f7060f8 (C34.90, \"Malignant neoplasm of unspecified part of unspecified bronchus or lung\")."
+                        }
+                    ],
+                    "notes": []
+                  }
+              },
+              "ui_resolution": {
+                  "display_state": "satisfied",
+                  "prefill_value": true,
+                  "use_chart_as_prefill": true,
+                  "conflict_flag": false,
+                  "final_answer": true,
+                  "final_source": "chart"
+              }
+            }
+        ],
+        "logic_evaluation": {
+            "selected_cluster_satisfied": true,
+            "selected_cluster_status": "satisfied",
+            "satisfied_criterion_ids": [
+              "CR_INIT_NSCLC"
+            ],
+            "not_satisfied_criterion_ids": [],
+            "unresolved_criterion_ids": [],
+            "criterion_counts": {
+              "satisfied": 1,
+              "not_satisfied": 0,
+              "unresolved": 0
+            }
+        },
+        "additional_cluster_suggestions": [],
+        "next_action": "proceed_screen_3"
+      },
+      "messages": [
+        "Processed criterion CR_INIT_NSCLC for cluster CLUST_INIT_NSCLC."
+      ]
+  },
+  "review_metadata": {},
+  "human_validated": true
+}

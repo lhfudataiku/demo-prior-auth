@@ -1,0 +1,15 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+webapps/prior_auth_review/node_modules/
+dist/
+.vite/
+
+# macOS
+.DS_Store
+
+# misc
+*.log
