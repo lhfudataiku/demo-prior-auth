@@ -1,0 +1,403 @@
+"""Pure Screen 2 and Screen 3 payload helpers."""
+
+from __future__ import annotations
+
+from typing import Any, Dict, List, Optional
+
+from scripts.agent_flow.functions.common import (
+    CriterionResultMap,
+    StateDict,
+    get_selected_scope_context,
+)
+from scripts.agent_flow.functions.logic_tree_helpers import evaluate_logic_tree
+
+
+def _coerce_bool(value: Any, default: bool = False) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        normalized = value.strip().lower()
+        if normalized in {"true", "1", "yes", "y"}:
+            return True
+        if normalized in {"false", "0", "no", "n"}:
+            return False
+    return default
+
+
+def _normalize_clinician_input(raw: Any) -> Dict[str, Any]:
+    source = raw if isinstance(raw, dict) else {}
+    answer = source.get("answer")
+    value = source.get("value")
+    comment = source.get("comment")
+    answered = answer is not None or value is not None or bool(comment)
+    return {
+        "answer": answer,
+        "value": value,
+        "comment": comment,
+        "override_prefill": _coerce_bool(source.get("override_prefill"), default=False),
+        "answered": answered,
+    }
+
+
+def _normalize_chart_result(raw: Any) -> Dict[str, Any]:
+    source = raw if isinstance(raw, dict) else {}
+    chart_sources = source.get("sources") if isinstance(source.get("sources"), dict) else {}
+    return {
+        "status": str(source.get("status", "Unreviewed")),
+        "meets_criterion": _coerce_bool(source.get("meets_criterion"), default=False),
+        "extracted_value": source.get("extracted_value"),
+        "justification": source.get("justification"),
+        "sources": {
+            "structured": list(chart_sources.get("structured", []) or []),
+            "notes": list(chart_sources.get("notes", []) or []),
+        },
+    }
+
+
+def _get_chart_prefill_value(chart_result: Dict[str, Any], answer_type: str) -> Any:
+    if chart_result.get("status") != "Found":
+        return None
+    if answer_type == "boolean":
+        return chart_result.get("meets_criterion")
+    extracted_value = chart_result.get("extracted_value")
+    if extracted_value is not None:
+        return extracted_value
+    return chart_result.get("meets_criterion")
+
+
+def _get_clinician_final_value(clinician_input: Dict[str, Any]) -> Any:
+    if clinician_input.get("value") is not None:
+        return clinician_input.get("value")
+    if clinician_input.get("answer") is not None:
+        return clinician_input.get("answer")
+    return None
+
+
+def _display_state_from_boolean(boolean_value: bool) -> str:
+    return "satisfied" if boolean_value else "not_satisfied"
+
+
+def _derive_ui_resolution(
+    chart_result: Dict[str, Any],
+    clinician_input: Dict[str, Any],
+    answer_type: str,
+) -> Dict[str, Any]:
+    chart_prefill = _get_chart_prefill_value(chart_result, answer_type)
+    clinician_final_value = _get_clinician_final_value(clinician_input)
+    chart_status = chart_result.get("status", "Unreviewed")
+    chart_meets = _coerce_bool(chart_result.get("meets_criterion"), default=False)
+
+    conflict_flag = False
+    conflict_reason = None
+
+    if clinician_input.get("answered") and chart_status == "Found" and clinician_final_value is not None:
+        if clinician_final_value != chart_prefill:
+            conflict_flag = True
+            conflict_reason = (
+                "Clinician answer differs from chart-backed evidence for this criterion."
+            )
+
+    if conflict_flag:
+        display_state = "conflict"
+        final_answer = clinician_final_value
+        final_source = "clinician"
+    elif clinician_input.get("answered"):
+        if isinstance(clinician_input.get("answer"), bool):
+            display_state = _display_state_from_boolean(clinician_input["answer"])
+        else:
+            display_state = "satisfied"
+        final_answer = clinician_final_value
+        final_source = "clinician"
+    elif chart_status == "Found":
+        display_state = _display_state_from_boolean(chart_meets)
+        final_answer = chart_prefill
+        final_source = "chart"
+    elif chart_status in {"Missing", "Ambiguous"}:
+        display_state = "needs_clinician"
+        final_answer = None
+        final_source = "unresolved"
+    else:
+        display_state = "unanswered"
+        final_answer = None
+        final_source = "unresolved"
+
+    return {
+        "display_state": display_state,
+        "prefill_value": chart_prefill,
+        "use_chart_as_prefill": chart_status == "Found",
+        "conflict_flag": conflict_flag,
+        "conflict_reason": conflict_reason,
+        "final_answer": final_answer,
+        "final_source": final_source,
+    }
+
+
+def _ordered_criterion_ids(selected_scope_context: Dict[str, Any]) -> List[str]:
+    ordered_ids: List[str] = []
+    candidate_groups = [
+        selected_scope_context.get("selected_route_guard_criterion_ids", []),
+        selected_scope_context.get("selected_cluster_entry_guard_criterion_ids", []),
+        selected_scope_context.get("selected_inherited_diagnosis_criterion_ids", []),
+        selected_scope_context.get("selected_cluster_criterion_ids", []),
+    ]
+
+    for group in candidate_groups:
+        for criterion_id in group or []:
+            if isinstance(criterion_id, str) and criterion_id and criterion_id not in ordered_ids:
+                ordered_ids.append(criterion_id)
+
+    for criterion in selected_scope_context.get("selected_criteria_catalog", []) or []:
+        criterion_id = criterion.get("criterion_id") if isinstance(criterion, dict) else None
+        if isinstance(criterion_id, str) and criterion_id and criterion_id not in ordered_ids:
+            ordered_ids.append(criterion_id)
+
+    return ordered_ids
+
+
+def _selected_scope_display(selected_scope_context: Dict[str, Any]) -> Dict[str, Any]:
+    selected_route = selected_scope_context.get("selected_route", {}) or {}
+    selected_cluster_summary = selected_scope_context.get("selected_cluster_summary", {}) or {}
+    selected_cluster = selected_scope_context.get("selected_cluster", {}) or {}
+
+    return {
+        "route_label": (
+            selected_scope_context.get("selected_route_label")
+            or selected_route.get("label")
+            or selected_route.get("ui_label")
+            or selected_scope_context.get("selected_route_id")
+        ),
+        "phase_label": (
+            selected_scope_context.get("selected_phase_label")
+            or {
+                "initial": "Initial",
+                "continuation": "Continuation",
+                "other": "Other",
+            }.get(selected_scope_context.get("selected_phase"), selected_scope_context.get("selected_phase"))
+        ),
+        "cluster_label": (
+            selected_scope_context.get("selected_cluster_label")
+            or selected_cluster.get("label")
+            or selected_cluster.get("condition_label")
+            or selected_cluster_summary.get("condition_label")
+            or selected_scope_context.get("selected_cluster_id")
+        ),
+    }
+
+
+def build_criterion_ui_map_data(
+    selected_scope_context: Optional[Dict[str, Any]],
+    criterion_result_map: Optional[CriterionResultMap],
+    criterion_answers: Optional[Dict[str, Any]],
+) -> Dict[str, Any]:
+    scope_context = selected_scope_context if isinstance(selected_scope_context, dict) else {}
+    result_map = criterion_result_map if isinstance(criterion_result_map, dict) else {}
+    answers_map = criterion_answers if isinstance(criterion_answers, dict) else {}
+
+    criteria_by_id: Dict[str, Dict[str, Any]] = {}
+    for criterion in scope_context.get("selected_criteria_catalog", []) or []:
+        if not isinstance(criterion, dict):
+            continue
+        criterion_id = criterion.get("criterion_id")
+        if isinstance(criterion_id, str) and criterion_id:
+            criteria_by_id[criterion_id] = criterion
+
+    ui_map: Dict[str, Any] = {}
+    for criterion_id in _ordered_criterion_ids(scope_context):
+        criterion = criteria_by_id.get(criterion_id, {})
+        clinician_input = _normalize_clinician_input(answers_map.get(criterion_id))
+        chart_result = _normalize_chart_result(result_map.get(criterion_id))
+        ui_map[criterion_id] = {
+            "criterion_id": criterion_id,
+            "criterion_kind": criterion.get("criterion_kind", "cluster_criterion"),
+            "prompt": criterion.get("prompt", criterion_id),
+            "answer_type": criterion.get("answer_type", "boolean"),
+            "required": _coerce_bool(criterion.get("required"), default=True),
+            "clinician_input": clinician_input,
+            "chart_result": chart_result,
+            "ui_resolution": _derive_ui_resolution(
+                chart_result=chart_result,
+                clinician_input=clinician_input,
+                answer_type=str(criterion.get("answer_type", "boolean")),
+            ),
+        }
+
+    return ui_map
+
+
+def _order_criterion_rows(
+    selected_scope_context: Dict[str, Any],
+    criterion_ui_map: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    ordered_rows: List[Dict[str, Any]] = []
+    for criterion_id in _ordered_criterion_ids(selected_scope_context):
+        row = criterion_ui_map.get(criterion_id)
+        if isinstance(row, dict):
+            ordered_rows.append(row)
+    return ordered_rows
+
+
+def build_screen2_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
+    runtime_state = state if isinstance(state, dict) else {}
+    selected_scope_context = get_selected_scope_context(runtime_state)
+    criterion_ui_map = runtime_state.get("criterion_ui_map")
+    if not isinstance(criterion_ui_map, dict) or not criterion_ui_map:
+        criterion_ui_map = build_criterion_ui_map_data(
+            selected_scope_context=selected_scope_context,
+            criterion_result_map=runtime_state.get("criterion_result_map", {}),
+            criterion_answers=runtime_state.get("criterion_answers", {}),
+        )
+
+    logic_evaluation = runtime_state.get("logic_evaluation")
+    if not isinstance(logic_evaluation, dict) or not logic_evaluation:
+        logic_evaluation = evaluate_logic_tree(
+            selected_scope_context,
+            runtime_state.get("criterion_result_map", {}) or {},
+        )
+
+    criteria = _order_criterion_rows(selected_scope_context, criterion_ui_map)
+    unresolved_required_ids = [
+        row["criterion_id"]
+        for row in criteria
+        if row.get("required") and row.get("ui_resolution", {}).get("final_answer") is None
+    ]
+    conflict_count = sum(
+        1 for row in criteria if row.get("ui_resolution", {}).get("conflict_flag")
+    )
+
+    if not criteria:
+        status = "blocked"
+        next_action = "stay_screen_2"
+    else:
+        next_action = "proceed_screen_3" if not unresolved_required_ids else "stay_screen_2"
+        if unresolved_required_ids or conflict_count > 0:
+            status = "warning"
+        else:
+            status = "ok"
+
+    return {
+        "status": status,
+        "payload": {
+            "selected_scope": {
+                "selected_route_id": selected_scope_context.get("selected_route_id"),
+                "selected_phase": selected_scope_context.get("selected_phase"),
+                "selected_cluster_id": selected_scope_context.get("selected_cluster_id"),
+            },
+            "selected_scope_display": _selected_scope_display(selected_scope_context),
+            "criteria": criteria,
+            "logic_evaluation": logic_evaluation,
+            "additional_cluster_suggestions": [],
+            "next_action": next_action,
+        },
+        "messages": list(runtime_state.get("messages", []) or []),
+    }
+
+
+def build_screen2_review_tool_input_data(state: Optional[StateDict]) -> Dict[str, Any]:
+    runtime_state = state if isinstance(state, dict) else {}
+    selected_scope_context = get_selected_scope_context(runtime_state)
+    screen_2_payload = runtime_state.get("screen_2_payload")
+    if not isinstance(screen_2_payload, dict) or not screen_2_payload:
+        screen_2_payload = build_screen2_payload_data(runtime_state)
+
+    criterion_answers = runtime_state.get("criterion_answers", {})
+    if not isinstance(criterion_answers, dict):
+        criterion_answers = {}
+
+    return {
+        "session_id": runtime_state.get("session_id"),
+        "subject_id": runtime_state.get("subject_id"),
+        "policy_id": runtime_state.get("policy_id") or selected_scope_context.get("policy_id"),
+        "selected_scope": {
+            "selected_route_id": selected_scope_context.get("selected_route_id"),
+            "selected_phase": selected_scope_context.get("selected_phase"),
+            "selected_cluster_id": selected_scope_context.get("selected_cluster_id"),
+        },
+        "screen_2_payload": screen_2_payload,
+        "criterion_answers": criterion_answers,
+    }
+
+
+def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
+    runtime_state = state if isinstance(state, dict) else {}
+    selected_scope_context = get_selected_scope_context(runtime_state)
+    criterion_ui_map = runtime_state.get("criterion_ui_map")
+    if not isinstance(criterion_ui_map, dict) or not criterion_ui_map:
+        criterion_ui_map = build_criterion_ui_map_data(
+            selected_scope_context=selected_scope_context,
+            criterion_result_map=runtime_state.get("criterion_result_map", {}),
+            criterion_answers=runtime_state.get("criterion_answers", {}),
+        )
+
+    criteria = _order_criterion_rows(selected_scope_context, criterion_ui_map)
+    answered_criteria: List[Dict[str, Any]] = []
+    unanswered_required_items: List[Dict[str, Any]] = []
+    warnings: List[Dict[str, Any]] = []
+
+    for row in criteria:
+        ui_resolution = row.get("ui_resolution", {})
+        clinician_input = row.get("clinician_input", {})
+        final_answer = ui_resolution.get("final_answer")
+        if final_answer is None and row.get("required"):
+            unanswered_required_items.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "display_state": ui_resolution.get("display_state"),
+                }
+            )
+        else:
+            answered_criteria.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "final_answer": final_answer,
+                    "final_source": ui_resolution.get("final_source"),
+                    "display_state": ui_resolution.get("display_state"),
+                    "comment": clinician_input.get("comment"),
+                }
+            )
+
+        if ui_resolution.get("conflict_flag"):
+            warnings.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "type": "conflict",
+                    "message": ui_resolution.get("conflict_reason")
+                    or "Clinician answer conflicts with chart-backed evidence.",
+                }
+            )
+
+    submission_ready = not unanswered_required_items
+    status = "complete" if submission_ready and not warnings else "warning"
+    if unanswered_required_items:
+        status = "blocked"
+
+    review_summary = {
+        "selected_scope": {
+            "selected_route_id": selected_scope_context.get("selected_route_id"),
+            "selected_phase": selected_scope_context.get("selected_phase"),
+            "selected_cluster_id": selected_scope_context.get("selected_cluster_id"),
+        },
+        "selected_scope_display": _selected_scope_display(selected_scope_context),
+        "criterion_totals": {
+            "total": len(criteria),
+            "answered": len(answered_criteria),
+            "unanswered_required": len(unanswered_required_items),
+            "conflicts": len(warnings),
+        },
+        "logic_evaluation": runtime_state.get("logic_evaluation", {}) or {},
+    }
+
+    return {
+        "status": status,
+        "payload": {
+            "review_summary": review_summary,
+            "answered_criteria": answered_criteria,
+            "unanswered_required_items": unanswered_required_items,
+            "warnings": warnings,
+            "submission_ready": submission_ready,
+        },
+        "messages": list(runtime_state.get("messages", []) or []),
+    }
