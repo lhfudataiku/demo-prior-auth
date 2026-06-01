@@ -30,7 +30,7 @@ Source fixtures live under:
 Backend:
 
 ```bash
-python3 webapps/prior_auth_review/backend/wsgi.py
+python3 webapps/prior_auth_review/backend/wsgi_local.py
 ```
 
 Frontend:
@@ -40,6 +40,19 @@ cd webapps/prior_auth_review
 npm install
 npm run dev
 ```
+
+Built assets for `WEBAIKU`:
+
+```bash
+cd webapps/prior_auth_review
+npm run build
+```
+
+Notes:
+- `webapps/prior_auth_review/dist` is created by the Vite build step
+- DSS and the local `WEBAIKU` shell both expect that `dist` folder to exist
+- if `webaiku` or the DSS `dataiku` package is unavailable locally,
+  `wsgi_local.py` falls back to serving the API only; use Vite for the frontend
 
 Expected local ports:
 - frontend: `5173`
