@@ -243,10 +243,17 @@ export const Api = {
     return res.data
   },
 
-  async loadScreen2(policyId: string, subjectId?: string) {
-    const res = await axios.get<Screen2Bootstrap>(`/api/scenarios/${policyId}/bootstrap`, {
-      params: subjectId ? { subject_id: subjectId } : undefined,
-    })
+  async loadScreen2(
+    policyId: string,
+    payload: {
+      subject_id?: string
+      billing_code?: string | null
+      selected_phase?: string | null
+      selected_cluster_id?: string | null
+      criterion_answers?: CriterionAnswers
+    },
+  ) {
+    const res = await axios.post<Screen2Bootstrap>(`/api/scenarios/${policyId}/bootstrap`, payload)
     return res.data
   },
 
@@ -258,16 +265,22 @@ export const Api = {
   async submitReview(
     policyId: string,
     approvedCriterionAnswers: CriterionAnswers,
+    selectionPayload: {
+      subject_id?: string
+      billing_code?: string | null
+      selected_phase?: string | null
+      selected_cluster_id?: string | null
+      criterion_answers?: CriterionAnswers
+    },
     reviewMetadata?: Partial<ReviewMetadata>,
-    subjectId?: string,
   ) {
     const res = await axios.post<{
       review_result: Screen2ReviewResult
       screen_3_response: Screen3Payload
     }>(`/api/scenarios/${policyId}/review`, {
+      ...selectionPayload,
       approved_criterion_answers: approvedCriterionAnswers,
       review_metadata: reviewMetadata ?? {},
-      subject_id: subjectId,
     })
     return res.data
   },

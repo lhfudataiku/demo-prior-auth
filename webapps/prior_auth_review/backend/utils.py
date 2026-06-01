@@ -72,12 +72,27 @@ def enrich_screen3_payload(screen_3_response: dict, scope_display: dict) -> dict
     return enriched
 
 
-def calculate_age(birth_date_value: Optional[str]) -> Optional[int]:
+def calculate_age(birth_date_value) -> Optional[int]:
     if not birth_date_value:
         return None
-    try:
-        birth_date = date.fromisoformat(birth_date_value)
-    except ValueError:
+
+    if isinstance(birth_date_value, datetime):
+        birth_date = birth_date_value.date()
+    elif isinstance(birth_date_value, date):
+        birth_date = birth_date_value
+    elif hasattr(birth_date_value, "date") and callable(birth_date_value.date):
+        try:
+            birth_date = birth_date_value.date()
+        except (TypeError, ValueError):
+            return None
+        if not isinstance(birth_date, date):
+            return None
+    elif isinstance(birth_date_value, str):
+        try:
+            birth_date = date.fromisoformat(birth_date_value)
+        except ValueError:
+            return None
+    else:
         return None
 
     today = date.today()

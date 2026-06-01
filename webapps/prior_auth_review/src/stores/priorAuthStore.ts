@@ -185,6 +185,17 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const logicEvaluation = computed(() => screen2.value?.payload.logic_evaluation ?? null)
   const nextAction = computed(() => screen2.value?.payload.next_action ?? 'stay_screen_2')
 
+  function currentSelectionPayload() {
+    const selection = screen1State.value?.payload.selection
+    return {
+      subject_id: subjectIdInput.value || undefined,
+      billing_code: selection?.billing_code ?? null,
+      selected_phase: selection?.selected_phase ?? null,
+      selected_cluster_id: selection?.selected_cluster_id ?? null,
+      criterion_answers: screen1Answers.value,
+    }
+  }
+
   async function initialize() {
     loading.value = true
     error.value = null
@@ -293,7 +304,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     screen2Loading.value = true
     error.value = null
     try {
-      const bootstrap = await Api.loadScreen2(selectedPolicyId.value, subjectIdInput.value)
+      const bootstrap = await Api.loadScreen2(selectedPolicyId.value, currentSelectionPayload())
       if (!selectedScopeMatchesScreen2(screen1State.value?.payload.selected_scope_context ?? null, bootstrap.screen_2_response)) {
         error.value = 'This fixture only has a Screen 2 artifact for one selected scope. Please follow the scenario path shown in Screen 1.'
         return
@@ -351,8 +362,8 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
       const response = await Api.submitReview(
         selectedPolicyId.value,
         editedAnswers.value,
+        currentSelectionPayload(),
         reviewMetadata.value,
-        subjectIdInput.value || undefined,
       )
       latestReviewResult.value = response.review_result
       latestScreen3.value = response.screen_3_response

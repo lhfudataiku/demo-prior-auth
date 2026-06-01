@@ -17,16 +17,14 @@ POLICY_ARTIFACTS_CSV_PATH = POLICY_ARTIFACT_ROOT / "policy_artifacts.csv"
 SCREEN_PAYLOAD_FIXTURE_ROOT = REPO_ROOT / "scripts" / "artifacts" / "fixtures" / "screen_payloads"
 STRUCTURED_AGENT_ID = "NkBiV9OM"
 STRUCTURED_AGENT_VERSION = "v2"
-PATIENT_DATASET_NAME = os.environ.get("PRIOR_AUTH_PATIENT_DATASET", "Patient")
-POLICY_ARTIFACTS_DATASET_NAME = os.environ.get(
-    "PRIOR_AUTH_POLICY_ARTIFACTS_DATASET", "policy_artifacts"
-)
-DATA_SOURCE_ENV = "PRIOR_AUTH_DATA_SOURCE"
+PATIENT_DATASET_NAME = "Patient"
+POLICY_ARTIFACTS_DATASET_NAME = "policy_artifacts"
+DATA_SOURCE = "local"
 VALID_DATA_SOURCES = {"local", "dss"}
 
 
 def get_data_source(source: Optional[str] = None) -> str:
-    raw_source = source if source is not None else os.environ.get(DATA_SOURCE_ENV, "local")
+    raw_source = source if source is not None else DATA_SOURCE
     resolved_source = raw_source.strip().lower()
     if resolved_source not in VALID_DATA_SOURCES:
         raise ValueError(
@@ -44,7 +42,7 @@ def _require_dataiku():
 def _load_dataset_rows(dataset_name: str, columns: Optional[list[str]] = None):
     dku = _require_dataiku()
     dataset = dku.Dataset(dataset_name)
-    dataframe = dataset.get_dataframe()
+    dataframe = dataset.get_dataframe(infer_with_pandas=False)
     if columns:
         available = [column for column in columns if column in dataframe.columns]
         if available:
@@ -70,8 +68,12 @@ def _load_structured_agent_state(policy_id: str):
     return context[graph_state_key]
 
 
-def _build_screen2_agent_request(policy_id: str, subject_id: Optional[str], selected_scope_context: dict):
-    criterion_answers = selected_scope_context.get("criterion_answers", {}) or {}
+def _build_screen2_agent_request(
+    policy_id: str,
+    subject_id: Optional[str],
+    selected_scope_context: dict,
+    criterion_answers: Optional[dict] = None,
+):
     return {
         "session_id": None,
         "subject_id": subject_id,
@@ -84,7 +86,7 @@ def _build_screen2_agent_request(policy_id: str, subject_id: Optional[str], sele
             "scoped_policy_context": selected_scope_context,
             "policy_master_v4": load_policy_master(policy_id),
             "retrieval_plan_v1": None,
-            "criterion_answers": criterion_answers,
+            "criterion_answers": criterion_answers or {},
         },
     }
 
@@ -173,23 +175,6 @@ def load_route_index(policy_id: str, data_source: Optional[str] = None):
     return _load_json(policy_id, "route_index_v4.json")
 
 
-def load_selected_scope_context(policy_id: str):
-    try:
-        state = _load_structured_agent_state(policy_id)
-        scoped = state.get("selected_scope_context")
-        if isinstance(scoped, dict) and scoped:
-            return scoped
-    except FileNotFoundError:
-        pass
-
-    candidates = sorted((POLICY_ARTIFACT_ROOT / policy_id).glob("selected_scope_context*.json"))
-    if not candidates:
-        raise FileNotFoundError(f"No selected_scope_context artifact found for {policy_id}")
-    with candidates[0].open() as stream:
-        raw = json.load(stream)
-    return raw.get("scoped_policy_context", raw) if isinstance(raw, dict) else raw
-
-
 def _load_screen2_response_local(policy_id: str, _subject_id: Optional[str] = None):
     try:
         state = _load_structured_agent_state(policy_id)
@@ -204,13 +189,20 @@ def _load_screen2_response_local(policy_id: str, _subject_id: Optional[str] = No
         return json.load(stream)
 
 
-def _load_screen2_response_dss(policy_id: str, subject_id: Optional[str] = None):
+def _load_screen2_response_dss(
+    policy_id: str,
+    subject_id: Optional[str] = None,
+    selected_scope_context: Optional[dict] = None,
+    criterion_answers: Optional[dict] = None,
+):
     dku = _require_dataiku()
-    selected_scope_context = load_selected_scope_context(policy_id)
+    if not isinstance(selected_scope_context, dict) or not selected_scope_context:
+        raise ValueError("selected_scope_context is required when loading Screen 2 in dss mode.")
     agent_request = _build_screen2_agent_request(policy_id, subject_id, selected_scope_context)
+    agent_request["payload"]["criterion_answers"] = criterion_answers or {}
     client = dku.api_client()
     project = client.get_default_project()
-    llm = project.get_llm(f"agent:{STRUCTURED_AGENT_ID}:{STRUCTURED_AGENT_VERSION}")
+    llm = project.get_llm(f"agent:{STRUCTURED_AGENT_ID}")
     completion = llm.new_completion()
     response = completion.with_message(json.dumps(agent_request), role="user").execute()
     if not getattr(response, "success", True):
@@ -227,10 +219,17 @@ def _load_screen2_response_dss(policy_id: str, subject_id: Optional[str] = None)
 def load_screen2_response(
     policy_id: str,
     subject_id: Optional[str] = None,
+    selected_scope_context: Optional[dict] = None,
+    criterion_answers: Optional[dict] = None,
     data_source: Optional[str] = None,
 ):
     if get_data_source(data_source) == "dss":
-        return _load_screen2_response_dss(policy_id, subject_id)
+        return _load_screen2_response_dss(
+            policy_id,
+            subject_id,
+            selected_scope_context=selected_scope_context,
+            criterion_answers=criterion_answers,
+        )
     return _load_screen2_response_local(policy_id, subject_id)
 
 
@@ -279,16 +278,8 @@ def load_patient_id_options(data_source: Optional[str] = None):
 
 def default_billing_code(policy_id: str, data_source: Optional[str] = None):
     route_index = load_route_index(policy_id, data_source=data_source)
-    try:
-        selected_scope_context = load_selected_scope_context(policy_id)
-        selected_route_id = selected_scope_context.get("selected_route_id")
-    except FileNotFoundError:
-        selected_route_id = None
-
     for route in route_index.get("routes", []):
         if not isinstance(route, dict):
-            continue
-        if selected_route_id and route.get("route_id") != selected_route_id:
             continue
         for code in route.get("billing_codes", []):
             if isinstance(code, str) and code:

@@ -143,7 +143,7 @@ Endpoints:
 - `GET /api/scenarios`
 - `GET /api/scenarios/<policy_id>/screen1/bootstrap`
 - `POST /api/scenarios/<policy_id>/screen1/advance`
-- `GET /api/scenarios/<policy_id>/bootstrap`
+- `POST /api/scenarios/<policy_id>/bootstrap`
 - `POST /api/scenarios/<policy_id>/review`
 - `GET /api/patients/<subject_id>`
 
@@ -169,6 +169,13 @@ Important principle:
 Core logic:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/agent_flow/functions/selection_resolver.py`
+
+Current backend rule:
+
+- live Screen 2 / review requests should derive `selected_scope_context`
+  deterministically from the current Screen 1 selection inputs
+- do not depend on saved `selected_scope_context` artifacts for the standard
+  webapp runtime path
 
 ### Screen 2
 

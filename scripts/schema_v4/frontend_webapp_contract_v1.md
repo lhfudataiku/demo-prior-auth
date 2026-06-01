@@ -41,8 +41,9 @@ Current implementation note:
 
 Deployment target:
 - Screen 1 computes the final `selected_scope_context`
-- the webapp/backend submits that `selected_scope_context` to the Dataiku
-  Structured Agent
+- the webapp/backend submits the current Screen 1 selection and clinician guard
+  answers, and the backend deterministically re-resolves `selected_scope_context`
+  before calling the Dataiku Structured Agent
 - the Structured Agent generates `structured_agent_context`
 - Screen 2 is populated from the live `screen_2_payload` inside that generated
   artifact
@@ -262,6 +263,13 @@ Screen 1 layout direction:
 
 The frontend should treat `screen_2_response.json` as the canonical payload for
 initial eligibility review.
+
+Backend runtime rule:
+- the standard webapp should not load a saved `selected_scope_context` artifact
+  to open Screen 2
+- instead, it should re-run deterministic Screen 1 scope resolution from the
+  current billing code, phase, cluster, and guard answers, then submit that
+  resolved scope into the Structured Agent call
 
 Minimal stable shape:
 

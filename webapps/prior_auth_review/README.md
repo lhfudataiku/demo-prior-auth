@@ -61,7 +61,9 @@ Expected local ports:
 ## Fixture API
 
 - `GET /api/scenarios`
-- `GET /api/scenarios/<policy_id>/bootstrap`
+- `GET /api/scenarios/<policy_id>/screen1/bootstrap`
+- `POST /api/scenarios/<policy_id>/screen1/advance`
+- `POST /api/scenarios/<policy_id>/bootstrap`
 - `POST /api/scenarios/<policy_id>/review`
 
 ## Notes

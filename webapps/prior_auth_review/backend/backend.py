@@ -9,7 +9,6 @@ from webapps.prior_auth_review.backend.data_access import (
     load_policy_master,
     load_route_index,
     load_screen2_response,
-    load_selected_scope_context,
 )
 from webapps.prior_auth_review.backend.utils import (
     calculate_age,
@@ -35,11 +34,16 @@ def _with_patient_age(patient_summary):
     return summary
 
 
-def _maybe_selected_scope_context(policy_id: str):
-    try:
-        return load_selected_scope_context(policy_id)
-    except FileNotFoundError:
-        return None
+def _resolve_selected_scope_context(policy_id: str, body: dict):
+    payload = build_screen1_payload(
+        route_index_v4=load_route_index(policy_id),
+        policy_master_v4=load_policy_master(policy_id),
+        billing_code=body.get("billing_code"),
+        selected_phase=body.get("selected_phase"),
+        selected_cluster_id=body.get("selected_cluster_id"),
+        criterion_answers=body.get("criterion_answers"),
+    )
+    return payload.get("payload", {}).get("selected_scope_context")
 
 
 @api.route("/scenarios", methods=["GET"])
@@ -87,17 +91,27 @@ def advance_screen1(policy_id: str):
     return jsonify(payload)
 
 
-@api.route("/scenarios/<policy_id>/bootstrap", methods=["GET"])
+@api.route("/scenarios/<policy_id>/bootstrap", methods=["POST"])
 def get_bootstrap(policy_id: str):
     scenario = _catalog_item(policy_id)
     if scenario is None:
         return jsonify({"error": f"Unknown policy_id: {policy_id}"}), 404
 
-    subject_id = request.args.get("subject_id")
+    body = request.get_json(force=True) or {}
+    selected_scope_context = _resolve_selected_scope_context(policy_id, body)
+    if not isinstance(selected_scope_context, dict) or not selected_scope_context:
+        return jsonify({"error": "Screen 2 bootstrap requires a resolved Screen 1 scope."}), 400
+
+    subject_id = body.get("subject_id")
     patient_summary = _with_patient_age(load_patient_summary(subject_id)) if subject_id else None
-    raw_screen_2_response = load_screen2_response(policy_id, subject_id)
+    raw_screen_2_response = load_screen2_response(
+        policy_id,
+        subject_id,
+        selected_scope_context=selected_scope_context,
+        criterion_answers=body.get("criterion_answers"),
+    )
     scope_display = resolve_selected_scope_display(
-        selected_scope_context=_maybe_selected_scope_context(policy_id),
+        selected_scope_context=selected_scope_context,
         screen_2_response=raw_screen_2_response,
     )
     screen_2_response = ensure_selected_scope_display(raw_screen_2_response, scope_display)
@@ -118,9 +132,18 @@ def submit_review(policy_id: str):
         return jsonify({"error": f"Unknown policy_id: {policy_id}"}), 404
 
     body = request.get_json(force=True) or {}
-    screen_2_response = load_screen2_response(policy_id, body.get("subject_id"))
+    selected_scope_context = _resolve_selected_scope_context(policy_id, body)
+    if not isinstance(selected_scope_context, dict) or not selected_scope_context:
+        return jsonify({"error": "Review submission requires a resolved Screen 1 scope."}), 400
+
+    screen_2_response = load_screen2_response(
+        policy_id,
+        body.get("subject_id"),
+        selected_scope_context=selected_scope_context,
+        criterion_answers=body.get("criterion_answers"),
+    )
     scope_display = resolve_selected_scope_display(
-        selected_scope_context=_maybe_selected_scope_context(policy_id),
+        selected_scope_context=selected_scope_context,
         screen_2_response=screen_2_response,
     )
     screen_2_response = ensure_selected_scope_display(screen_2_response, scope_display)
