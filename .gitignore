@@ -5,7 +5,6 @@ __pycache__/
 
 # Node
 webapps/prior_auth_review/node_modules/
-dist/
 .vite/
 
 # macOS
