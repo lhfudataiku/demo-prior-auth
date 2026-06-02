@@ -93,6 +93,7 @@ onMounted(() => {
         :agent-status="store.agentStatus"
         :agent-message="store.agentMessage"
         :agent-events="store.agentEvents"
+        :agent-progress="store.agentProgress"
         @answer="(criterionId, value) => store.updateAnswer(criterionId, { answer: value })"
         @comment="(criterionId, value) => store.updateAnswer(criterionId, { comment: value })"
         @submit="store.submitReview"

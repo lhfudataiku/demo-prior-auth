@@ -76,6 +76,10 @@ Expected local ports:
 - `GET /api/runs/<run_id>/state`
 - `POST /api/runs/<run_id>/hitl/respond`
 
+In `dss` mode, run state includes block-level streaming progress derived from
+the Structured Agent context, so the frontend can show queue progress and the
+current criterion while the agent is running.
+
 ## Notes
 
 - This scaffold is intentionally fixture-first.

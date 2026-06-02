@@ -83,41 +83,148 @@ def _get_agent_llm():
     return project.get_llm("agent:NkBiV9OM")
 
 
-def _find_review_request_payload(hitl_requests, memory_fragment):
-    def parse_json_string(raw):
-        if not isinstance(raw, str) or not raw.strip():
-            return None
-        try:
-            return _parse_json_object_from_text(raw)
-        except Exception:
-            return None
-
-    def search(value):
-        if isinstance(value, dict):
-            review_request = value.get("review_request")
-            if isinstance(review_request, dict):
-                return review_request
-            for nested in value.values():
-                found = search(nested)
-                if found is not None:
-                    return found
-        elif isinstance(value, list):
-            for item in value:
-                found = search(item)
-                if found is not None:
-                    return found
-        elif isinstance(value, str):
-            parsed = parse_json_string(value)
-            if parsed is not None:
-                found = search(parsed)
-                if found is not None:
-                    return found
+def _parse_embedded_json(value):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        return _parse_json_object_from_text(value)
+    except Exception:
         return None
 
-    found = search(hitl_requests)
-    if found is not None:
-        return found
-    return search(memory_fragment)
+
+def _extract_graph_state(value):
+    if not isinstance(value, dict):
+        return None
+
+    if "_currentBlockId" in value:
+        return value
+
+    for nested in value.values():
+        if isinstance(nested, dict) and "_currentBlockId" in nested:
+            return nested
+
+    event_data = value.get("eventData")
+    if isinstance(event_data, dict):
+        context = event_data.get("context")
+        if isinstance(context, dict):
+            for nested in context.values():
+                if isinstance(nested, dict) and "_currentBlockId" in nested:
+                    return nested
+    return None
+
+
+def _extract_review_request_from_graph(graph_state):
+    if not isinstance(graph_state, dict):
+        return None
+    request_human_review = graph_state.get("request_human_review")
+    if not isinstance(request_human_review, dict):
+        return None
+    tool_input = request_human_review.get("screen_2_review_tool_input")
+    if isinstance(tool_input, dict) and isinstance(tool_input.get("screen_2_payload"), dict):
+        return tool_input
+    return None
+
+
+def _count_total_criteria(graph_state):
+    if not isinstance(graph_state, dict):
+        return None
+
+    retrieval_plan = graph_state.get("retrieval_plan_v1")
+    if isinstance(retrieval_plan, dict):
+        flattened = retrieval_plan.get("flattened_criteria")
+        if isinstance(flattened, list):
+            return len(flattened)
+
+        total = 0
+        found = False
+        for key in (
+            "selected_route_guard_criterion_ids",
+            "selected_cluster_entry_guard_criterion_ids",
+            "selected_inherited_diagnosis_criterion_ids",
+            "selected_cluster_criterion_ids",
+        ):
+            items = retrieval_plan.get(key)
+            if isinstance(items, list):
+                total += len(items)
+                found = True
+        if found:
+            return total
+
+    screen_2_payload = graph_state.get("screen_2_payload")
+    if isinstance(screen_2_payload, dict):
+        criteria = ((screen_2_payload.get("payload") or {}).get("criteria") or [])
+        if isinstance(criteria, list):
+            return len(criteria)
+
+    return None
+
+
+def _extract_current_criterion(graph_state):
+    if not isinstance(graph_state, dict):
+        return None
+
+    loop_state = graph_state.get("plain_item_loop")
+    if isinstance(loop_state, dict):
+        current_item = loop_state.get("currentItem")
+        if isinstance(current_item, dict):
+            return current_item
+
+    reasoning_result = _parse_embedded_json(graph_state.get("current_reasoning_result"))
+    if isinstance(reasoning_result, dict):
+        return {
+            "criterion_id": reasoning_result.get("criterion_id"),
+            "prompt": reasoning_result.get("prompt"),
+        }
+    return None
+
+
+def _extract_progress_from_graph(graph_state, chunk_data):
+    if not isinstance(graph_state, dict):
+        return None
+
+    current_item = _extract_current_criterion(graph_state) or {}
+    execution = ((chunk_data.get("eventData") or {}).get("execution") or {}) if isinstance(chunk_data, dict) else {}
+    iteration_number = execution.get("iterationNumber")
+    criterion_result_map = graph_state.get("criterion_result_map")
+    completed = len(criterion_result_map) if isinstance(criterion_result_map, dict) else 0
+    if isinstance(iteration_number, int):
+        completed = max(completed, iteration_number)
+
+    total = _count_total_criteria(graph_state)
+    return {
+        "current_block_id": graph_state.get("_currentBlockId"),
+        "current_criterion_id": current_item.get("criterion_id"),
+        "current_criterion_prompt": current_item.get("prompt"),
+        "completed_criteria": completed,
+        "total_criteria": total,
+    }
+
+
+def _extract_stream_state(chunk_data):
+    if not isinstance(chunk_data, dict):
+        return {}
+
+    graph_state = _extract_graph_state(chunk_data)
+    review_request = _extract_review_request_from_graph(graph_state)
+    progress = _extract_progress_from_graph(graph_state, chunk_data)
+    event_data = chunk_data.get("eventData") if isinstance(chunk_data.get("eventData"), dict) else {}
+    execution = event_data.get("execution") if isinstance(event_data.get("execution"), dict) else {}
+
+    event = {
+        "type": "agent_event",
+        "event_kind": chunk_data.get("eventKind"),
+        "block_id": event_data.get("blockId"),
+        "iteration_number": execution.get("iterationNumber"),
+    }
+    if isinstance(progress, dict):
+        event["progress"] = progress
+
+    return {
+        "event": event,
+        "graph_state": graph_state,
+        "review_request": review_request,
+        "progress": progress,
+    }
 
 
 def _build_review_result(screen_2_response: dict, approved_answers: dict, review_metadata: dict):
@@ -189,6 +296,8 @@ def _run_dss_completion(
         pending_memory_fragment = None
         pending_context = None
         pending_screen3 = None
+        pending_review_request = None
+        pending_progress = None
 
         for chunk in completion.execute_streamed():
             if type(chunk).__name__ == "DSSLLMStreamedCompletionFooter":
@@ -198,10 +307,7 @@ def _run_dss_completion(
                     pending_context = upsert
 
                 if pending_hitl_requests is not None:
-                    review_request = _find_review_request_payload(
-                        pending_hitl_requests,
-                        pending_memory_fragment,
-                    )
+                    review_request = pending_review_request
                     if not isinstance(review_request, dict):
                         raise RuntimeError("Unable to extract review_request from HITL payload.")
                     screen_2_payload = review_request.get("screen_2_payload")
@@ -220,6 +326,7 @@ def _run_dss_completion(
                                 },
                                 "screen_2_response": screen_2_payload,
                                 "edited_answers": criterion_answers,
+                                "progress": pending_progress,
                             }
                         )
                 else:
@@ -235,6 +342,7 @@ def _run_dss_completion(
                                 "screen_3_response": pending_screen3,
                                 "review_result": review_result,
                                 "completed_at": time.time(),
+                                "progress": pending_progress,
                             }
                         )
                 return
@@ -244,10 +352,21 @@ def _run_dss_completion(
             text = getattr(chunk, "text", None) or ""
 
             if chunk_type != "content":
-                _append_run_event(
-                    run_id,
-                    {"type": "chunk", "chunk_type": chunk_type, "data": _safe_json_value(chunk_data)},
-                )
+                stream_state = _extract_stream_state(chunk_data)
+                if stream_state.get("review_request") is not None:
+                    pending_review_request = stream_state["review_request"]
+                if stream_state.get("progress") is not None:
+                    pending_progress = stream_state["progress"]
+                    with _run_lock:
+                        if run_id in _runs:
+                            _runs[run_id]["progress"] = pending_progress
+                if stream_state.get("event"):
+                    _append_run_event(run_id, stream_state["event"])
+                else:
+                    _append_run_event(
+                        run_id,
+                        {"type": "chunk", "chunk_type": chunk_type, "data": _safe_json_value(chunk_data)},
+                    )
                 continue
 
             if "toolValidationRequests" in chunk_data:
@@ -398,6 +517,13 @@ def start_screen2_run(policy_id: str):
             "review_result": None,
             "error": None,
             "completed_at": None,
+            "progress": {
+                "current_block_id": None,
+                "current_criterion_id": None,
+                "current_criterion_prompt": None,
+                "completed_criteria": 0,
+                "total_criteria": None,
+            },
         }
     threading.Thread(
         target=_run_dss_completion,

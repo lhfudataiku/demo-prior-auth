@@ -279,6 +279,8 @@ Mode-specific transport:
 - `dss` mode should use a run-based API:
   - start run
   - poll run state
+  - read block-level streaming progress from Structured Agent event context
+    rather than from free-text output
   - submit human-validation response
   - render final Screen 3 from the resumed run
 

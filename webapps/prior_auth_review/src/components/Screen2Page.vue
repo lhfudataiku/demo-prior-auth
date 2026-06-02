@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { CriterionAnswers, CriterionRow, LogicEvaluation, Screen2Payload } from '../Api'
+import { computed } from 'vue'
+import type { AgentRunProgress, CriterionAnswers, CriterionRow, LogicEvaluation, Screen2Payload } from '../Api'
 import CriterionCard from './CriterionCard.vue'
 
 function toneForOutcome(value: string) {
@@ -9,7 +10,7 @@ function toneForOutcome(value: string) {
   return value
 }
 
-defineProps<{
+const props = defineProps<{
   screen2: Screen2Payload | null
   criteria: CriterionRow[]
   editedAnswers: CriterionAnswers
@@ -21,6 +22,7 @@ defineProps<{
   agentStatus: 'running' | 'hitl_paused' | 'completed' | 'failed' | null
   agentMessage: string | null
   agentEvents: Array<Record<string, unknown>>
+  agentProgress: AgentRunProgress | null
 }>()
 
 const emit = defineEmits<{
@@ -28,6 +30,13 @@ const emit = defineEmits<{
   comment: [criterionId: string, value: string]
   submit: []
 }>()
+
+const progressPercent = computed(() => {
+  const total = props.agentProgress?.total_criteria
+  const completed = props.agentProgress?.completed_criteria ?? 0
+  if (!total || total <= 0) return null
+  return Math.max(0, Math.min(100, Math.round((completed / total) * 100)))
+})
 </script>
 
 <template>
@@ -66,6 +75,28 @@ const emit = defineEmits<{
       <p v-else-if="agentStatus === 'hitl_paused'">The agent is paused at the required human-validation step.</p>
       <p v-else-if="agentStatus === 'completed'">The agent completed successfully.</p>
       <p v-else-if="agentStatus === 'failed'">The agent run failed.</p>
+      <div v-if="agentProgress" class="status-bar streaming-status">
+        <div class="status-item" v-if="agentProgress.total_criteria !== null">
+          <span class="label">Queue</span>
+          <span class="status-chip" data-tone="neutral">
+            {{ agentProgress.completed_criteria }} / {{ agentProgress.total_criteria }}
+          </span>
+        </div>
+        <div class="status-item" v-if="agentProgress.current_criterion_id">
+          <span class="label">Current criterion</span>
+          <span class="status-chip" data-tone="neutral">{{ agentProgress.current_criterion_id }}</span>
+        </div>
+        <div class="status-item" v-if="agentProgress.current_block_id">
+          <span class="label">Current block</span>
+          <span class="status-chip" data-tone="neutral">{{ agentProgress.current_block_id }}</span>
+        </div>
+      </div>
+      <div v-if="progressPercent !== null" class="progress-meter" aria-hidden="true">
+        <div class="progress-meter__fill" :style="{ width: `${progressPercent}%` }" />
+      </div>
+      <p v-if="agentProgress?.current_criterion_prompt" class="summary-meta">
+        {{ agentProgress.current_criterion_prompt }}
+      </p>
       <p v-if="agentMessage" class="summary-meta">{{ agentMessage }}</p>
       <p class="summary-meta" v-if="agentEvents.length">Events captured: {{ agentEvents.length }}</p>
     </section>

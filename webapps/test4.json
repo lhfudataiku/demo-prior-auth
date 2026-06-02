@@ -1,0 +1,546 @@
+{
+    "type": "event",
+    "eventKind": "AGENT_BLOCK_DONE",
+    "eventData": {
+        "blockId": "criterion_reasoning",
+        "execution": {
+            "turnRunId": "turn_e0f1b5fd6f9944a4879c3b47480c25f9",
+            "parentBlockRunId": "block_b0dba85689814557a3b37415a5289fea",
+            "blockId": "criterion_reasoning",
+            "blockRunId": "block_87a227ae84b940ac9236334542e0d2bc",
+            "iterationNumber": 1
+        },
+        "context": {
+            "dkuLLMMeshRemainingStackDepth": 13,
+            "dkuLLMMeshVia": [
+                "agent:PREAUTHPOC.NkBiV9OM:v2"
+            ],
+            "_blocksGraphState_PREAUTHPOC-NkBiV9OM-v2": {
+                "_currentBlockId": "plain_item_loop",
+                "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+                "selected_scope_context": {
+                    "policy_id": "0685",
+                    "selected_route_id": "route_bevacizumab_nonocular",
+                    "selected_route_label": "Bevacizumab for non-ocular oncology indications",
+                    "selected_phase": "initial",
+                    "selected_phase_label": "Initial",
+                    "selected_cluster_id": "CLUST_INIT_NSCLC",
+                    "selected_cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+                    "selected_route": {
+                        "route_id": "route_bevacizumab_nonocular",
+                        "label": "Bevacizumab for non-ocular oncology indications",
+                        "coverage_status": "covered",
+                        "terminal_disposition": "continue",
+                        "billing_codes": [
+                            "J9035",
+                            "Q5107",
+                            "Q5118",
+                            "Q5126",
+                            "Q5129",
+                            "Q5160"
+                        ],
+                        "route_kind": "covered_request",
+                        "phase_prompt_required": "true",
+                        "phase_branches": [
+                            {
+                                "phase": "initial",
+                                "is_default": "true",
+                                "route_guard_ids": [],
+                                "cluster_ids": [
+                                    "CLUST_INIT_AMPULLARY",
+                                    "CLUST_INIT_APPENDICEAL",
+                                    "CLUST_INIT_CNS",
+                                    "CLUST_INIT_CERVICAL",
+                                    "CLUST_INIT_COLORECTAL",
+                                    "CLUST_INIT_ENDOMETRIAL",
+                                    "CLUST_INIT_HEPATO",
+                                    "CLUST_INIT_MESO_SYSTEMIC",
+                                    "CLUST_INIT_MESO_INDUCTION",
+                                    "CLUST_INIT_MESO_ATEZOLIZUMAB",
+                                    "CLUST_INIT_NSCLC",
+                                    "CLUST_INIT_OVARIAN",
+                                    "CLUST_INIT_RCC",
+                                    "CLUST_INIT_SMALLBOWEL",
+                                    "CLUST_INIT_SARCOMA_ANGIO",
+                                    "CLUST_INIT_SARCOMA_SFT_HPC",
+                                    "CLUST_INIT_VAGINAL",
+                                    "CLUST_INIT_VULVAR"
+                                ]
+                            },
+                            {
+                                "phase": "continuation",
+                                "is_default": "false",
+                                "route_guard_ids": [],
+                                "cluster_ids": [
+                                    "CLUST_CONT_NSCLC",
+                                    "CLUST_CONT_CNS",
+                                    "CLUST_CONT_OTHER"
+                                ]
+                            }
+                        ],
+                        "routing_notes": "Coverage limited to the non-ocular oncology indications and continuation criteria explicitly listed; other uses are considered experimental or investigational.",
+                        "evidence": "I. Criteria for Initial Approval and II. Continuation of Therapy describe the medically necessary non-ocular oncology indications for bevacizumab and its biosimilars.",
+                        "locator": {
+                            "section_path": [
+                                "Policy",
+                                "I. Criteria for Initial Approval"
+                            ],
+                            "page_start": 3,
+                            "page_end": 5
+                        }
+                    },
+                    "selected_phase_branch": {
+                        "phase": "initial",
+                        "is_default": "true",
+                        "route_guard_ids": [],
+                        "cluster_summaries": [
+                            {
+                                "cluster_id": "CLUST_INIT_AMPULLARY",
+                                "condition_key": "ampullary_adenocarcinoma",
+                                "condition_label": "Intestinal-type ampullary adenocarcinoma (progressive or metastatic)",
+                                "condition_synonyms": [
+                                    "Ampullary adenocarcinoma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C24.1"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_APPENDICEAL",
+                                "condition_key": "appendiceal_neoplasm",
+                                "condition_label": "Appendiceal neoplasms and cancers",
+                                "condition_synonyms": [
+                                    "Appendiceal adenocarcinoma",
+                                    "Goblet cell adenocarcinoma",
+                                    "Undifferentiated carcinoma not otherwise specified",
+                                    "Appendiceal mucinous neoplasm"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C18.0 - C21.8"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_CNS",
+                                "condition_key": "cns_cancers",
+                                "condition_label": "Central nervous system cancers listed in the policy",
+                                "condition_synonyms": [
+                                    "Circumscribed glioma",
+                                    "Glioblastoma",
+                                    "Medulloblastoma",
+                                    "Primary CNS lymphoma",
+                                    "Meningioma",
+                                    "Brain metastases",
+                                    "Spinal cord tumors"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C71.0 - C71.9",
+                                    "C72.0 - C72.9",
+                                    "D32.0 - D32.9",
+                                    "Q85.02",
+                                    "Q85.03"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_CERVICAL",
+                                "condition_key": "cervical_cancer",
+                                "condition_label": "Persistent, recurrent, or metastatic cervical cancer",
+                                "condition_synonyms": [
+                                    "Cervical cancer"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C53.0 - C53.9"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_COLORECTAL",
+                                "condition_key": "colorectal_and_anal_cancer",
+                                "condition_label": "Colorectal cancer (including appendiceal adenocarcinoma) and anal adenocarcinoma",
+                                "condition_synonyms": [
+                                    "Colorectal adenocarcinoma",
+                                    "Anal adenocarcinoma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C18.0 - C21.8"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_ENDOMETRIAL",
+                                "condition_key": "endometrial_carcinoma",
+                                "condition_label": "Stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma",
+                                "condition_synonyms": [
+                                    "Endometrial carcinoma stage III-IV"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C54.1",
+                                    "C55"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_HEPATO",
+                                "condition_key": "hepatocellular_carcinoma",
+                                "condition_label": "Unresectable or extrahepatic/metastatic hepatocellular carcinoma with atezolizumab",
+                                "condition_synonyms": [
+                                    "Hepatocellular carcinoma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C22.0"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_MESO_SYSTEMIC",
+                                "condition_key": "mesothelioma_systemic_therapy",
+                                "condition_label": "Pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma systemic therapy",
+                                "condition_synonyms": [
+                                    "Pleural mesothelioma",
+                                    "Peritoneal mesothelioma",
+                                    "Pericardial mesothelioma",
+                                    "Tunica vaginalis testis mesothelioma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C45.0",
+                                    "C45.1",
+                                    "C45.2",
+                                    "C45.7"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_MESO_INDUCTION",
+                                "condition_key": "mesothelioma_induction",
+                                "condition_label": "Induction therapy for pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma",
+                                "condition_synonyms": [
+                                    "Mesothelioma induction therapy before surgery"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C45.0",
+                                    "C45.1",
+                                    "C45.2",
+                                    "C45.7"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_MESO_ATEZOLIZUMAB",
+                                "condition_key": "mesothelioma_atezolizumab",
+                                "condition_label": "Mesothelioma therapy in combination with atezolizumab",
+                                "condition_synonyms": [
+                                    "Mesothelioma subsequent therapy with atezolizumab"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C45.0",
+                                    "C45.1",
+                                    "C45.2",
+                                    "C45.7"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_NSCLC",
+                                "condition_key": "nsclc",
+                                "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+                                "condition_synonyms": [
+                                    "Non-squamous non-small cell lung cancer"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C34.00 - C34.92"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_OVARIAN",
+                                "condition_key": "ovarian_fallopian_peritoneal_cancer",
+                                "condition_label": "Epithelial ovarian cancer, fallopian tube cancer, primary peritoneal cancer, or malignant sex cord stromal tumor",
+                                "condition_synonyms": [
+                                    "Epithelial ovarian cancer",
+                                    "Fallopian tube cancer",
+                                    "Primary peritoneal cancer",
+                                    "Malignant sex cord stromal tumor"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C56.1 - C56.9",
+                                    "C57.00 - C57.4"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_RCC",
+                                "condition_key": "renal_cell_carcinoma",
+                                "condition_label": "Relapsed or stage IV renal cell carcinoma",
+                                "condition_synonyms": [
+                                    "Renal cell carcinoma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C64.1 - C64.9"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_SMALLBOWEL",
+                                "condition_key": "small_bowel_adenocarcinoma",
+                                "condition_label": "Small bowel adenocarcinoma",
+                                "condition_synonyms": [
+                                    "Small bowel adenocarcinoma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C17.0 - C17.9"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_SARCOMA_ANGIO",
+                                "condition_key": "soft_tissue_angiosarcoma",
+                                "condition_label": "Angiosarcoma (soft tissue sarcoma) treated with single-agent bevacizumab",
+                                "condition_synonyms": [
+                                    "Angiosarcoma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C49.0 - C49.9"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_SARCOMA_SFT_HPC",
+                                "condition_key": "solitary_fibrous_tumor_hemangiopericytoma",
+                                "condition_label": "Solitary fibrous tumor or hemangiopericytoma treated with bevacizumab plus temozolomide",
+                                "condition_synonyms": [
+                                    "Solitary fibrous tumor",
+                                    "Hemangiopericytoma"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C49.0 - C49.9"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_VAGINAL",
+                                "condition_key": "vaginal_cancer",
+                                "condition_label": "Recurrent or metastatic vaginal cancer",
+                                "condition_synonyms": [
+                                    "Vaginal cancer"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C52"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            },
+                            {
+                                "cluster_id": "CLUST_INIT_VULVAR",
+                                "condition_key": "vulvar_cancer",
+                                "condition_label": "Advanced, recurrent, or metastatic vulvar cancer",
+                                "condition_synonyms": [
+                                    "Vulvar cancer"
+                                ],
+                                "diagnosis_basis": "code_table_primary",
+                                "diagnosis_code_candidates": [
+                                    "C51.0 - C51.9"
+                                ],
+                                "cluster_entry_guard_ids": []
+                            }
+                        ]
+                    },
+                    "selected_route_guards": [],
+                    "selected_cluster_summary": {
+                        "cluster_id": "CLUST_INIT_NSCLC",
+                        "condition_key": "nsclc",
+                        "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+                        "condition_synonyms": [
+                            "Non-squamous non-small cell lung cancer"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "C34.00 - C34.92"
+                        ],
+                        "cluster_entry_guard_ids": []
+                    },
+                    "selected_cluster": {
+                        "cluster_id": "CLUST_INIT_NSCLC",
+                        "route_id": "route_bevacizumab_nonocular",
+                        "phase": "initial",
+                        "condition_key": "nsclc",
+                        "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+                        "condition_synonyms": [
+                            "Non-squamous non-small cell lung cancer"
+                        ],
+                        "diagnosis_basis": "code_table_primary",
+                        "diagnosis_code_candidates": [
+                            "C34.00 - C34.92"
+                        ],
+                        "inherits_diagnosis_from_cluster_ids": [],
+                        "cluster_entry_guard_ids": [],
+                        "logic_profile_id": "UNKNOWN",
+                        "logic_root": {
+                            "node_type": "group",
+                            "operator": "all",
+                            "children": [
+                                {
+                                    "node_type": "criterion_ref",
+                                    "criterion_id": "CR_INIT_NSCLC"
+                                }
+                            ]
+                        },
+                        "evidence": "I. Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+                        "locator": {
+                            "section_path": [
+                                "Policy",
+                                "I. Criteria for Initial Approval",
+                                "I. Non-small cell lung cancer (NSCLC)"
+                            ],
+                            "page_start": 4,
+                            "page_end": 4
+                        }
+                    },
+                    "selected_cluster_entry_guards": [],
+                    "selected_logic_profiles": [],
+                    "selected_inherited_diagnosis_clusters": [],
+                    "effective_diagnosis_code_candidates": [
+                        "C34.00 - C34.92"
+                    ],
+                    "selected_route_guard_criterion_ids": [],
+                    "selected_cluster_entry_guard_criterion_ids": [],
+                    "selected_inherited_diagnosis_criterion_ids": [],
+                    "selected_cluster_criterion_ids": [
+                        "CR_INIT_NSCLC"
+                    ],
+                    "selected_criteria_catalog": [
+                        {
+                            "criterion_id": "CR_INIT_NSCLC",
+                            "criterion_kind": "cluster_criterion",
+                            "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
+                            "clinical_intent": "Confirm the NSCLC indication for bevacizumab.",
+                            "answer_type": "boolean",
+                            "required": "true",
+                            "code_binding": {
+                                "source_codes": [
+                                    "C34.00 - C34.92"
+                                ],
+                                "code_role": "diagnosis_inclusion"
+                            },
+                            "preferred_data_domains": [
+                                "condition"
+                            ],
+                            "policy_time_language": "Recurrent, unresectable, advanced, or metastatic disease as described in policy.",
+                            "retrieval_priority": "high",
+                            "prefill_allowed": "true",
+                            "clinician_must_confirm": "true",
+                            "evidence": "I. Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+                            "locator": {
+                                "section_path": [
+                                    "Policy",
+                                    "I. Criteria for Initial Approval",
+                                    "I. Non-small cell lung cancer (NSCLC)"
+                                ],
+                                "page_start": 4,
+                                "page_end": 4
+                            }
+                        }
+                    ]
+                },
+                "retrieval_plan_v1": {
+                    "schema_version": "retrieval_plan_v1",
+                    "policy_id": "0059",
+                    "selected_route_id": "route_peak_flow_mechanical_spacers",
+                    "selected_route_label": "Standard mechanical peak flow meters and spacers for obstructive pulmonary conditions",
+                    "selected_phase": "other",
+                    "selected_cluster_id": "cluster_peak_flow_chronic_lower_respiratory",
+                    "selected_cluster_label": "Chronic lower respiratory diseases (e.g., asthma, chronic bronchitis, emphysema)",
+                    "selected_route_guard_criterion_ids": [],
+                    "selected_cluster_entry_guard_criterion_ids": [],
+                    "selected_cluster_criterion_ids": [
+                        "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY"
+                    ],
+                    "plan_items": [
+                        {
+                            "criterion_id": "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY",
+                            "criterion_kind": "cluster_criterion",
+                            "prompt": "Does the member have a diagnosis of a chronic lower respiratory disease such as asthma, chronic bronchitis, or emphysema (ICD-10 J40-J47.9) that warrants use of a standard mechanical peak flow meter or spacer for managing the obstructive condition?",
+                            "clinical_intent": "Confirm the covered chronic obstructive pulmonary diagnosis that justifies the device.",
+                            "execution_hints": {
+                                "criterion_archetype": "ARC_dx_code_range_with_lookback",
+                                "retrieval_strategy": "sql_first",
+                                "semantic_model_entity": "condition",
+                                "time_anchor_field": "NONE"
+                            },
+                            "ehr_query_fragment": {
+                                "field": "condition",
+                                "operator": "exists",
+                                "value": "Chronic lower respiratory disease diagnosis (ICD-10 J40-J47.9)",
+                                "codes": [
+                                    "J40-J47.9"
+                                ]
+                            },
+                            "time_constraint": {
+                                "type": "none",
+                                "anchor": "NONE",
+                                "value": 0,
+                                "unit": "UNKNOWN",
+                                "direction": "UNKNOWN",
+                                "notes": "Ongoing chronic disease without a specified lookback window."
+                            },
+                            "note_search_tokens": [
+                                "asthma",
+                                "chronic bronchitis",
+                                "emphysema"
+                            ],
+                            "preferred_data_domains": [
+                                "condition"
+                            ],
+                            "prefill_strategy": "auto",
+                            "clinician_must_confirm": True,
+                            "source_criterion_snapshot": {
+                                "policy_time_language": "Ongoing",
+                                "code_binding": {
+                                    "origin": "code_table_primary",
+                                    "confidence": "HIGH",
+                                    "source_codes": [
+                                        "J40-J47.9"
+                                    ],
+                                    "code_role": "diagnosis_inclusion",
+                                    "status": "mapped"
+                                },
+                                "locator": {
+                                    "section_path": [
+                                        "Policy",
+                                        "CPT / HCPCS / ICD-10 Codes",
+                                        "ICD-10 codes covered if selection criteria are met"
+                                    ],
+                                    "page_start": 2,
+                                    "page_end": 2
+                                }
+                            }
+                        }
+                    ],
+                    "notes": {
+                        "planning_notes": "Plan derived directly from the scoped chronic lower respiratory criterion for chronic obstructive pulmonary conditions.",
+                        "confidence": "HIGH"
+                    }
+                },
+                "current_reasoning_result": "{"criterion_id":"CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY","status":"Found","meets_criterion":true,"extracted_value":{"diagnosis_code":"J45.909","diagnosis_name":"Unspecified asthma, uncomplicated","condition_count":5,"condition_ids":["d12baf5d-ed9f-5615-b6f9-79c24d01ee2f","c0c5eaad-0772-5a45-984a-6adf786c40b4","b9225571-7eb0-5863-b3ce-884d4492cc14","fcc2651a-1209-566e-99bf-10e0ae38db7b","66dca9ef-4edb-5e25-93a3-28747049034f"]},"justification":"Structured EHR evidence shows five documented condition records with ICD-10 J45.909 (unspecified asthma, uncomplicated), which falls within the covered chronic lower respiratory disease range J40-J47.9. This satisfies the criterion for a chronic lower respiratory diagnosis supporting standard mechanical peak flow meter or spacer coverage.","sources":{"structured":[{"tool":"EHR_Query_Tool","evidence":"Yes, the patient has five documented ICD-10 condition records for J45.909 (Unspecified asthma, uncomplicated).","condition_ids":["d12baf5d-ed9f-5615-b6f9-79c24d01ee2f","c0c5eaad-0772-5a45-984a-6adf786c40b4","b9225571-7eb0-5863-b3ce-884d4492cc14","fcc2651a-1209-566e-99bf-10e0ae38db7b","66dca9ef-4edb-5e25-93a3-28747049034f"],"diagnosis_code":"J45.909"}],"notes":[]}}"
+            }
+        },
+        "nextBlockId": "accumulate_results"
+    }
+}

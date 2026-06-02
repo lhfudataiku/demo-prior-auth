@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
   Api,
+  type AgentRunProgress,
   type AgentRunState,
   type CriterionAnswer,
   type CriterionAnswers,
@@ -114,6 +115,59 @@ function selectedScopeMatchesScreen2(
   )
 }
 
+function tryParseJsonValue(value: unknown): unknown {
+  if (typeof value !== 'string' || !value.trim()) return value
+  try {
+    return JSON.parse(value)
+  } catch {
+    return value
+  }
+}
+
+function extractScreen2Payload(value: unknown): Screen2Payload | null {
+  const parsed = tryParseJsonValue(value)
+  if (!parsed || typeof parsed !== 'object') return null
+  const record = parsed as Record<string, unknown>
+
+  if (record.payload && typeof record.payload === 'object') {
+    return record as unknown as Screen2Payload
+  }
+
+  if (record.screen_2_payload) {
+    return extractScreen2Payload(record.screen_2_payload)
+  }
+
+  if (record.screen_2_review_tool_input) {
+    return extractScreen2Payload(record.screen_2_review_tool_input)
+  }
+
+  if (record.review_request) {
+    return extractScreen2Payload(record.review_request)
+  }
+
+  return null
+}
+
+function extractCriterionAnswers(value: unknown): CriterionAnswers {
+  const parsed = tryParseJsonValue(value)
+  if (!parsed || typeof parsed !== 'object') return {}
+  const record = parsed as Record<string, unknown>
+
+  if (record.criterion_answers && typeof record.criterion_answers === 'object') {
+    return record.criterion_answers as CriterionAnswers
+  }
+
+  if (record.screen_2_review_tool_input) {
+    return extractCriterionAnswers(record.screen_2_review_tool_input)
+  }
+
+  if (record.review_request) {
+    return extractCriterionAnswers(record.review_request)
+  }
+
+  return record as CriterionAnswers
+}
+
 export const usePriorAuthStore = defineStore('priorAuth', () => {
   const loading = ref(false)
   const screen2Loading = ref(false)
@@ -140,6 +194,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const agentEvents = ref<Array<Record<string, unknown>>>([])
   const agentMessage = ref<string | null>(null)
   const agentError = ref<string | null>(null)
+  const agentProgress = ref<AgentRunProgress | null>(null)
   const pollTimer = ref<ReturnType<typeof setInterval> | null>(null)
 
   const reviewMetadata = ref<ReviewMetadata>({
@@ -234,6 +289,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     agentEvents.value = []
     agentMessage.value = null
     agentError.value = null
+    agentProgress.value = null
     stopPolling()
     try {
       selectedPolicyId.value = policyId
@@ -332,6 +388,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
         agentEvents.value = []
         agentMessage.value = null
         agentError.value = null
+        agentProgress.value = null
         currentPage.value = 'screen2'
         startPolling()
         await pollRunState()
@@ -425,21 +482,27 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   }
 
   function hydratePausedRun(state: AgentRunState) {
-    const screen2Response =
-      state.screen_2_response
-      ?? state.hitl_payload?.review_request?.screen_2_payload
-      ?? null
-    if (!screen2Response) return
+    const screen2Response = (
+      extractScreen2Payload(state.screen_2_response)
+      ?? extractScreen2Payload(state.hitl_payload?.review_request)
+      ?? extractScreen2Payload(state.hitl_payload)
+    )
+    if (!screen2Response) {
+      error.value = 'The agent paused for validation, but the Screen 2 review payload was not available.'
+      return
+    }
     screen2Bootstrap.value = {
       scenario: currentScenario.value!,
       patient_summary: patientSummary.value,
       screen_2_response: screen2Response,
     }
-    editedAnswers.value = {
-      ...(state.hitl_payload?.review_request?.criterion_answers ?? state.edited_answers ?? {}),
+    editedAnswers.value = extractCriterionAnswers(state.hitl_payload?.review_request)
+    if (!Object.keys(editedAnswers.value).length) {
+      editedAnswers.value = extractCriterionAnswers(state.edited_answers)
     }
     answerOrigins.value = buildAnswerOrigins(screen1Answers.value, screen2Response.payload.criteria)
     agentMessage.value = state.hitl_payload?.message ?? null
+    agentProgress.value = state.progress ?? agentProgress.value
   }
 
   async function pollRunState() {
@@ -448,6 +511,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     agentStatus.value = state.status
     agentEvents.value = state.events ?? []
     agentError.value = state.error ?? null
+    agentProgress.value = state.progress ?? agentProgress.value
 
     if (state.status === 'running') {
       return
@@ -489,6 +553,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     agentError,
     agentEvents,
     agentMessage,
+    agentProgress,
     agentStatus,
     answerOrigins,
     criteria,

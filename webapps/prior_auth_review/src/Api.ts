@@ -189,10 +189,19 @@ export interface Screen2RunStart {
   patient_summary: PatientSummary | null
 }
 
+export interface AgentRunProgress {
+  current_block_id: string | null
+  current_criterion_id: string | null
+  current_criterion_prompt: string | null
+  completed_criteria: number
+  total_criteria: number | null
+}
+
 export interface AgentRunState {
   status: 'running' | 'hitl_paused' | 'completed' | 'failed'
   text_so_far: string
   events: Array<Record<string, unknown>>
+  progress: AgentRunProgress | null
   hitl_payload: {
     message?: string
     review_request?: {

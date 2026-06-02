@@ -204,6 +204,8 @@ Current POC source:
 - `dss` mode
   - start a Structured Agent run
   - stream workflow state to the webapp
+  - expose block-level progress from the agent graph state, including
+    total criteria, completed criteria, and the current criterion/block
   - pause at the required human-validation step
   - resume the same run after clinician approval/edit
 
