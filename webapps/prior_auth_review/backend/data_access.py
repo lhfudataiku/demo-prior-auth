@@ -56,6 +56,25 @@ def _load_json(policy_id: str, filename: str):
         return json.load(stream)
 
 
+def _parse_json_object_from_text(text: str):
+    decoder = json.JSONDecoder()
+    stripped = text.lstrip()
+    if not stripped:
+        raise ValueError("Structured agent returned empty text.")
+
+    for start_char in ("{", "["):
+        start_index = stripped.find(start_char)
+        if start_index == -1:
+            continue
+        try:
+            payload, _ = decoder.raw_decode(stripped[start_index:])
+            return payload
+        except json.JSONDecodeError:
+            continue
+
+    raise ValueError("Structured agent response did not contain a valid JSON payload.")
+
+
 def _load_structured_agent_state(policy_id: str):
     raw = _load_json(policy_id, "structured_agent_context.json")
     context = raw.get("context", {})
@@ -210,7 +229,7 @@ def _load_screen2_response_dss(
     text = getattr(response, "text", None)
     if not text:
         raise RuntimeError(f"Structured agent returned an empty response for {policy_id}.")
-    payload = json.loads(text)
+    payload = _parse_json_object_from_text(text)
     if isinstance(payload, dict) and "payload" in payload:
         return payload
     raise RuntimeError(f"Unexpected structured agent response shape for {policy_id}.")

@@ -283,7 +283,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
         criterion_answers: screen1Answers.value,
       })
       screen1State.value = payload
-      patientSummary.value = payload.patient_summary
+      patientSummary.value = payload.patient_summary ?? patientSummary.value
       currentScenario.value = payload.scenario
       screen1Answers.value = {
         ...payload.payload.criterion_answers,
