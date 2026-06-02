@@ -40,6 +40,10 @@ export interface ScenarioOption {
   description: string
 }
 
+export interface RuntimeInfo {
+  data_source: 'local' | 'dss'
+}
+
 export interface BillingCodeOption {
   billing_code: string
   route_id: string
@@ -179,6 +183,30 @@ export interface Screen2Bootstrap {
   screen_2_response: Screen2Payload
 }
 
+export interface Screen2RunStart {
+  run_id: string
+  scenario: ScenarioOption
+  patient_summary: PatientSummary | null
+}
+
+export interface AgentRunState {
+  status: 'running' | 'hitl_paused' | 'completed' | 'failed'
+  text_so_far: string
+  events: Array<Record<string, unknown>>
+  hitl_payload: {
+    message?: string
+    review_request?: {
+      screen_2_payload?: Screen2Payload
+      criterion_answers?: CriterionAnswers
+    }
+  } | null
+  screen_2_response: Screen2Payload | null
+  screen_3_response: Screen3Payload | null
+  edited_answers: CriterionAnswers
+  review_result: Screen2ReviewResult | null
+  error: string | null
+}
+
 export interface Screen2ReviewResult {
   approval_status: 'approved' | 'edited' | 'rejected'
   approved_criterion_answers: CriterionAnswers
@@ -220,6 +248,11 @@ export interface Screen3Payload {
 }
 
 export const Api = {
+  async getRuntime() {
+    const res = await axios.get<RuntimeInfo>('/api/runtime')
+    return res.data
+  },
+
   async listScenarios() {
     const res = await axios.get<{ items: ScenarioOption[] }>('/api/scenarios')
     return res.data.items
@@ -259,6 +292,37 @@ export const Api = {
 
   async loadPatientSummary(subjectId: string) {
     const res = await axios.get<PatientSummary>(`/api/patients/${subjectId}`)
+    return res.data
+  },
+
+  async startScreen2Run(
+    policyId: string,
+    payload: {
+      subject_id?: string
+      billing_code?: string | null
+      selected_phase?: string | null
+      selected_cluster_id?: string | null
+      criterion_answers?: CriterionAnswers
+    },
+  ) {
+    const res = await axios.post<Screen2RunStart>(`/api/scenarios/${policyId}/screen2/run`, payload)
+    return res.data
+  },
+
+  async getRunState(runId: string) {
+    const res = await axios.get<AgentRunState>(`/api/runs/${runId}/state`)
+    return res.data
+  },
+
+  async respondHitl(
+    runId: string,
+    approvedCriterionAnswers: CriterionAnswers,
+    reviewMetadata?: Partial<ReviewMetadata>,
+  ) {
+    const res = await axios.post<{ status: 'resuming' }>(`/api/runs/${runId}/hitl/respond`, {
+      approved_criterion_answers: approvedCriterionAnswers,
+      review_metadata: reviewMetadata ?? {},
+    })
     return res.data
   },
 

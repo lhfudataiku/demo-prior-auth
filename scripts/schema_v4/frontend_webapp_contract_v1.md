@@ -53,8 +53,10 @@ Deployment target:
 Runtime modes:
 - `native DSS approval mode`
   - the Structured Agent pauses at the managed tool approval checkpoint
-  - DSS approval/edit produces `screen_2_review_result`
-  - Step 11 deterministically builds Screen 3
+  - the webapp should start a run, poll streamed state, render the paused
+    review payload when validation is requested, and resume the same run after
+    clinician approval/edit
+  - the resumed run deterministically builds Screen 3
 - `standard webapp review mode`
   - the webapp renders Screen 2 from `screen_2_payload`
   - clinician edits are submitted as `approved_criterion_answers`
@@ -270,6 +272,15 @@ Backend runtime rule:
 - instead, it should re-run deterministic Screen 1 scope resolution from the
   current billing code, phase, cluster, and guard answers, then submit that
   resolved scope into the Structured Agent call
+
+Mode-specific transport:
+- `local` mode may keep a synchronous Screen 2 bootstrap route for fixture/static
+  testing
+- `dss` mode should use a run-based API:
+  - start run
+  - poll run state
+  - submit human-validation response
+  - render final Screen 3 from the resumed run
 
 Minimal stable shape:
 

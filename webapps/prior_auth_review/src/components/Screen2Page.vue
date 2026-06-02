@@ -17,6 +17,10 @@ defineProps<{
   nextAction: string
   answerOrigins: Record<string, 'screen1' | 'screen2'>
   submitting: boolean
+  dataSource: 'local' | 'dss'
+  agentStatus: 'running' | 'hitl_paused' | 'completed' | 'failed' | null
+  agentMessage: string | null
+  agentEvents: Array<Record<string, unknown>>
 }>()
 
 const emit = defineEmits<{
@@ -27,7 +31,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <section class="page-stack" v-if="screen2">
+  <section class="page-stack" v-if="screen2 || agentStatus">
     <header class="page-header">
       <div>
         <h1>Criterion review</h1>
@@ -37,14 +41,34 @@ const emit = defineEmits<{
       </div>
       <div class="header-actions">
         <div class="status-kv">
-          <span class="label">Status</span>
-          <span class="status-chip" :data-tone="toneForOutcome(screen2.status)">{{ screen2.status }}</span>
+          <span class="label">Agent</span>
+          <span class="status-chip" :data-tone="toneForOutcome(agentStatus || screen2?.status || 'running')">
+            {{ agentStatus || screen2?.status }}
+          </span>
         </div>
-        <button class="primary-button" :disabled="submitting" @click="emit('submit')">
+        <button
+          v-if="screen2 && (dataSource === 'local' || agentStatus === 'hitl_paused')"
+          class="primary-button"
+          :disabled="submitting"
+          @click="emit('submit')"
+        >
           {{ submitting ? 'Submitting...' : 'Submit review' }}
         </button>
       </div>
     </header>
+
+    <section class="panel" v-if="agentStatus">
+      <div class="section-header">
+        <p class="eyebrow">Structured agent</p>
+        <h2>Workflow status</h2>
+      </div>
+      <p v-if="agentStatus === 'running'">The Structured Agent is running and streaming workflow progress.</p>
+      <p v-else-if="agentStatus === 'hitl_paused'">The agent is paused at the required human-validation step.</p>
+      <p v-else-if="agentStatus === 'completed'">The agent completed successfully.</p>
+      <p v-else-if="agentStatus === 'failed'">The agent run failed.</p>
+      <p v-if="agentMessage" class="summary-meta">{{ agentMessage }}</p>
+      <p class="summary-meta" v-if="agentEvents.length">Events captured: {{ agentEvents.length }}</p>
+    </section>
 
     <section class="status-bar panel" v-if="logicEvaluation">
       <div class="status-item">
@@ -73,7 +97,7 @@ const emit = defineEmits<{
       </div>
     </section>
 
-    <section class="criteria-stack">
+    <section class="criteria-stack" v-if="screen2">
       <CriterionCard
         v-for="criterion in criteria"
         :key="criterion.criterion_id"

@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
   Api,
+  type AgentRunState,
   type CriterionAnswer,
   type CriterionAnswers,
   type CriterionRow,
@@ -123,6 +124,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const selectedPolicyId = ref<string>('0059')
   const subjectIdInput = ref('')
   const currentPage = ref<WorkflowPage>('screen1')
+  const dataSource = ref<'local' | 'dss'>('local')
 
   const patientSummary = ref<PatientSummary | null>(null)
   const currentScenario = ref<ScenarioOption | null>(null)
@@ -133,6 +135,12 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const screen2Bootstrap = ref<Screen2Bootstrap | null>(null)
   const editedAnswers = ref<CriterionAnswers>({})
   const answerOrigins = ref<Record<string, AnswerOrigin>>({})
+  const runId = ref<string | null>(null)
+  const agentStatus = ref<'running' | 'hitl_paused' | 'completed' | 'failed' | null>(null)
+  const agentEvents = ref<Array<Record<string, unknown>>>([])
+  const agentMessage = ref<string | null>(null)
+  const agentError = ref<string | null>(null)
+  const pollTimer = ref<ReturnType<typeof setInterval> | null>(null)
 
   const reviewMetadata = ref<ReviewMetadata>({
     reviewer: 'POC reviewer',
@@ -200,6 +208,8 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     loading.value = true
     error.value = null
     try {
+      const runtime = await Api.getRuntime()
+      dataSource.value = runtime.data_source
       scenarios.value = await Api.listScenarios()
       await loadScenario(selectedPolicyId.value)
     } catch (err) {
@@ -219,6 +229,12 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     editedAnswers.value = {}
     answerOrigins.value = {}
     screen1Answers.value = {}
+    runId.value = null
+    agentStatus.value = null
+    agentEvents.value = []
+    agentMessage.value = null
+    agentError.value = null
+    stopPolling()
     try {
       selectedPolicyId.value = policyId
       const screen1 = await Api.loadScreen1(policyId)
@@ -304,6 +320,23 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     screen2Loading.value = true
     error.value = null
     try {
+      if (dataSource.value === 'dss') {
+        const run = await Api.startScreen2Run(selectedPolicyId.value, currentSelectionPayload())
+        runId.value = run.run_id
+        currentScenario.value = run.scenario
+        patientSummary.value = run.patient_summary ?? patientSummary.value
+        screen2Bootstrap.value = null
+        editedAnswers.value = {}
+        answerOrigins.value = {}
+        agentStatus.value = 'running'
+        agentEvents.value = []
+        agentMessage.value = null
+        agentError.value = null
+        currentPage.value = 'screen2'
+        startPolling()
+        await pollRunState()
+        return
+      }
       const bootstrap = await Api.loadScreen2(selectedPolicyId.value, currentSelectionPayload())
       if (!selectedScopeMatchesScreen2(screen1State.value?.payload.selected_scope_context ?? null, bootstrap.screen_2_response)) {
         error.value = 'This fixture only has a Screen 2 artifact for one selected scope. Please follow the scenario path shown in Screen 1.'
@@ -359,6 +392,15 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     submitting.value = true
     error.value = null
     try {
+      if (dataSource.value === 'dss') {
+        if (!runId.value) throw new Error('No active agent run.')
+        await Api.respondHitl(runId.value, editedAnswers.value, reviewMetadata.value)
+        agentStatus.value = 'running'
+        agentMessage.value = null
+        startPolling()
+        await pollRunState()
+        return
+      }
       const response = await Api.submitReview(
         selectedPolicyId.value,
         editedAnswers.value,
@@ -375,7 +417,79 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     }
   }
 
+  function stopPolling() {
+    if (pollTimer.value) {
+      clearInterval(pollTimer.value)
+      pollTimer.value = null
+    }
+  }
+
+  function hydratePausedRun(state: AgentRunState) {
+    const screen2Response =
+      state.screen_2_response
+      ?? state.hitl_payload?.review_request?.screen_2_payload
+      ?? null
+    if (!screen2Response) return
+    screen2Bootstrap.value = {
+      scenario: currentScenario.value!,
+      patient_summary: patientSummary.value,
+      screen_2_response: screen2Response,
+    }
+    editedAnswers.value = {
+      ...(state.hitl_payload?.review_request?.criterion_answers ?? state.edited_answers ?? {}),
+    }
+    answerOrigins.value = buildAnswerOrigins(screen1Answers.value, screen2Response.payload.criteria)
+    agentMessage.value = state.hitl_payload?.message ?? null
+  }
+
+  async function pollRunState() {
+    if (!runId.value) return
+    const state = await Api.getRunState(runId.value)
+    agentStatus.value = state.status
+    agentEvents.value = state.events ?? []
+    agentError.value = state.error ?? null
+
+    if (state.status === 'running') {
+      return
+    }
+
+    if (state.status === 'hitl_paused') {
+      stopPolling()
+      hydratePausedRun(state)
+      return
+    }
+
+    if (state.status === 'completed') {
+      stopPolling()
+      latestReviewResult.value = state.review_result ?? latestReviewResult.value
+      latestScreen3.value = state.screen_3_response ?? latestScreen3.value
+      if (latestScreen3.value) {
+        currentPage.value = 'screen3'
+      }
+      return
+    }
+
+    if (state.status === 'failed') {
+      stopPolling()
+      error.value = state.error || 'Agent run failed.'
+    }
+  }
+
+  function startPolling() {
+    stopPolling()
+    pollTimer.value = setInterval(() => {
+      pollRunState().catch((err) => {
+        stopPolling()
+        error.value = err instanceof Error ? err.message : 'Unable to poll agent state.'
+      })
+    }, 2000)
+  }
+
   return {
+    agentError,
+    agentEvents,
+    agentMessage,
+    agentStatus,
     answerOrigins,
     criteria,
     currentPage,
@@ -394,6 +508,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     openScreen2,
     patientSummary,
     policyReviewScope,
+    dataSource,
     reviewMetadata,
     screen1Answers,
     screen1State,

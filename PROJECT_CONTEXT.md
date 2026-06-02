@@ -93,6 +93,14 @@ Current recommendation:
 - native DSS mode demonstrates human-in-the-loop capability
 - standard webapp mode is simpler operationally
 
+Current implementation direction:
+
+- `local` mode keeps a synchronous Screen 2 bootstrap path for fixture/static
+  UI and backend testing
+- `dss` mode uses an independent asynchronous run/session path so the webapp
+  can display streamed Structured Agent workflow and resume after required human
+  validation
+
 ## Important Environment Variables
 
 - `PRIOR_AUTH_PATIENT_DATASET`
@@ -141,10 +149,14 @@ Implemented in:
 Endpoints:
 
 - `GET /api/scenarios`
+- `GET /api/runtime`
 - `GET /api/scenarios/<policy_id>/screen1/bootstrap`
 - `POST /api/scenarios/<policy_id>/screen1/advance`
 - `POST /api/scenarios/<policy_id>/bootstrap`
 - `POST /api/scenarios/<policy_id>/review`
+- `POST /api/scenarios/<policy_id>/screen2/run`
+- `GET /api/runs/<run_id>/state`
+- `POST /api/runs/<run_id>/hitl/respond`
 - `GET /api/patients/<subject_id>`
 
 ## Screen Workflow
@@ -187,7 +199,13 @@ Purpose:
 
 Current POC source:
 
-- local artifact or live agent response depending mode
+- `local` mode
+  - synchronous bootstrap from fixture/static payloads
+- `dss` mode
+  - start a Structured Agent run
+  - stream workflow state to the webapp
+  - pause at the required human-validation step
+  - resume the same run after clinician approval/edit
 
 ### Screen 3
 

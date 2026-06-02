@@ -9,10 +9,16 @@ This webapp lets us start frontend development against the frozen POC contract
 while DSS Step 10 persistence debugging continues.
 
 Current scope:
-- load fixture-backed Screen 2 payloads
-- allow clinician-style answer edits
-- submit a deterministic review request
-- render a deterministic Screen 3 summary
+- `local` mode:
+  - load fixture-backed Screen 2 payloads
+  - allow clinician-style answer edits
+  - submit a deterministic review request
+  - render a deterministic Screen 3 summary
+- `dss` mode:
+  - start a Structured Agent run
+  - poll streamed workflow state
+  - pause for required human validation
+  - resume the same run after review
 
 Source fixtures live under:
 - `scripts/artifacts/fixtures/screen_payloads`
@@ -58,16 +64,20 @@ Expected local ports:
 - frontend: `5173`
 - backend: `5001`
 
-## Fixture API
+## Backend API
 
 - `GET /api/scenarios`
+- `GET /api/runtime`
 - `GET /api/scenarios/<policy_id>/screen1/bootstrap`
 - `POST /api/scenarios/<policy_id>/screen1/advance`
 - `POST /api/scenarios/<policy_id>/bootstrap`
 - `POST /api/scenarios/<policy_id>/review`
+- `POST /api/scenarios/<policy_id>/screen2/run`
+- `GET /api/runs/<run_id>/state`
+- `POST /api/runs/<run_id>/hitl/respond`
 
 ## Notes
 
 - This scaffold is intentionally fixture-first.
-- Live DSS integration can replace the fixture endpoints later without changing
-  the frontend contract.
+- `local` and `dss` are explicit runtime modes; do not silently fall back
+  between them.
