@@ -10,7 +10,10 @@ try:
 except ImportError:  # pragma: no cover
     dataiku = None
 
-from scripts.agent_flow.functions.selection_resolver import build_screen1_payload
+from scripts.agent_flow.functions.selection_resolver import (
+    build_screen1_payload,
+    resolve_selection_scope,
+)
 from webapps.prior_auth_review.backend.data_access import (
     _build_screen2_agent_request,
     _parse_json_object_from_text,
@@ -50,15 +53,16 @@ def _with_patient_age(patient_summary):
 
 
 def _resolve_selected_scope_context(policy_id: str, body: dict):
-    payload = build_screen1_payload(
+    resolved = resolve_selection_scope(
         route_index_v4=load_route_index(policy_id),
         policy_master_v4=load_policy_master(policy_id),
         billing_code=body.get("billing_code"),
         selected_phase=body.get("selected_phase"),
         selected_cluster_id=body.get("selected_cluster_id"),
-        criterion_answers=body.get("criterion_answers"),
     )
-    return payload.get("payload", {}).get("selected_scope_context")
+    if not isinstance(resolved, dict):
+        return None
+    return resolved.get("scoped_policy_context")
 
 
 def _safe_json_value(value):

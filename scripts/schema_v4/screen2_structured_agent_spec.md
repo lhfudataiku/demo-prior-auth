@@ -193,17 +193,23 @@ before Screen 2.
 Recommended DSS 14.5+ flow:
 
 1. `init_state` — `SET_STATE_ENTRIES`
+   - this is a required production ingestion step, not a test-only adapter
    - initialize empty `criterion_result_map`, `messages`, and output containers
-   - copy request payload fields into state
-   - map `payload.scoped_policy_context` into `state["selected_scope_context"]`
+   - copy request fields into state:
+     - `subject_id`
+     - `policy_id`
+     - `session_id`
+     - `payload.selected_route_id`
+     - `payload.selected_phase`
+     - `payload.selected_cluster_id`
+     - `payload.policy_master_v4`
+     - `payload.criterion_answers`
+   - persist `payload.scoped_policy_context` as
+     `state["selected_scope_context"]`
    - preserve incoming `criterion_answers` so Screen 1 clinician input is
      available during conflict detection
 
-2. `have_plan?` — `ROUTING`
-   - if `state["retrieval_plan_v1"]` exists and has non-empty `plan_items`, go to `execute_plan`
-   - otherwise go to `plan_retrieval`
-
-3. `plan_retrieval` — `DELEGATE_TO_OTHER_AGENT`
+2. `plan_retrieval` — `DELEGATE_TO_OTHER_AGENT`
    - call `scripts/agent_flow/agents/retrieval_planner_agent_prompt_v1_1.md`
    - input:
      - `subject_id`
@@ -215,11 +221,11 @@ Recommended DSS 14.5+ flow:
    - for diagnosis-grounded hybrid disease-state criteria, the plan must
      preserve a diagnosis-code structured leg plus a qualifier-resolution leg
 
-4. `execute_plan` — `FOR_EACH`
+3. `execute_plan` — `FOR_EACH`
    - iterate over `state["retrieval_plan_v1"]["plan_items"]`
    - for each item, set `scratchpad["current_plan_item"]`
 
-5. `reason_one_criterion` — `DELEGATE_TO_OTHER_AGENT`
+4. `reason_one_criterion` — `DELEGATE_TO_OTHER_AGENT`
    - call `scripts/agent_flow/agents/criterion_reasoning_agent_prompt_v1_1.md`
    - input:
      - `subject_id`
@@ -235,14 +241,14 @@ Recommended DSS 14.5+ flow:
      notes and/or observations
    - save result to `scratchpad["current_reasoning_result"]`
 
-6. `accumulate_result` — `PYTHON_CODE`
+5. `accumulate_result` — `PYTHON_CODE`
    - call
      `scripts.agent_flow.functions.python_code_blocks.accumulate_current_reasoning_result(...)`
    - merge/update `state["criterion_result_map"][criterion_id]`
    - later iterations should overwrite earlier incomplete results for the same
      criterion if needed
 
-7. `build_criterion_ui_map` — `PYTHON_CODE`
+6. `build_criterion_ui_map` — `PYTHON_CODE`
    - merge:
      - `selected_criteria_catalog`
      - any existing clinician answers
@@ -252,7 +258,7 @@ Recommended DSS 14.5+ flow:
      answers first collected in Screen 1, to set `conflict_flag`
    - save to `state["criterion_ui_map"]`
 
-8. `evaluate_logic_tree` — `PYTHON_CODE`
+7. `evaluate_logic_tree` — `PYTHON_CODE`
    - call
      `scripts.agent_flow.functions.python_code_blocks.evaluate_logic_tree_from_state(...)`
    - the helper derives the primary cluster root plus supporting route-guard,
@@ -260,7 +266,7 @@ Recommended DSS 14.5+ flow:
      `selected_scope_context`
    - save to `state["logic_evaluation"]`
 
-9. `prepare_screen_2_review_payload` — `PYTHON_CODE`
+8. `prepare_screen_2_review_payload` — `PYTHON_CODE`
    - call
      `scripts.agent_flow.functions.python_code_blocks.prepare_screen2_review_payload(...)`
    - build ordered criterion rows from `criterion_ui_map`
@@ -286,7 +292,7 @@ Screen 2 display-note:
   directly from the DSS `Patient` dataset and render them as a separate patient
   summary panel
 
-10. `request_screen_2_human_review` — `CORE_LOOP`
+9. `request_screen_2_human_review` — `CORE_LOOP`
    - use prompt file
      `scripts/agent_flow/agents/review_request_agent_prompt.md`
    - enable `State aware` so the block can use the built-in state read/write
@@ -308,7 +314,7 @@ Screen 2 display-note:
      persistence mechanism for this block
    - stop after the state write; do not re-enter another review iteration
 
-Step 10 meaning:
+Step 9 meaning:
 - in `native DSS approval mode`, this is the actual managed human-review
   checkpoint
 - in `standard webapp review mode`, the same logical boundary is implemented by
@@ -316,7 +322,7 @@ Step 10 meaning:
   `approved_criterion_answers` directly from the clinician
 - keep the clinician-answer schema the same in both modes
 
-11. `capture_screen_2_review_result` — `PYTHON_CODE`
+10. `capture_screen_2_review_result` — `PYTHON_CODE`
    - call
      `scripts.agent_flow.functions.python_code_blocks.capture_screen2_review_result(...)`
    - read `state["screen_2_review_result"]`
@@ -335,14 +341,14 @@ Step 10 meaning:
    - keep this step deterministic: state merge + deterministic recomputation
      only
 
-Step 11 meaning:
+Step 10 meaning:
 - consume the approved review snapshot, not raw chart evidence
 - treat `approved_criterion_answers` as the submitted clinician-reviewed answer
   map
 - do not distinguish Screen 1 answers from Screen 2 answers at this point; all
   approved clinician input is merged uniformly
 
-12. `emit_screen_3` — `GENERATE_OUTPUT`
+11. `emit_screen_3` — `GENERATE_OUTPUT`
    - return Screen 3 payload as JSON
 
 Optional API fallback:
@@ -356,7 +362,10 @@ Optional API fallback:
 ## Routing Rules
 
 ### Initial Screen 2 path
-- if request already contains a valid `retrieval_plan_v1`, skip planner
+- the default deployable POC path goes directly from `init_state` to
+  `plan_retrieval`
+- if a later deployment explicitly preloads a valid `retrieval_plan_v1`, an
+  optional routing step may skip planner and go directly to `execute_plan`
 - if `retrieval_plan_v1.plan_items` is empty, return warning payload
 - if any agent delegate fails, return warning/error payload with preserved state
 

@@ -222,6 +222,12 @@ Behavior:
 - preserve any answered route-guard and cluster-entry-guard clinician responses
   so they can seed Screen 2 `criterion_answers`
 
+Implementation boundary:
+- `resolve_selection_scope(...)` is the canonical deterministic resolver and the
+  source of the Screen 2 agent handoff object
+- `build_screen1_payload(...)` is the Screen 1 webapp adapter and should not be
+  treated as the canonical source for Structured Agent input preparation
+
 Implementation:
 - `scripts/agent_flow/functions/selection_resolver.py`
 
