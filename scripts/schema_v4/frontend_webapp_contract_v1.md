@@ -407,8 +407,17 @@ Answer-map semantics:
     },
     "answered_criteria": [],
     "unanswered_required_items": [],
-    "warnings": [],
-    "submission_ready": true
+    "warnings": [
+      {
+        "criterion_id": "string",
+        "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
+        "prompt": "string",
+        "display_state": "conflict",
+        "type": "conflict",
+        "message": "string"
+      }
+    ],
+    "submission_ready": false
   },
   "messages": []
 }
@@ -422,6 +431,10 @@ Frontend may rely on:
 - `payload.unanswered_required_items`
 - `payload.warnings`
 - `payload.submission_ready`
+
+Screen 3 readiness rule:
+- `submission_ready=true` only when there are no unanswered required items and
+  no conflict warnings
 
 ### 7. DSS run-based API
 

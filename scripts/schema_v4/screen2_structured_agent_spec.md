@@ -136,8 +136,17 @@ this object directly.
     "review_summary": {},
     "answered_criteria": [],
     "unanswered_required_items": [],
-    "warnings": [],
-    "submission_ready": true
+    "warnings": [
+      {
+        "criterion_id": "string",
+        "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
+        "prompt": "string",
+        "display_state": "conflict",
+        "type": "conflict",
+        "message": "string"
+      }
+    ],
+    "submission_ready": false
   },
   "messages": []
 }
@@ -367,7 +376,8 @@ Optional API fallback:
   approval
 - if approval is rejected, do not continue to Screen 3 submission-ready output
 - if any required criterion remains unresolved and unanswered, `submission_ready=false`
-- if clinician answers conflict with chart-backed `criterion_result_map`, include warning
+- if clinician answers conflict with chart-backed `criterion_result_map`, emit a
+  structured warning item and set `submission_ready=false`
 - if all required criteria are answered, allow `proceed_screen_3`
 
 ## Recommended State Shapes

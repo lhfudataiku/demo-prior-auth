@@ -1,6 +1,17 @@
 <script setup lang="ts">
-import type { Screen2ReviewResult, Screen3Payload } from '../Api'
+import type { AttentionItem, Screen2ReviewResult, Screen3Payload } from '../Api'
 import { humanizeToken, labelForCriterionKind, labelForCriterionState, toneForStatus } from '../uiLabels'
+
+function kindTone(value: string | null | undefined): string {
+  if (value === 'route_guard') return 'kind-route'
+  if (value === 'cluster_entry_guard') return 'kind-entry'
+  if (value === 'inherited_diagnosis') return 'kind-inherited'
+  return 'kind-cluster'
+}
+
+function warningKey(warning: AttentionItem): string {
+  return `${warning.criterion_id ?? 'warning'}:${warning.type ?? 'warning'}:${warning.message}`
+}
 
 defineProps<{
   reviewResult: Screen2ReviewResult | null
@@ -84,8 +95,20 @@ defineProps<{
         <p class="eyebrow">Warnings</p>
         <h2>Items needing attention</h2>
       </div>
-      <ul class="evidence-list">
-        <li v-for="warning in screen3.payload.warnings" :key="warning">{{ warning }}</li>
+      <ul class="answer-list">
+        <li v-for="warning in screen3.payload.warnings" :key="warningKey(warning)">
+          <strong>{{ warning.prompt ?? humanizeToken(warning.type) }}</strong>
+          <span class="summary-meta">{{ warning.criterion_id ?? 'Review warning' }}</span>
+          <div class="chip-row">
+            <span v-if="warning.criterion_kind" class="kind-badge" :data-tone="kindTone(String(warning.criterion_kind))">
+              {{ labelForCriterionKind(String(warning.criterion_kind ?? 'cluster_criterion')) }}
+            </span>
+            <span class="status-chip" :data-tone="toneForStatus(warning.display_state ?? warning.type ?? 'warning')">
+              {{ labelForCriterionState(String(warning.display_state ?? 'conflict')) }}
+            </span>
+          </div>
+          <p class="hero-copy">{{ warning.message }}</p>
+        </li>
       </ul>
     </section>
 
@@ -99,7 +122,7 @@ defineProps<{
           <strong>{{ item.prompt }}</strong>
           <span class="summary-meta">{{ item.criterion_id ?? 'Pending criterion' }}</span>
           <div class="chip-row">
-            <span class="kind-badge" :data-tone="item.criterion_kind === 'route_guard' ? 'kind-route' : item.criterion_kind === 'cluster_entry_guard' ? 'kind-entry' : item.criterion_kind === 'inherited_diagnosis' ? 'kind-inherited' : 'kind-cluster'">
+            <span class="kind-badge" :data-tone="kindTone(String(item.criterion_kind ?? 'cluster_criterion'))">
               {{ labelForCriterionKind(String(item.criterion_kind ?? 'cluster_criterion')) }}
             </span>
             <span class="status-chip" data-tone="neutral">Required</span>
@@ -118,7 +141,7 @@ defineProps<{
           <strong>{{ criterion.prompt }}</strong>
           <span class="summary-meta">{{ criterion.criterion_id }}</span>
           <div class="chip-row">
-            <span class="kind-badge" :data-tone="criterion.criterion_kind === 'route_guard' ? 'kind-route' : criterion.criterion_kind === 'cluster_entry_guard' ? 'kind-entry' : criterion.criterion_kind === 'inherited_diagnosis' ? 'kind-inherited' : 'kind-cluster'">
+            <span class="kind-badge" :data-tone="kindTone(criterion.criterion_kind)">
               {{ labelForCriterionKind(criterion.criterion_kind) }}
             </span>
             <span class="status-chip" :data-tone="toneForStatus(criterion.display_state)">

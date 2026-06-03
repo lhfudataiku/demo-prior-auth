@@ -110,6 +110,16 @@ def get_prefill_value(criterion: dict):
     return criterion.get("ui_resolution", {}).get("prefill_value")
 
 
+def _attention_item(criterion: dict, message: str) -> dict:
+    return {
+        "criterion_id": criterion["criterion_id"],
+        "criterion_kind": criterion.get("criterion_kind"),
+        "prompt": criterion["prompt"],
+        "display_state": criterion.get("ui_resolution", {}).get("display_state"),
+        "message": message,
+    }
+
+
 def merge_answers(screen_2_response: dict, approved_answers: dict):
     merged = deepcopy(screen_2_response)
     criteria = merged["payload"]["criteria"]
@@ -156,7 +166,6 @@ def merge_answers(screen_2_response: dict, approved_answers: dict):
             if conflict_flag:
                 display_state = "conflict"
                 conflict_count += 1
-                warnings.append(f"{criterion_id}: clinician answer differs from chart prefill.")
             elif clinician_answer is True:
                 display_state = "satisfied"
             elif clinician_answer is False:
@@ -182,37 +191,57 @@ def merge_answers(screen_2_response: dict, approved_answers: dict):
 
         if final_answer is True:
             satisfied_ids.append(criterion_id)
-            answered_criteria.append(
-                {
-                    "criterion_id": criterion_id,
-                    "criterion_kind": criterion["criterion_kind"],
-                    "prompt": criterion["prompt"],
-                    "final_answer": True,
-                    "final_source": final_source,
-                    "display_state": display_state,
-                    "comment": criterion["clinician_input"].get("comment"),
-                }
-            )
+            if display_state == "conflict":
+                warnings.append(
+                    _attention_item(
+                        criterion,
+                        ui_resolution.get("conflict_reason")
+                        or "Clinician answer differs from chart-backed evidence.",
+                    )
+                )
+            else:
+                answered_criteria.append(
+                    {
+                        "criterion_id": criterion_id,
+                        "criterion_kind": criterion["criterion_kind"],
+                        "prompt": criterion["prompt"],
+                        "final_answer": True,
+                        "final_source": final_source,
+                        "display_state": display_state,
+                        "comment": criterion["clinician_input"].get("comment"),
+                    }
+                )
         elif final_answer is False:
             not_satisfied_ids.append(criterion_id)
-            answered_criteria.append(
-                {
-                    "criterion_id": criterion_id,
-                    "criterion_kind": criterion["criterion_kind"],
-                    "prompt": criterion["prompt"],
-                    "final_answer": False,
-                    "final_source": final_source,
-                    "display_state": display_state,
-                    "comment": criterion["clinician_input"].get("comment"),
-                }
-            )
+            if display_state == "conflict":
+                warnings.append(
+                    _attention_item(
+                        criterion,
+                        ui_resolution.get("conflict_reason")
+                        or "Clinician answer differs from chart-backed evidence.",
+                    )
+                )
+            else:
+                answered_criteria.append(
+                    {
+                        "criterion_id": criterion_id,
+                        "criterion_kind": criterion["criterion_kind"],
+                        "prompt": criterion["prompt"],
+                        "final_answer": False,
+                        "final_source": final_source,
+                        "display_state": display_state,
+                        "comment": criterion["clinician_input"].get("comment"),
+                    }
+                )
         else:
             unresolved_ids.append(criterion_id)
             if criterion.get("required", False):
                 unanswered_required.append(
                     {
                         "criterion_id": criterion_id,
+                        "criterion_kind": criterion.get("criterion_kind"),
                         "prompt": criterion["prompt"],
+                        "display_state": display_state,
                     }
                 )
 
@@ -277,7 +306,7 @@ def merge_answers(screen_2_response: dict, approved_answers: dict):
             "answered_criteria": answered_criteria,
             "unanswered_required_items": unanswered_required,
             "warnings": warnings,
-            "submission_ready": not unanswered_required,
+            "submission_ready": not unanswered_required and conflict_count == 0,
         },
         "messages": merged.get("messages", []),
     }

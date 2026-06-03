@@ -337,7 +337,21 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
         ui_resolution = row.get("ui_resolution", {})
         clinician_input = row.get("clinician_input", {})
         final_answer = ui_resolution.get("final_answer")
-        if final_answer is None and row.get("required"):
+        conflict_flag = _coerce_bool(ui_resolution.get("conflict_flag"), default=False)
+
+        if conflict_flag:
+            warnings.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "display_state": ui_resolution.get("display_state"),
+                    "type": "conflict",
+                    "message": ui_resolution.get("conflict_reason")
+                    or "Clinician answer conflicts with chart-backed evidence.",
+                }
+            )
+        elif final_answer is None and row.get("required"):
             unanswered_required_items.append(
                 {
                     "criterion_id": row.get("criterion_id"),
@@ -359,17 +373,7 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
                 }
             )
 
-        if ui_resolution.get("conflict_flag"):
-            warnings.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "type": "conflict",
-                    "message": ui_resolution.get("conflict_reason")
-                    or "Clinician answer conflicts with chart-backed evidence.",
-                }
-            )
-
-    submission_ready = not unanswered_required_items
+    submission_ready = not unanswered_required_items and not warnings
     status = "complete" if submission_ready and not warnings else "warning"
     if unanswered_required_items:
         status = "blocked"

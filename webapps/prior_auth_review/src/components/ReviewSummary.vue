@@ -42,7 +42,12 @@ defineProps<{
       <div class="warning-list" v-if="screen3.payload.warnings.length">
         <p class="label">Warnings</p>
         <ul>
-          <li v-for="warning in screen3.payload.warnings" :key="warning">{{ warning }}</li>
+          <li
+            v-for="warning in screen3.payload.warnings"
+            :key="`${warning.criterion_id ?? 'warning'}:${warning.type ?? 'warning'}:${warning.message}`"
+          >
+            {{ warning.message }}
+          </li>
         </ul>
       </div>
 

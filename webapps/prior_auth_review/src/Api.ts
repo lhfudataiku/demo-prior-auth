@@ -235,6 +235,15 @@ export interface AnsweredCriterion {
   comment: string | null
 }
 
+export interface AttentionItem {
+  criterion_id?: string | null
+  criterion_kind?: string | null
+  prompt?: string | null
+  display_state?: string | null
+  type?: string | null
+  message: string
+}
+
 export interface Screen3Payload {
   status: 'complete' | 'warning' | 'blocked' | 'error'
   payload: {
@@ -251,7 +260,7 @@ export interface Screen3Payload {
     }
     answered_criteria: AnsweredCriterion[]
     unanswered_required_items: Array<Record<string, unknown>>
-    warnings: string[]
+    warnings: AttentionItem[]
     submission_ready: boolean
   }
   messages: string[]
