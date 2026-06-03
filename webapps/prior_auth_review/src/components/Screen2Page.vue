@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, nextTick, watch } from 'vue'
 import type { AgentRunProgress, CriterionAnswers, CriterionRow, LogicEvaluation, Screen2Payload } from '../Api'
 import CriterionCard from './CriterionCard.vue'
 import { humanizeToken, labelForCriterionState, toneForStatus } from '../uiLabels'
@@ -17,11 +17,13 @@ const props = defineProps<{
   agentMessage: string | null
   agentEvents: Array<Record<string, unknown>>
   agentProgress: AgentRunProgress | null
+  focusedCriterionId: string | null
 }>()
 
 const emit = defineEmits<{
   answer: [criterionId: string, value: boolean | null]
   comment: [criterionId: string, value: string]
+  'clear-focus': []
   submit: []
 }>()
 
@@ -81,6 +83,29 @@ const showActionLoading = computed(() =>
 
 const actionButtonLabel = computed(() =>
   props.submitting ? 'Preparing final review...' : 'Continue to final review',
+)
+
+const isSubmitReady = computed(() =>
+  !!props.screen2 && canEdit.value && props.agentStatus !== 'running' && !props.submitting,
+)
+
+watch(
+  () => [props.focusedCriterionId, props.criteria.length] as const,
+  async ([criterionId]) => {
+    if (!criterionId) return
+    await nextTick()
+    const target = document.getElementById(`criterion-${criterionId}`)
+    if (!(target instanceof HTMLElement)) return
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    target.classList.remove('criterion-card--focused')
+    void target.offsetWidth
+    target.classList.add('criterion-card--focused')
+    window.setTimeout(() => {
+      target.classList.remove('criterion-card--focused')
+    }, 2200)
+    emit('clear-focus')
+  },
+  { immediate: true },
 )
 </script>
 
@@ -179,6 +204,7 @@ const actionButtonLabel = computed(() =>
       <CriterionCard
         v-for="criterion in criteria"
         :key="criterion.criterion_id"
+        :id="`criterion-${criterion.criterion_id}`"
         :criterion="criterion"
         :answer="editedAnswers[criterion.criterion_id]"
         :origin="answerOrigins[criterion.criterion_id]"
@@ -203,7 +229,7 @@ const actionButtonLabel = computed(() =>
       </div>
       <button
         class="primary-button"
-        :disabled="submitting || agentStatus === 'running'"
+        :disabled="!isSubmitReady"
         @click="emit('submit')"
       >
         {{ actionButtonLabel }}

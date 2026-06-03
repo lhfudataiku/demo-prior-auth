@@ -94,8 +94,10 @@ onMounted(() => {
         :agent-message="store.agentMessage"
         :agent-events="store.agentEvents"
         :agent-progress="store.agentProgress"
+        :focused-criterion-id="store.focusedCriterionId"
         @answer="(criterionId, value) => store.updateAnswer(criterionId, { answer: value })"
         @comment="(criterionId, value) => store.updateAnswer(criterionId, { comment: value })"
+        @clear-focus="store.clearFocusedCriterion"
         @submit="store.submitReview"
       />
 
@@ -103,6 +105,7 @@ onMounted(() => {
         v-else
         :review-result="store.latestReviewResult"
         :screen3="store.latestScreen3"
+        @jump-to-criterion="store.returnToCriterion"
       />
     </main>
   </div>

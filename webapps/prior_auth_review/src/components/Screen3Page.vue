@@ -17,6 +17,10 @@ defineProps<{
   reviewResult: Screen2ReviewResult | null
   screen3: Screen3Payload | null
 }>()
+
+const emit = defineEmits<{
+  'jump-to-criterion': [criterionId: string]
+}>()
 </script>
 
 <template>
@@ -108,6 +112,14 @@ defineProps<{
             </span>
           </div>
           <p class="hero-copy">{{ warning.message }}</p>
+          <button
+            v-if="warning.criterion_id"
+            class="text-button"
+            type="button"
+            @click="emit('jump-to-criterion', String(warning.criterion_id))"
+          >
+            Return to this criterion
+          </button>
         </li>
       </ul>
     </section>
@@ -127,6 +139,14 @@ defineProps<{
             </span>
             <span class="status-chip" data-tone="neutral">Required</span>
           </div>
+          <button
+            v-if="item.criterion_id"
+            class="text-button"
+            type="button"
+            @click="emit('jump-to-criterion', String(item.criterion_id))"
+          >
+            Resolve in Screen 2
+          </button>
         </li>
       </ul>
     </section>

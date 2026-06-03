@@ -269,6 +269,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const agentError = ref<string | null>(null)
   const agentProgress = ref<AgentRunProgress | null>(null)
   const pollTimer = ref<ReturnType<typeof setInterval> | null>(null)
+  const focusedCriterionId = ref<string | null>(null)
 
   const reviewMetadata = ref<ReviewMetadata>({
     reviewer: 'POC reviewer',
@@ -370,6 +371,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     agentMessage.value = null
     agentError.value = null
     agentProgress.value = null
+    focusedCriterionId.value = null
     stopPolling()
     try {
       selectedPolicyId.value = policyId
@@ -546,6 +548,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
       )
       latestReviewResult.value = response.review_result
       latestScreen3.value = response.screen_3_response
+      focusedCriterionId.value = null
       currentPage.value = 'screen3'
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Unable to submit review.'
@@ -631,6 +634,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
       latestReviewResult.value = state.review_result ?? latestReviewResult.value
       latestScreen3.value = state.screen_3_response ?? latestScreen3.value
       if (latestScreen3.value) {
+        focusedCriterionId.value = null
         currentPage.value = 'screen3'
       }
       return
@@ -652,6 +656,16 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     }, 2000)
   }
 
+  function returnToCriterion(criterionId: string | null | undefined) {
+    if (!criterionId) return
+    focusedCriterionId.value = criterionId
+    currentPage.value = 'screen2'
+  }
+
+  function clearFocusedCriterion() {
+    focusedCriterionId.value = null
+  }
+
   return {
     agentError,
     agentEvents,
@@ -666,6 +680,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     displayedPatientSummary,
     editedAnswers,
     error,
+    focusedCriterionId,
     initialize,
     isReadyForScreen2,
     latestReviewResult,
@@ -691,6 +706,8 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     submitReview,
     submitting,
     subjectIdInput,
+    returnToCriterion,
+    clearFocusedCriterion,
     updateAnswer,
     updateReviewMetadata,
     updateScreen1Answer,

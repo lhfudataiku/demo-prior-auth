@@ -307,6 +307,20 @@ textarea {
   opacity: 0.55;
 }
 
+.text-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--dk-dark-green);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.text-button:hover {
+  text-decoration: underline;
+}
+
 .kind-badge,
 .detail-chip,
 .status-chip,
@@ -492,6 +506,12 @@ textarea {
 .criterion-card[data-state="conflict"] {
   border-color: rgba(237, 171, 79, 0.75);
   box-shadow: 0 0 0 3px rgba(237, 171, 79, 0.18);
+}
+
+.criterion-card--focused {
+  border-color: rgba(112, 146, 242, 0.82);
+  box-shadow: 0 0 0 4px rgba(112, 146, 242, 0.22);
+  transition: box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .criterion-topline {
