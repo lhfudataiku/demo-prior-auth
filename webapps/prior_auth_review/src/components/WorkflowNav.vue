@@ -10,9 +10,9 @@ const emit = defineEmits<{
 }>()
 
 const steps = [
-  { id: 'screen1', label: 'Step 1', title: 'Select scope', enabled: true },
-  { id: 'screen2', label: 'Step 2', title: 'Review criteria', enabled: true },
-  { id: 'screen3', label: 'Step 3', title: 'Review summary', enabled: true },
+  { id: 'screen1', label: 'Screen 1', title: 'Select scope', enabled: true },
+  { id: 'screen2', label: 'Screen 2', title: 'Review eligibility', enabled: true },
+  { id: 'screen3', label: 'Screen 3', title: 'Review submission', enabled: true },
 ] as const
 </script>
 

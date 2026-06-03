@@ -125,6 +125,54 @@ def _extract_review_request_from_graph(graph_state):
     return None
 
 
+def _extract_tool_validation_requests_from_footer(footer_data):
+    if not isinstance(footer_data, dict):
+        return []
+
+    if isinstance(footer_data.get("toolValidationRequests"), list):
+        return footer_data["toolValidationRequests"]
+
+    additional = footer_data.get("additionalInformation")
+    if not isinstance(additional, dict):
+        return []
+
+    trajectory = additional.get("trajectory")
+    if not isinstance(trajectory, dict):
+        return []
+
+    for key in ("outputs", "output"):
+        candidate = trajectory.get(key)
+        if isinstance(candidate, dict) and isinstance(candidate.get("toolValidationRequests"), list):
+            return candidate["toolValidationRequests"]
+    return []
+
+
+def _extract_review_request_from_tool_validation_requests(tool_validation_requests):
+    if not isinstance(tool_validation_requests, list):
+        return None
+
+    for request in tool_validation_requests:
+        if not isinstance(request, dict):
+            continue
+        tool_call = request.get("toolCall")
+        if not isinstance(tool_call, dict):
+            continue
+        function = tool_call.get("function")
+        if not isinstance(function, dict):
+            continue
+        arguments = function.get("arguments")
+        if isinstance(arguments, dict):
+            review_request = arguments.get("review_request")
+            if isinstance(review_request, dict):
+                return review_request
+        parsed = _parse_embedded_json(arguments)
+        if isinstance(parsed, dict):
+            review_request = parsed.get("review_request")
+            if isinstance(review_request, dict):
+                return review_request
+    return None
+
+
 def _count_total_criteria(graph_state):
     if not isinstance(graph_state, dict):
         return None
@@ -200,6 +248,38 @@ def _extract_progress_from_graph(graph_state, chunk_data):
     }
 
 
+def _extract_screen2_snapshot_from_graph(graph_state):
+    if not isinstance(graph_state, dict):
+        return None
+
+    payload = graph_state.get("screen_2_payload")
+    if isinstance(payload, dict) and isinstance(payload.get("payload"), dict):
+        return payload
+
+    review_request = _extract_review_request_from_graph(graph_state)
+    if isinstance(review_request, dict):
+        nested_payload = review_request.get("screen_2_payload")
+        if isinstance(nested_payload, dict) and isinstance(nested_payload.get("payload"), dict):
+            return nested_payload
+    return None
+
+
+def _extract_criterion_answers_from_graph(graph_state):
+    if not isinstance(graph_state, dict):
+        return None
+
+    criterion_answers = graph_state.get("criterion_answers")
+    if isinstance(criterion_answers, dict):
+        return criterion_answers
+
+    review_request = _extract_review_request_from_graph(graph_state)
+    if isinstance(review_request, dict):
+        nested_answers = review_request.get("criterion_answers")
+        if isinstance(nested_answers, dict):
+            return nested_answers
+    return None
+
+
 def _extract_stream_state(chunk_data):
     if not isinstance(chunk_data, dict):
         return {}
@@ -207,6 +287,8 @@ def _extract_stream_state(chunk_data):
     graph_state = _extract_graph_state(chunk_data)
     review_request = _extract_review_request_from_graph(graph_state)
     progress = _extract_progress_from_graph(graph_state, chunk_data)
+    screen2_snapshot = _extract_screen2_snapshot_from_graph(graph_state)
+    criterion_answers = _extract_criterion_answers_from_graph(graph_state)
     event_data = chunk_data.get("eventData") if isinstance(chunk_data.get("eventData"), dict) else {}
     execution = event_data.get("execution") if isinstance(event_data.get("execution"), dict) else {}
 
@@ -224,6 +306,8 @@ def _extract_stream_state(chunk_data):
         "graph_state": graph_state,
         "review_request": review_request,
         "progress": progress,
+        "screen2_snapshot": screen2_snapshot,
+        "criterion_answers": criterion_answers,
     }
 
 
@@ -298,6 +382,8 @@ def _run_dss_completion(
         pending_screen3 = None
         pending_review_request = None
         pending_progress = None
+        pending_screen2_snapshot = None
+        pending_criterion_answers = None
 
         for chunk in completion.execute_streamed():
             if type(chunk).__name__ == "DSSLLMStreamedCompletionFooter":
@@ -306,12 +392,26 @@ def _run_dss_completion(
                 if isinstance(upsert, dict):
                     pending_context = upsert
 
+                footer_hitl_requests = _extract_tool_validation_requests_from_footer(footer_data)
+                if footer_hitl_requests:
+                    pending_hitl_requests = footer_hitl_requests
+
+                footer_review_request = _extract_review_request_from_tool_validation_requests(pending_hitl_requests)
+                if isinstance(footer_review_request, dict):
+                    pending_review_request = footer_review_request
+                    footer_screen2_snapshot = footer_review_request.get("screen_2_payload")
+                    if isinstance(footer_screen2_snapshot, dict):
+                        pending_screen2_snapshot = footer_screen2_snapshot
+                    footer_answers = footer_review_request.get("criterion_answers")
+                    if isinstance(footer_answers, dict):
+                        pending_criterion_answers = footer_answers
+
                 if pending_hitl_requests is not None:
                     review_request = pending_review_request
                     if not isinstance(review_request, dict):
                         raise RuntimeError("Unable to extract review_request from HITL payload.")
-                    screen_2_payload = review_request.get("screen_2_payload")
-                    criterion_answers = review_request.get("criterion_answers", {}) or {}
+                    screen_2_payload = review_request.get("screen_2_payload") or pending_screen2_snapshot
+                    criterion_answers = review_request.get("criterion_answers", {}) or pending_criterion_answers or {}
                     with _run_lock:
                         _runs[run_id].update(
                             {
@@ -325,6 +425,7 @@ def _run_dss_completion(
                                     "review_request": review_request,
                                 },
                                 "screen_2_response": screen_2_payload,
+                                "screen_2_snapshot": screen_2_payload,
                                 "edited_answers": criterion_answers,
                                 "progress": pending_progress,
                             }
@@ -343,6 +444,7 @@ def _run_dss_completion(
                                 "review_result": review_result,
                                 "completed_at": time.time(),
                                 "progress": pending_progress,
+                                "screen_2_snapshot": pending_screen2_snapshot,
                             }
                         )
                 return
@@ -360,6 +462,16 @@ def _run_dss_completion(
                     with _run_lock:
                         if run_id in _runs:
                             _runs[run_id]["progress"] = pending_progress
+                if stream_state.get("screen2_snapshot") is not None:
+                    pending_screen2_snapshot = stream_state["screen2_snapshot"]
+                    with _run_lock:
+                        if run_id in _runs:
+                            _runs[run_id]["screen_2_snapshot"] = pending_screen2_snapshot
+                if stream_state.get("criterion_answers") is not None:
+                    pending_criterion_answers = stream_state["criterion_answers"]
+                    with _run_lock:
+                        if run_id in _runs:
+                            _runs[run_id]["edited_answers"] = pending_criterion_answers
                 if stream_state.get("event"):
                     _append_run_event(run_id, stream_state["event"])
                 else:
@@ -512,6 +624,7 @@ def start_screen2_run(policy_id: str):
             "events": [],
             "hitl_payload": None,
             "screen_2_response": None,
+            "screen_2_snapshot": None,
             "screen_3_response": None,
             "edited_answers": {},
             "review_result": None,

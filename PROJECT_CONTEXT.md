@@ -196,6 +196,8 @@ Purpose:
 - render chart-backed criterion review
 - merge clinician edits
 - support review / approval flow
+- derive criteria count deterministically from `selected_scope_context` in both
+  `local` and `dss` modes
 
 Current POC source:
 

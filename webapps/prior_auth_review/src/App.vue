@@ -12,9 +12,9 @@ import { usePriorAuthStore } from './stores/priorAuthStore'
 const store = usePriorAuthStore()
 
 const screenTitle = computed(() => {
-  if (store.currentPage === 'screen1') return 'Prior authorization scope review'
-  if (store.currentPage === 'screen2') return 'Clinical criterion review'
-  return 'Final review summary'
+  if (store.currentPage === 'screen1') return 'Prior authorization requirement review'
+  if (store.currentPage === 'screen2') return 'Clinical eligibility review'
+  return 'Final submission review'
 })
 
 onMounted(() => {
@@ -84,6 +84,7 @@ onMounted(() => {
         v-else-if="store.currentPage === 'screen2'"
         :screen2="store.screen2"
         :criteria="store.criteria"
+        :criteria-count="store.criteriaCount"
         :edited-answers="store.editedAnswers"
         :logic-evaluation="store.logicEvaluation"
         :next-action="store.nextAction"

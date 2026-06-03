@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { CriterionAnswer, CriterionRow } from '../Api'
+import { labelForChartStatus, labelForCriterionKind, labelForCriterionState, toneForStatus } from '../uiLabels'
 
 const props = defineProps<{
   criterion: CriterionRow
   answer?: CriterionAnswer
   origin?: 'screen1' | 'screen2'
+  readonly?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -19,38 +21,18 @@ function normalizeBoolean(value: string) {
   return null
 }
 
-const evidenceStateLabel = computed(() => props.criterion.chart_result.status)
-const criteriaStateLabel = computed(() => {
-  const stateMap: Record<string, string> = {
-    satisfied: 'Satisfied',
-    not_satisfied: 'Not satisfied',
-    needs_clinician: 'Needs clinician',
-    conflict: 'Conflict',
-    unanswered: 'Unanswered',
-  }
-  return stateMap[props.criterion.ui_resolution.display_state] ?? props.criterion.ui_resolution.display_state
-})
+const evidenceStateLabel = computed(() => labelForChartStatus(props.criterion.chart_result.status))
+const criteriaStateLabel = computed(() => labelForCriterionState(props.criterion.ui_resolution.display_state))
 
-const evidenceTone = computed(() => {
-  const status = props.criterion.chart_result.status.toLowerCase()
-  if (status === 'found') return 'positive'
-  if (['ambiguous'].includes(status)) return 'warning'
-  if (['missing', 'unreviewed'].includes(status)) return 'neutral'
-  return status
-})
+const evidenceTone = computed(() => toneForStatus(props.criterion.chart_result.status))
 
-const criteriaTone = computed(() => {
-  const state = props.criterion.ui_resolution.display_state
-  if (state === 'satisfied') return 'positive'
-  if (['not_satisfied', 'conflict'].includes(state)) return 'warning'
-  if (['needs_clinician', 'unanswered'].includes(state)) return 'neutral'
-  return state
-})
+const criteriaTone = computed(() => toneForStatus(props.criterion.ui_resolution.display_state))
 
 const criterionKindTone = computed(() => {
   const kind = props.criterion.criterion_kind
   if (kind === 'route_guard') return 'kind-route'
-  if (kind === 'cluster_entry_guard') return 'kind-guard'
+  if (kind === 'cluster_entry_guard') return 'kind-entry'
+  if (kind === 'inherited_diagnosis') return 'kind-inherited'
   return 'kind-cluster'
 })
 
@@ -71,7 +53,7 @@ const evidenceCount = computed(() =>
       <div class="chip-row">
         <div class="status-kv">
           <span class="label">Criterion type</span>
-          <span class="kind-badge" :data-tone="criterionKindTone">{{ criterion.criterion_kind.replaceAll('_', ' ') }}</span>
+          <span class="kind-badge" :data-tone="criterionKindTone">{{ labelForCriterionKind(criterion.criterion_kind) }}</span>
         </div>
         <span v-if="criterion.required" class="detail-chip">Required</span>
         <span v-if="originLabel" class="detail-chip">{{ originLabel }}</span>
@@ -118,6 +100,7 @@ const evidenceCount = computed(() =>
           <span>Answer</span>
           <select
             :value="answer?.answer === null || answer?.answer === undefined ? '' : String(answer.answer)"
+            :disabled="readonly"
             @change="emit('answer', criterion.criterion_id, normalizeBoolean(($event.target as HTMLSelectElement).value))"
           >
             <option value="">Leave unanswered</option>
@@ -130,6 +113,7 @@ const evidenceCount = computed(() =>
           <textarea
             rows="3"
             :value="answer?.comment ?? ''"
+            :disabled="readonly"
             @input="emit('comment', criterion.criterion_id, ($event.target as HTMLTextAreaElement).value)"
             placeholder="Optional reviewer note"
           />

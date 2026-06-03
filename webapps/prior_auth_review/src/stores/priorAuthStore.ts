@@ -115,6 +115,13 @@ function selectedScopeMatchesScreen2(
   )
 }
 
+function countCriteriaFromSelectedScopeContext(selectedScopeContext: SelectedScopeContext | null): number | null {
+  if (!selectedScopeContext) return null
+  const scope = selectedScopeContext as SelectedScopeContext & Record<string, unknown>
+  const criteriaCatalog = scope.selected_criteria_catalog
+  return Array.isArray(criteriaCatalog) ? criteriaCatalog.length : null
+}
+
 function tryParseJsonValue(value: unknown): unknown {
   if (typeof value !== 'string' || !value.trim()) return value
   try {
@@ -166,6 +173,19 @@ function extractCriterionAnswers(value: unknown): CriterionAnswers {
   }
 
   return record as CriterionAnswers
+}
+
+function bootstrapFromScreen2Payload(
+  scenario: ScenarioOption | null,
+  patientSummary: PatientSummary | null,
+  screen2Response: Screen2Payload,
+): Screen2Bootstrap | null {
+  if (!scenario) return null
+  return {
+    scenario,
+    patient_summary: patientSummary,
+    screen_2_response: screen2Response,
+  }
 }
 
 export const usePriorAuthStore = defineStore('priorAuth', () => {
@@ -247,6 +267,12 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   })
   const logicEvaluation = computed(() => screen2.value?.payload.logic_evaluation ?? null)
   const nextAction = computed(() => screen2.value?.payload.next_action ?? 'stay_screen_2')
+  const criteriaCount = computed(() => {
+    const fromScope = countCriteriaFromSelectedScopeContext(selectedScopeContext.value)
+    if (fromScope !== null) return fromScope
+    if (screen2.value) return screen2.value.payload.criteria.length
+    return agentProgress.value?.total_criteria ?? null
+  })
 
   function currentSelectionPayload() {
     const selection = screen1State.value?.payload.selection
@@ -484,6 +510,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   function hydratePausedRun(state: AgentRunState) {
     const screen2Response = (
       extractScreen2Payload(state.screen_2_response)
+      ?? extractScreen2Payload(state.screen_2_snapshot)
       ?? extractScreen2Payload(state.hitl_payload?.review_request)
       ?? extractScreen2Payload(state.hitl_payload)
     )
@@ -491,11 +518,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
       error.value = 'The agent paused for validation, but the Screen 2 review payload was not available.'
       return
     }
-    screen2Bootstrap.value = {
-      scenario: currentScenario.value!,
-      patient_summary: patientSummary.value,
-      screen_2_response: screen2Response,
-    }
+    screen2Bootstrap.value = bootstrapFromScreen2Payload(currentScenario.value, patientSummary.value, screen2Response)
     editedAnswers.value = extractCriterionAnswers(state.hitl_payload?.review_request)
     if (!Object.keys(editedAnswers.value).length) {
       editedAnswers.value = extractCriterionAnswers(state.edited_answers)
@@ -503,6 +526,31 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     answerOrigins.value = buildAnswerOrigins(screen1Answers.value, screen2Response.payload.criteria)
     agentMessage.value = state.hitl_payload?.message ?? null
     agentProgress.value = state.progress ?? agentProgress.value
+  }
+
+  function hydrateRunningRun(state: AgentRunState) {
+    const screen2Response = (
+      extractScreen2Payload(state.screen_2_snapshot)
+      ?? extractScreen2Payload(state.screen_2_response)
+    )
+    if (!screen2Response) return
+
+    const bootstrap = bootstrapFromScreen2Payload(currentScenario.value, patientSummary.value, screen2Response)
+    if (!bootstrap) return
+
+    screen2Bootstrap.value = bootstrap
+
+    const incomingAnswers = extractCriterionAnswers(state.edited_answers)
+    if (Object.keys(incomingAnswers).length) {
+      editedAnswers.value = {
+        ...incomingAnswers,
+        ...editedAnswers.value,
+      }
+    } else if (!Object.keys(editedAnswers.value).length) {
+      editedAnswers.value = mergeInitialAnswers(screen2Response, screen1Answers.value)
+    }
+
+    answerOrigins.value = buildAnswerOrigins(screen1Answers.value, screen2Response.payload.criteria)
   }
 
   async function pollRunState() {
@@ -514,6 +562,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     agentProgress.value = state.progress ?? agentProgress.value
 
     if (state.status === 'running') {
+      hydrateRunningRun(state)
       return
     }
 
@@ -557,6 +606,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     agentStatus,
     answerOrigins,
     criteria,
+    criteriaCount,
     currentPage,
     currentScenario,
     displayedPatientSummary,

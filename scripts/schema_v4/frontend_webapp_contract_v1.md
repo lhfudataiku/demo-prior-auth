@@ -2,207 +2,244 @@
 
 ## Purpose
 
-This document freezes the frontend-facing POC contract so the Dataiku standard
-webapp can be built while Step 10 persistence debugging continues.
+This document defines the product-facing functional scope and frontend/backend
+contract for the prior-authorization webapp.
 
 POC guardrail:
 - Don't overcode. This is a POC.
 
-Assumption for this freeze:
-- `screen_2_review_result` is available to the backend submit path, whether from
-  live DSS state or from fixture/mock mode
+Document role:
+- describe what the webapp must do for clinicians
+- define the stable webapp-facing JSON contracts
+- describe how the webapp interacts with the Structured Agent and the human
+  review tool
+- capture current implemented scope and the planned next work without turning
+  this document into a build notebook
 
 Canonical references:
 - workflow and ownership:
   `scripts/schema_v4/prior-auth_assistant.md`
-- structured agent runtime contract:
+- Structured Agent technical build spec:
   `scripts/schema_v4/screen2_structured_agent_spec.md`
-- human review tool contract:
+- human review tool spec:
   `scripts/schema_v4/screen2_human_review_tool_spec.md`
 
-## Frontend scope
+## Product Scope
 
-The webapp should implement three clinician-facing stages:
-- Screen 1: deterministic route and cluster selection
-- Screen 2: criterion review with chart prefills, unresolved items, and conflict
-  highlighting
-- Screen 3: final review summary before downstream submission
+The webapp provides a three-stage clinician workflow:
+- Screen 1: deterministic scope selection
+- Screen 2: clinical eligibility review
+- Screen 3: final submission review
 
-For the current freeze, frontend implementation can start at Screen 2 and Screen
-3 using fixture mode.
+The webapp must support two runtime modes:
+- `local`
+  - fixture/static-data mode for local development and DSS static testing
+- `dss`
+  - live DSS dataset mode with a Structured Agent run and human-validation step
 
-Current implementation note:
-- the current work is still in UI-design mode
-- Screen 1 is now rendered in the webapp, but Screen 2 is still populated from
-  a static `structured_agent_context.json` for development
-- patient summary is still populated from a local `Patient.csv` fixture
-- both of these are temporary development adapters and should be replaced in
-  deployment mode without changing the frontend-facing payload shapes
-
-Deployment target:
-- Screen 1 computes the final `selected_scope_context`
-- the webapp/backend submits the current Screen 1 selection and clinician guard
-  answers, and the backend deterministically re-resolves `selected_scope_context`
-  before calling the Dataiku Structured Agent
-- the Structured Agent generates `structured_agent_context`
-- Screen 2 is populated from the live `screen_2_payload` inside that generated
-  artifact
-- patient summary is loaded from the DSS `Patient` dataset rather than from a
-  CSV fixture
-
-Runtime modes:
-- `native DSS approval mode`
-  - the Structured Agent pauses at the managed tool approval checkpoint
-  - the webapp should start a run, poll streamed state, render the paused
-    review payload when validation is requested, and resume the same run after
-    clinician approval/edit
-  - the resumed run deterministically builds Screen 3
+The webapp must support two review patterns:
 - `standard webapp review mode`
-  - the webapp renders Screen 2 from `screen_2_payload`
-  - clinician edits are submitted as `approved_criterion_answers`
+  - Screen 2 is rendered directly from `screen_2_payload`
+  - clinician edits are submitted through the webapp
   - backend deterministically builds Screen 3
-- both modes should reuse the same clinician-answer shape
+- `native DSS approval mode`
+  - the Structured Agent pauses at the human-validation step
+  - the webapp starts a run, polls run state, renders the paused review
+    payload, and resumes the same run after clinician approval or edits
 
-## Layered schema plan
+In both review patterns, the clinician-answer schema must remain the same.
 
-To keep Screen 1 and Screen 2 understandable, the webapp/backend contract
-should follow three distinct layers:
+## Current Functional Scope
 
-### 1. Selection decision
+### Screen 1
 
-This is the deterministic decision-engine output from
-`resolve_selection_scope(...)`.
-
-Purpose:
-- decide what Screen 1 should ask next
-- identify the selected route / phase / cluster by ID
-- produce the final scoped artifact once selection is complete
-
-This layer is:
-- internal backend logic
-- not a saved artifact
-- not the final frontend payload contract
-
-Recommended shape:
-
-```json
-{
-  "status": "ok | blocked",
-  "next_action": "collect_phase | collect_cluster | collect_cluster_guards | proceed_screen_2",
-  "reason": "optional string",
-  "messages": [],
-  "selection": {
-    "billing_code": "string",
-    "selected_route_id": "string or null",
-    "selected_phase": "string or null",
-    "selected_cluster_id": "string or null"
-  },
-  "phase_values": [],
-  "cluster_ids": [],
-  "scoped_policy_context": {}
-}
-```
-
-### 2. `selected_scope_context`
-
-This is the durable Screen 1 artifact and the canonical handoff into the
-Structured Agent for Screen 2.
-
-Purpose:
-- preserve the exact selected route / phase / cluster scope
-- carry the hydrated policy context Screen 2 needs for planning, criterion
-  ordering, and logic evaluation
-
-This layer is:
-- saved as the Screen 1 artifact
-- the only scope artifact passed into Screen 2
-- intentionally richer than the Selection decision layer
-
-Current rule:
-- keep `selected_scope_context` rich for now because Screen 2 helpers already
-  depend on hydrated route / cluster / guard / criteria content
-- do not thin this object until Screen 2 is explicitly refactored to rehydrate
-  from `policy_master_v4`
-
-Artifact naming rule:
-- `scoped_policy_context` is the Screen 1 / API field name
-- `selected_scope_context` is the runtime and saved-artifact name
-- saved artifact files should store the inner scoped object only, not an extra
-  wrapper object
-
-### 3. Screen 1 payload
-
-This is the only webapp-facing Screen 1 response contract.
-
-Purpose:
-- drive the Screen 1 step-by-step UI
-- expose only the current step inputs and current selection state
-- attach the final `selected_scope_context` once the selection is complete
-
-This layer is:
-- frontend-facing
-- page-oriented
-- built from the Selection decision layer
-
-Recommended shape:
-
-```json
-{
-  "status": "ok | blocked",
-  "payload": {
-    "step": "collect_billing_code | collect_phase | collect_cluster | review_scope",
-    "selection": {
-      "subject_id": "string or null",
-      "policy_id": "string or null",
-      "billing_code": "string or null",
-      "selected_route_id": "string or null",
-      "selected_phase": "string or null",
-      "selected_cluster_id": "string or null"
-    },
-    "route_display": {
-      "route_id": "string",
-      "route_label": "string"
-    },
-    "phase_options": [],
-    "cluster_options": [],
-    "route_guard_questions": [],
-    "cluster_entry_guard_questions": [],
-    "selected_scope_context": {},
-    "criterion_answers": {},
-    "next_action": "collect_billing_code | collect_phase | collect_cluster | review_scope | proceed_screen_2"
-  },
-  "messages": []
-}
-```
-
-Screen 1 contract rules:
-- `build_screen1_payload(...)` should be the only frontend-facing Screen 1
-  contract
-- `resolve_selection_scope(...)` should not also act like a webapp payload
-- avoid duplicating large objects like `route_summary`, `phase_summary`, and
-  `cluster_shortlist` when the same information is already available through
-  the final `selected_scope_context`
-- only include `selected_scope_context` once the user has selected enough scope
-  to enter the review stage
-
-## Frozen payloads
-
-### 0. Screen 1 response
-
-The frontend should treat the Screen 1 payload as the canonical deterministic
-selection contract for:
-- patient ID entry
+The webapp currently supports:
+- patient selection
 - policy selection
-- billing code entry
-- phase selection
+- billing code selection
+- phase selection when required
 - cluster selection
-- route-guard / cluster-entry-guard review before Screen 2
+- route-guard and cluster-entry-guard questions
+- deterministic generation of `selected_scope_context`
 
-Minimal stable shape:
+Screen 1 is owned by deterministic backend logic. The frontend should treat the
+Screen 1 payload as the only supported webapp contract for this stage.
+
+### Screen 2
+
+The webapp currently supports:
+- selected-scope display in the left rail
+- criteria count derived from `selected_scope_context.selected_criteria_catalog`
+- criterion cards with:
+  - criterion type
+  - chart evidence status
+  - chart evidence explanation
+  - clinician answer input
+  - clinician comment input
+  - conflict indication
+- cluster-level status and criterion counts
+- local synchronous bootstrap for fixture/static mode
+- DSS run-based bootstrap with polling and HITL resume path
+
+Current DSS behavior:
+- the backend starts a run
+- the frontend polls run state
+- the frontend may display partial run progress and a partial Screen 2 snapshot
+- the paused human-review payload is rendered using the same Screen 2 contract
+  as the standard webapp path
+
+### Screen 3
+
+The webapp currently supports:
+- final review summary
+- submission readiness
+- total criterion counts
+- answered criteria
+- unanswered required items
+- warnings
+
+## System Boundaries
+
+### Webapp frontend
+
+The frontend is responsible for:
+- rendering Screen 1, Screen 2, and Screen 3
+- storing current clinician input
+- handling page flow and page-level loading/error states
+- rendering run-state feedback in DSS mode
+
+### Webapp backend
+
+The backend is responsible for:
+- serving the Screen 1 deterministic payload
+- loading patient summary data
+- choosing the runtime path based on `local` or `dss`
+- in `local` mode:
+  - loading fixture/static Screen 2 data
+  - deterministically building Screen 3 after review
+- in `dss` mode:
+  - starting the Structured Agent run
+  - normalizing run state for the frontend
+  - resuming the paused HITL run after clinician review
+
+### Structured Agent
+
+The Structured Agent is responsible for:
+- Screen 2 orchestration after Screen 1 scope is already resolved
+- planning retrieval
+- running criterion reasoning
+- accumulating `criterion_result_map`
+- evaluating logic
+- building `screen_2_payload`
+- calling the human review tool
+- building Screen 3 after approved review input
+
+### Human review tool
+
+The human review tool is the managed approval boundary in native DSS mode. Its
+job is to carry the review payload through the DSS approval experience and
+return approved or edited clinician answers. It must not do additional chart
+retrieval or LLM reasoning.
+
+## Runtime Modes And User Flows
+
+### `local` mode
+
+Flow:
+1. Screen 1 is resolved deterministically.
+2. Screen 2 is loaded synchronously from the local/static path.
+3. The clinician edits answers in the webapp.
+4. The backend deterministically builds Screen 3.
+
+### `dss` mode
+
+Flow:
+1. Screen 1 is resolved deterministically.
+2. The backend starts a Structured Agent run.
+3. The frontend polls run state.
+4. The Structured Agent pauses at the human-validation step.
+5. The paused review payload is rendered in the webapp.
+6. The clinician approves or edits criterion answers.
+7. The backend resumes the paused run.
+8. The resumed run deterministically builds Screen 3.
+
+### Current transport rule
+
+- `local` mode may use synchronous Screen 2 bootstrap
+- `dss` mode should use the run-based API
+- the frontend-facing Screen 2, review-result, and Screen 3 payload shapes
+  should remain consistent across both modes
+
+## Frontend Information Architecture
+
+### Left rail
+
+The left rail should contain:
+- Patient summary
+- Policy Review
+- Reviewer note
+
+The workflow stepper remains in the main content area.
+
+### Screen 1 layout
+
+Screen 1 should present:
+- title: `Prior authorization requirement review`
+- a Scope Builder card
+- optional guard-question card when needed
+- a CTA to open Screen 2
+
+### Screen 2 layout
+
+Screen 2 should present:
+- title: `Clinical eligibility review`
+- section header: `Eligibility review`
+- a status card showing:
+  - cluster status
+  - next action
+  - criteria count
+  - satisfied count
+  - not-satisfied count
+  - unresolved count
+- one criterion card per ordered criterion
+
+### Screen 3 layout
+
+Screen 3 should present:
+- title: `Final submission review`
+- submission readiness summary
+- counts summary
+- warnings when present
+- unanswered required items
+- answered criteria
+
+### Shared UI rules
+
+- use human-readable labels for backend enum values such as `next_action`
+- use consistent status tones across Screen 2 and Screen 3
+- use criterion-type color coding:
+  - route guard
+  - disease cluster entry guard
+  - inherited diagnosis
+  - cluster criterion
+- use the same criteria count source in `local` and `dss` mode:
+  `selected_scope_context.selected_criteria_catalog`
+
+## Canonical Webapp Contracts
+
+### 1. Runtime info
 
 ```json
 {
-  "status": "ok | blocked",
+  "data_source": "local | dss"
+}
+```
+
+### 2. Screen 1 response
+
+```json
+{
+  "status": "ok | blocked | error",
   "payload": {
     "step": "collect_billing_code | collect_phase | collect_cluster | review_scope",
     "selection": {
@@ -223,9 +260,11 @@ Minimal stable shape:
     "cluster_entry_guard_questions": [],
     "selected_scope_context": {},
     "criterion_answers": {},
-    "next_action": "collect_billing_code | collect_phase | collect_cluster | review_scope | proceed_screen_2"
+    "next_action": "collect_billing_code | collect_phase | collect_cluster | review_scope | proceed_screen_2 | blocked"
   },
-  "messages": []
+  "messages": [],
+  "patient_summary": {},
+  "scenario": {}
 }
 ```
 
@@ -241,50 +280,7 @@ Frontend may rely on:
 - `payload.criterion_answers`
 - `payload.next_action`
 
-Frontend should not rely on:
-- internal Selection decision objects
-- direct resolver-specific helper fields that are not part of the Screen 1
-  payload contract
-
-Screen 1 layout direction:
-- use one primary Scope Builder card for:
-  - patient ID
-  - policy
-  - billing code
-  - phase
-  - disease cluster
-- move patient summary above the Review Steps card in the left rail
-- keep patient-summary fields empty until the user fills in the Scope Builder
-- drop the separate Selected Scope card because it duplicates the Scope Builder
-- in fixture mode, the policy selector may remain visible as a development-only
-  control
-- billing-code labels shown beside codes are placeholders for now; a later
-  revision should use labels derived from `policy_master_v4.billing_code_sets`
-
-### 1. Screen 2 response
-
-The frontend should treat `screen_2_response.json` as the canonical payload for
-initial eligibility review.
-
-Backend runtime rule:
-- the standard webapp should not load a saved `selected_scope_context` artifact
-  to open Screen 2
-- instead, it should re-run deterministic Screen 1 scope resolution from the
-  current billing code, phase, cluster, and guard answers, then submit that
-  resolved scope into the Structured Agent call
-
-Mode-specific transport:
-- `local` mode may keep a synchronous Screen 2 bootstrap route for fixture/static
-  testing
-- `dss` mode should use a run-based API:
-  - start run
-  - poll run state
-  - read block-level streaming progress from Structured Agent event context
-    rather than from free-text output
-  - submit human-validation response
-  - render final Screen 3 from the resumed run
-
-Minimal stable shape:
+### 3. Screen 2 response
 
 ```json
 {
@@ -317,117 +313,12 @@ Frontend may rely on:
 - `payload.next_action`
 - top-level `status`
 
-Frontend patient-summary behavior:
-- do not expect patient demographics in the Structured Agent payload
-- load a small `patient_summary` object directly from the DSS `Patient` dataset
-  in the webapp/backend layer using:
-  - `subject_id`
-  - `gender`
-  - `birth_date`
+Criteria count rule:
+- derive criteria count from
+  `selected_scope_context.selected_criteria_catalog.length` when available
+- use `payload.criteria.length` only as a presentation fallback
 
-Frontend should not rely on:
-- free-text wording inside `messages`
-- exact `chart_result.extracted_value` subfields across all policies
-
-Screen 2 layout direction:
-- move the review-context card to the left panel and rename it `Policy Review`
-- include policy name and policy ID in that card
-- move the reviewer-note card to the left panel
-- left-panel order should be:
-  - Patient summary
-  - Policy Review
-  - Review Steps
-  - Reviewer note
-- unify the status bar so keys and values are visually separated rather than
-  merged inside a single pill
-- keep status colors aligned to Dataiku functional color semantics
-- criterion cards should emphasize:
-  - the `Chart result` header
-  - the chart evidence content
-  - the `Clinician review` header
-- drop the extra line `Chart assessment: criterion supported.`
-- keep clinical evidence hidden by default behind an expandable section backed
-  by `chart_result.sources`
-
-### 2. Screen 2 review result
-
-The frontend should treat `screen_2_review_result.json` as the canonical shape
-returned after human review.
-
-Stable shape:
-
-```json
-{
-  "approval_status": "approved | edited | rejected",
-  "approved_criterion_answers": {},
-  "reviewed_screen_2_payload": {},
-  "review_metadata": {
-    "reviewer": "string or null",
-    "reviewed_at": "string or null",
-    "comment": "string or null"
-  },
-  "human_validated": true
-}
-```
-
-Frontend should produce clinician edits in the same `approved_criterion_answers`
-shape:
-
-```json
-{
-  "CRITERION_ID": {
-    "answer": true,
-    "value": "optional typed value",
-    "comment": "optional string",
-    "override_prefill": false
-  }
-}
-```
-
-Answer-map semantics:
-- `criterion_answers` is the in-progress working answer map used before human
-  approval or final submit
-- `approved_criterion_answers` is the approved snapshot returned by the native
-  DSS approval path or submitted by the standard webapp path
-- both should use the same inner object schema keyed by `criterion_id`
-
-### 3. Screen 3 response
-
-The frontend should treat `screen_3_response.json` as the canonical final review
-payload.
-
-Stable shape:
-
-```json
-{
-  "status": "complete | warning | blocked | error",
-  "payload": {
-    "review_summary": {},
-    "answered_criteria": [],
-    "unanswered_required_items": [],
-    "warnings": [],
-    "submission_ready": true
-  },
-  "messages": []
-}
-```
-
-Frontend may rely on:
-- `payload.review_summary.selected_scope`
-- `payload.review_summary.criterion_totals`
-- `payload.answered_criteria`
-- `payload.unanswered_required_items`
-- `payload.warnings`
-- `payload.submission_ready`
-
-Screen 3 layout direction:
-- do not show `approval_status` inside the submission-readiness card
-- include answered route guards and cluster-entry guards in the answered
-  criteria summary, not just cluster criteria
-
-## Criterion row contract
-
-Each Screen 2 criterion row is stable at this level:
+### 4. Criterion row contract
 
 ```json
 {
@@ -465,116 +356,215 @@ Each Screen 2 criterion row is stable at this level:
 }
 ```
 
-## Ordering rules
+Ordering rule:
+- preserve backend criterion order exactly as delivered
 
-The frontend must preserve backend criterion order exactly as delivered.
+### 5. Screen 2 review result
 
-Expected ordering policy:
-- route guards first
-- cluster-entry guards second
-- inherited diagnosis criteria third
-- cluster criteria last
+```json
+{
+  "approval_status": "approved | edited | rejected",
+  "approved_criterion_answers": {
+    "CRITERION_ID": {
+      "answer": true,
+      "value": "optional typed value",
+      "comment": "optional string",
+      "override_prefill": false
+    }
+  },
+  "reviewed_screen_2_payload": {},
+  "review_metadata": {
+    "reviewer": "string or null",
+    "reviewed_at": "string or null",
+    "comment": "string or null"
+  },
+  "human_validated": true
+}
+```
 
-The frontend should not reorder by status or by local heuristics.
+Answer-map semantics:
+- `criterion_answers` is the working clinician-input map before approval or
+  final submit
+- `approved_criterion_answers` is the approved snapshot after review
+- both use the same inner schema keyed by `criterion_id`
 
-## Screen behavior rules
+### 6. Screen 3 response
 
-### Screen 2
+```json
+{
+  "status": "complete | warning | blocked | error",
+  "payload": {
+    "review_summary": {
+      "selected_scope": {},
+      "selected_scope_display": {},
+      "criterion_totals": {
+        "total": 0,
+        "answered": 0,
+        "unanswered_required": 0,
+        "conflicts": 0
+      },
+      "logic_evaluation": {}
+    },
+    "answered_criteria": [],
+    "unanswered_required_items": [],
+    "warnings": [],
+    "submission_ready": true
+  },
+  "messages": []
+}
+```
 
-Render:
-- selected scope summary
-- one review card per criterion
-- chart-backed prefill when `ui_resolution.use_chart_as_prefill = true`
-- clinician input controls
-- conflict state when `ui_resolution.conflict_flag = true`
+Frontend may rely on:
+- `payload.review_summary.selected_scope`
+- `payload.review_summary.criterion_totals`
+- `payload.review_summary.logic_evaluation`
+- `payload.answered_criteria`
+- `payload.unanswered_required_items`
+- `payload.warnings`
+- `payload.submission_ready`
 
-Primary CTA behavior:
-- if `payload.next_action = "stay_screen_2"`, continue review
-- if `payload.next_action = "proceed_screen_3"`, allow transition to Screen 3
+### 7. DSS run-based API
 
-### Screen 3
+#### Start Screen 2 run
 
-Render:
-- review summary counts
-- answered criteria
-- unanswered required items
-- warnings
-- final readiness state
+`POST /api/scenarios/<policy_id>/screen2/run`
 
-Primary CTA behavior:
-- disable downstream submission if `payload.submission_ready = false`
+Response:
 
-## Fixture mode
+```json
+{
+  "run_id": "string",
+  "scenario": {},
+  "patient_summary": {}
+}
+```
 
-Fixture folder:
-- `scripts/artifacts/fixtures/screen_payloads`
+#### Get run state
 
-Available policy scenarios:
-- `0059`: clean satisfied path
-- `0314`: blocked / oncology continuation example
-- `0655`: mixed unresolved continuation example
-- `0685`: additional branch example
+`GET /api/runs/<run_id>/state`
 
-Per-policy files:
-- `criterion_ui_map.json`
-- `screen_2_response.json`
-- `screen_2_review_result.json`
-- `screen_3_response.json`
+Normalized response shape:
 
-Recommended frontend dev flow:
-1. load `screen_2_response.json`
-2. render and locally edit clinician answers
-3. compare against `screen_2_review_result.json` for submit-path shape
-4. load `screen_3_response.json` for final review rendering
+```json
+{
+  "status": "running | hitl_paused | completed | failed",
+  "text_so_far": "string",
+  "events": [],
+  "progress": {
+    "current_block_id": "string or null",
+    "current_criterion_id": "string or null",
+    "current_criterion_prompt": "string or null",
+    "completed_criteria": 0,
+    "total_criteria": 0
+  },
+  "hitl_payload": {
+    "message": "string or null",
+    "review_request": {}
+  },
+  "screen_2_response": {},
+  "screen_2_snapshot": {},
+  "screen_3_response": {},
+  "edited_answers": {},
+  "review_result": {},
+  "error": "string or null"
+}
+```
 
-Current adapter placeholders:
-- a backend adapter should continue to isolate how Screen 2 is loaded in
-  development mode
-- that adapter currently reads a static `structured_agent_context.json`
-- in deployment mode, replace it with a Dataiku Structured Agent API call that
-  accepts `selected_scope_context` and returns the generated
-  `structured_agent_context`
-- a backend adapter should continue to isolate how patient summary is loaded
-- that adapter currently reads `scripts/artifacts/fixtures/Patient.csv`
-- in deployment mode, replace it with a DSS dataset read against the canonical
-  `Patient` dataset
+#### Resume HITL run
 
-## Dataiku standard webapp implementation notes
+`POST /api/runs/<run_id>/hitl/respond`
 
-Use the existing team standard shape:
-- Vue + Vite frontend
-- Dataiku backend API
-- store-driven page state
+Request:
 
-Useful local references:
-- standard Vue template:
-  `/Users/li-hengfu/Documents/GitHub/solutions-contrib/bs-templates/vue/{{cookiecutter.__project_slug}}`
-- HITL example webapp:
-  `/Users/li-hengfu/Downloads/webapps/regulatory_wizard`
+```json
+{
+  "approved_criterion_answers": {},
+  "review_metadata": {
+    "reviewer": "string or null",
+    "reviewed_at": "string or null",
+    "comment": "string or null"
+  }
+}
+```
 
-Recommended structure for this project:
-- `src/Api.ts`: typed frontend contract and backend calls
-- `src/api/index.ts`: Dataiku-aware axios/base URL setup
-- `src/stores/priorAuthStore.ts`: Screen 1/2/3 state, fixture mode, submit flow
-- `src/components/`: criterion cards, scope summary, review summary, warnings
-- `backend/backend.py`: fixture endpoints first, live DSS integration second
+## Schema Alignment Notes
 
-Relevant reference files:
-- webapp API wrapper example:
-  `/Users/li-hengfu/Downloads/webapps/regulatory_wizard/src/Api.ts`
-- store and HITL state example:
-  `/Users/li-hengfu/Downloads/webapps/regulatory_wizard/src/stores/wizardStore.ts`
-- backend API shape example:
-  `/Users/li-hengfu/Downloads/webapps/regulatory_wizard/backend/backend.py`
+### Alignment with `screen2_structured_agent_spec.md`
 
-## Freeze boundary
+The current webapp contract is aligned with the Structured Agent spec on these
+core objects:
+- Screen 2 initial request uses:
+  - `subject_id`
+  - `policy_id`
+  - `screen_id`
+  - `payload.selected_route_id`
+  - `payload.selected_phase`
+  - `payload.selected_cluster_id`
+  - `payload.scoped_policy_context`
+  - `payload.policy_master_v4`
+  - `payload.criterion_answers`
+- Screen 2 response shape matches the documented `screen_2_payload`
+- Screen 3 response shape matches the documented `screen_3_payload`
+- `criterion_answers` remains the working answer map
 
-Frontend can proceed now against these contracts.
+Important translation rule:
+- the webapp/backend request uses `payload.scoped_policy_context`
+- inside agent state and most runtime discussion, the same object is referred to
+  as `selected_scope_context`
 
-Still unstable / backend-only:
-- Step 10 DSS persistence mechanics for live `screen_2_review_result`
-- correlation metadata such as `session_id`
-- any future additional cluster suggestion behavior
+Current abstraction:
+- the webapp contract does not expose `criterion_result_map`,
+  `criterion_ui_map`, or other internal agent-state keys as primary frontend
+  contracts
+- those remain Structured Agent implementation details
 
-The frontend should be written so that fixture mode and live mode share the same
-payload shapes.
+### Alignment with `screen2_human_review_tool_spec.md`
+
+The current webapp contract is aligned with the human review tool spec on these
+core objects:
+- the inner review payload is:
+  - `session_id`
+  - `subject_id`
+  - `policy_id`
+  - `selected_scope`
+  - `screen_2_payload`
+  - `criterion_answers`
+- the review result uses:
+  - `approval_status`
+  - `approved_criterion_answers`
+  - `reviewed_screen_2_payload`
+  - `review_metadata`
+
+Important wrapper rule:
+- the native DSS tool call wraps the inner payload as:
+  - `{"review_request": ...}`
+- the webapp itself usually works with the inner review payload after backend
+  normalization
+
+Current normalization rule:
+- the backend should extract and normalize the wrapped DSS payload before
+  exposing it to the frontend
+- the frontend should not depend directly on raw DSS tool-call wrapper details
+
+## Current Gaps And Temporary Adapters
+
+- `local` mode still exists as a deliberate fixture/static development path
+- patient summary is still a separate webapp/backend concern rather than part
+  of the Structured Agent payload
+- DSS streaming state is currently surfaced to the frontend in a normalized run
+  state, but the Screen 2 streaming presentation is not yet fully unified with
+  the standard Screen 2 criterion-review surface
+
+## Planned Work
+
+Planned next work at the time of this revision:
+- unify DSS streaming presentation into the standard Screen 2 layout rather
+  than maintaining a separate workflow-status panel
+- progressively hydrate the same Screen 2 status card and criterion cards while
+  the DSS run is active
+- keep Screen 2 UI behavior visually consistent between `local` and `dss`
+  runtime modes
+- continue tightening backend run-state normalization so the frontend depends on
+  a stable product contract rather than raw DSS stream internals
+- keep the JSON payload shapes above stable while improving transport handling
+  and UI polish

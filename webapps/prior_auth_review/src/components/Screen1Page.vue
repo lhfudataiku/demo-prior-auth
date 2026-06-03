@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CriterionAnswers, ScenarioOption, Screen1Payload } from '../Api'
+import { labelForCriterionKind, humanizeToken, toneForStatus } from '../uiLabels'
 
 defineProps<{
   screen1: Screen1Payload | null
@@ -31,13 +32,12 @@ function normalizeBoolean(value: string) {
   <section class="page-stack" v-if="screen1">
     <header class="page-header">
       <div>
-        <p class="eyebrow">Screen 1</p>
-        <h1>Select route and scope</h1>
+        <h1>Select scope</h1>
         <p class="hero-copy">
           Confirm the billing code, route branch, and cluster before opening chart-backed review.
         </p>
       </div>
-      <span class="status-chip" data-tone="needs_clinician">{{ screen1.payload.step.replaceAll('_', ' ') }}</span>
+      <span class="status-chip" :data-tone="toneForStatus('neutral')">{{ humanizeToken(screen1.payload.step) }}</span>
     </header>
 
     <section class="panel">
@@ -138,7 +138,12 @@ function normalizeBoolean(value: string) {
           class="guard-card"
         >
           <div class="chip-row">
-            <span class="kind-badge">{{ question.criterion_kind.replaceAll('_', ' ') }}</span>
+            <span
+              class="kind-badge"
+              :data-tone="question.criterion_kind === 'route_guard' ? 'kind-route' : 'kind-entry'"
+            >
+              {{ labelForCriterionKind(question.criterion_kind) }}
+            </span>
             <span v-if="question.required" class="detail-chip">Required</span>
           </div>
           <h3>{{ question.prompt }}</h3>

@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import type { Screen2ReviewResult, Screen3Payload } from '../Api'
-
-function toneForOutcome(value: string) {
-  if (['satisfied', 'found', 'ok', 'approved', 'complete', 'yes'].includes(value)) return 'positive'
-  if (['not_satisfied', 'conflict', 'warning', 'ambiguous'].includes(value)) return 'warning'
-  if (['unresolved', 'needs_clinician', 'unanswered', 'blocked', 'error'].includes(value)) return 'neutral'
-  return value
-}
+import { humanizeToken, labelForCriterionKind, labelForCriterionState, toneForStatus } from '../uiLabels'
 
 defineProps<{
   reviewResult: Screen2ReviewResult | null
@@ -18,14 +12,14 @@ defineProps<{
   <section class="page-stack" v-if="screen3">
     <header class="page-header">
       <div>
-        <h1>Review summary</h1>
+        <h1>Audited summary</h1>
         <p class="hero-copy">
           Final deterministic summary after clinician review.
         </p>
       </div>
       <div class="status-kv">
         <span class="label">Status</span>
-        <span class="status-chip" :data-tone="toneForOutcome(screen3.status)">{{ screen3.status }}</span>
+        <span class="status-chip" :data-tone="toneForStatus(screen3.status)">{{ humanizeToken(screen3.status) }}</span>
       </div>
     </header>
 
@@ -77,8 +71,8 @@ defineProps<{
         <div>
           <dt>Cluster status</dt>
           <dd>
-            <span class="status-chip" :data-tone="toneForOutcome(screen3.payload.review_summary.logic_evaluation.selected_cluster_status)">
-              {{ screen3.payload.review_summary.logic_evaluation.selected_cluster_status }}
+            <span class="status-chip" :data-tone="toneForStatus(screen3.payload.review_summary.logic_evaluation.selected_cluster_status)">
+              {{ labelForCriterionState(screen3.payload.review_summary.logic_evaluation.selected_cluster_status) }}
             </span>
           </dd>
         </div>
@@ -100,9 +94,16 @@ defineProps<{
         <p class="eyebrow">Unanswered required items</p>
         <h2>Resolve before submission</h2>
       </div>
-      <ul class="evidence-list">
-        <li v-for="item in screen3.payload.unanswered_required_items" :key="String(item.criterion_id)">
-          {{ item.prompt }}
+      <ul class="answer-list">
+        <li v-for="item in screen3.payload.unanswered_required_items" :key="String(item.criterion_id ?? item.prompt)">
+          <strong>{{ item.prompt }}</strong>
+          <span class="summary-meta">{{ item.criterion_id ?? 'Pending criterion' }}</span>
+          <div class="chip-row">
+            <span class="kind-badge" :data-tone="item.criterion_kind === 'route_guard' ? 'kind-route' : item.criterion_kind === 'cluster_entry_guard' ? 'kind-entry' : item.criterion_kind === 'inherited_diagnosis' ? 'kind-inherited' : 'kind-cluster'">
+              {{ labelForCriterionKind(String(item.criterion_kind ?? 'cluster_criterion')) }}
+            </span>
+            <span class="status-chip" data-tone="neutral">Required</span>
+          </div>
         </li>
       </ul>
     </section>
@@ -116,7 +117,14 @@ defineProps<{
         <li v-for="criterion in screen3.payload.answered_criteria" :key="criterion.criterion_id">
           <strong>{{ criterion.prompt }}</strong>
           <span class="summary-meta">{{ criterion.criterion_id }}</span>
-          <span class="status-chip" :data-tone="criterion.display_state">{{ criterion.display_state }}</span>
+          <div class="chip-row">
+            <span class="kind-badge" :data-tone="criterion.criterion_kind === 'route_guard' ? 'kind-route' : criterion.criterion_kind === 'cluster_entry_guard' ? 'kind-entry' : criterion.criterion_kind === 'inherited_diagnosis' ? 'kind-inherited' : 'kind-cluster'">
+              {{ labelForCriterionKind(criterion.criterion_kind) }}
+            </span>
+            <span class="status-chip" :data-tone="toneForStatus(criterion.display_state)">
+              {{ labelForCriterionState(criterion.display_state) }}
+            </span>
+          </div>
         </li>
       </ul>
     </section>

@@ -210,6 +210,7 @@ export interface AgentRunState {
     }
   } | null
   screen_2_response: Screen2Payload | null
+  screen_2_snapshot: Screen2Payload | null
   screen_3_response: Screen3Payload | null
   edited_answers: CriterionAnswers
   review_result: Screen2ReviewResult | null

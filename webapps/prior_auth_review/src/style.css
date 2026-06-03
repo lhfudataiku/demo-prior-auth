@@ -7,8 +7,11 @@
   --dk-beige: #f8f4e4;
   --dk-green: #3edab2;
   --dk-light-green: #c7fff1;
+  --dk-blue: #7092f2;
+  --dk-blue-soft: rgba(112, 146, 242, 0.24);
   --dk-blue-grey: #42485b;
   --dk-orange: #edab4f;
+  --dk-orange-soft: rgba(237, 171, 79, 0.32);
   --dk-brown: #816948;
   color: var(--dk-black);
   background: var(--dk-white);
@@ -325,21 +328,27 @@ textarea {
 }
 
 .kind-badge[data-tone="kind-route"] {
-  background: rgba(66, 72, 91, 0.12);
+  background: var(--dk-blue-soft);
   color: var(--dk-blue-grey);
-  border-color: rgba(66, 72, 91, 0.18);
+  border-color: rgba(66, 72, 91, 0.2);
 }
 
-.kind-badge[data-tone="kind-guard"] {
-  background: rgba(237, 171, 79, 0.18);
+.kind-badge[data-tone="kind-entry"] {
+  background: var(--dk-orange-soft);
   color: var(--dk-brown);
-  border-color: rgba(129, 105, 72, 0.18);
+  border-color: rgba(129, 105, 72, 0.22);
 }
 
 .kind-badge[data-tone="kind-cluster"] {
-  background: rgba(6, 49, 46, 0.1);
+  background: rgba(62, 218, 178, 0.18);
   color: var(--dk-dark-green);
-  border-color: rgba(6, 49, 46, 0.14);
+  border-color: rgba(6, 49, 46, 0.18);
+}
+
+.kind-badge[data-tone="kind-inherited"] {
+  background: rgba(199, 255, 241, 0.82);
+  color: var(--dk-blue-grey);
+  border-color: rgba(112, 146, 242, 0.18);
 }
 
 .status-chip {
@@ -350,34 +359,43 @@ textarea {
 .status-chip[data-tone="satisfied"],
 .status-chip[data-tone="found"],
 .status-chip[data-tone="approved"],
+.status-chip[data-tone="complete"],
+.status-chip[data-tone="completed"],
 .status-chip[data-tone="positive"] {
   background: var(--dk-light-green);
   color: var(--dk-dark-green);
+  border-color: rgba(6, 49, 46, 0.12);
 }
 
 .status-chip[data-tone="warning"],
 .status-chip[data-tone="conflict"],
 .status-chip[data-tone="ambiguous"],
+.status-chip[data-tone="edited"],
 .status-chip[data-tone="not_satisfied"] {
-  background: rgba(237, 171, 79, 0.22);
+  background: var(--dk-orange-soft);
   color: var(--dk-brown);
+  border-color: rgba(129, 105, 72, 0.18);
 }
 
-.status-chip[data-tone="blocked"],
-.status-chip[data-tone="missing"],
+.status-chip[data-tone="critical"],
 .status-chip[data-tone="error"] {
-  background: rgba(66, 72, 91, 0.14);
-  color: var(--dk-blue-grey);
+  background: rgba(129, 105, 72, 0.2);
+  color: var(--dk-brown);
+  border-color: rgba(129, 105, 72, 0.22);
 }
 
 .status-chip[data-tone="needs_clinician"],
 .status-chip[data-tone="unanswered"],
 .status-chip[data-tone="unreviewed"],
+.status-chip[data-tone="missing"],
 .status-chip[data-tone="unresolved"],
+.status-chip[data-tone="running"],
+.status-chip[data-tone="hitl_paused"],
+.status-chip[data-tone="stay_screen_2"],
 .status-chip[data-tone="neutral"] {
-  background: rgba(248, 244, 228, 0.88);
-  color: var(--dk-black);
-  border-color: rgba(26, 26, 26, 0.08);
+  background: var(--dk-blue-soft);
+  color: var(--dk-blue-grey);
+  border-color: rgba(66, 72, 91, 0.18);
 }
 
 .logic-panel {
@@ -388,7 +406,7 @@ textarea {
 
 .status-bar {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 14px;
 }
 
@@ -420,7 +438,7 @@ textarea {
 .progress-meter__fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--dk-mint), rgba(13, 63, 58, 0.92));
+  background: linear-gradient(90deg, var(--dk-green), rgba(6, 49, 46, 0.92));
   transition: width 220ms ease;
 }
 
@@ -561,7 +579,11 @@ textarea {
 
 .answer-list li {
   display: grid;
-  gap: 4px;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 254, 249, 0.78);
+  border: 1px solid rgba(26, 26, 26, 0.08);
 }
 
 @media (max-width: 1200px) {

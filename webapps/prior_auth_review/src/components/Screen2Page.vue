@@ -2,17 +2,12 @@
 import { computed } from 'vue'
 import type { AgentRunProgress, CriterionAnswers, CriterionRow, LogicEvaluation, Screen2Payload } from '../Api'
 import CriterionCard from './CriterionCard.vue'
-
-function toneForOutcome(value: string) {
-  if (['satisfied', 'found', 'ok', 'approved', 'proceed_screen_3'].includes(value)) return 'positive'
-  if (['not_satisfied', 'conflict', 'warning', 'ambiguous'].includes(value)) return 'warning'
-  if (['unresolved', 'needs_clinician', 'unanswered', 'stay_screen_2'].includes(value)) return 'neutral'
-  return value
-}
+import { humanizeToken, labelForCriterionState, labelForNextAction, toneForStatus } from '../uiLabels'
 
 const props = defineProps<{
   screen2: Screen2Payload | null
   criteria: CriterionRow[]
+  criteriaCount: number | null
   editedAnswers: CriterionAnswers
   logicEvaluation: LogicEvaluation | null
   nextAction: string
@@ -37,13 +32,17 @@ const progressPercent = computed(() => {
   if (!total || total <= 0) return null
   return Math.max(0, Math.min(100, Math.round((completed / total) * 100)))
 })
+
+const canEdit = computed(() =>
+  props.dataSource === 'local' || props.agentStatus === 'hitl_paused' || props.agentStatus === null,
+)
 </script>
 
 <template>
   <section class="page-stack" v-if="screen2 || agentStatus">
     <header class="page-header">
       <div>
-        <h1>Criterion review</h1>
+        <h1>Eligibility review</h1>
         <p class="hero-copy">
           Compare chart evidence with clinician input, resolve disagreements, and prepare the final summary.
         </p>
@@ -51,12 +50,12 @@ const progressPercent = computed(() => {
       <div class="header-actions">
         <div class="status-kv">
           <span class="label">Agent</span>
-          <span class="status-chip" :data-tone="toneForOutcome(agentStatus || screen2?.status || 'running')">
-            {{ agentStatus || screen2?.status }}
+          <span class="status-chip" :data-tone="toneForStatus(agentStatus || screen2?.status || 'running')">
+            {{ humanizeToken(agentStatus || screen2?.status || 'running') }}
           </span>
         </div>
         <button
-          v-if="screen2 && (dataSource === 'local' || agentStatus === 'hitl_paused')"
+          v-if="screen2 && canEdit"
           class="primary-button"
           :disabled="submitting"
           @click="emit('submit')"
@@ -66,7 +65,7 @@ const progressPercent = computed(() => {
       </div>
     </header>
 
-    <section class="panel" v-if="agentStatus">
+    <section class="panel" v-if="agentStatus && !screen2">
       <div class="section-header">
         <p class="eyebrow">Structured agent</p>
         <h2>Workflow status</h2>
@@ -104,15 +103,19 @@ const progressPercent = computed(() => {
     <section class="status-bar panel" v-if="logicEvaluation">
       <div class="status-item">
         <span class="label">Cluster status</span>
-        <span class="status-chip" :data-tone="toneForOutcome(logicEvaluation.selected_cluster_status)">
-          {{ logicEvaluation.selected_cluster_status }}
+        <span class="status-chip" :data-tone="toneForStatus(logicEvaluation.selected_cluster_status)">
+          {{ labelForCriterionState(logicEvaluation.selected_cluster_status) }}
         </span>
       </div>
       <div class="status-item">
         <span class="label">Next action</span>
-        <span class="status-chip" :data-tone="toneForOutcome(nextAction)">
-          {{ nextAction }}
+        <span class="status-chip" :data-tone="toneForStatus(nextAction)">
+          {{ labelForNextAction(nextAction) }}
         </span>
+      </div>
+      <div class="status-item">
+        <span class="label">Criteria count</span>
+        <span class="detail-chip" >{{ criteriaCount ?? '—' }}</span>
       </div>
       <div class="status-item">
         <span class="label">Satisfied</span>
@@ -135,6 +138,7 @@ const progressPercent = computed(() => {
         :criterion="criterion"
         :answer="editedAnswers[criterion.criterion_id]"
         :origin="answerOrigins[criterion.criterion_id]"
+        :readonly="!canEdit"
         @answer="(criterionId, value) => emit('answer', criterionId, value)"
         @comment="(criterionId, value) => emit('comment', criterionId, value)"
       />
