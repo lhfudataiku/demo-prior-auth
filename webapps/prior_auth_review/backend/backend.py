@@ -14,6 +14,10 @@ from scripts.agent_flow.functions.selection_resolver import (
     build_screen1_payload,
     resolve_selection_scope,
 )
+from scripts.agent_flow.functions.screen_payload_helpers import (
+    build_screen3_payload_from_review_result_data,
+    normalize_review_result_data,
+)
 from webapps.prior_auth_review.backend.data_access import (
     _build_screen2_agent_request,
     _parse_json_object_from_text,
@@ -326,17 +330,19 @@ def _build_review_result(screen_2_response: dict, approved_answers: dict, review
         if updated is not None and updated != original:
             changed = True
             break
-    return {
-        "approval_status": "edited" if changed else "approved",
-        "approved_criterion_answers": approved_answers,
-        "reviewed_screen_2_payload": screen_2_response,
-        "review_metadata": {
-            "reviewer": review_metadata.get("reviewer"),
-            "reviewed_at": review_metadata.get("reviewed_at"),
-            "comment": review_metadata.get("comment"),
-        },
-        "human_validated": True,
-    }
+    return normalize_review_result_data(
+        {
+            "approval_status": "edited" if changed else "approved",
+            "approved_criterion_answers": approved_answers,
+            "reviewed_screen_2_payload": screen_2_response,
+            "review_metadata": {
+                "reviewer": review_metadata.get("reviewer"),
+                "reviewed_at": review_metadata.get("reviewed_at"),
+                "comment": review_metadata.get("comment"),
+            },
+            "human_validated": True,
+        }
+    )
 
 
 def _run_dss_completion(
@@ -436,7 +442,13 @@ def _run_dss_completion(
                 else:
                     final_text = "".join(text_buf).strip()
                     parsed = _parse_json_object_from_text(final_text) if final_text else None
-                    if isinstance(parsed, dict) and parsed.get("payload"):
+                    final_review_result = None
+                    if review_result is not None:
+                        final_review_result = normalize_review_result_data(parsed or review_result)
+                    if isinstance(final_review_result, dict) and final_review_result:
+                        pending_screen3 = build_screen3_payload_from_review_result_data(final_review_result)
+                        pending_screen2_snapshot = final_review_result.get("reviewed_screen_2_payload")
+                    elif isinstance(parsed, dict) and parsed.get("payload"):
                         pending_screen3 = parsed
                     with _run_lock:
                         _runs[run_id].update(
@@ -444,7 +456,7 @@ def _run_dss_completion(
                                 "status": "completed",
                                 "final_output": final_text,
                                 "screen_3_response": pending_screen3,
-                                "review_result": review_result,
+                                "review_result": final_review_result or review_result,
                                 "completed_at": time.time(),
                                 "progress": pending_progress,
                                 "screen_2_snapshot": pending_screen2_snapshot,

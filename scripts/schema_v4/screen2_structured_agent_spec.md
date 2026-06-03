@@ -171,7 +171,6 @@ Persistent `state` keys:
 - `screen_2_payload`
 - `screen_2_review_tool_input`
 - `screen_2_review_result`
-- `screen_3_payload`
 - `messages`
 
 Temporary `scratchpad` keys:
@@ -322,40 +321,29 @@ Step 9 meaning:
   `approved_criterion_answers` directly from the clinician
 - keep the clinician-answer schema the same in both modes
 
-10. `capture_screen_2_review_result` — `PYTHON_CODE`
-   - call
-     `scripts.agent_flow.functions.python_code_blocks.capture_screen2_review_result(...)`
-   - read `state["screen_2_review_result"]`
-   - accept either a dict-like tool result or a JSON string persisted by the
-     Step 10 state tool
-   - merge approved or edited clinician answers into state
-   - rebuild `criterion_ui_map`
-   - recompute completeness, conflicts, and logic
-   - build `state["screen_3_payload"]`
-   - if `approval_status = rejected`, build a blocked response or route back to
-     Screen 2 review according to the webapp flow
-   - route to `emit_screen_3`
+10. `emit_review_result_artifact` — `GENERATE_OUTPUT`
+   - emit `state["screen_2_review_result"]` as the terminal JSON artifact from
+     the Structured Agent
+   - do not build `screen_3_payload` inside the Structured Agent
    - do not call the Retrieval Planner Agent or Criterion Reasoning Agent on
      this path
    - do not perform new chart retrieval on this path
-   - keep this step deterministic: state merge + deterministic recomputation
-     only
+   - keep this step as a pure artifact-emission boundary so downstream systems
+     can deterministically transform the reviewed output into Screen 3, FHIR,
+     or other future targets
 
 Step 10 meaning:
 - consume the approved review snapshot, not raw chart evidence
 - treat `approved_criterion_answers` as the submitted clinician-reviewed answer
   map
-- do not distinguish Screen 1 answers from Screen 2 answers at this point; all
-  approved clinician input is merged uniformly
-
-11. `emit_screen_3` — `GENERATE_OUTPUT`
-   - return Screen 3 payload as JSON
+- keep the reviewed artifact flexible for downstream deterministic transforms
+  outside the Structured Agent
 
 Optional API fallback:
 - a separate `screen_2_submit` entry path can still be exposed for a custom
   webapp that cannot use the DSS approval UI directly
 - this fallback should run the same deterministic merge and recomputation logic
-  as `capture_screen_2_review_result`
+  as the backend path that consumes `screen_2_review_result`
 - do not add LLM blocks, delegated reasoning blocks, or chart retrieval to the
   fallback path
 
@@ -565,8 +553,6 @@ blocks:
 - `build_screen2_payload(...)`
 - `build_screen2_review_tool_input_data(...)`
 - `prepare_screen2_review_payload(...)`
-- `capture_screen2_review_result(...)`
-- `build_screen3_payload(...)`
 
 Use `scripts/agent_flow/agents/review_request_agent_prompt.md` as the
 dedicated Step 10 core-loop prompt in DSS 14.5.

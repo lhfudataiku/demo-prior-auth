@@ -6,10 +6,40 @@ Don't overcode. This is a POC.
 
 This repo contains a prior-authorization POC with:
 
-- a Dataiku Structured Agent flow for Screen 2 reasoning and human review
-- a Dataiku standard webapp for Screen 1 / review / summary UI
-- local fixture support for design-time development
-- a path toward DSS-backed datasets and a live Structured Agent call
+- a deterministic Screen 1 scope-selection flow
+- a clinician-facing Vue webapp for Screen 1, Screen 2, and Screen 3
+- explicit `local` and `dss` runtime paths in the webapp backend
+- fixture-backed local development plus a live DSS Structured Agent path
+- a native DSS human-in-the-loop review flow for Screen 2
+
+## Current Status
+
+The project has moved beyond the earlier fixture-only Screen 2 review scaffold.
+
+Current state on branch `webapp-clean`:
+
+- Screen 1 is implemented as a deterministic backend-driven flow with:
+  - patient selection
+  - policy selection
+  - billing code selection
+  - phase selection when required
+  - cluster selection
+  - route-guard and cluster-entry-guard questions
+- Screen 2 supports 2 operational paths:
+  - `local`
+    - synchronous bootstrap from fixture/static artifacts
+    - direct clinician editing in the webapp
+    - deterministic Screen 3 generation in backend utils
+  - `dss`
+    - starts a live Structured Agent run
+    - polls normalized run state from the backend
+    - shows streamed block/criterion progress while the agent runs
+    - renders the paused human-review payload when HITL is reached
+    - resumes the same run after clinician approval or edits
+- Screen 3 is produced deterministically from reviewed answers and current
+  Screen 2 payload state
+- the frontend UI has been tightened for Screen 1 and Screen 2 and now treats
+  async DSS progress as a first-class state, not an afterthought
 
 ## Current Architecture
 
@@ -21,21 +51,41 @@ Location:
 
 Frontend:
 
-- Vue app for the clinician workflow
-- current UI is considered good enough for POC iteration
+- Vue 3 + Pinia + Vite application
+- workflow pages/components for:
+  - Screen 1 scope selection
+  - Screen 2 eligibility review
+  - Screen 3 final submission review
+- store-driven runtime handling in:
+  - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/src/stores/priorAuthStore.ts`
+- built frontend assets are committed under:
+  - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/dist`
+  - required by `WEBAIKU` / DSS hosting flow
 
 Backend:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/backend.py`
-  - route/controller layer only
-- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/utils.py`
-  - pure transforms and review merge logic
+  - Flask API routes
+  - Screen 1 bootstrap/advance endpoints
+  - local Screen 2 bootstrap endpoint
+  - DSS Screen 2 run start / poll / HITL resume endpoints
+  - streaming-event normalization for frontend progress display
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/data_access.py`
   - explicit data source access layer
+  - separate `local` and `dss` code paths
+  - policy/patient loaders
+  - Structured Agent request builder
+- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/utils.py`
+  - selected-scope display helpers
+  - patient age enrichment
+  - clinician answer merge logic
+  - deterministic Screen 3 payload generation
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/wsgi_local.py`
   - local launcher
+  - serves API-only when `webaiku` is unavailable
+  - serves built frontend when `webaiku` and `dist` are available
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/wsgi.py`
-  - DSS / `webaiku` launcher
+  - DSS / `WEBAIKU` launcher
 
 ### Structured Agent / Artifacts
 
@@ -57,7 +107,7 @@ There are 2 important distinctions.
 
 ### 1. Webapp data source mode
 
-Configured as a simple runtime value:
+Configured in backend code as an explicit runtime value:
 
 - `local`
 - `dss`
@@ -66,60 +116,49 @@ Behavior:
 
 - `local`
   - reads local CSV / JSON artifacts
+  - supports synchronous Screen 2 bootstrap
 - `dss`
   - reads DSS datasets and uses DSS objects
+  - starts and resumes live Structured Agent runs
   - no silent fallback to local
 
 This mode selection is implemented in:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/data_access.py`
 
-Current cleanup direction:
+Important current note:
 
-- callers should be able to pass the data source explicitly into backend helpers
-- env-var fallback can remain for local convenience, but DSS integration should
-  not depend on a system variable as the primary control path
+- `DATA_SOURCE` is currently a code-level constant in `data_access.py`
+- helper functions still accept an optional explicit `data_source`
+- current code no longer centers the mode switch around environment-variable
+  configuration
 
-### 2. Screen 2 review runtime mode
+### 2. Screen 2 review runtime pattern
 
-Documented in the schema docs:
+Both patterns are still part of the documented product model:
 
 - native DSS approval mode
 - standard webapp review mode
 
-Current recommendation:
+Current implemented behavior in the webapp/backend:
 
-- keep both documented
-- native DSS mode demonstrates human-in-the-loop capability
-- standard webapp mode is simpler operationally
+- `local` mode effectively exercises the standard webapp review path
+- `dss` mode exercises the live run-based native DSS approval path
+- both paths use the same clinician answer-map shape
 
-Current implementation direction:
+## Important Runtime Values
 
-- `local` mode keeps a synchronous Screen 2 bootstrap path for fixture/static
-  UI and backend testing
-- `dss` mode uses an independent asynchronous run/session path so the webapp
-  can display streamed Structured Agent workflow and resume after required human
-  validation
-
-## Important Environment Variables
-
-- `PRIOR_AUTH_PATIENT_DATASET`
-  - defaults to `Patient`
-- `PRIOR_AUTH_POLICY_ARTIFACTS_DATASET`
-  - defaults to `policy_artifacts`
+- Structured Agent id: `NkBiV9OM`
+- Structured Agent version: `v2`
+- patient dataset name constant: `Patient`
+- policy artifacts dataset name constant: `policy_artifacts`
 - `VITE_API_PORT`
-  - used by local launcher
-
-## Structured Agent Target
-
-Current live agent target:
-
-- agent id: `NkBiV9OM`
-- version: `v2`
+  - used by the local launcher
 
 Referenced in:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/data_access.py`
+- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/wsgi_local.py`
 
 ## Current Data Access Behavior
 
@@ -130,7 +169,13 @@ Reads from:
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/fixtures/Patient.csv`
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/policy_artifacts/policy_artifacts.csv`
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/policy_artifacts/<policy_id>/*.json`
+- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/policy_artifacts/<policy_id>/structured_agent_context.json`
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/fixtures/screen_payloads/<policy_id>/screen_2_response.json`
+
+Behavior:
+
+- prefers `structured_agent_context.json` when it contains `screen_2_payload`
+- falls back to the older `screen_2_response.json` fixture only when needed
 
 ### DSS mode
 
@@ -139,6 +184,13 @@ Reads from:
 - DSS dataset `Patient`
 - DSS dataset `policy_artifacts`
 - DSS Structured Agent `NkBiV9OM` / `v2`
+
+Behavior:
+
+- builds a fresh Screen 2 agent request from current Screen 1 scope
+- starts a streamed completion for Screen 2 runs
+- extracts graph state, HITL review request data, partial Screen 2 snapshots,
+  criterion answers, and progress from the stream
 
 ## Current Webapp Backend Endpoints
 
@@ -159,6 +211,13 @@ Endpoints:
 - `POST /api/runs/<run_id>/hitl/respond`
 - `GET /api/patients/<subject_id>`
 
+Important endpoint split:
+
+- `POST /api/scenarios/<policy_id>/bootstrap`
+  - local-only Screen 2 bootstrap
+- `POST /api/scenarios/<policy_id>/screen2/run`
+  - dss-only Screen 2 run start
+
 ## Screen Workflow
 
 ### Screen 1
@@ -171,45 +230,44 @@ Purpose:
   - billing code
   - phase
   - disease cluster
-- ends in `selected_scope_context`
+  - route-guard answers
+  - cluster-entry-guard answers
+- end in `selected_scope_context`
 
-Important principle:
+Important principles:
 
-- Screen 1 should produce `selected_scope_context`
-- Screen 2 consumes that artifact / state
+- Screen 1 produces the canonical scope handoff for Screen 2
+- Screen 2 requests should derive `selected_scope_context` deterministically
+  from current selection inputs
+- skipped guard answers remain unanswered rather than being forced to `false`
 
 Core logic:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/agent_flow/functions/selection_resolver.py`
-
-Current backend rule:
-
-- live Screen 2 / review requests should derive `selected_scope_context`
-  deterministically from the current Screen 1 selection inputs
-- do not depend on saved `selected_scope_context` artifacts for the standard
-  webapp runtime path
 
 ### Screen 2
 
 Purpose:
 
 - render chart-backed criterion review
+- preserve Screen 1-carried answers
 - merge clinician edits
-- support review / approval flow
-- derive criteria count deterministically from `selected_scope_context` in both
-  `local` and `dss` modes
+- support live DSS run progress and HITL pause/resume
+- derive criteria count from
+  `selected_scope_context.selected_criteria_catalog`
 
-Current POC source:
+Current webapp behavior:
 
-- `local` mode
-  - synchronous bootstrap from fixture/static payloads
-- `dss` mode
-  - start a Structured Agent run
-  - stream workflow state to the webapp
-  - expose block-level progress from the agent graph state, including
-    total criteria, completed criteria, and the current criterion/block
-  - pause at the required human-validation step
-  - resume the same run after clinician approval/edit
+- if the DSS run is still executing, the frontend can render:
+  - agent status
+  - current block
+  - current criterion id
+  - current criterion prompt
+  - completed vs total criteria
+- if the run pauses for human validation, the frontend renders the paused
+  Screen 2 review payload using the same criterion-card model as local mode
+- if the Screen 2 payload has not arrived yet, placeholder criterion rows can
+  still be derived from `selected_scope_context.selected_criteria_catalog`
 
 ### Screen 3
 
@@ -221,25 +279,36 @@ Current backend merge logic:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/utils.py`
 
+Current behavior:
+
+- merges approved answers into the current Screen 2 payload
+- recalculates criterion status buckets
+- emits warnings for clinician/chart conflicts
+- determines submission readiness from unanswered required items and conflicts
+
 ## Answer Map Semantics
 
 Keep both names:
 
 - `criterion_answers`
   - working clinician-input state
+  - includes Screen 1 guard answers carried into Screen 2
 - `approved_criterion_answers`
-  - approved/submitted snapshot
+  - approved/submitted snapshot at review time
 
 Same inner schema, different lifecycle stage.
 
 ## Human-In-The-Loop Clarification
 
-Critical transition is between Structured Agent Step 10 and Step 11.
+Critical transition remains between the Screen 2 review request and Screen 3
+recomputation.
 
 Conceptually:
 
-- Step 10 is the human review boundary
-- Step 11 consumes the approved review snapshot and recomputes deterministically
+- the Structured Agent builds a review request and pauses
+- the webapp renders that paused request
+- clinician approval or edits are returned through HITL resume
+- the same run then continues to final Screen 3 output
 
 Important docs:
 
@@ -251,68 +320,15 @@ Important docs:
 
 Current direction:
 
-- use `webaiku`
+- use `WEBAIKU`
 - local launcher:
   - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/wsgi_local.py`
 - DSS launcher:
   - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/wsgi.py`
 
-Expected DSS backend integration pattern:
+Current implementation note:
 
-- `WEBAIKU(app, "webapps/prior_auth_review/dist")`
-- `WEBAIKU.extend(app, [api])`
-
-## What Was Just Refactored
-
-Recently completed:
-
-- backend cleanup into:
-  - `backend.py`
-  - `utils.py`
-  - `data_access.py`
-- explicit env-var data source switch
-- split local vs DSS launchers
-- preserved POC behavior while reducing backend complexity
-
-Validated:
-
-- backend import/compile checks passed
-- local smoke tests passed for the main API routes
-
-## Known Gaps / Next Likely Work
-
-1. Replace remaining artifact-based `selected_scope_context` assumptions in DSS mode with the true Screen 1 -> Structured Agent handoff.
-2. Test `PRIOR_AUTH_DATA_SOURCE=dss` against real DSS datasets.
-3. Test the live Structured Agent call end-to-end in DSS.
-4. Finalize the standard webapp packaging details (`body.html`, static assets, JS wrapper) if needed.
-5. Keep schema docs aligned with any runtime/API changes.
-
-## Local Run Commands
-
-Backend:
-
-```bash
-cd /Users/li-hengfu/Documents/GitHub/demo-prior-auth
-PRIOR_AUTH_DATA_SOURCE=local webapps/prior_auth_review/.venv/bin/python webapps/prior_auth_review/backend/wsgi_local.py
-```
-
-Frontend:
-
-```bash
-cd /Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review
-npm run dev
-```
-
-## Primary Scoping Docs
-
-- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/schema_v4/prior-auth_assistant.md`
-- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/schema_v4/frontend_webapp_contract_v1.md`
-- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/schema_v4/screen2_structured_agent_spec.md`
-- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/schema_v4/screen2_human_review_tool_spec.md`
-- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/schema_v4/prior-auth_assistant_flowchart.md`
-
-## Guiding Principle
-
-Keep the code and runtime model simple.
-
-Don't overcode. This is a POC.
+- local development supports 2 practical modes:
+  - API-only Flask backend + Vite frontend
+  - built frontend served through `WEBAIKU` when available
+- DSS expects the committed `dist` bundle for hosted webapp delivery

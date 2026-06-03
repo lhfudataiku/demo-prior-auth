@@ -20,7 +20,6 @@ from scripts.agent_flow.functions.screen_payload_helpers import (
     build_criterion_ui_map_data,
     build_screen2_payload_data,
     build_screen2_review_tool_input_data,
-    build_screen3_payload_data,
 )
 
 
@@ -52,7 +51,6 @@ def initialize_placeholder_state(trace: Any) -> None:
         "screen_2_payload": {},
         "screen_2_review_tool_input": {},
         "screen_2_review_result": {},
-        "screen_3_payload": {},
     }
     for key, value in defaults.items():
         if key not in state:
@@ -202,90 +200,3 @@ def prepare_screen2_review_payload(trace: Any) -> None:
         span.outputs["has_screen_2_payload"] = bool(tool_input.get("screen_2_payload"))
         span.outputs["criterion_answer_count"] = len(tool_input.get("criterion_answers", {}) or {})
         span.outputs["selected_scope"] = tool_input.get("selected_scope", {})
-
-
-def _extract_tool_output(raw_result: Any) -> Dict[str, Any]:
-    if isinstance(raw_result, str):
-        try:
-            parsed = json.loads(raw_result)
-        except Exception:
-            return {}
-        return _extract_tool_output(parsed)
-    if isinstance(raw_result, dict):
-        output = raw_result.get("output")
-        if isinstance(output, dict):
-            return output
-        if isinstance(output, str):
-            try:
-                parsed_output = json.loads(output)
-            except Exception:
-                return raw_result
-            if isinstance(parsed_output, dict):
-                return parsed_output
-        return raw_result
-    return {}
-
-
-def capture_screen2_review_result(trace: Any) -> None:
-    """Merge approved review-tool answers and build the final Screen 3 payload."""
-
-    state = _resolve_state()
-    review_output = _extract_tool_output(state.get("screen_2_review_result", {}))
-    approval_status = review_output.get("approval_status", "approved")
-
-    if approval_status == "rejected":
-        state["screen_3_payload"] = {
-            "status": "blocked",
-            "payload": {
-                "review_summary": {
-                    "selected_scope": (state.get("screen_2_payload", {}) or {})
-                    .get("payload", {})
-                    .get("selected_scope", {}),
-                    "approval_status": "rejected",
-                },
-                "answered_criteria": [],
-                "unanswered_required_items": [],
-                "warnings": [
-                    {
-                        "type": "human_review_rejected",
-                        "message": "Human reviewer rejected the Screen 2 review payload.",
-                    }
-                ],
-                "submission_ready": False,
-            },
-            "messages": list(state.get("messages", []) or []),
-        }
-    else:
-        approved_answers = review_output.get("approved_criterion_answers")
-        if "approved_criterion_answers" in review_output and isinstance(approved_answers, dict):
-            state["criterion_answers"] = approved_answers
-
-        build_criterion_ui_map(trace)
-        evaluate_logic_tree_from_state(trace)
-        build_screen3_payload(trace)
-
-    with trace.subspan("capture_screen_2_review_result") as span:
-        span.outputs["approval_status"] = approval_status
-        span.outputs["criterion_answer_count"] = len(state.get("criterion_answers", {}) or {})
-        span.outputs["screen_3_status"] = (state.get("screen_3_payload", {}) or {}).get("status")
-
-
-def build_screen3_payload(trace: Any) -> None:
-    """Build and persist the Screen 3 response payload from DSS state."""
-
-    state = _resolve_state()
-    if not isinstance(state.get("criterion_ui_map"), dict) or not state.get("criterion_ui_map"):
-        state["criterion_ui_map"] = build_criterion_ui_map_data(
-            selected_scope_context=get_selected_scope_context(state),
-            criterion_result_map=state.get("criterion_result_map", {}),
-            criterion_answers=state.get("criterion_answers", {}),
-        )
-
-    payload = build_screen3_payload_data(state)
-    state["screen_3_payload"] = payload
-
-    with trace.subspan("build_screen_3_payload") as span:
-        span.outputs["status"] = payload.get("status")
-        span.outputs["submission_ready"] = (
-            payload.get("payload", {}) or {}
-        ).get("submission_ready")

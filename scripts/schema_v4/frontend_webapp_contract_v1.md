@@ -517,7 +517,10 @@ core objects:
   - `payload.policy_master_v4`
   - `payload.criterion_answers`
 - Screen 2 response shape matches the documented `screen_2_payload`
-- Screen 3 response shape matches the documented `screen_3_payload`
+- Screen 3 response shape still matches the documented `screen_3_payload`, but
+  in `dss` mode it is now derived deterministically by the backend from the
+  reviewed `screen_2_review_result` artifact rather than emitted directly by
+  the Structured Agent
 - `criterion_answers` remains the working answer map
 
 Important translation rule:

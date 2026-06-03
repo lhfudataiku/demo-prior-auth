@@ -2,6 +2,11 @@ from copy import deepcopy
 from datetime import date, datetime, timezone
 from typing import Optional
 
+from scripts.agent_flow.functions.screen_payload_helpers import (
+    build_screen3_payload_from_review_result_data,
+    normalize_review_result_data,
+)
+
 
 PHASE_LABELS = {
     "initial": "Initial",
@@ -121,194 +126,18 @@ def _attention_item(criterion: dict, message: str) -> dict:
 
 
 def merge_answers(screen_2_response: dict, approved_answers: dict):
-    merged = deepcopy(screen_2_response)
-    criteria = merged["payload"]["criteria"]
-
-    satisfied_ids = []
-    not_satisfied_ids = []
-    unresolved_ids = []
-    answered_criteria = []
-    unanswered_required = []
-    warnings = []
-    conflict_count = 0
-
-    for criterion in criteria:
-        criterion_id = criterion["criterion_id"]
-        answer = approved_answers.get(criterion_id)
-        clinician_input = criterion["clinician_input"]
-        ui_resolution = criterion["ui_resolution"]
-        prefill_value = get_prefill_value(criterion)
-
-        if answer is not None:
-            clinician_answer = answer.get("answer")
-            clinician_comment = answer.get("comment")
-            clinician_value = answer.get("value")
-            override_prefill = bool(answer.get("override_prefill", False))
-            answered = clinician_answer is not None or bool(clinician_comment)
-
-            clinician_input.update(
-                {
-                    "answer": clinician_answer,
-                    "value": clinician_value,
-                    "comment": clinician_comment,
-                    "override_prefill": override_prefill,
-                    "answered": answered,
-                }
-            )
-
-            conflict_flag = (
-                clinician_answer is not None
-                and prefill_value is not None
-                and clinician_answer != prefill_value
-            )
-            final_answer = clinician_answer
-            final_source = "clinician"
-            if conflict_flag:
-                display_state = "conflict"
-                conflict_count += 1
-            elif clinician_answer is True:
-                display_state = "satisfied"
-            elif clinician_answer is False:
-                display_state = "not_satisfied"
-            else:
-                display_state = "unanswered"
-
-            ui_resolution.update(
-                {
-                    "display_state": display_state,
-                    "conflict_flag": conflict_flag,
-                    "conflict_reason": (
-                        "Clinician answer differs from chart prefill." if conflict_flag else None
-                    ),
-                    "final_answer": final_answer,
-                    "final_source": final_source,
-                }
-            )
-
-        final_answer = ui_resolution.get("final_answer")
-        final_source = ui_resolution.get("final_source", "unresolved")
-        display_state = ui_resolution.get("display_state", "unanswered")
-
-        if final_answer is True:
-            satisfied_ids.append(criterion_id)
-            if display_state == "conflict":
-                warnings.append(
-                    _attention_item(
-                        criterion,
-                        ui_resolution.get("conflict_reason")
-                        or "Clinician answer differs from chart-backed evidence.",
-                    )
-                )
-            else:
-                answered_criteria.append(
-                    {
-                        "criterion_id": criterion_id,
-                        "criterion_kind": criterion["criterion_kind"],
-                        "prompt": criterion["prompt"],
-                        "final_answer": True,
-                        "final_source": final_source,
-                        "display_state": display_state,
-                        "comment": criterion["clinician_input"].get("comment"),
-                    }
-                )
-        elif final_answer is False:
-            not_satisfied_ids.append(criterion_id)
-            if display_state == "conflict":
-                warnings.append(
-                    _attention_item(
-                        criterion,
-                        ui_resolution.get("conflict_reason")
-                        or "Clinician answer differs from chart-backed evidence.",
-                    )
-                )
-            else:
-                answered_criteria.append(
-                    {
-                        "criterion_id": criterion_id,
-                        "criterion_kind": criterion["criterion_kind"],
-                        "prompt": criterion["prompt"],
-                        "final_answer": False,
-                        "final_source": final_source,
-                        "display_state": display_state,
-                        "comment": criterion["clinician_input"].get("comment"),
-                    }
-                )
-        else:
-            unresolved_ids.append(criterion_id)
-            if criterion.get("required", False):
-                unanswered_required.append(
-                    {
-                        "criterion_id": criterion_id,
-                        "criterion_kind": criterion.get("criterion_kind"),
-                        "prompt": criterion["prompt"],
-                        "display_state": display_state,
-                    }
-                )
-
-    if not_satisfied_ids:
-        cluster_status = "not_satisfied"
-        cluster_satisfied = False
-    elif unresolved_ids:
-        cluster_status = "unresolved"
-        cluster_satisfied = False
-    else:
-        cluster_status = "satisfied"
-        cluster_satisfied = True
-
-    merged["payload"]["logic_evaluation"] = {
-        "selected_cluster_satisfied": cluster_satisfied,
-        "selected_cluster_status": cluster_status,
-        "satisfied_criterion_ids": satisfied_ids,
-        "not_satisfied_criterion_ids": not_satisfied_ids,
-        "unresolved_criterion_ids": unresolved_ids,
-        "criterion_counts": {
-            "satisfied": len(satisfied_ids),
-            "not_satisfied": len(not_satisfied_ids),
-            "unresolved": len(unresolved_ids),
-        },
-    }
-    merged["payload"]["next_action"] = (
-        "stay_screen_2" if unresolved_ids else "proceed_screen_3"
+    review_result = normalize_review_result_data(
+        {
+            "approval_status": "edited" if approved_answers else "approved",
+            "approved_criterion_answers": approved_answers,
+            "reviewed_screen_2_payload": deepcopy(screen_2_response),
+            "review_metadata": {
+                "reviewer": None,
+                "reviewed_at": reviewed_at(),
+                "comment": None,
+            },
+            "human_validated": True,
+        }
     )
-
-    review_result = {
-        "approval_status": "edited" if approved_answers else "approved",
-        "approved_criterion_answers": approved_answers,
-        "reviewed_screen_2_payload": merged,
-        "review_metadata": {
-            "reviewer": None,
-            "reviewed_at": reviewed_at(),
-            "comment": None,
-        },
-        "human_validated": True,
-    }
-
-    review_summary = {
-        "selected_scope": merged["payload"]["selected_scope"],
-        "criterion_totals": {
-            "total": len(criteria),
-            "answered": len(answered_criteria),
-            "unanswered_required": len(unanswered_required),
-            "conflicts": conflict_count,
-        },
-        "logic_evaluation": merged["payload"]["logic_evaluation"],
-    }
-
-    if unanswered_required or conflict_count:
-        screen3_status = "warning"
-    else:
-        screen3_status = "complete"
-
-    screen3_response = {
-        "status": screen3_status,
-        "payload": {
-            "review_summary": review_summary,
-            "answered_criteria": answered_criteria,
-            "unanswered_required_items": unanswered_required,
-            "warnings": warnings,
-            "submission_ready": not unanswered_required and conflict_count == 0,
-        },
-        "messages": merged.get("messages", []),
-    }
-
+    screen3_response = build_screen3_payload_from_review_result_data(review_result)
     return review_result, screen3_response

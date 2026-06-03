@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.agent_flow.functions.python_code_blocks import (  # noqa: E402
+from scripts.agent_flow.functions.screen_payload_helpers import (  # noqa: E402
     build_criterion_ui_map_data,
     build_screen2_payload_data,
     build_screen3_payload_data,

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+from copy import deepcopy
 from typing import Any, Dict, List, Optional
 
 from scripts.agent_flow.functions.common import (
@@ -317,6 +319,133 @@ def build_screen2_review_tool_input_data(state: Optional[StateDict]) -> Dict[str
     }
 
 
+def _extract_review_result_data(raw_review_result: Any) -> Dict[str, Any]:
+    if isinstance(raw_review_result, str):
+        try:
+            parsed = json.loads(raw_review_result)
+        except Exception:
+            return {}
+        return _extract_review_result_data(parsed)
+
+    if not isinstance(raw_review_result, dict):
+        return {}
+
+    output = raw_review_result.get("output")
+    if isinstance(output, (dict, str)):
+        extracted = _extract_review_result_data(output)
+        if extracted:
+            return extracted
+
+    return raw_review_result
+
+
+def _merge_reviewed_screen2_payload(
+    screen_2_payload: Dict[str, Any],
+    approved_answers: Dict[str, Any],
+) -> Dict[str, Any]:
+    merged_payload = deepcopy(screen_2_payload)
+    payload = merged_payload.setdefault("payload", {})
+    criteria = payload.get("criteria")
+    if not isinstance(criteria, list):
+        payload["criteria"] = []
+        criteria = payload["criteria"]
+
+    satisfied_ids: List[str] = []
+    not_satisfied_ids: List[str] = []
+    unresolved_ids: List[str] = []
+
+    for criterion in criteria:
+        if not isinstance(criterion, dict):
+            continue
+
+        criterion_id = criterion.get("criterion_id")
+        if not isinstance(criterion_id, str) or not criterion_id:
+            continue
+
+        answer_type = str(criterion.get("answer_type", "boolean"))
+        chart_result = _normalize_chart_result(criterion.get("chart_result"))
+        existing_input = criterion.get("clinician_input")
+        if criterion_id in approved_answers:
+            clinician_input = _normalize_clinician_input(approved_answers.get(criterion_id))
+        else:
+            clinician_input = _normalize_clinician_input(existing_input)
+
+        ui_resolution = _derive_ui_resolution(
+            chart_result=chart_result,
+            clinician_input=clinician_input,
+            answer_type=answer_type,
+        )
+
+        criterion["clinician_input"] = clinician_input
+        criterion["chart_result"] = chart_result
+        criterion["ui_resolution"] = ui_resolution
+
+        final_answer = ui_resolution.get("final_answer")
+        if final_answer is True:
+            satisfied_ids.append(criterion_id)
+        elif final_answer is False:
+            not_satisfied_ids.append(criterion_id)
+        else:
+            unresolved_ids.append(criterion_id)
+
+    if not_satisfied_ids:
+        selected_cluster_status = "not_satisfied"
+        selected_cluster_satisfied = False
+    elif unresolved_ids:
+        selected_cluster_status = "unresolved"
+        selected_cluster_satisfied = False
+    else:
+        selected_cluster_status = "satisfied"
+        selected_cluster_satisfied = True
+
+    payload["logic_evaluation"] = {
+        "selected_cluster_satisfied": selected_cluster_satisfied,
+        "selected_cluster_status": selected_cluster_status,
+        "satisfied_criterion_ids": satisfied_ids,
+        "not_satisfied_criterion_ids": not_satisfied_ids,
+        "unresolved_criterion_ids": unresolved_ids,
+        "criterion_counts": {
+            "satisfied": len(satisfied_ids),
+            "not_satisfied": len(not_satisfied_ids),
+            "unresolved": len(unresolved_ids),
+        },
+    }
+    payload["next_action"] = "stay_screen_2" if unresolved_ids else "proceed_screen_3"
+    merged_payload["status"] = "warning" if unresolved_ids else "ok"
+    return merged_payload
+
+
+def normalize_review_result_data(raw_review_result: Any) -> Dict[str, Any]:
+    review_result = _extract_review_result_data(raw_review_result)
+    if not review_result:
+        return {}
+
+    approved_answers = review_result.get("approved_criterion_answers")
+    if not isinstance(approved_answers, dict):
+        approved_answers = {}
+
+    screen_2_payload = review_result.get("reviewed_screen_2_payload")
+    if not isinstance(screen_2_payload, dict):
+        screen_2_payload = {}
+
+    normalized = dict(review_result)
+    normalized["approved_criterion_answers"] = approved_answers
+    normalized["reviewed_screen_2_payload"] = _merge_reviewed_screen2_payload(
+        screen_2_payload,
+        approved_answers,
+    ) if screen_2_payload else {}
+    normalized["human_validated"] = bool(review_result.get("human_validated", True))
+    normalized.setdefault(
+        "review_metadata",
+        {
+            "reviewer": None,
+            "reviewed_at": None,
+            "comment": None,
+        },
+    )
+    return normalized
+
+
 def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
     runtime_state = state if isinstance(state, dict) else {}
     selected_scope_context = get_selected_scope_context(runtime_state)
@@ -404,4 +533,165 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
             "submission_ready": submission_ready,
         },
         "messages": list(runtime_state.get("messages", []) or []),
+    }
+
+
+def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dict[str, Any]:
+    review_result = normalize_review_result_data(raw_review_result)
+    if not review_result:
+        return {
+            "status": "error",
+            "payload": {
+                "review_summary": {
+                    "selected_scope": {
+                        "selected_route_id": None,
+                        "selected_phase": None,
+                        "selected_cluster_id": None,
+                    },
+                    "criterion_totals": {
+                        "total": 0,
+                        "answered": 0,
+                        "unanswered_required": 0,
+                        "conflicts": 0,
+                    },
+                    "logic_evaluation": {},
+                },
+                "answered_criteria": [],
+                "unanswered_required_items": [],
+                "warnings": [
+                    {
+                        "type": "missing_review_result",
+                        "message": "Structured Agent did not return a valid screen_2_review_result artifact.",
+                    }
+                ],
+                "submission_ready": False,
+            },
+            "messages": [],
+        }
+
+    screen_2_payload = review_result.get("reviewed_screen_2_payload")
+    if not isinstance(screen_2_payload, dict) or not isinstance(screen_2_payload.get("payload"), dict):
+        return {
+            "status": "error",
+            "payload": {
+                "review_summary": {
+                    "selected_scope": {
+                        "selected_route_id": None,
+                        "selected_phase": None,
+                        "selected_cluster_id": None,
+                    },
+                    "criterion_totals": {
+                        "total": 0,
+                        "answered": 0,
+                        "unanswered_required": 0,
+                        "conflicts": 0,
+                    },
+                    "logic_evaluation": {},
+                },
+                "answered_criteria": [],
+                "unanswered_required_items": [],
+                "warnings": [
+                    {
+                        "type": "missing_reviewed_screen_2_payload",
+                        "message": "Review result did not include a valid reviewed_screen_2_payload.",
+                    }
+                ],
+                "submission_ready": False,
+            },
+            "messages": [],
+        }
+
+    payload = screen_2_payload.get("payload", {})
+    criteria = payload.get("criteria") if isinstance(payload.get("criteria"), list) else []
+    logic_evaluation = payload.get("logic_evaluation") if isinstance(payload.get("logic_evaluation"), dict) else {}
+    review_summary = {
+        "selected_scope": payload.get("selected_scope", {}) or {},
+        "selected_scope_display": payload.get("selected_scope_display"),
+        "criterion_totals": {
+            "total": len(criteria),
+            "answered": 0,
+            "unanswered_required": 0,
+            "conflicts": 0,
+        },
+        "logic_evaluation": logic_evaluation,
+    }
+
+    answered_criteria: List[Dict[str, Any]] = []
+    unanswered_required_items: List[Dict[str, Any]] = []
+    warnings: List[Dict[str, Any]] = []
+
+    for row in criteria:
+        if not isinstance(row, dict):
+            continue
+        ui_resolution = row.get("ui_resolution", {}) or {}
+        clinician_input = row.get("clinician_input", {}) or {}
+        final_answer = ui_resolution.get("final_answer")
+        conflict_flag = _coerce_bool(ui_resolution.get("conflict_flag"), default=False)
+
+        if conflict_flag:
+            warnings.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "display_state": ui_resolution.get("display_state"),
+                    "type": "conflict",
+                    "message": ui_resolution.get("conflict_reason")
+                    or "Clinician answer conflicts with chart-backed evidence.",
+                }
+            )
+        elif final_answer is None and row.get("required"):
+            unanswered_required_items.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "display_state": ui_resolution.get("display_state"),
+                }
+            )
+        else:
+            answered_criteria.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "final_answer": final_answer,
+                    "final_source": ui_resolution.get("final_source"),
+                    "display_state": ui_resolution.get("display_state"),
+                    "comment": clinician_input.get("comment"),
+                }
+            )
+
+    review_summary["criterion_totals"] = {
+        "total": len(criteria),
+        "answered": len(answered_criteria),
+        "unanswered_required": len(unanswered_required_items),
+        "conflicts": len(warnings),
+    }
+
+    submission_ready = not unanswered_required_items and not warnings
+    status = "complete" if submission_ready else "warning"
+    if unanswered_required_items:
+        status = "blocked"
+    if review_result.get("approval_status") == "rejected":
+        status = "blocked"
+        warnings.insert(
+            0,
+            {
+                "type": "human_review_rejected",
+                "message": "Human reviewer rejected the Screen 2 review payload.",
+            },
+        )
+        submission_ready = False
+
+    return {
+        "status": status,
+        "payload": {
+            "review_summary": review_summary,
+            "answered_criteria": answered_criteria,
+            "unanswered_required_items": unanswered_required_items,
+            "warnings": warnings,
+            "submission_ready": submission_ready,
+        },
+        "messages": list(screen_2_payload.get("messages", []) or []),
     }
