@@ -35,7 +35,10 @@ const progressPercent = computed(() => {
 })
 
 const canEdit = computed(() =>
-  props.dataSource === 'local' || props.agentStatus === 'hitl_paused' || props.agentStatus === null,
+  props.dataSource === 'local'
+    || props.agentStatus === 'hitl_paused'
+    || props.agentStatus === 'completed'
+    || props.agentStatus === null,
 )
 
 const showCriteria = computed(() =>
@@ -215,25 +218,27 @@ watch(
       />
     </section>
 
-    <div class="page-actions" v-if="screen2 && canEdit">
-      <div v-if="showActionLoading" class="cta-status" aria-live="polite">
-        <span class="loading-spinner" aria-hidden="true" />
-        <div class="cta-status-copy">
-          <span class="label">Preparing next step</span>
-          <p class="summary-meta">
-            {{ submitting
-              ? 'Building the final submission review from the approved answers.'
-              : 'The backend is still hydrating the review before you can continue.' }}
-          </p>
+    <div class="page-actions page-actions--sticky">
+      <div class="page-actions-shell">
+        <div v-if="showActionLoading" class="cta-status" aria-live="polite">
+          <span class="loading-spinner" aria-hidden="true" />
+          <div class="cta-status-copy">
+            <span class="label">Preparing next step</span>
+            <p class="summary-meta">
+              {{ submitting
+                ? 'Building the final submission review from the approved answers.'
+                : 'The backend is still hydrating the review before you can continue.' }}
+            </p>
+          </div>
         </div>
+        <button
+          class="primary-button"
+          :disabled="!isSubmitReady"
+          @click="emit('submit')"
+        >
+          {{ actionButtonLabel }}
+        </button>
       </div>
-      <button
-        class="primary-button"
-        :disabled="!isSubmitReady"
-        @click="emit('submit')"
-      >
-        {{ actionButtonLabel }}
-      </button>
     </div>
   </section>
 </template>

@@ -679,6 +679,25 @@ textarea {
   gap: 4px;
 }
 
+.page-actions--sticky {
+  position: sticky;
+  bottom: 14px;
+  z-index: 10;
+  margin-top: 22px;
+}
+
+.page-actions-shell {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: rgba(255, 254, 249, 0.94);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: 0 12px 30px rgba(26, 26, 26, 0.08);
+  backdrop-filter: blur(10px);
+}
+
 @media (max-width: 1200px) {
   .app-shell--workflow {
     grid-template-columns: 1fr;
@@ -712,5 +731,13 @@ textarea {
   .summary-grid {
     grid-template-columns: 1fr;
     display: grid;
+  }
+
+  .page-actions--sticky {
+    bottom: 8px;
+  }
+
+  .page-actions-shell {
+    width: 100%;
   }
 }
