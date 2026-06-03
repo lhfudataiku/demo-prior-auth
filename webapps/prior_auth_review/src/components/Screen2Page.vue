@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import type { AgentRunProgress, CriterionAnswers, CriterionRow, LogicEvaluation, Screen2Payload } from '../Api'
 import CriterionCard from './CriterionCard.vue'
-import { humanizeToken, labelForCriterionState, labelForNextAction, toneForStatus } from '../uiLabels'
+import { humanizeToken, labelForCriterionState, toneForStatus } from '../uiLabels'
 
 const props = defineProps<{
   screen2: Screen2Payload | null
@@ -10,7 +10,6 @@ const props = defineProps<{
   criteriaCount: number | null
   editedAnswers: CriterionAnswers
   logicEvaluation: LogicEvaluation | null
-  nextAction: string
   answerOrigins: Record<string, 'screen1' | 'screen2'>
   submitting: boolean
   dataSource: 'local' | 'dss'
@@ -37,12 +36,51 @@ const canEdit = computed(() =>
   props.dataSource === 'local' || props.agentStatus === 'hitl_paused' || props.agentStatus === null,
 )
 
-const showWorkflowStatus = computed(() =>
-  !!props.agentStatus && props.criteria.length === 0,
-)
-
 const showCriteria = computed(() =>
   props.criteria.length > 0,
+)
+
+const reviewProgressTitle = computed(() => {
+  if (props.submitting) return 'Preparing final review'
+  if (props.agentStatus === 'failed') return 'Review interrupted'
+  if (props.agentStatus === 'hitl_paused') return 'Review ready'
+  if (props.agentStatus === 'completed') return 'Review complete'
+  if (props.agentStatus === 'running') return 'Preparing review'
+  if (props.logicEvaluation) return 'Review ready'
+  return 'Preparing review'
+})
+
+const reviewProgressBody = computed(() => {
+  if (props.submitting) return 'We are finalizing the clinician-approved review and preparing the submission summary.'
+  if (props.agentStatus === 'failed') return 'The agent run failed before the review could be completed.'
+  if (props.agentStatus === 'hitl_paused') return 'Chart evidence is hydrated and the review is ready for clinician confirmation.'
+  if (props.agentStatus === 'completed') return 'The reviewed output has been finalized successfully.'
+  if (props.agentStatus === 'running') {
+    if (props.agentProgress?.current_criterion_prompt) return props.agentProgress.current_criterion_prompt
+    return 'The Structured Agent is reviewing chart evidence and preparing the eligibility review.'
+  }
+  if (props.logicEvaluation) return 'Resolve any remaining issues, then continue to the final submission review.'
+  return 'The backend is still rendering the review content.'
+})
+
+const progressSummary = computed(() => {
+  const total = props.agentProgress?.total_criteria ?? props.criteriaCount
+  const completed = props.agentProgress?.completed_criteria ?? 0
+  if (typeof total !== 'number' || total <= 0) return 'Rendering criteria'
+  if (props.agentStatus === 'hitl_paused' || props.logicEvaluation) return `${total} criteria ready for review`
+  return `${completed} of ${total} criteria reviewed`
+})
+
+const showReviewProgress = computed(() =>
+  !!props.agentStatus || props.submitting || (!props.logicEvaluation && props.criteriaCount !== null),
+)
+
+const showActionLoading = computed(() =>
+  props.submitting || props.agentStatus === 'running',
+)
+
+const actionButtonLabel = computed(() =>
+  props.submitting ? 'Preparing final review...' : 'Continue to final review',
 )
 </script>
 
@@ -57,31 +95,26 @@ const showCriteria = computed(() =>
       </div>
       <div class="header-actions">
         <div class="status-kv">
-          <span class="label">Agent</span>
+          <span class="label">Review stage</span>
           <span class="status-chip" :data-tone="toneForStatus(agentStatus || screen2?.status || 'running')">
-            {{ humanizeToken(agentStatus || screen2?.status || 'running') }}
+            {{ reviewProgressTitle }}
           </span>
         </div>
-        <button
-          v-if="screen2 && canEdit"
-          class="primary-button"
-          :disabled="submitting"
-          @click="emit('submit')"
-        >
-          {{ submitting ? 'Submitting...' : 'Submit review' }}
-        </button>
       </div>
     </header>
 
-    <section class="panel" v-if="showWorkflowStatus">
+    <section class="panel" v-if="showReviewProgress">
       <div class="section-header">
         <p class="eyebrow">Structured agent</p>
-        <h2>Workflow status</h2>
+        <h2>Review progress</h2>
       </div>
-      <p v-if="agentStatus === 'running'">The Structured Agent is running and streaming workflow progress.</p>
-      <p v-else-if="agentStatus === 'hitl_paused'">The agent is paused at the required human-validation step.</p>
-      <p v-else-if="agentStatus === 'completed'">The agent completed successfully.</p>
-      <p v-else-if="agentStatus === 'failed'">The agent run failed.</p>
+      <div class="progress-hero">
+        <span v-if="agentStatus === 'running' || submitting" class="loading-spinner" aria-hidden="true" />
+        <div class="progress-hero-copy">
+          <p class="body-copy">{{ reviewProgressBody }}</p>
+          <p v-if="agentMessage" class="summary-meta">{{ agentMessage }}</p>
+        </div>
+      </div>
       <div v-if="agentProgress" class="status-bar streaming-status">
         <div class="status-item" v-if="agentProgress.total_criteria !== null">
           <span class="label">Queue</span>
@@ -101,11 +134,13 @@ const showCriteria = computed(() =>
       <div v-if="progressPercent !== null" class="progress-meter" aria-hidden="true">
         <div class="progress-meter__fill" :style="{ width: `${progressPercent}%` }" />
       </div>
-      <p v-if="agentProgress?.current_criterion_prompt" class="summary-meta">
-        {{ agentProgress.current_criterion_prompt }}
-      </p>
-      <p v-if="agentMessage" class="summary-meta">{{ agentMessage }}</p>
-      <p class="summary-meta" v-if="agentEvents.length">Events captured: {{ agentEvents.length }}</p>
+      <details class="evidence-panel" v-if="agentEvents.length || agentProgress?.current_block_id">
+        <summary>Agent details</summary>
+        <div class="summary-stack">
+          <p v-if="agentProgress?.current_block_id" class="summary-meta">Current block: {{ agentProgress.current_block_id }}</p>
+          <p v-if="agentEvents.length" class="summary-meta">Events captured: {{ agentEvents.length }}</p>
+        </div>
+      </details>
     </section>
 
     <section class="status-bar panel" v-if="logicEvaluation || criteriaCount !== null">
@@ -116,9 +151,10 @@ const showCriteria = computed(() =>
         </span>
       </div>
       <div class="status-item">
-        <span class="label">Next action</span>
-        <span class="status-chip" :data-tone="toneForStatus(logicEvaluation ? nextAction : 'stay_screen_2')">
-          {{ logicEvaluation ? labelForNextAction(nextAction) : 'Building eligibility review' }}
+        <span class="label">Review progress</span>
+        <span class="status-chip status-chip--loading" :data-tone="toneForStatus(agentStatus || (logicEvaluation ? 'ok' : 'running'))">
+          <span v-if="agentStatus === 'running' || submitting" class="loading-spinner loading-spinner--inline" aria-hidden="true" />
+          {{ progressSummary }}
         </span>
       </div>
       <div class="status-item">
@@ -152,5 +188,26 @@ const showCriteria = computed(() =>
         @comment="(criterionId, value) => emit('comment', criterionId, value)"
       />
     </section>
+
+    <div class="page-actions" v-if="screen2 && canEdit">
+      <div v-if="showActionLoading" class="cta-status" aria-live="polite">
+        <span class="loading-spinner" aria-hidden="true" />
+        <div class="cta-status-copy">
+          <span class="label">Preparing next step</span>
+          <p class="summary-meta">
+            {{ submitting
+              ? 'Building the final submission review from the approved answers.'
+              : 'The backend is still hydrating the review before you can continue.' }}
+          </p>
+        </div>
+      </div>
+      <button
+        class="primary-button"
+        :disabled="submitting || agentStatus === 'running'"
+        @click="emit('submit')"
+      >
+        {{ actionButtonLabel }}
+      </button>
+    </div>
   </section>
 </template>

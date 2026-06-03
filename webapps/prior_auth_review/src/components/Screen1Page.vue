@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CriterionAnswers, ScenarioOption, Screen1Payload } from '../Api'
-import { labelForCriterionKind, humanizeToken, toneForStatus } from '../uiLabels'
+import { labelForCriterionKind } from '../uiLabels'
 
 defineProps<{
   screen1: Screen1Payload | null
@@ -37,7 +37,6 @@ function normalizeBoolean(value: string) {
           Confirm the billing code, route branch, and cluster before opening chart-backed review.
         </p>
       </div>
-      <span class="status-chip" :data-tone="toneForStatus('neutral')">{{ humanizeToken(screen1.payload.step) }}</span>
     </header>
 
     <section class="panel">
@@ -164,12 +163,19 @@ function normalizeBoolean(value: string) {
     </section>
 
     <div class="page-actions">
+      <div v-if="loading" class="cta-status" aria-live="polite">
+        <span class="loading-spinner" aria-hidden="true" />
+        <div class="cta-status-copy">
+          <span class="label">Preparing next step</span>
+          <p class="summary-meta">Building the eligibility review from the current scope selection.</p>
+        </div>
+      </div>
       <button
         class="primary-button"
         :disabled="loading || !subjectIdInput || screen1.payload.next_action !== 'proceed_screen_2'"
         @click="emit('proceed')"
       >
-        {{ loading ? 'Loading...' : 'Open Screen 2 review' }}
+        {{ loading ? 'Preparing eligibility review...' : 'Continue to eligibility review' }}
       </button>
     </div>
   </section>

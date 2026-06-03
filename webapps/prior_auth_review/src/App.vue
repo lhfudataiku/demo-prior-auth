@@ -87,7 +87,6 @@ onMounted(() => {
         :criteria-count="store.criteriaCount"
         :edited-answers="store.editedAnswers"
         :logic-evaluation="store.logicEvaluation"
-        :next-action="store.nextAction"
         :answer-origins="store.answerOrigins"
         :submitting="store.submitting"
         :data-source="store.dataSource"
