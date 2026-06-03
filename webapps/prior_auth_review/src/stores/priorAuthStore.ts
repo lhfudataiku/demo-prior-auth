@@ -102,6 +102,59 @@ function buildAnswerOrigins(
   return origins
 }
 
+function buildPlaceholderCriterionRows(
+  selectedScopeContext: SelectedScopeContext | null,
+  carriedAnswers: CriterionAnswers,
+): CriterionRow[] {
+  const catalog = selectedScopeContext?.selected_criteria_catalog
+  if (!Array.isArray(catalog)) return []
+
+  return catalog
+    .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+    .map((item) => {
+      const criterionId = String(item.criterion_id ?? '')
+      const carried = carriedAnswers[criterionId]
+      const hasAnswer = carried?.answer !== null && carried?.answer !== undefined && carried?.answer !== ''
+      const displayState = hasAnswer
+        ? (carried?.answer ? 'satisfied' : 'not_satisfied')
+        : 'unanswered'
+
+      return {
+        criterion_id: criterionId,
+        criterion_kind: String(item.criterion_kind ?? 'cluster_criterion') as CriterionRow['criterion_kind'],
+        prompt: String(item.prompt ?? criterionId),
+        answer_type: String(item.answer_type ?? 'boolean') as CriterionRow['answer_type'],
+        required: Boolean(item.required ?? true),
+        clinician_input: {
+          answer: carried?.answer ?? null,
+          value: carried?.value ?? null,
+          comment: carried?.comment ?? null,
+          override_prefill: carried?.override_prefill ?? false,
+          answered: hasAnswer || !!carried?.comment,
+        },
+        chart_result: {
+          status: 'Unreviewed',
+          meets_criterion: null,
+          extracted_value: null,
+          justification: null,
+          sources: {
+            structured: [],
+            notes: [],
+          },
+        },
+        ui_resolution: {
+          display_state: displayState,
+          prefill_value: null,
+          use_chart_as_prefill: false,
+          conflict_flag: false,
+          conflict_reason: null,
+          final_answer: hasAnswer ? (carried?.answer ?? null) : null,
+          final_source: hasAnswer ? 'clinician' : 'unresolved',
+        },
+      }
+    })
+}
+
 function selectedScopeMatchesScreen2(
   selectedScopeContext: SelectedScopeContext | null,
   screen2: Screen2Payload,
@@ -260,7 +313,8 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const selectedScope = computed(() => screen2.value?.payload.selected_scope ?? null)
   const selectedScopeDisplay = computed(() => screen2.value?.payload.selected_scope_display ?? null)
   const criteria = computed(() => {
-    const current = screen2.value?.payload.criteria ?? []
+    const current = screen2.value?.payload.criteria
+      ?? buildPlaceholderCriterionRows(selectedScopeContext.value, screen1Answers.value)
     return current.map((criterion) =>
       mergeCriterionForPreview(criterion, editedAnswers.value[criterion.criterion_id]),
     )

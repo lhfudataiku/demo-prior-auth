@@ -8,6 +8,7 @@ const props = defineProps<{
   answer?: CriterionAnswer
   origin?: 'screen1' | 'screen2'
   readonly?: boolean
+  loading?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -21,10 +22,12 @@ function normalizeBoolean(value: string) {
   return null
 }
 
-const evidenceStateLabel = computed(() => labelForChartStatus(props.criterion.chart_result.status))
+const evidenceStateLabel = computed(() =>
+  props.loading ? 'Loading' : labelForChartStatus(props.criterion.chart_result.status),
+)
 const criteriaStateLabel = computed(() => labelForCriterionState(props.criterion.ui_resolution.display_state))
 
-const evidenceTone = computed(() => toneForStatus(props.criterion.chart_result.status))
+const evidenceTone = computed(() => (props.loading ? 'neutral' : toneForStatus(props.criterion.chart_result.status)))
 
 const criteriaTone = computed(() => toneForStatus(props.criterion.ui_resolution.display_state))
 
@@ -72,14 +75,25 @@ const evidenceCount = computed(() =>
       <h4 class="section-title">Chart result</h4>
       <div class="status-kv">
         <span class="label">Evidence</span>
-        <span class="status-chip" :data-tone="evidenceTone">{{ evidenceStateLabel }}</span>
+        <span class="status-chip status-chip--loading" :data-tone="evidenceTone">
+          <span v-if="loading" class="loading-dot" aria-hidden="true" />
+          {{ evidenceStateLabel }}
+        </span>
       </div>
-      <div class="chart-result-copy">
-        {{ criterion.chart_result.justification || 'No chart explanation returned.' }}
+      <div class="chart-result-copy" :class="{ 'chart-result-copy--loading': loading }">
+        <template v-if="loading">
+          <span class="loading-row">
+            <span class="loading-dot" aria-hidden="true" />
+            The Structured Agent is gathering chart evidence for this criterion.
+          </span>
+        </template>
+        <template v-else>
+          {{ criterion.chart_result.justification || 'No chart explanation returned.' }}
+        </template>
       </div>
     </section>
 
-    <details class="evidence-panel" v-if="evidenceCount > 0">
+    <details class="evidence-panel" v-if="!loading && evidenceCount > 0">
       <summary>Clinical evidence ({{ evidenceCount }})</summary>
       <div class="evidence-stack">
         <div v-if="criterion.chart_result.sources.structured.length">

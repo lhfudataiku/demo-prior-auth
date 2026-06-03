@@ -76,6 +76,7 @@ function normalizeBoolean(value: string) {
             :value="screen1.payload.selection.billing_code ?? ''"
             @change="emit('select-billing-code', ($event.target as HTMLSelectElement).value)"
           >
+            <option value="">Select a billing code</option>
             <!-- TODO: Replace these placeholder billing-code labels with policy_master_v4.billing_code_sets labels. -->
             <option
               v-for="option in screen1.payload.billing_code_options"

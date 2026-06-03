@@ -36,10 +36,18 @@ const progressPercent = computed(() => {
 const canEdit = computed(() =>
   props.dataSource === 'local' || props.agentStatus === 'hitl_paused' || props.agentStatus === null,
 )
+
+const showWorkflowStatus = computed(() =>
+  !!props.agentStatus && props.criteria.length === 0,
+)
+
+const showCriteria = computed(() =>
+  props.criteria.length > 0,
+)
 </script>
 
 <template>
-  <section class="page-stack" v-if="screen2 || agentStatus">
+  <section class="page-stack" v-if="screen2 || agentStatus || criteria.length">
     <header class="page-header">
       <div>
         <h1>Eligibility review</h1>
@@ -65,7 +73,7 @@ const canEdit = computed(() =>
       </div>
     </header>
 
-    <section class="panel" v-if="agentStatus && !screen2">
+    <section class="panel" v-if="showWorkflowStatus">
       <div class="section-header">
         <p class="eyebrow">Structured agent</p>
         <h2>Workflow status</h2>
@@ -100,17 +108,17 @@ const canEdit = computed(() =>
       <p class="summary-meta" v-if="agentEvents.length">Events captured: {{ agentEvents.length }}</p>
     </section>
 
-    <section class="status-bar panel" v-if="logicEvaluation">
+    <section class="status-bar panel" v-if="logicEvaluation || criteriaCount !== null">
       <div class="status-item">
         <span class="label">Cluster status</span>
-        <span class="status-chip" :data-tone="toneForStatus(logicEvaluation.selected_cluster_status)">
-          {{ labelForCriterionState(logicEvaluation.selected_cluster_status) }}
+        <span class="status-chip" :data-tone="toneForStatus(logicEvaluation?.selected_cluster_status || 'running')">
+          {{ logicEvaluation ? labelForCriterionState(logicEvaluation.selected_cluster_status) : humanizeToken(agentStatus || 'running') }}
         </span>
       </div>
       <div class="status-item">
         <span class="label">Next action</span>
-        <span class="status-chip" :data-tone="toneForStatus(nextAction)">
-          {{ labelForNextAction(nextAction) }}
+        <span class="status-chip" :data-tone="toneForStatus(logicEvaluation ? nextAction : 'stay_screen_2')">
+          {{ logicEvaluation ? labelForNextAction(nextAction) : 'Building eligibility review' }}
         </span>
       </div>
       <div class="status-item">
@@ -119,19 +127,19 @@ const canEdit = computed(() =>
       </div>
       <div class="status-item">
         <span class="label">Satisfied</span>
-        <span class="status-chip" data-tone="positive">{{ logicEvaluation.criterion_counts.satisfied }}</span>
+        <span class="status-chip" data-tone="positive">{{ logicEvaluation?.criterion_counts.satisfied ?? '—' }}</span>
       </div>
       <div class="status-item">
         <span class="label">Not satisfied</span>
-        <span class="status-chip" data-tone="warning">{{ logicEvaluation.criterion_counts.not_satisfied }}</span>
+        <span class="status-chip" data-tone="warning">{{ logicEvaluation?.criterion_counts.not_satisfied ?? '—' }}</span>
       </div>
       <div class="status-item">
         <span class="label">Unresolved</span>
-        <span class="status-chip" data-tone="neutral">{{ logicEvaluation.criterion_counts.unresolved }}</span>
+        <span class="status-chip" data-tone="neutral">{{ logicEvaluation?.criterion_counts.unresolved ?? '—' }}</span>
       </div>
     </section>
 
-    <section class="criteria-stack" v-if="screen2">
+    <section class="criteria-stack" v-if="showCriteria">
       <CriterionCard
         v-for="criterion in criteria"
         :key="criterion.criterion_id"
@@ -139,6 +147,7 @@ const canEdit = computed(() =>
         :answer="editedAnswers[criterion.criterion_id]"
         :origin="answerOrigins[criterion.criterion_id]"
         :readonly="!canEdit"
+        :loading="dataSource === 'dss' && !screen2"
         @answer="(criterionId, value) => emit('answer', criterionId, value)"
         @comment="(criterionId, value) => emit('comment', criterionId, value)"
       />

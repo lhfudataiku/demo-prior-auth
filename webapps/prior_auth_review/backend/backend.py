@@ -17,7 +17,6 @@ from scripts.agent_flow.functions.selection_resolver import (
 from webapps.prior_auth_review.backend.data_access import (
     _build_screen2_agent_request,
     _parse_json_object_from_text,
-    default_billing_code,
     get_data_source,
     load_patient_id_options,
     load_patient_summary,
@@ -530,7 +529,6 @@ def get_screen1_bootstrap(policy_id: str):
     payload = build_screen1_payload(
         route_index_v4=load_route_index(policy_id),
         policy_master_v4=load_policy_master(policy_id),
-        billing_code=default_billing_code(policy_id),
     )
     payload["patient_summary"] = None
     payload["patient_id_options"] = load_patient_id_options()
