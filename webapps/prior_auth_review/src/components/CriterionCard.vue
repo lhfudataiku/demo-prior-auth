@@ -51,12 +51,20 @@ const evidenceCount = computed(() =>
 
 const criterionArchetype = computed(() => props.criterion.planner_context?.criterion_archetype ?? null)
 const retrievalStrategy = computed(() => props.criterion.planner_context?.retrieval_strategy ?? null)
-const reviewRequiresAttention = computed(() => props.criterion.ui_resolution.display_state !== 'satisfied')
+const hasIncompleteChartEvidence = computed(() =>
+  props.criterion.chart_result.status === 'Missing' || props.criterion.chart_result.status === 'Ambiguous',
+)
+const reviewRequiresAttention = computed(() =>
+  hasIncompleteChartEvidence.value || props.criterion.ui_resolution.display_state !== 'satisfied',
+)
 const reviewGuidance = computed(() => {
   if (props.criterion.ui_resolution.conflict_flag) {
     return props.criterion.ui_resolution.comment_guidance
       || props.criterion.ui_resolution.conflict_reason
       || 'Clinician answer differs from chart-backed evidence.'
+  }
+  if (hasIncompleteChartEvidence.value) {
+    return 'Chart evidence is incomplete for this criterion. Please review the case and add a clinician comment.'
   }
   if (!reviewRequiresAttention.value) return null
   if (props.criterion.ui_resolution.display_state === 'needs_clinician') {
