@@ -50,6 +50,7 @@ function normalizeBoolean(value: string) {
           <span>Patient ID</span>
           <select
             :value="subjectIdInput ?? ''"
+            :disabled="loading"
             @change="emit('update-subject-id', ($event.target as HTMLSelectElement).value)"
           >
             <option value="">Select a patient</option>
@@ -60,7 +61,7 @@ function normalizeBoolean(value: string) {
         </label>
         <label class="field">
           <span>Policy</span>
-          <select :value="selectedPolicyId" @change="emit('select-policy', ($event.target as HTMLSelectElement).value)">
+          <select :value="selectedPolicyId" :disabled="loading" @change="emit('select-policy', ($event.target as HTMLSelectElement).value)">
             <option v-for="option in scenarios" :key="option.policy_id" :value="option.policy_id">
               {{ option.policy_id }} — {{ option.label }}
             </option>
@@ -73,6 +74,7 @@ function normalizeBoolean(value: string) {
           <span>Billing code</span>
           <select
             :value="screen1.payload.selection.billing_code ?? ''"
+            :disabled="loading"
             @change="emit('select-billing-code', ($event.target as HTMLSelectElement).value)"
           >
             <option value="">Select a billing code</option>
@@ -91,7 +93,7 @@ function normalizeBoolean(value: string) {
           <span>Phase</span>
           <select
             :value="screen1.payload.selection.selected_phase ?? ''"
-            :disabled="screen1.payload.phase_options.length === 0"
+            :disabled="loading || screen1.payload.phase_options.length === 0"
             @change="emit('select-phase', ($event.target as HTMLSelectElement).value)"
           >
             <option value="">Select a phase</option>
@@ -106,6 +108,7 @@ function normalizeBoolean(value: string) {
         <span>Cluster</span>
         <select
           :value="screen1.payload.selection.selected_cluster_id ?? ''"
+          :disabled="loading"
           @change="emit('select-cluster', ($event.target as HTMLSelectElement).value)"
         >
           <option value="">Select a clinical cluster</option>
@@ -151,11 +154,12 @@ function normalizeBoolean(value: string) {
             <span>Answer</span>
             <select
               :value="screen1Answers[question.criterion_id]?.answer === null || screen1Answers[question.criterion_id]?.answer === undefined ? '' : String(screen1Answers[question.criterion_id]?.answer)"
+              :disabled="loading"
               @change="emit('answer-guard', question.criterion_id, normalizeBoolean(($event.target as HTMLSelectElement).value))"
             >
               <option value="">Leave unanswered</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+              <option value="true">Criterion met</option>
+              <option value="false">Criterion unmet</option>
             </select>
           </label>
         </article>

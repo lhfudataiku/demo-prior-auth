@@ -48,6 +48,25 @@ const originLabel = computed(() => {
 const evidenceCount = computed(() =>
   props.criterion.chart_result.sources.structured.length + props.criterion.chart_result.sources.notes.length,
 )
+
+const criterionArchetype = computed(() => props.criterion.planner_context?.criterion_archetype ?? null)
+const retrievalStrategy = computed(() => props.criterion.planner_context?.retrieval_strategy ?? null)
+const reviewRequiresAttention = computed(() => props.criterion.ui_resolution.display_state !== 'satisfied')
+const reviewGuidance = computed(() => {
+  if (props.criterion.ui_resolution.conflict_flag) {
+    return props.criterion.ui_resolution.comment_guidance
+      || props.criterion.ui_resolution.conflict_reason
+      || 'Clinician answer differs from chart-backed evidence.'
+  }
+  if (!reviewRequiresAttention.value) return null
+  if (props.criterion.ui_resolution.display_state === 'needs_clinician') {
+    return 'Chart evidence is incomplete for this criterion. Please review the case and add a clinician comment.'
+  }
+  if (props.criterion.ui_resolution.display_state === 'not_satisfied') {
+    return 'This criterion is not satisfied from the current evidence. Please review the result and add a clinician comment if context is needed.'
+  }
+  return 'Please review this criterion carefully and add a clinician comment when clarification is needed.'
+})
 </script>
 
 <template>
@@ -93,9 +112,13 @@ const evidenceCount = computed(() =>
       </div>
     </section>
 
-    <details class="evidence-panel" v-if="!loading && evidenceCount > 0">
+    <details class="evidence-panel" v-if="!loading && (evidenceCount > 0 || criterionArchetype || retrievalStrategy)">
       <summary>Clinical evidence ({{ evidenceCount }})</summary>
       <div class="evidence-stack">
+        <div class="chip-row" v-if="criterionArchetype || retrievalStrategy">
+          <span v-if="criterionArchetype" class="detail-chip">Archetype: {{ criterionArchetype }}</span>
+          <span v-if="retrievalStrategy" class="detail-chip">Strategy: {{ retrievalStrategy }}</span>
+        </div>
         <div v-if="criterion.chart_result.sources.structured.length">
           <p class="label">Structured evidence</p>
           <pre class="evidence-pre">{{ JSON.stringify(criterion.chart_result.sources.structured, null, 2) }}</pre>
@@ -108,7 +131,10 @@ const evidenceCount = computed(() =>
     </details>
 
     <section class="criterion-section">
-      <h4 class="section-title">Clinician review</h4>
+      <div class="chip-row">
+        <h4 class="section-title">Clinician review</h4>
+        <span v-if="reviewRequiresAttention" class="status-chip" data-tone="neutral">Required</span>
+      </div>
       <div class="field-group vertical">
         <label class="field">
           <span>Answer</span>
@@ -135,12 +161,8 @@ const evidenceCount = computed(() =>
       </div>
     </section>
 
-    <div v-if="criterion.ui_resolution.conflict_flag" class="conflict-box">
-      {{
-        criterion.ui_resolution.comment_guidance
-          || criterion.ui_resolution.conflict_reason
-          || 'Clinician answer differs from chart-backed evidence.'
-      }}
+    <div v-if="reviewGuidance" class="conflict-box">
+      {{ reviewGuidance }}
     </div>
   </article>
 </template>

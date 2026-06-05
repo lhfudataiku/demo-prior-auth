@@ -157,6 +157,7 @@ def build_criterion_ui_map(trace: Any) -> None:
         selected_scope_context=selected_scope_context,
         criterion_result_map=state.get("criterion_result_map", {}),
         criterion_answers=state.get("criterion_answers", {}),
+        retrieval_plan=state.get("retrieval_plan_v1"),
     )
     state["criterion_ui_map"] = criterion_ui_map
 
@@ -174,6 +175,7 @@ def build_screen2_payload(trace: Any) -> None:
             selected_scope_context=get_selected_scope_context(state),
             criterion_result_map=state.get("criterion_result_map", {}),
             criterion_answers=state.get("criterion_answers", {}),
+            retrieval_plan=state.get("retrieval_plan_v1"),
         )
 
     payload = build_screen2_payload_data(state)

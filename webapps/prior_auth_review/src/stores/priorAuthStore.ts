@@ -130,6 +130,10 @@ function buildPlaceholderCriterionRows(
         prompt: String(item.prompt ?? criterionId),
         answer_type: String(item.answer_type ?? 'boolean') as CriterionRow['answer_type'],
         required: Boolean(item.required ?? true),
+        planner_context: {
+          criterion_archetype: null,
+          retrieval_strategy: null,
+        },
         clinician_input: {
           answer: carried?.answer ?? null,
           value: carried?.value ?? null,

@@ -74,17 +74,29 @@ The `current_plan_item` may include:
 - `source_criterion_snapshot`
 
 Interpretation priority:
-1. `execution_hints`
-2. `ehr_query_fragment`
-3. `time_constraint`
-4. `note_search_tokens`
-5. `clinical_intent`
-6. `source_criterion_snapshot`
+1. `prompt`
+2. `clinical_intent`
+3. `execution_hints`
+4. `ehr_query_fragment`
+5. `time_constraint`
+6. `note_search_tokens`
+7. `source_criterion_snapshot`
 
 Treat the provided plan item as authoritative:
 - do not split it into multiple criteria
 - do not merge it with another criterion
 - do not infer stricter or broader requirements than the plan item encodes
+
+Mismatch handling:
+- if `execution_hints.criterion_archetype` conflicts with the semantic meaning
+  of the criterion prompt, follow the prompt and `clinical_intent`
+- example: if the prompt asks about severity, activity, remission, response,
+  refractory state, stage, or progression, do not treat the criterion as
+  diagnosis-only just because the supplied archetype is
+  `ARC_dx_code_range_with_lookback`
+- when such a mismatch occurs, preserve the diagnosis-coded evidence if found,
+  but continue qualifier resolution and return `Ambiguous` if the qualifier
+  itself cannot be established
 
 ## 4) Output contract
 
@@ -210,6 +222,8 @@ correctly.
 - `ARC_dx_code_range_with_lookback`
   - diagnosis code presence can satisfy the criterion when the prompt is purely
     coded diagnosis confirmation
+  - if the prompt asks for a qualifier beyond diagnosis presence, do not stop
+    at diagnosis confirmation; treat the diagnosis code as partial support only
   - when code ranges are present in `ehr_query_fragment.codes` or
     `source_criterion_snapshot.code_binding.source_codes`, ask a diagnosis-code
     question that explicitly references those ranges
@@ -234,6 +248,9 @@ correctly.
   - diagnosis code evidence may support but is usually not sufficient alone
   - note evidence often resolves activity, severity, refractory state,
     progression, stage, or remission qualifiers
+  - if the supplied plan item was under-specified and the prompt clearly asks
+    for a qualifier, continue qualifier resolution even when the structured leg
+    finds only broad diagnosis support
 - `ARC_regimen_combination_or_concomitant_use`
   - medication exposure evidence may support but is usually not sufficient
     alone

@@ -127,6 +127,7 @@ def main() -> None:
             selected_scope_context=state.get("selected_scope_context"),
             criterion_result_map=state.get("criterion_result_map", {}),
             criterion_answers=state.get("criterion_answers", {}),
+            retrieval_plan=state.get("retrieval_plan_v1"),
         )
         state_with_ui = dict(state)
         state_with_ui["criterion_ui_map"] = criterion_ui_map

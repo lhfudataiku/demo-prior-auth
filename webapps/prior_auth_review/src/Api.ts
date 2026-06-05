@@ -142,12 +142,18 @@ export interface UiResolution {
   final_source: 'chart' | 'clinician' | 'unresolved'
 }
 
+export interface PlannerContext {
+  criterion_archetype?: string | null
+  retrieval_strategy?: string | null
+}
+
 export interface CriterionRow {
   criterion_id: string
   criterion_kind: 'route_guard' | 'cluster_entry_guard' | 'inherited_diagnosis' | 'cluster_criterion'
   prompt: string
   answer_type: 'boolean' | 'string' | 'number'
   required: boolean
+  planner_context?: PlannerContext
   clinician_input: ClinicianInput
   chart_result: ChartResult
   ui_resolution: UiResolution

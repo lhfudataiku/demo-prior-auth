@@ -101,6 +101,28 @@ def _display_state_from_boolean(boolean_value: bool) -> str:
     return "satisfied" if boolean_value else "not_satisfied"
 
 
+def _plan_items_by_criterion_id(retrieval_plan: Any) -> Dict[str, Dict[str, Any]]:
+    plan = retrieval_plan if isinstance(retrieval_plan, dict) else {}
+    plan_items = plan.get("plan_items") if isinstance(plan.get("plan_items"), list) else []
+    indexed: Dict[str, Dict[str, Any]] = {}
+    for item in plan_items:
+        if not isinstance(item, dict):
+            continue
+        criterion_id = item.get("criterion_id")
+        if isinstance(criterion_id, str) and criterion_id:
+            indexed[criterion_id] = item
+    return indexed
+
+
+def _planner_context_for_criterion(plan_item: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    item = plan_item if isinstance(plan_item, dict) else {}
+    execution_hints = item.get("execution_hints") if isinstance(item.get("execution_hints"), dict) else {}
+    return {
+        "criterion_archetype": execution_hints.get("criterion_archetype"),
+        "retrieval_strategy": execution_hints.get("retrieval_strategy"),
+    }
+
+
 def _derive_comment_requirement(
     conflict_flag: bool,
     clinician_input: Dict[str, Any],
@@ -234,10 +256,12 @@ def build_criterion_ui_map_data(
     selected_scope_context: Optional[Dict[str, Any]],
     criterion_result_map: Optional[CriterionResultMap],
     criterion_answers: Optional[Dict[str, Any]],
+    retrieval_plan: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     scope_context = selected_scope_context if isinstance(selected_scope_context, dict) else {}
     result_map = criterion_result_map if isinstance(criterion_result_map, dict) else {}
     answers_map = criterion_answers if isinstance(criterion_answers, dict) else {}
+    plan_items_by_id = _plan_items_by_criterion_id(retrieval_plan)
 
     criteria_by_id: Dict[str, Dict[str, Any]] = {}
     for criterion in scope_context.get("selected_criteria_catalog", []) or []:
@@ -252,12 +276,14 @@ def build_criterion_ui_map_data(
         criterion = criteria_by_id.get(criterion_id, {})
         clinician_input = _normalize_clinician_input(answers_map.get(criterion_id))
         chart_result = _normalize_chart_result(result_map.get(criterion_id))
+        plan_item = plan_items_by_id.get(criterion_id)
         ui_map[criterion_id] = {
             "criterion_id": criterion_id,
             "criterion_kind": criterion.get("criterion_kind", "cluster_criterion"),
             "prompt": criterion.get("prompt", criterion_id),
             "answer_type": criterion.get("answer_type", "boolean"),
             "required": _coerce_bool(criterion.get("required"), default=True),
+            "planner_context": _planner_context_for_criterion(plan_item),
             "clinician_input": clinician_input,
             "chart_result": chart_result,
             "ui_resolution": _derive_ui_resolution(
@@ -274,10 +300,12 @@ def _normalize_existing_criterion_ui_map_data(
     selected_scope_context: Optional[Dict[str, Any]],
     criterion_ui_map: Optional[Dict[str, Any]],
     criterion_answers: Optional[Dict[str, Any]],
+    retrieval_plan: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     scope_context = selected_scope_context if isinstance(selected_scope_context, dict) else {}
     raw_ui_map = criterion_ui_map if isinstance(criterion_ui_map, dict) else {}
     answers_map = criterion_answers if isinstance(criterion_answers, dict) else {}
+    plan_items_by_id = _plan_items_by_criterion_id(retrieval_plan)
 
     criteria_by_id: Dict[str, Dict[str, Any]] = {}
     for criterion in scope_context.get("selected_criteria_catalog", []) or []:
@@ -303,12 +331,19 @@ def _normalize_existing_criterion_ui_map_data(
         )
         clinician_input = _normalize_clinician_input(raw_clinician_input)
         chart_result = _normalize_chart_result(existing_row.get("chart_result"))
+        plan_item = plan_items_by_id.get(criterion_id)
+        planner_context = (
+            _planner_context_for_criterion(plan_item)
+            if plan_item
+            else existing_row.get("planner_context", {}) if isinstance(existing_row.get("planner_context"), dict) else {}
+        )
         normalized_ui_map[criterion_id] = {
             "criterion_id": criterion_id,
             "criterion_kind": existing_row.get("criterion_kind", catalog_row.get("criterion_kind", "cluster_criterion")),
             "prompt": existing_row.get("prompt", catalog_row.get("prompt", criterion_id)),
             "answer_type": answer_type,
             "required": _coerce_bool(existing_row.get("required", catalog_row.get("required")), default=True),
+            "planner_context": planner_context,
             "clinician_input": clinician_input,
             "chart_result": chart_result,
             "ui_resolution": _derive_ui_resolution(
@@ -342,12 +377,14 @@ def build_screen2_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
             selected_scope_context=selected_scope_context,
             criterion_ui_map=criterion_ui_map,
             criterion_answers=runtime_state.get("criterion_answers", {}),
+            retrieval_plan=runtime_state.get("retrieval_plan_v1"),
         )
     else:
         criterion_ui_map = build_criterion_ui_map_data(
             selected_scope_context=selected_scope_context,
             criterion_result_map=runtime_state.get("criterion_result_map", {}),
             criterion_answers=runtime_state.get("criterion_answers", {}),
+            retrieval_plan=runtime_state.get("retrieval_plan_v1"),
         )
 
     logic_evaluation = runtime_state.get("logic_evaluation")
@@ -630,12 +667,14 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
             selected_scope_context=selected_scope_context,
             criterion_ui_map=criterion_ui_map,
             criterion_answers=runtime_state.get("criterion_answers", {}),
+            retrieval_plan=runtime_state.get("retrieval_plan_v1"),
         )
     else:
         criterion_ui_map = build_criterion_ui_map_data(
             selected_scope_context=selected_scope_context,
             criterion_result_map=runtime_state.get("criterion_result_map", {}),
             criterion_answers=runtime_state.get("criterion_answers", {}),
+            retrieval_plan=runtime_state.get("retrieval_plan_v1"),
         )
 
     criteria = _order_criterion_rows(selected_scope_context, criterion_ui_map)

@@ -129,6 +129,12 @@ Interpretation notes:
 15. Treat the scoped criterion shape as authoritative:
     - do not re-split a composite criterion into multiple plan items
     - do not merge multiple scoped criteria into one broader plan item
+16. If a criterion prompt asks about severity, activity, remission, response,
+    refractory state, progression, or stage, you must treat that qualifier as
+    the dominant semantic target even when diagnosis code ranges are present.
+17. Do not assign `ARC_dx_code_range_with_lookback` to a criterion that asks
+    for a disease qualifier unless the prompt is purely coded diagnosis
+    confirmation.
 
 ## 4) Top-level output schema
 
@@ -271,6 +277,18 @@ Mapping guidance:
 - mixed structured + narrative qualifier with no better semantic fit ->
   `ARC_hybrid_structured_note` + `hybrid`
 
+Qualifier precedence:
+- if the prompt or clinical intent asks whether a disease is moderately to
+  severely active, in remission, improving, refractory, progressive, staged,
+  or otherwise qualifier-scoped, prefer
+  `ARC_disease_activity_or_severity_state` + `hybrid`
+- diagnosis code ranges may ground the structured leg for those criteria, but
+  they must not downgrade the archetype to diagnosis-only
+- example:
+  - "Does the member have moderately to severely active ulcerative colitis?"
+    must use `ARC_disease_activity_or_severity_state`, not
+    `ARC_dx_code_range_with_lookback`
+
 ### D. Hybrid archetype grounding
 
 For `ARC_disease_activity_or_severity_state`:
@@ -284,6 +302,9 @@ For `ARC_disease_activity_or_severity_state`:
   while `codes` carry the diagnosis grounding
 - keep note evidence focused on activity, severity, progression, refractory
   state, remission, or similar qualifiers
+- when the criterion prompt itself contains a qualifier, that qualifier must
+  remain the primary planning target; diagnosis codes are supporting grounding,
+  not the full criterion
 
 For `ARC_regimen_combination_or_concomitant_use`:
 - the structured SQL leg should be grounded in medication exposure semantics
