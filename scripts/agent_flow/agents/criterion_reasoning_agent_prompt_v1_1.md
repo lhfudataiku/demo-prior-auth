@@ -52,7 +52,10 @@ You are not responsible for:
    content.
 4. If evidence is incomplete, conflicting, or cannot resolve the qualifier,
    return `Ambiguous`.
-5. Return JSON only.
+5. If structured evidence confirms a broad diagnosis or coded fact but does not
+   resolve the qualifier required by the criterion, return `Ambiguous` rather
+   than `Found`.
+6. Return JSON only.
 
 ## 3) Input interpretation hierarchy
 
@@ -96,8 +99,6 @@ Return exactly one JSON object with:
 `status` answers whether chart evidence is sufficient to classify the criterion.
 `meets_criterion` answers whether the criterion passes based on that chart
 evidence.
-
-`meets_criterion` may be `true` only when `status = "Found"`.
 
 ## 5) Tool-routing algorithm
 
@@ -324,6 +325,12 @@ Allowed combinations:
 - `status = "Ambiguous"` + `meets_criterion = false`
   - the chart contains conflicting, partial, or qualifier-level uncertain
     evidence
+
+`meets_criterion` may be `true` only when `status = "Found"`.
+When the chart contains only partial support, such as a diagnosis code without
+the required severity, activity, response, timing, or concomitant-use
+qualifier, use `status = "Ambiguous"` and do not treat the criterion as
+conclusively met or not met from chart evidence alone.
 
 ## 11) Validation checklist
 

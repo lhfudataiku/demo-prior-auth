@@ -13,7 +13,7 @@ It should:
 - evaluate the selected cluster logic tree
 - prepare the Screen 2 review payload
 - call an approval-enabled managed Python review tool
-- capture approved or edited review input and return the Screen 3 payload
+- capture approved or edited review input and return the reviewed Screen 2 artifact
 
 Screen 1 remains deterministic backend logic and is out of scope for this
 agent.
@@ -141,12 +141,12 @@ this object directly.
         "criterion_id": "string",
         "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
         "prompt": "string",
-        "display_state": "conflict",
-        "type": "conflict",
+        "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
+        "type": "clinician_override | other_warning_type",
         "message": "string"
       }
     ],
-    "submission_ready": false
+    "submission_ready": true
   },
   "messages": []
 }
@@ -368,13 +368,15 @@ Optional API fallback:
   the tool result explicitly as a JSON string
 - configure the managed tool to enforce human approval before execution
 - if the reviewer edits criterion answers, treat those edits as clinician input
-- after approval, continue deterministically to Screen 3 recomputation
+- after approval, emit the reviewed Screen 2 artifact and let the backend
+  deterministically recompute Screen 3
 - no LLM block, delegated reasoning block, or chart retrieval is required after
   approval
 - if approval is rejected, do not continue to Screen 3 submission-ready output
 - if any required criterion remains unresolved and unanswered, `submission_ready=false`
 - if clinician answers conflict with chart-backed `criterion_result_map`, emit a
-  structured warning item and set `submission_ready=false`
+  structured warning item without changing the clinician-selected final
+  criterion disposition
 - if all required criteria are answered, allow `proceed_screen_3`
 
 ## Recommended State Shapes
@@ -470,11 +472,13 @@ Guidance:
       }
     },
     "ui_resolution": {
-      "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered",
+      "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
       "prefill_value": null,
       "use_chart_as_prefill": false,
       "conflict_flag": false,
       "conflict_reason": null,
+      "comment_required": false,
+      "comment_guidance": null,
       "final_answer": null,
       "final_source": "chart | clinician | unresolved | system"
     }
@@ -514,9 +518,12 @@ Recommended merge rules:
   - keep `display_state` aligned to the agreed outcome
 - if clinician answer exists and materially conflicts with a chart-backed
   `Found` result
-  - set `display_state = conflict`
+  - keep `display_state` aligned to the clinician answer
   - set `conflict_flag = true`
   - explain the mismatch in `conflict_reason`
+  - if the clinician comment is blank, set `comment_required = true`
+  - use warnings for auditability, but do not let the warning override the
+    clinician-selected final criterion state
 - treat Screen 1 and Screen 2 clinician answers identically once they are in
   `criterion_answers`; the merge layer should not care where the answer was
   first entered

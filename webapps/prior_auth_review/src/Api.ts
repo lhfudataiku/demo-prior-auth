@@ -136,6 +136,8 @@ export interface UiResolution {
   use_chart_as_prefill: boolean
   conflict_flag: boolean
   conflict_reason: string | null
+  comment_required?: boolean
+  comment_guidance?: string | null
   final_answer: boolean | string | number | null
   final_source: 'chart' | 'clinician' | 'unresolved'
 }

@@ -44,11 +44,33 @@ def _normalize_clinician_input(raw: Any) -> Dict[str, Any]:
 def _normalize_chart_result(raw: Any) -> Dict[str, Any]:
     source = raw if isinstance(raw, dict) else {}
     chart_sources = source.get("sources") if isinstance(source.get("sources"), dict) else {}
+    justification = source.get("justification")
+    extracted_value = source.get("extracted_value")
+    normalized_status = str(source.get("status", "Unreviewed"))
+    if (
+        normalized_status == "Found"
+        and _coerce_bool(source.get("meets_criterion"), default=False) is False
+        and extracted_value is not None
+        and isinstance(justification, str)
+    ):
+        lowered = justification.lower()
+        partial_evidence_markers = (
+            "does not document the required",
+            "does not document",
+            "no records describe",
+            "cannot be confirmed",
+            "insufficient evidence",
+            "missing qualifier",
+            "required severity qualifier",
+            "not documented",
+        )
+        if any(marker in lowered for marker in partial_evidence_markers):
+            normalized_status = "Ambiguous"
     return {
-        "status": str(source.get("status", "Unreviewed")),
+        "status": normalized_status,
         "meets_criterion": _coerce_bool(source.get("meets_criterion"), default=False),
-        "extracted_value": source.get("extracted_value"),
-        "justification": source.get("justification"),
+        "extracted_value": extracted_value,
+        "justification": justification,
         "sources": {
             "structured": list(chart_sources.get("structured", []) or []),
             "notes": list(chart_sources.get("notes", []) or []),
@@ -79,6 +101,28 @@ def _display_state_from_boolean(boolean_value: bool) -> str:
     return "satisfied" if boolean_value else "not_satisfied"
 
 
+def _derive_comment_requirement(
+    conflict_flag: bool,
+    clinician_input: Dict[str, Any],
+) -> Dict[str, Any]:
+    comment = clinician_input.get("comment")
+    has_comment = isinstance(comment, str) and bool(comment.strip())
+    comment_required = conflict_flag and not has_comment
+    comment_guidance = None
+    if comment_required:
+        comment_guidance = (
+            "Clinician answer differs from chart-backed evidence. Please add a clinician comment."
+        )
+    elif conflict_flag:
+        comment_guidance = (
+            "Clinician answer differs from chart-backed evidence. A clinician comment is recommended."
+        )
+    return {
+        "comment_required": comment_required,
+        "comment_guidance": comment_guidance,
+    }
+
+
 def _derive_ui_resolution(
     chart_result: Dict[str, Any],
     clinician_input: Dict[str, Any],
@@ -92,18 +136,14 @@ def _derive_ui_resolution(
     conflict_flag = False
     conflict_reason = None
 
-    if clinician_input.get("answered") and chart_status == "Found" and clinician_final_value is not None:
+    if clinician_input.get("answered") and chart_prefill is not None and clinician_final_value is not None:
         if clinician_final_value != chart_prefill:
             conflict_flag = True
             conflict_reason = (
                 "Clinician answer differs from chart-backed evidence for this criterion."
             )
 
-    if conflict_flag:
-        display_state = "conflict"
-        final_answer = clinician_final_value
-        final_source = "clinician"
-    elif clinician_input.get("answered"):
+    if clinician_input.get("answered"):
         if isinstance(clinician_input.get("answer"), bool):
             display_state = _display_state_from_boolean(clinician_input["answer"])
         else:
@@ -123,12 +163,16 @@ def _derive_ui_resolution(
         final_answer = None
         final_source = "unresolved"
 
+    comment_requirement = _derive_comment_requirement(conflict_flag, clinician_input)
+
     return {
         "display_state": display_state,
         "prefill_value": chart_prefill,
         "use_chart_as_prefill": chart_status == "Found",
         "conflict_flag": conflict_flag,
         "conflict_reason": conflict_reason,
+        "comment_required": comment_requirement["comment_required"],
+        "comment_guidance": comment_requirement["comment_guidance"],
         "final_answer": final_answer,
         "final_source": final_source,
     }
@@ -226,6 +270,57 @@ def build_criterion_ui_map_data(
     return ui_map
 
 
+def _normalize_existing_criterion_ui_map_data(
+    selected_scope_context: Optional[Dict[str, Any]],
+    criterion_ui_map: Optional[Dict[str, Any]],
+    criterion_answers: Optional[Dict[str, Any]],
+) -> Dict[str, Any]:
+    scope_context = selected_scope_context if isinstance(selected_scope_context, dict) else {}
+    raw_ui_map = criterion_ui_map if isinstance(criterion_ui_map, dict) else {}
+    answers_map = criterion_answers if isinstance(criterion_answers, dict) else {}
+
+    criteria_by_id: Dict[str, Dict[str, Any]] = {}
+    for criterion in scope_context.get("selected_criteria_catalog", []) or []:
+        if not isinstance(criterion, dict):
+            continue
+        criterion_id = criterion.get("criterion_id")
+        if isinstance(criterion_id, str) and criterion_id:
+            criteria_by_id[criterion_id] = criterion
+
+    normalized_ui_map: Dict[str, Any] = {}
+    for criterion_id in _ordered_criterion_ids(scope_context):
+        existing_row = raw_ui_map.get(criterion_id) if isinstance(raw_ui_map.get(criterion_id), dict) else {}
+        catalog_row = criteria_by_id.get(criterion_id, {})
+        answer_type = str(
+            existing_row.get("answer_type")
+            or catalog_row.get("answer_type")
+            or "boolean"
+        )
+        raw_clinician_input = (
+            answers_map.get(criterion_id)
+            if criterion_id in answers_map
+            else existing_row.get("clinician_input")
+        )
+        clinician_input = _normalize_clinician_input(raw_clinician_input)
+        chart_result = _normalize_chart_result(existing_row.get("chart_result"))
+        normalized_ui_map[criterion_id] = {
+            "criterion_id": criterion_id,
+            "criterion_kind": existing_row.get("criterion_kind", catalog_row.get("criterion_kind", "cluster_criterion")),
+            "prompt": existing_row.get("prompt", catalog_row.get("prompt", criterion_id)),
+            "answer_type": answer_type,
+            "required": _coerce_bool(existing_row.get("required", catalog_row.get("required")), default=True),
+            "clinician_input": clinician_input,
+            "chart_result": chart_result,
+            "ui_resolution": _derive_ui_resolution(
+                chart_result=chart_result,
+                clinician_input=clinician_input,
+                answer_type=answer_type,
+            ),
+        }
+
+    return normalized_ui_map
+
+
 def _order_criterion_rows(
     selected_scope_context: Dict[str, Any],
     criterion_ui_map: Dict[str, Any],
@@ -242,7 +337,13 @@ def build_screen2_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
     runtime_state = state if isinstance(state, dict) else {}
     selected_scope_context = get_selected_scope_context(runtime_state)
     criterion_ui_map = runtime_state.get("criterion_ui_map")
-    if not isinstance(criterion_ui_map, dict) or not criterion_ui_map:
+    if isinstance(criterion_ui_map, dict) and criterion_ui_map:
+        criterion_ui_map = _normalize_existing_criterion_ui_map_data(
+            selected_scope_context=selected_scope_context,
+            criterion_ui_map=criterion_ui_map,
+            criterion_answers=runtime_state.get("criterion_answers", {}),
+        )
+    else:
         criterion_ui_map = build_criterion_ui_map_data(
             selected_scope_context=selected_scope_context,
             criterion_result_map=runtime_state.get("criterion_result_map", {}),
@@ -415,6 +516,80 @@ def _merge_reviewed_screen2_payload(
     return merged_payload
 
 
+def _build_screen3_sections(
+    criteria: List[Dict[str, Any]],
+) -> Dict[str, Any]:
+    answered_criteria: List[Dict[str, Any]] = []
+    unanswered_required_items: List[Dict[str, Any]] = []
+    warnings: List[Dict[str, Any]] = []
+
+    for row in criteria:
+        if not isinstance(row, dict):
+            continue
+
+        ui_resolution = row.get("ui_resolution", {}) or {}
+        clinician_input = row.get("clinician_input", {}) or {}
+        final_answer = ui_resolution.get("final_answer")
+        conflict_flag = _coerce_bool(ui_resolution.get("conflict_flag"), default=False)
+        comment_required = _coerce_bool(ui_resolution.get("comment_required"), default=False)
+
+        if final_answer is None and row.get("required"):
+            unanswered_required_items.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "display_state": ui_resolution.get("display_state"),
+                }
+            )
+            continue
+
+        if final_answer is not None:
+            answered_criteria.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "final_answer": final_answer,
+                    "final_source": ui_resolution.get("final_source"),
+                    "display_state": ui_resolution.get("display_state"),
+                    "comment": clinician_input.get("comment"),
+                }
+            )
+
+        if conflict_flag:
+            warnings.append(
+                {
+                    "criterion_id": row.get("criterion_id"),
+                    "criterion_kind": row.get("criterion_kind"),
+                    "prompt": row.get("prompt"),
+                    "display_state": ui_resolution.get("display_state"),
+                    "type": "clinician_override",
+                    "message": (
+                        ui_resolution.get("comment_guidance")
+                        if comment_required
+                        else ui_resolution.get("conflict_reason")
+                    )
+                    or "Clinician answer differs from chart-backed evidence.",
+                }
+            )
+
+    submission_ready = not unanswered_required_items
+    status = "complete"
+    if unanswered_required_items:
+        status = "blocked"
+    elif warnings:
+        status = "warning"
+
+    return {
+        "answered_criteria": answered_criteria,
+        "unanswered_required_items": unanswered_required_items,
+        "warnings": warnings,
+        "submission_ready": submission_ready,
+        "status": status,
+    }
+
+
 def normalize_review_result_data(raw_review_result: Any) -> Dict[str, Any]:
     review_result = _extract_review_result_data(raw_review_result)
     if not review_result:
@@ -450,7 +625,13 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
     runtime_state = state if isinstance(state, dict) else {}
     selected_scope_context = get_selected_scope_context(runtime_state)
     criterion_ui_map = runtime_state.get("criterion_ui_map")
-    if not isinstance(criterion_ui_map, dict) or not criterion_ui_map:
+    if isinstance(criterion_ui_map, dict) and criterion_ui_map:
+        criterion_ui_map = _normalize_existing_criterion_ui_map_data(
+            selected_scope_context=selected_scope_context,
+            criterion_ui_map=criterion_ui_map,
+            criterion_answers=runtime_state.get("criterion_answers", {}),
+        )
+    else:
         criterion_ui_map = build_criterion_ui_map_data(
             selected_scope_context=selected_scope_context,
             criterion_result_map=runtime_state.get("criterion_result_map", {}),
@@ -458,54 +639,7 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
         )
 
     criteria = _order_criterion_rows(selected_scope_context, criterion_ui_map)
-    answered_criteria: List[Dict[str, Any]] = []
-    unanswered_required_items: List[Dict[str, Any]] = []
-    warnings: List[Dict[str, Any]] = []
-
-    for row in criteria:
-        ui_resolution = row.get("ui_resolution", {})
-        clinician_input = row.get("clinician_input", {})
-        final_answer = ui_resolution.get("final_answer")
-        conflict_flag = _coerce_bool(ui_resolution.get("conflict_flag"), default=False)
-
-        if conflict_flag:
-            warnings.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "display_state": ui_resolution.get("display_state"),
-                    "type": "conflict",
-                    "message": ui_resolution.get("conflict_reason")
-                    or "Clinician answer conflicts with chart-backed evidence.",
-                }
-            )
-        elif final_answer is None and row.get("required"):
-            unanswered_required_items.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "display_state": ui_resolution.get("display_state"),
-                }
-            )
-        else:
-            answered_criteria.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "final_answer": final_answer,
-                    "final_source": ui_resolution.get("final_source"),
-                    "display_state": ui_resolution.get("display_state"),
-                    "comment": clinician_input.get("comment"),
-                }
-            )
-
-    submission_ready = not unanswered_required_items and not warnings
-    status = "complete" if submission_ready and not warnings else "warning"
-    if unanswered_required_items:
-        status = "blocked"
+    sections = _build_screen3_sections(criteria)
 
     review_summary = {
         "selected_scope": {
@@ -516,21 +650,21 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
         "selected_scope_display": _selected_scope_display(selected_scope_context),
         "criterion_totals": {
             "total": len(criteria),
-            "answered": len(answered_criteria),
-            "unanswered_required": len(unanswered_required_items),
-            "conflicts": len(warnings),
+            "answered": len(sections["answered_criteria"]),
+            "unanswered_required": len(sections["unanswered_required_items"]),
+            "conflicts": len(sections["warnings"]),
         },
         "logic_evaluation": runtime_state.get("logic_evaluation", {}) or {},
     }
 
     return {
-        "status": status,
+        "status": sections["status"],
         "payload": {
             "review_summary": review_summary,
-            "answered_criteria": answered_criteria,
-            "unanswered_required_items": unanswered_required_items,
-            "warnings": warnings,
-            "submission_ready": submission_ready,
+            "answered_criteria": sections["answered_criteria"],
+            "unanswered_required_items": sections["unanswered_required_items"],
+            "warnings": sections["warnings"],
+            "submission_ready": sections["submission_ready"],
         },
         "messages": list(runtime_state.get("messages", []) or []),
     }
@@ -616,63 +750,18 @@ def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dic
         "logic_evaluation": logic_evaluation,
     }
 
-    answered_criteria: List[Dict[str, Any]] = []
-    unanswered_required_items: List[Dict[str, Any]] = []
-    warnings: List[Dict[str, Any]] = []
-
-    for row in criteria:
-        if not isinstance(row, dict):
-            continue
-        ui_resolution = row.get("ui_resolution", {}) or {}
-        clinician_input = row.get("clinician_input", {}) or {}
-        final_answer = ui_resolution.get("final_answer")
-        conflict_flag = _coerce_bool(ui_resolution.get("conflict_flag"), default=False)
-
-        if conflict_flag:
-            warnings.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "display_state": ui_resolution.get("display_state"),
-                    "type": "conflict",
-                    "message": ui_resolution.get("conflict_reason")
-                    or "Clinician answer conflicts with chart-backed evidence.",
-                }
-            )
-        elif final_answer is None and row.get("required"):
-            unanswered_required_items.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "display_state": ui_resolution.get("display_state"),
-                }
-            )
-        else:
-            answered_criteria.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "final_answer": final_answer,
-                    "final_source": ui_resolution.get("final_source"),
-                    "display_state": ui_resolution.get("display_state"),
-                    "comment": clinician_input.get("comment"),
-                }
-            )
+    sections = _build_screen3_sections(criteria)
 
     review_summary["criterion_totals"] = {
         "total": len(criteria),
-        "answered": len(answered_criteria),
-        "unanswered_required": len(unanswered_required_items),
-        "conflicts": len(warnings),
+        "answered": len(sections["answered_criteria"]),
+        "unanswered_required": len(sections["unanswered_required_items"]),
+        "conflicts": len(sections["warnings"]),
     }
 
-    submission_ready = not unanswered_required_items and not warnings
-    status = "complete" if submission_ready else "warning"
-    if unanswered_required_items:
-        status = "blocked"
+    warnings = list(sections["warnings"])
+    submission_ready = sections["submission_ready"]
+    status = sections["status"]
     if review_result.get("approval_status") == "rejected":
         status = "blocked"
         warnings.insert(
@@ -688,8 +777,8 @@ def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dic
         "status": status,
         "payload": {
             "review_summary": review_summary,
-            "answered_criteria": answered_criteria,
-            "unanswered_required_items": unanswered_required_items,
+            "answered_criteria": sections["answered_criteria"],
+            "unanswered_required_items": sections["unanswered_required_items"],
             "warnings": warnings,
             "submission_ready": submission_ready,
         },

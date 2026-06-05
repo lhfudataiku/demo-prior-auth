@@ -4,42 +4,54 @@ Don't overcode. This is a POC.
 
 ## Project Goal
 
-This repo contains a prior-authorization POC with:
+This repo contains a release-stage prior-authorization POC with:
 
 - a deterministic Screen 1 scope-selection flow
 - a clinician-facing Vue webapp for Screen 1, Screen 2, and Screen 3
 - explicit `local` and `dss` runtime paths in the webapp backend
-- fixture-backed local development plus a live DSS Structured Agent path
-- a native DSS human-in-the-loop review flow for Screen 2
+- a live DSS Structured Agent path for Screen 2 reasoning and human review
+- deterministic backend/webapp generation of Screen 3 after review
 
-## Current Status
+## Release Status
 
-The project has moved beyond the earlier fixture-only Screen 2 review scaffold.
+This project has reached release stage for the current POC scope.
 
-Current state on branch `webapp-clean`:
+What is complete:
 
-- Screen 1 is implemented as a deterministic backend-driven flow with:
+- Screen 1 is implemented as deterministic backend logic with:
   - patient selection
   - policy selection
   - billing code selection
   - phase selection when required
   - cluster selection
   - route-guard and cluster-entry-guard questions
-- Screen 2 supports 2 operational paths:
+- Screen 2 is implemented in both runtime modes:
   - `local`
-    - synchronous bootstrap from fixture/static artifacts
-    - direct clinician editing in the webapp
-    - deterministic Screen 3 generation in backend utils
+    - synchronous fixture/static bootstrap
+    - clinician editing in the webapp
+    - deterministic Screen 3 generation after submit
   - `dss`
-    - starts a live Structured Agent run
-    - polls normalized run state from the backend
-    - shows streamed block/criterion progress while the agent runs
-    - renders the paused human-review payload when HITL is reached
-    - resumes the same run after clinician approval or edits
-- Screen 3 is produced deterministically from reviewed answers and current
-  Screen 2 payload state
-- the frontend UI has been tightened for Screen 1 and Screen 2 and now treats
-  async DSS progress as a first-class state, not an afterthought
+    - live Structured Agent run start
+    - run-state polling
+    - streamed progress display
+    - HITL pause at human review
+    - resume after clinician approval or edits
+- Screen 3 is fully deterministic and is no longer owned by the Structured
+  Agent
+- the frontend has release-ready workflow polish for:
+  - consistent Screen 1 / Screen 2 CTA behavior
+  - agent progress feedback
+  - return from Screen 3 to a targeted Screen 2 criterion for re-editing
+  - deterministic re-edit flow without involving the Structured Agent
+
+What is intentionally true for this release:
+
+- the Structured Agent ends with the reviewed Screen 2 artifact
+  `screen_2_review_result`
+- Screen 3 is built downstream from that reviewed artifact by deterministic
+  helpers/backend logic
+- this keeps the post-review output flexible for future targets such as FHIR or
+  other transformation layers without changing the agent graph contract
 
 ## Current Architecture
 
@@ -56,9 +68,9 @@ Frontend:
   - Screen 1 scope selection
   - Screen 2 eligibility review
   - Screen 3 final submission review
-- store-driven runtime handling in:
+- store-driven runtime/navigation handling in:
   - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/src/stores/priorAuthStore.ts`
-- built frontend assets are committed under:
+- committed built assets under:
   - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/dist`
   - required by `WEBAIKU` / DSS hosting flow
 
@@ -69,7 +81,8 @@ Backend:
   - Screen 1 bootstrap/advance endpoints
   - local Screen 2 bootstrap endpoint
   - DSS Screen 2 run start / poll / HITL resume endpoints
-  - streaming-event normalization for frontend progress display
+  - normalization of live run state for the frontend
+  - deterministic Screen 3 derivation from reviewed artifacts
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/data_access.py`
   - explicit data source access layer
   - separate `local` and `dss` code paths
@@ -78,8 +91,7 @@ Backend:
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/utils.py`
   - selected-scope display helpers
   - patient age enrichment
-  - clinician answer merge logic
-  - deterministic Screen 3 payload generation
+  - deterministic review merge / Screen 3 generation entry points
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/wsgi_local.py`
   - local launcher
   - serves API-only when `webaiku` is unavailable
@@ -103,7 +115,7 @@ Schema / scoping docs:
 
 ## Runtime Modes
 
-There are 2 important distinctions.
+There are 2 important runtime distinctions.
 
 ### 1. Webapp data source mode
 
@@ -117,34 +129,37 @@ Behavior:
 - `local`
   - reads local CSV / JSON artifacts
   - supports synchronous Screen 2 bootstrap
+  - supports deterministic Screen 3 generation on submit
 - `dss`
   - reads DSS datasets and uses DSS objects
   - starts and resumes live Structured Agent runs
+  - returns reviewed Screen 2 artifact data for deterministic downstream
+    Screen 3 generation
   - no silent fallback to local
 
 This mode selection is implemented in:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/data_access.py`
 
-Important current note:
+Current note:
 
-- `DATA_SOURCE` is currently a code-level constant in `data_access.py`
+- `DATA_SOURCE` remains a code-level constant in `data_access.py`
 - helper functions still accept an optional explicit `data_source`
-- current code no longer centers the mode switch around environment-variable
-  configuration
 
 ### 2. Screen 2 review runtime pattern
 
-Both patterns are still part of the documented product model:
+Both documented product patterns remain valid:
 
 - native DSS approval mode
 - standard webapp review mode
 
-Current implemented behavior in the webapp/backend:
+Current implemented behavior:
 
-- `local` mode effectively exercises the standard webapp review path
+- `local` mode exercises the standard webapp review path
 - `dss` mode exercises the live run-based native DSS approval path
 - both paths use the same clinician answer-map shape
+- both paths end in deterministic Screen 3 generation outside the Structured
+  Agent
 
 ## Important Runtime Values
 
@@ -171,11 +186,12 @@ Reads from:
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/policy_artifacts/<policy_id>/*.json`
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/policy_artifacts/<policy_id>/structured_agent_context.json`
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/fixtures/screen_payloads/<policy_id>/screen_2_response.json`
+- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/artifacts/fixtures/screen_payloads/<policy_id>/screen_2_review_result.json`
 
 Behavior:
 
 - prefers `structured_agent_context.json` when it contains `screen_2_payload`
-- falls back to the older `screen_2_response.json` fixture only when needed
+- falls back to older Screen 2 fixture payloads only when needed
 
 ### DSS mode
 
@@ -191,6 +207,8 @@ Behavior:
 - starts a streamed completion for Screen 2 runs
 - extracts graph state, HITL review request data, partial Screen 2 snapshots,
   criterion answers, and progress from the stream
+- consumes the reviewed Screen 2 artifact after HITL resume
+- builds Screen 3 deterministically in backend/helper code
 
 ## Current Webapp Backend Endpoints
 
@@ -217,6 +235,8 @@ Important endpoint split:
   - local-only Screen 2 bootstrap
 - `POST /api/scenarios/<policy_id>/screen2/run`
   - dss-only Screen 2 run start
+- `POST /api/runs/<run_id>/hitl/respond`
+  - dss-only HITL resume with deterministic downstream Screen 3 build
 
 ## Screen Workflow
 
@@ -237,8 +257,8 @@ Purpose:
 Important principles:
 
 - Screen 1 produces the canonical scope handoff for Screen 2
-- Screen 2 requests should derive `selected_scope_context` deterministically
-  from current selection inputs
+- Screen 2 requests derive `selected_scope_context` deterministically from the
+  current selection inputs
 - skipped guard answers remain unanswered rather than being forced to `false`
 
 Core logic:
@@ -268,6 +288,9 @@ Current webapp behavior:
   Screen 2 review payload using the same criterion-card model as local mode
 - if the Screen 2 payload has not arrived yet, placeholder criterion rows can
   still be derived from `selected_scope_context.selected_criteria_catalog`
+- if the user returns from Screen 3 to Screen 2, the frontend can
+  deterministically navigate to and re-highlight a targeted criterion without
+  invoking the Structured Agent
 
 ### Screen 3
 
@@ -275,16 +298,14 @@ Purpose:
 
 - deterministic final summary after clinician review
 
-Current backend merge logic:
-
-- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/utils.py`
-
 Current behavior:
 
-- merges approved answers into the current Screen 2 payload
+- builds from the reviewed Screen 2 artifact and approved clinician answers
 - recalculates criterion status buckets
 - emits warnings for clinician/chart conflicts
-- determines submission readiness from unanswered required items and conflicts
+- determines submission readiness from unanswered required items
+- keeps clinician answers authoritative for final criterion status, while
+  preserving override warnings for auditability
 
 ## Answer Map Semantics
 
@@ -300,15 +321,16 @@ Same inner schema, different lifecycle stage.
 
 ## Human-In-The-Loop Clarification
 
-Critical transition remains between the Screen 2 review request and Screen 3
-recomputation.
+The critical transition for the current release is between the Screen 2 review
+request and the deterministic downstream transformation of the reviewed result.
 
 Conceptually:
 
 - the Structured Agent builds a review request and pauses
 - the webapp renders that paused request
 - clinician approval or edits are returned through HITL resume
-- the same run then continues to final Screen 3 output
+- the Structured Agent emits the reviewed Screen 2 artifact
+- backend/helper code deterministically builds Screen 3 from that artifact
 
 Important docs:
 
@@ -332,3 +354,19 @@ Current implementation note:
   - API-only Flask backend + Vite frontend
   - built frontend served through `WEBAIKU` when available
 - DSS expects the committed `dist` bundle for hosted webapp delivery
+
+## Release Notes
+
+This release finalizes the current POC architecture with these important
+boundaries:
+
+- Screen 1 is deterministic backend logic
+- Screen 2 reasoning and human review orchestration use the Structured Agent
+- post-review output generation is deterministic and not owned by the
+  Structured Agent
+- `local` and `dss` remain explicit runtime modes
+- the frontend supports deterministic re-entry from Screen 3 to Screen 2 for
+  further clinician edits
+
+For future work, treat the reviewed Screen 2 artifact as the stable handoff
+object for downstream transformations.

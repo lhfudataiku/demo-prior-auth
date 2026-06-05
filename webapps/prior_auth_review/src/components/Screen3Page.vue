@@ -57,7 +57,7 @@ const emit = defineEmits<{
           </span>
         </div>
         <div class="outcome-tile">
-          <span class="label">Conflicts</span>
+          <span class="label">Warnings</span>
           <span class="status-chip" :data-tone="screen3.payload.review_summary.criterion_totals.conflicts ? 'warning' : 'positive'">
             {{ screen3.payload.review_summary.criterion_totals.conflicts }}
           </span>

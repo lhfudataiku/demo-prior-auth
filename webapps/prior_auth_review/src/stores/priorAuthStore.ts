@@ -46,13 +46,12 @@ function mergeCriterionForPreview(
   const hasPrefill = prefillValue !== null && prefillValue !== undefined
   const hasClinicianAnswer = answer.answer !== null && answer.answer !== undefined && answer.answer !== ''
   const conflictFlag = hasClinicianAnswer && hasPrefill && answer.answer !== prefillValue
+  const hasComment = typeof answer.comment === 'string' && answer.comment.trim().length > 0
   const finalAnswer = hasClinicianAnswer ? answer.answer : criterion.ui_resolution.final_answer
   const finalSource = hasClinicianAnswer ? 'clinician' : criterion.ui_resolution.final_source
 
   let displayState = criterion.ui_resolution.display_state
-  if (conflictFlag) {
-    displayState = 'conflict'
-  } else if (hasClinicianAnswer) {
+  if (hasClinicianAnswer) {
     displayState = answer.answer ? 'satisfied' : 'not_satisfied'
   }
 
@@ -69,7 +68,13 @@ function mergeCriterionForPreview(
       ...criterion.ui_resolution,
       display_state: displayState,
       conflict_flag: conflictFlag,
-      conflict_reason: conflictFlag ? 'Clinician answer differs from chart prefill.' : null,
+      conflict_reason: conflictFlag ? 'Clinician answer differs from chart-backed evidence for this criterion.' : null,
+      comment_required: conflictFlag && !hasComment,
+      comment_guidance: conflictFlag
+        ? hasComment
+          ? 'Clinician answer differs from chart-backed evidence. A clinician comment is recommended.'
+          : 'Clinician answer differs from chart-backed evidence. Please add a clinician comment.'
+        : null,
       final_answer: finalAnswer,
       final_source: finalSource,
     },
@@ -148,6 +153,8 @@ function buildPlaceholderCriterionRows(
           use_chart_as_prefill: false,
           conflict_flag: false,
           conflict_reason: null,
+          comment_required: false,
+          comment_guidance: null,
           final_answer: hasAnswer ? (carried?.answer ?? null) : null,
           final_source: hasAnswer ? 'clinician' : 'unresolved',
         },

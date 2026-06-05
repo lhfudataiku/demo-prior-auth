@@ -76,7 +76,7 @@ The webapp currently supports:
   - chart evidence explanation
   - clinician answer input
   - clinician comment input
-  - conflict indication
+  - override warning when clinician judgment differs from chart-backed evidence
 - cluster-level status and criterion counts
 - local synchronous bootstrap for fixture/static mode
 - DSS run-based bootstrap with polling and HITL resume path
@@ -96,7 +96,7 @@ The webapp currently supports:
 - total criterion counts
 - answered criteria
 - unanswered required items
-- warnings
+- advisory warnings
 
 ## System Boundaries
 
@@ -132,7 +132,7 @@ The Structured Agent is responsible for:
 - evaluating logic
 - building `screen_2_payload`
 - calling the human review tool
-- building Screen 3 after approved review input
+- returning the reviewed Screen 2 artifact after approved review input
 
 ### Human review tool
 
@@ -161,7 +161,7 @@ Flow:
 5. The paused review payload is rendered in the webapp.
 6. The clinician approves or edits criterion answers.
 7. The backend resumes the paused run.
-8. The resumed run deterministically builds Screen 3.
+8. The backend deterministically builds Screen 3 from the reviewed artifact.
 
 ### Current transport rule
 
@@ -345,11 +345,13 @@ Criteria count rule:
     }
   },
   "ui_resolution": {
-    "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered",
+    "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
     "prefill_value": true,
     "use_chart_as_prefill": true,
     "conflict_flag": false,
     "conflict_reason": "string or null",
+    "comment_required": false,
+    "comment_guidance": "string or null",
     "final_answer": true,
     "final_source": "chart | clinician | unresolved"
   }
@@ -412,12 +414,12 @@ Answer-map semantics:
         "criterion_id": "string",
         "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
         "prompt": "string",
-        "display_state": "conflict",
-        "type": "conflict",
+        "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
+        "type": "clinician_override | other_warning_type",
         "message": "string"
       }
     ],
-    "submission_ready": false
+    "submission_ready": true
   },
   "messages": []
 }
@@ -433,8 +435,8 @@ Frontend may rely on:
 - `payload.submission_ready`
 
 Screen 3 readiness rule:
-- `submission_ready=true` only when there are no unanswered required items and
-  no conflict warnings
+- `submission_ready=true` when there are no unanswered required items
+- warnings remain advisory by default and do not block submission on their own
 
 ### 7. DSS run-based API
 

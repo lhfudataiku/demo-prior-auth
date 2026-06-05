@@ -136,7 +136,11 @@ const evidenceCount = computed(() =>
     </section>
 
     <div v-if="criterion.ui_resolution.conflict_flag" class="conflict-box">
-      {{ criterion.ui_resolution.conflict_reason || 'Clinician answer differs from chart prefill.' }}
+      {{
+        criterion.ui_resolution.comment_guidance
+          || criterion.ui_resolution.conflict_reason
+          || 'Clinician answer differs from chart-backed evidence.'
+      }}
     </div>
   </article>
 </template>
