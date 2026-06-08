@@ -1,0 +1,58 @@
+{
+  "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY": {
+    "criterion_id": "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY",
+    "criterion_kind": "cluster_criterion",
+    "prompt": "Does the member have a diagnosis of a chronic lower respiratory disease such as asthma, chronic bronchitis, or emphysema (ICD-10 J40-J47.9) that warrants use of a standard mechanical peak flow meter or spacer for managing the obstructive condition?",
+    "answer_type": "boolean",
+    "required": true,
+    "clinician_input": {
+      "answer": null,
+      "value": null,
+      "comment": null,
+      "override_prefill": false,
+      "answered": false
+    },
+    "chart_result": {
+      "status": "Found",
+      "meets_criterion": true,
+      "extracted_value": {
+        "diagnosis_code": "J45.909",
+        "diagnosis_name": "Unspecified asthma, uncomplicated",
+        "record_count": 5,
+        "condition_ids": [
+          "d12baf5d-ed9f-5615-b6f9-79c24d01ee2f",
+          "fcc2651a-1209-566e-99bf-10e0ae38db7b",
+          "b9225571-7eb0-5863-b3ce-884d4492cc14",
+          "c0c5eaad-0772-5a45-984a-6adf786c40b4",
+          "66dca9ef-4edb-5e25-93a3-28747049034f"
+        ],
+        "effective_datetimes": [
+          "2022-01-23",
+          "2022-06-18",
+          "2024-07-06",
+          "2025-09-26",
+          "2026-01-19"
+        ]
+      },
+      "justification": "Structured EHR evidence shows five chronic lower respiratory disease condition records for the patient, all coded ICD-10 J45.909 (Unspecified asthma, uncomplicated), which falls within the requested J40-J47.9 diagnosis range and supports the criterion.",
+      "sources": {
+        "structured": [
+          {
+            "tool": "EHR_Query_Tool",
+            "evidence": "Five chronic lower respiratory disease records (all ICD-10 J45.909) with condition IDs d12baf5d-ed9f-5615-b6f9-79c24d01ee2f, fcc2651a-1209-566e-99bf-10e0ae38db7b, b9225571-7eb0-5863-b3ce-884d4492cc14, c0c5eaad-0772-5a45-984a-6adf786c40b4, and 66dca9ef-4edb-5e25-93a3-28747049034f; effective datetimes 2022-01-23, 2022-06-18, 2024-07-06, 2025-09-26, 2026-01-19; status not provided."
+          }
+        ],
+        "notes": []
+      }
+    },
+    "ui_resolution": {
+      "display_state": "satisfied",
+      "prefill_value": true,
+      "use_chart_as_prefill": true,
+      "conflict_flag": false,
+      "conflict_reason": null,
+      "final_answer": true,
+      "final_source": "chart"
+    }
+  }
+}

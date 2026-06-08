@@ -1,0 +1,2396 @@
+{
+  "policy_id": "0655",
+  "document_type": "COVERAGE_POLICY",
+  "title": "Adalimumab",
+  "source": {
+    "policy_url": "https://www.aetna.com/cpb/medical/data/600_699/0655.html"
+  },
+  "billing_code_sets": [
+    {
+      "code": "J0139",
+      "system": "HCPCS",
+      "description": "Injection, adalimumab, 1 mg",
+      "code_role": "request",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "HCPCS codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "Q5140",
+      "system": "HCPCS",
+      "description": "Injection, adalimumab-fkjp, biosimilar, 1 mg",
+      "code_role": "request",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "HCPCS codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "Q5141",
+      "system": "HCPCS",
+      "description": "Injection, adalimumab-aaty, biosimilar, 1 mg",
+      "code_role": "request",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "HCPCS codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "Q5142",
+      "system": "HCPCS",
+      "description": "Injection, adalimumab-aaty, biosimilar, 1 mg",
+      "code_role": "request",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "HCPCS codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "Q5143",
+      "system": "HCPCS",
+      "description": "Injection, adalimumab-adbm, biosimilar, 1 mg",
+      "code_role": "request",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "HCPCS codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "Q5144",
+      "system": "HCPCS",
+      "description": "Injection, adalimumab-aacf (idacio), biosimilar, 1 mg",
+      "code_role": "request",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "HCPCS codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "Q5145",
+      "system": "HCPCS",
+      "description": "Injection, adalimumab-afzb (abrilada), biosimilar, 1 mg",
+      "code_role": "request",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "HCPCS codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "H20.051 - H20.9",
+      "system": "ICD-10",
+      "description": "Unspecified iridocyclitis [uveitis] [age 2 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "H44.111 - H44.119",
+      "system": "ICD-10",
+      "description": "Panuveitis [age 2 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "H44.131 - H44.139",
+      "system": "ICD-10",
+      "description": "Sympathetic uveitis [age 2 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "K50.00 - K50.919",
+      "system": "ICD-10",
+      "description": "Crohn's disease [regional enteritis] [active Crohn's disease with listed manifestations]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "K51.00 - K51.919",
+      "system": "ICD-10",
+      "description": "Ulcerative colitis",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "L40.0 - L04.3, L40.50 - L40.9",
+      "system": "ICD-10",
+      "description": "Psoriasis [age 18 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "L73.2",
+      "system": "ICD-10",
+      "description": "Hidradenitis suppurativa [age 12 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "L88",
+      "system": "ICD-10",
+      "description": "Pyoderma gangrenosum",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "M05.00 - M05.09, M05.20 - M06.39, M06.80 - M06.9",
+      "system": "ICD-10",
+      "description": "Rheumatoid arthritis [moderately to severely active in adults] [age 18 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "M08.00 - M08.99",
+      "system": "ICD-10",
+      "description": "Juvenile idiopathic arthritis [age 2 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "M35.2",
+      "system": "ICD-10",
+      "description": "Behcet's disease",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "M45.0 - M45.AB",
+      "system": "ICD-10",
+      "description": "Ankylosing spondylitis [active and failed two or more NSAIDS] [age 18 and older]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    },
+    {
+      "code": "T45.AX5A - T45.AX5S",
+      "system": "ICD-10",
+      "description": "Adverse effect of immune checkpoint inhibitors and immunostimulant drugs [inflammatory arthritis]",
+      "code_role": "diagnosis_inclusion",
+      "coverage_status": "covered",
+      "locator": {
+        "section_path": [
+          "CPT Codes / HCPCS Codes / ICD-10 Codes",
+          "ICD-10 codes covered if selection criteria are met"
+        ],
+        "page_start": 24,
+        "page_end": 24
+      }
+    }
+  ],
+  "request_routes": [
+    {
+      "route_id": "ROUTE_ADALIMUMAB",
+      "label": "Adalimumab and biosimilars for labeled inflammatory indications",
+      "coverage_status": "covered",
+      "terminal_disposition": "continue",
+      "billing_codes": [
+        "J0139",
+        "Q5140",
+        "Q5141",
+        "Q5142",
+        "Q5143",
+        "Q5144",
+        "Q5145"
+      ],
+      "route_kind": "covered_request",
+      "phase_prompt_required": true,
+      "phase_branches": [
+        {
+          "phase": "initial",
+          "is_default": true,
+          "route_guard_ids": [
+            "RG_TB_SCREEN",
+            "RG_NO_CONCOMITANT"
+          ],
+          "cluster_ids": [
+            "CL_INIT_RA",
+            "CL_INIT_JIA",
+            "CL_INIT_PSA",
+            "CL_INIT_AS",
+            "CL_INIT_CD",
+            "CL_INIT_UC",
+            "CL_INIT_PSO",
+            "CL_INIT_HS",
+            "CL_INIT_UVEITIS",
+            "CL_INIT_BEHCET",
+            "CL_INIT_PYODERM",
+            "CL_INIT_ICI"
+          ]
+        },
+        {
+          "phase": "continuation",
+          "is_default": false,
+          "route_guard_ids": [
+            "RG_NO_CONCOMITANT"
+          ],
+          "cluster_ids": [
+            "CL_CONT_RA",
+            "CL_CONT_JIA",
+            "CL_CONT_PSA",
+            "CL_CONT_AS",
+            "CL_CONT_CD",
+            "CL_CONT_UC",
+            "CL_CONT_PSO",
+            "CL_CONT_HS",
+            "CL_CONT_UVEITIS",
+            "CL_CONT_BEHCET",
+            "CL_CONT_PYODERM",
+            "CL_CONT_ICI"
+          ]
+        }
+      ],
+      "routing_notes": "Policy covers adalimumab products for the listed immunologic and inflammatory diseases with separate initial and continuation criteria.",
+      "evidence": "Section II details all indications considered medically necessary for adalimumab, and Section III describes continuation requirements for each listed disease.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval"
+        ],
+        "page_start": 2,
+        "page_end": 13
+      }
+    }
+  ],
+  "route_guards": [
+    {
+      "guard_id": "RG_TB_SCREEN",
+      "label": "Tuberculosis screening prior to initiation when biologic naive",
+      "guard_type": "limitation",
+      "applies_to_route_ids": [
+        "ROUTE_ADALIMUMAB"
+      ],
+      "applies_to_phases": [
+        "initial"
+      ],
+      "ask_timing": "before_cluster_selection",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CRG_TB_SCREEN"
+          }
+        ]
+      },
+      "evidence": "For all indications: Member has had a documented negative tuberculosis (TB) test within 12 months of initiating therapy for persons who are naive to biologic drugs or targeted synthetic drugs associated with an increased risk of TB. If screening testing for TB is positive, there must be further testing to confirm there is no active disease. Do not administer the requested medication to members with active TB infection.",
+      "locator": {
+        "section_path": [
+          "IV. Other"
+        ],
+        "page_start": 14,
+        "page_end": 14
+      }
+    },
+    {
+      "guard_id": "RG_NO_CONCOMITANT",
+      "label": "No concomitant biologic or targeted synthetic therapy for same indication",
+      "guard_type": "limitation",
+      "applies_to_route_ids": [
+        "ROUTE_ADALIMUMAB"
+      ],
+      "applies_to_phases": [
+        "initial",
+        "continuation"
+      ],
+      "ask_timing": "before_cluster_selection",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CRG_NO_CONCOMITANT"
+          }
+        ]
+      },
+      "evidence": "For all indications: Member cannot use the requested medication concomitantly with any other biologic drug or targeted synthetic drug for the same indication.",
+      "locator": {
+        "section_path": [
+          "IV. Other"
+        ],
+        "page_start": 14,
+        "page_end": 14
+      }
+    }
+  ],
+  "cluster_entry_guards": [],
+  "condition_clusters": [
+    {
+      "cluster_id": "CL_INIT_RA",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "RA",
+      "condition_label": "Rheumatoid arthritis (initial therapy)",
+      "condition_synonyms": [
+        "RA"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "M05.00 - M05.09",
+        "M05.20 - M06.39",
+        "M06.80 - M06.9"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_RA_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_RA_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Aetna considers adalimumab medically necessary for adult members with rheumatoid arthritis when the adult has previously received a biologic or targeted synthetic drug indicated for moderately to severely active RA within the past 120 days, or when treating moderately to severely active RA and meeting the biomarker and conventional synthetic therapy failure/intolerance/contraindication requirements described in Section II.A.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "A. Rheumatoid arthritis (RA)"
+        ],
+        "page_start": 2,
+        "page_end": 4
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_JIA",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "JIA",
+      "condition_label": "Articular juvenile idiopathic arthritis (initial therapy)",
+      "condition_synonyms": [
+        "Juvenile idiopathic arthritis"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "M08.00 - M08.99"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_JIA_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_JIA_THERAPY"
+          }
+        ]
+      },
+      "evidence": "For members 2 years of age or older, adalimumab is medically necessary for articular juvenile idiopathic arthritis when the member has previously received a biologic or targeted synthetic drug indicated for moderately to severely active articular JIA, or has had inadequate response to methotrexate or another conventional synthetic drug administered at an adequate dose and duration, or has inadequate response to NSAIDs or intra-articular corticosteroids plus risk factors for poor outcome, including high-risk joints or elevated inflammatory markers.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "B. Articular juvenile idiopathic arthritis (JIA)"
+        ],
+        "page_start": 4,
+        "page_end": 5
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_PSA",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "PsA",
+      "condition_label": "Psoriatic arthritis (initial therapy)",
+      "condition_synonyms": [
+        "Psoriatic arthritis"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "L40.50 - L40.9"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_PSA_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_PSA_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for adult psoriatic arthritis when the member has previously received a biologic or targeted synthetic indicated for active PsA, or when treating active PsA if the member has mild to moderate disease with inadequate response or intolerance to methotrexate, leflunomide, or sulfasalazine, or has enthesitis/predominantly axial disease, or has severe disease.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "C. Psoriatic arthritis (PsA)"
+        ],
+        "page_start": 5,
+        "page_end": 6
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_AS",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "AS",
+      "condition_label": "Ankylosing spondylitis and non-radiographic axial spondyloarthritis (initial therapy)",
+      "condition_synonyms": [
+        "AS",
+        "nr-axSpA"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "M45.0 - M45.AB"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_AS_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_AS_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for adult ankylosing spondylitis or non-radiographic axial spondyloarthritis when the member has previously received a biologic or targeted synthetic indicated for active disease, or when treating active disease if the member has had an inadequate response to at least two NSAIDs or has intolerance or contraindication to two or more NSAIDs.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+        ],
+        "page_start": 5,
+        "page_end": 6
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_CD",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "CD",
+      "condition_label": "Crohn's disease (initial therapy)",
+      "condition_synonyms": [
+        "Crohn's disease"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "K50.00 - K50.919"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_CD_DIAG"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for the treatment of moderately to severely active Crohn's disease.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "E. Crohn\u2019s disease (CD)"
+        ],
+        "page_start": 5,
+        "page_end": 6
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_UC",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "UC",
+      "condition_label": "Ulcerative colitis (initial therapy)",
+      "condition_synonyms": [
+        "Ulcerative colitis"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "K51.00 - K51.919"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_UC_DIAG"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for the treatment of moderately to severely active ulcerative colitis.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "F. Ulcerative colitis (UC)"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_PSO",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "PsO",
+      "condition_label": "Plaque psoriasis (initial therapy)",
+      "condition_synonyms": [
+        "Plaque psoriasis"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "L40.0 - L04.3",
+        "L40.50 - L40.9"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_PSO_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_PSO_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for adult plaque psoriasis when the member has previously received an indicated biologic or targeted synthetic, or for moderate to severe disease with crucial body areas affected, BSA over 10%, or BSA 3% with prior inadequate response, intolerance, or contraindication to phototherapy or pharmacologic treatment.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "G. Plaque psoriasis (PSO)"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_HS",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "HS",
+      "condition_label": "Hidradenitis suppurativa (initial therapy)",
+      "condition_synonyms": [
+        "Hidradenitis suppurativa"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "L73.2"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_HS_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_HS_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for members 12 years and older with moderate to severe hidradenitis suppurativa who have previously received a biologic, or who have had an inadequate response to at least 90 days of oral antibiotics for HS, or have an intolerance or contraindication to such antibiotics.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "H. Hidradenitis suppurativa"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_UVEITIS",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "Uveitis",
+      "condition_label": "Non-infectious intermediate, posterior, and panuveitis (initial therapy)",
+      "condition_synonyms": [
+        "Uveitis"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "H20.051 - H20.9",
+        "H44.111 - H44.119",
+        "H44.131 - H44.139"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_UVEITIS_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_UVEITIS_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for members 2 years and older with non-infectious intermediate, posterior, or panuveitis who have had an inadequate response to corticosteroids or immunosuppressive therapy such as azathioprine, cyclosporine, methotrexate, or mycophenolate mofetil, or who have an intolerance or contraindication to those therapies.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "I. Uveitis (non-infectious intermediate, posterior and panuveitis)"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_BEHCET",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "Behcet",
+      "condition_label": "Behcet's disease (initial therapy)",
+      "condition_synonyms": [
+        "Behcet's disease"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "M35.2"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_BEHCET_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_BEHCET_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for members who have previously received apremilast or a biologic for Behcet's disease, or when treating Behcet's disease in a member with an inadequate response to at least one non-biologic medication such as azathioprine, colchicine, cyclosporine, or systemic corticosteroids.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "J. Behcet\u2019s disease"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_PYODERM",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "Pyoderma",
+      "condition_label": "Pyoderma gangrenosum (initial therapy)",
+      "condition_synonyms": [
+        "Pyoderma gangrenosum"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "L88"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_PYODERM_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_PYODERM_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for members who have previously received a biologic for pyoderma gangrenosum, or for those with inadequate response to corticosteroids or immunosuppressive therapy such as cyclosporine or mycophenolate mofetil, or for those with intolerance or contraindication to those therapies.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "K. Pyoderma gangrenosum"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "cluster_id": "CL_INIT_ICI",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "initial",
+      "condition_key": "ICI",
+      "condition_label": "Immune checkpoint inhibitor-related inflammatory arthritis (initial therapy)",
+      "condition_synonyms": [
+        "Immune checkpoint toxicity"
+      ],
+      "diagnosis_basis": "code_table_primary",
+      "diagnosis_code_candidates": [
+        "T45.AX5A - T45.AX5S"
+      ],
+      "inherits_diagnosis_from_cluster_ids": [],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_ICI_DIAG"
+          },
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_INIT_ICI_THERAPY"
+          }
+        ]
+      },
+      "evidence": "Adalimumab is medically necessary for treatment of immune checkpoint inhibitor-related toxicity in members with moderate or severe immunotherapy-related inflammatory arthritis who have had an inadequate response to corticosteroids or a conventional synthetic drug, or who have an intolerance or contraindication to those medications.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "L. Immune checkpoint inhibitor-related toxicity"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_RA",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "RA",
+      "condition_label": "Rheumatoid arthritis (continuation)",
+      "condition_synonyms": [
+        "RA"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_RA"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_RA_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for adult members using adalimumab for moderately to severely active RA who achieve or maintain a positive clinical response with at least 20% improvement from baseline in tender joint count, swollen joint count, pain, or disability.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "A. Rheumatoid arthritis (RA)"
+        ],
+        "page_start": 9,
+        "page_end": 10
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_JIA",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "JIA",
+      "condition_label": "Articular juvenile idiopathic arthritis (continuation)",
+      "condition_synonyms": [
+        "Juvenile idiopathic arthritis"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_JIA"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_JIA_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members 2 years and older using adalimumab for moderately to severely active articular JIA who achieve or maintain a positive clinical response with improvement in joint counts or functional ability.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "B. Articular juvenile idiopathic arthritis (JIA)"
+        ],
+        "page_start": 9,
+        "page_end": 10
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_PSA",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "PsA",
+      "condition_label": "Psoriatic arthritis (continuation)",
+      "condition_synonyms": [
+        "Psoriatic arthritis"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_PSA"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_PSA_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for adult members using adalimumab for psoriatic arthritis who achieve or maintain a positive clinical response with improvement in swollen or tender joints, dactylitis, enthesitis, axial disease, skin or nail involvement, functional status, or CRP.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "C. Psoriatic arthritis (PsA)"
+        ],
+        "page_start": 9,
+        "page_end": 10
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_AS",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "AS",
+      "condition_label": "Ankylosing spondylitis and non-radiographic axial spondyloarthritis (continuation)",
+      "condition_synonyms": [
+        "AS",
+        "nr-axSpA"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_AS"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_AS_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for adult members using adalimumab for ankylosing spondylitis or non-radiographic axial spondyloarthritis who achieve or maintain a positive clinical response with improvement in functional status, spinal pain, inflammation, swollen or tender joints, or CRP.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+        ],
+        "page_start": 10,
+        "page_end": 10
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_CD",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "CD",
+      "condition_label": "Crohn's disease (continuation)",
+      "condition_synonyms": [
+        "Crohn's disease"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_CD"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_CD_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members using adalimumab for moderately to severely active Crohn's disease who achieve or maintain remission, or who demonstrate positive clinical response with improvement in abdominal pain, diarrhea, body weight, abdominal mass, hematocrit, mucosal appearance, or disease activity index scores.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "E. Crohn\u2019s disease (CD)"
+        ],
+        "page_start": 10,
+        "page_end": 11
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_UC",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "UC",
+      "condition_label": "Ulcerative colitis (continuation)",
+      "condition_synonyms": [
+        "Ulcerative colitis"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_UC"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_UC_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members using adalimumab for moderately to severely active UC who achieve or maintain remission, or who show improvement in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance, or disease activity scores such as UCEIS or Mayo score.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "F. Ulcerative colitis (UC)"
+        ],
+        "page_start": 10,
+        "page_end": 11
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_PSO",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "PsO",
+      "condition_label": "Plaque psoriasis (continuation)",
+      "condition_synonyms": [
+        "Plaque psoriasis"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_PSO"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_PSO_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for adults using adalimumab for moderate to severe plaque psoriasis who achieve or maintain a positive clinical response as evidenced by reduction in BSA affected or improvement in signs and symptoms such as itching, redness, flaking, scaling, burning, cracking, or pain.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "G. Plaque psoriasis (PsO)"
+        ],
+        "page_start": 11,
+        "page_end": 12
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_HS",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "HS",
+      "condition_label": "Hidradenitis suppurativa (continuation)",
+      "condition_synonyms": [
+        "Hidradenitis suppurativa"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_HS"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_HS_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members 12 years and older using adalimumab for moderate to severe hidradenitis suppurativa who achieve or maintain a positive clinical response with reductions in abscess and inflammatory nodule counts, new sinus tract formation and scarring, lesion frequency, pain, suppuration, relapse frequency, quality of life, or disease severity assessment scores.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "H. Hidradenitis suppurativa"
+        ],
+        "page_start": 11,
+        "page_end": 13
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_UVEITIS",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "Uveitis",
+      "condition_label": "Uveitis (continuation)",
+      "condition_synonyms": [
+        "Non-infectious uveitis"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_UVEITIS"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_UVEITIS_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members 2 years and older using adalimumab for non-infectious intermediate, posterior, or panuveitis who achieve or maintain a positive clinical response with reduced flare frequency, stable or improved anterior chamber cell grade, vitreous haze, visual acuity, glucocorticoid requirements, or absence of new inflammatory retinal lesions.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "I. Uveitis (non-infectious intermediate, posterior and panuveitis)"
+        ],
+        "page_start": 11,
+        "page_end": 13
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_BEHCET",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "Behcet",
+      "condition_label": "Behcet's disease (continuation)",
+      "condition_synonyms": [
+        "Behcet's disease"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_BEHCET"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_OTHER_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members using adalimumab for any indication outlined in Section II, including Behcet's disease, when they achieve or maintain a positive clinical response with low disease activity or improvement in signs and symptoms.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "K. All other indications"
+        ],
+        "page_start": 13,
+        "page_end": 13
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_PYODERM",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "Pyoderma",
+      "condition_label": "Pyoderma gangrenosum (continuation)",
+      "condition_synonyms": [
+        "Pyoderma gangrenosum"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_PYODERM"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_OTHER_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members using adalimumab for any Section II indication, including pyoderma gangrenosum, who maintain a positive clinical response with low disease activity or symptom improvement.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "K. All other indications"
+        ],
+        "page_start": 13,
+        "page_end": 13
+      }
+    },
+    {
+      "cluster_id": "CL_CONT_ICI",
+      "route_id": "ROUTE_ADALIMUMAB",
+      "phase": "continuation",
+      "condition_key": "ICI",
+      "condition_label": "Immune checkpoint inhibitor-related inflammatory arthritis (continuation)",
+      "condition_synonyms": [
+        "Immune checkpoint toxicity"
+      ],
+      "diagnosis_basis": "mixed",
+      "diagnosis_code_candidates": [],
+      "inherits_diagnosis_from_cluster_ids": [
+        "CL_INIT_ICI"
+      ],
+      "cluster_entry_guard_ids": [],
+      "logic_profile_id": "UNKNOWN",
+      "logic_root": {
+        "node_type": "group",
+        "operator": "all",
+        "children": [
+          {
+            "node_type": "criterion_ref",
+            "criterion_id": "CR_CONT_ICI_RESPONSE"
+          }
+        ]
+      },
+      "evidence": "Continuation is medically necessary for members using adalimumab for immunotherapy-related inflammatory arthritis who achieve or maintain a positive clinical response as evidenced by low disease activity or improvement in signs and symptoms.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "J. Immune checkpoint inhibitor-related toxicity"
+        ],
+        "page_start": 13,
+        "page_end": 13
+      }
+    }
+  ],
+  "logic_profiles": [],
+  "criteria_catalog": [
+    {
+      "criterion_id": "CRG_TB_SCREEN",
+      "criterion_kind": "route_guard",
+      "prompt": "Has the member had a documented negative tuberculosis test within the past 12 months if biologic/targeted synthetic-naive and no active TB infection is present?",
+      "clinical_intent": "Confirm TB screening status before initiating adalimumab when the member is naive to biologics or targeted synthetics.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "document"
+      ],
+      "policy_time_language": "For all indications, a documented negative TB test within 12 months is required prior to initiating therapy for biologic or targeted synthetic-naive members.",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "A documented negative TB test (skin test or IGRA) within 12 months of initiation is required for biologic- or targeted synthetic-naive members; positive tests require further evaluation to rule out active disease.",
+      "locator": {
+        "section_path": [
+          "IV. Other"
+        ],
+        "page_start": 14,
+        "page_end": 14
+      }
+    },
+    {
+      "criterion_id": "CRG_NO_CONCOMITANT",
+      "criterion_kind": "route_guard",
+      "prompt": "Is the member not using another biologic or targeted synthetic drug concomitantly for the same indication?",
+      "clinical_intent": "Ensure adalimumab is not combined with another biologic or targeted synthetic for the same indication.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "medication",
+        "condition"
+      ],
+      "policy_time_language": "Member cannot use adalimumab concomitantly with any other biologic or targeted synthetic drug for the same indication.",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "For all indications, the requested medication cannot be used concurrently with another biologic or targeted synthetic drug for the same condition.",
+      "locator": {
+        "section_path": [
+          "IV. Other"
+        ],
+        "page_start": 14,
+        "page_end": 14
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_RA_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have a diagnosis of moderately to severely active rheumatoid arthritis (RA)?",
+      "clinical_intent": "Establish RA diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "M05.00 - M05.09",
+          "M05.20 - M06.39",
+          "M06.80 - M06.9"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.A",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Aetna considers adalimumab medically necessary for adult members with rheumatoid arthritis (RA) as described in Section II.A.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "A. Rheumatoid arthritis (RA)"
+        ],
+        "page_start": 2,
+        "page_end": 4
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_RA_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member either previously received a biologic or targeted synthetic indicated for moderately to severely active RA within the past 120 days, or, for treatment of moderately to severely active RA, met the biomarker testing and conventional synthetic therapy failure/intolerance/contraindication requirements described in Section II.A?",
+      "clinical_intent": "Confirm therapy prerequisites for RA.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "document"
+      ],
+      "policy_time_language": "Per Section II.A paragraphs 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adult members must have previously received a biologic or targeted synthetic indicated for moderately to severely active RA within 120 days, or must be treated for moderately to severely active RA and meet the biomarker (RF, anti-CCP, CRP/ESR) testing and the methotrexate/conventional synthetic failure or intolerance criteria outlined in Section II.A.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "A. Rheumatoid arthritis (RA)"
+        ],
+        "page_start": 2,
+        "page_end": 4
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_JIA_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member age 2 years or older with moderately to severely active articular juvenile idiopathic arthritis (JIA)?",
+      "clinical_intent": "Establish JIA diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "M08.00 - M08.99"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.B",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "For members 2 years of age or older, adalimumab is medically necessary for articular juvenile idiopathic arthritis as described in Section II.B.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "B. Articular juvenile idiopathic arthritis (JIA)"
+        ],
+        "page_start": 4,
+        "page_end": 5
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_JIA_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member previously received a biologic or targeted synthetic for moderately to severely active articular JIA, or had inadequate response to methotrexate or another conventional synthetic at adequate dose/duration, or inadequate response to NSAIDs/intra-articular glucocorticoids plus risk factors for poor outcome, including high-risk joints or elevated inflammatory markers?",
+      "clinical_intent": "Confirm therapy prerequisites for JIA.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "document"
+      ],
+      "policy_time_language": "Per Section II.B criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have either previously received a biologic or targeted synthetic indicated for moderately to severely active articular JIA, or must have had inadequate response to methotrexate/another conventional synthetic at adequate dose/duration, or inadequate response to NSAIDs/intra-articular glucocorticoids plus poor-prognosis features such as ankle, wrist, hip, sacroiliac, or TMJ involvement, erosive disease, elevated inflammatory markers, symmetric disease, or risk factors for refractory course.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "B. Articular juvenile idiopathic arthritis (JIA)"
+        ],
+        "page_start": 4,
+        "page_end": 5
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_PSA_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have active psoriatic arthritis?",
+      "clinical_intent": "Establish psoriatic arthritis diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "L40.50 - L40.9"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.C",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for adult members with active psoriatic arthritis as described in Section II.C.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "C. Psoriatic arthritis (PsA)"
+        ],
+        "page_start": 5,
+        "page_end": 5
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_PSA_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member had an inadequate response or intolerance to methotrexate, leflunomide, or another conventional synthetic drug, or is intolerant/contraindicated to them, or does the member have enthesitis/predominantly axial disease, or does the member have severe psoriatic arthritis?",
+      "clinical_intent": "Confirm therapy prerequisites for psoriatic arthritis.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "document"
+      ],
+      "policy_time_language": "Per Section II.C criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have either previously received a biologic or targeted synthetic indicated for psoriatic arthritis, or, for mild to moderate disease, have inadequate response or intolerance to methotrexate, leflunomide, or sulfasalazine, or have enthesitis/predominantly axial disease, or must have severe disease.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "C. Psoriatic arthritis (PsA)"
+        ],
+        "page_start": 5,
+        "page_end": 6
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_AS_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have active ankylosing spondylitis or active non-radiographic axial spondyloarthritis?",
+      "clinical_intent": "Establish AS/nr-axSpA diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "M45.0 - M45.AB"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.D",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for adult members with active ankylosing spondylitis or active non-radiographic axial spondyloarthritis as described in Section II.D.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+        ],
+        "page_start": 5,
+        "page_end": 6
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_AS_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member had an inadequate response to at least two NSAIDs or has an intolerance or contraindication to two or more NSAIDs before initiating adalimumab?",
+      "clinical_intent": "Confirm therapy prerequisites for AS/nr-axSpA.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "document"
+      ],
+      "policy_time_language": "Per Section II.D criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have either previously received a biologic or targeted synthetic for active AS/nr-axSpA, or have had an inadequate response to at least two NSAIDs, or have intolerance/contraindication to two or more NSAIDs.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+        ],
+        "page_start": 5,
+        "page_end": 6
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_CD_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have moderately to severely active Crohn's disease?",
+      "clinical_intent": "Establish Crohn's disease diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "K50.00 - K50.919"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.E",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for the treatment of moderately to severely active Crohn's disease.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "E. Crohn\u2019s disease (CD)"
+        ],
+        "page_start": 5,
+        "page_end": 6
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_UC_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have moderately to severely active ulcerative colitis?",
+      "clinical_intent": "Establish UC diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "K51.00 - K51.919"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.F",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for the treatment of moderately to severely active ulcerative colitis.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "F. Ulcerative colitis (UC)"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_PSO_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have moderate to severe plaque psoriasis?",
+      "clinical_intent": "Confirm plaque psoriasis diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "L40.0 - L04.3",
+          "L40.50 - L40.9"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.G",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for adult plaque psoriasis meeting Section II.G criteria.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "G. Plaque psoriasis (PSO)"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_PSO_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have crucial body areas affected, at least 10% BSA involvement, or at least 3% BSA involvement plus inadequate response/intolerance/contraindication to phototherapy or pharmacologic treatments such as methotrexate, cyclosporine, or acitretin?",
+      "clinical_intent": "Confirm therapy prerequisites for plaque psoriasis.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.G criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have moderate to severe plaque psoriasis with crucial body areas affected, or sufficient BSA involvement with prior inadequate response, intolerance, or contraindication to phototherapy or pharmacologic treatments.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "G. Plaque psoriasis (PSO)"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_HS_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have moderate to severe hidradenitis suppurativa and is at least 12 years of age?",
+      "clinical_intent": "Establish HS diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "L73.2"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.H",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for members 12 years and older with moderate to severe hidradenitis suppurativa.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "H. Hidradenitis suppurativa"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_HS_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member had an inadequate response to at least 90 days of oral antibiotics used to treat hidradenitis suppurativa, or has an intolerance or contraindication to those antibiotics?",
+      "clinical_intent": "Confirm therapy prerequisites for hidradenitis suppurativa.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "medication"
+      ],
+      "policy_time_language": "Per Section II.H criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have either previously received a biologic for HS, or have had an inadequate response to at least 90 days of oral antibiotics for HS, or have an intolerance or contraindication to these antibiotics.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "H. Hidradenitis suppurativa"
+        ],
+        "page_start": 6,
+        "page_end": 7
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_UVEITIS_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have non-infectious intermediate, posterior, or panuveitis and is 2 years of age or older?",
+      "clinical_intent": "Establish uveitis diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "H20.051 - H20.9",
+          "H44.111 - H44.119",
+          "H44.131 - H44.139"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.I",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for members 2 years and older with non-infectious intermediate, posterior, or panuveitis as described in Section II.I.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "I. Uveitis (non-infectious intermediate, posterior and panuveitis)"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_UVEITIS_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member had an inadequate response to corticosteroids or immunosuppressive therapy for uveitis, or does the member have an intolerance or contraindication to those therapies?",
+      "clinical_intent": "Confirm therapy prerequisites for uveitis.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "medication"
+      ],
+      "policy_time_language": "Per Section II.I criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have either previously received a biologic for uveitis or have had an inadequate response to corticosteroids or immunosuppressive therapy such as azathioprine, cyclosporine, methotrexate, or mycophenolate mofetil, or have an intolerance or contraindication to those therapies.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "I. Uveitis (non-infectious intermediate, posterior and panuveitis)"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_BEHCET_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have Behcet's disease?",
+      "clinical_intent": "Establish Behcet's disease diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "M35.2"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.J",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for Behcet's disease when the member has previously received apremilast or a biologic, or has an inadequate response to at least one non-biologic medication.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "J. Behcet\u2019s disease"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_BEHCET_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member had an inadequate response to at least one non-biologic medication for Behcet's disease (e.g., azathioprine, colchicine, cyclosporine, systemic corticosteroids), or previously received apremilast or a biologic?",
+      "clinical_intent": "Confirm therapy prerequisites for Behcet's disease.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "medication"
+      ],
+      "policy_time_language": "Per Section II.J criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have previously received apremilast or a biologic for Behcet's disease, or have had an inadequate response to at least one non-biologic medication such as azathioprine, colchicine, cyclosporine, or systemic corticosteroids.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "J. Behcet\u2019s disease"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_PYODERM_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have pyoderma gangrenosum?",
+      "clinical_intent": "Establish pyoderma gangrenosum diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "L88"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.K",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for pyoderma gangrenosum when the member has previously received a biologic for that condition.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "K. Pyoderma gangrenosum"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_PYODERM_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member had an inadequate response to corticosteroids or immunosuppressive therapy (e.g., cyclosporine, mycophenolate mofetil) for pyoderma gangrenosum, or intolerance/contraindication to those therapies?",
+      "clinical_intent": "Confirm therapy prerequisites for pyoderma gangrenosum.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "medication"
+      ],
+      "policy_time_language": "Per Section II.K criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have had an inadequate response to corticosteroids or immunosuppressive therapy such as cyclosporine or mycophenolate mofetil, or have intolerance/contraindication to those therapies.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "K. Pyoderma gangrenosum"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_ICI_DIAG",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Does the member have moderate or severe immune checkpoint inhibitor-related inflammatory arthritis?",
+      "clinical_intent": "Establish immune checkpoint inhibitor toxicity diagnosis for initial therapy.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [
+          "T45.AX5A - T45.AX5S"
+        ],
+        "code_role": "diagnosis_inclusion"
+      },
+      "preferred_data_domains": [
+        "condition"
+      ],
+      "policy_time_language": "Per Section II.L",
+      "retrieval_priority": "high",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Adalimumab is medically necessary for immune checkpoint inhibitor-related toxicity presenting as moderate or severe inflammatory arthritis.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "L. Immune checkpoint inhibitor-related toxicity"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_INIT_ICI_THERAPY",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Has the member had an inadequate response to corticosteroids or a conventional synthetic drug (methotrexate, sulfasalazine, leflunomide, hydroxychloroquine), or an intolerance or contraindication to those agents?",
+      "clinical_intent": "Confirm therapy prerequisites for immune checkpoint inhibitor toxicity.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "medication"
+      ],
+      "policy_time_language": "Per Section II.L criteria 1 and 2",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Members must have an inadequate response to corticosteroids or a conventional synthetic drug, or have an intolerance or contraindication to those therapies when treating immune checkpoint inhibitor-related inflammatory arthritis.",
+      "locator": {
+        "section_path": [
+          "II. Criteria for Initial Approval",
+          "L. Immune checkpoint inhibitor-related toxicity"
+        ],
+        "page_start": 7,
+        "page_end": 8
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_RA_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for moderately to severely active RA and maintaining a positive clinical response evidenced by at least 20% improvement from baseline in tender joint count, swollen joint count, pain, or disability?",
+      "clinical_intent": "Document continued RA benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.A",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for adult members using adalimumab for moderately to severely active RA who achieve or maintain a positive clinical response with at least 20% improvement from baseline in tender joint count, swollen joint count, pain, or disability.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "A. Rheumatoid arthritis (RA)"
+        ],
+        "page_start": 9,
+        "page_end": 10
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_JIA_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for moderately to severely active articular JIA and achieving or maintaining a positive clinical response evidenced by improvement in number of joints with active arthritis, limitation of movement, or functional ability?",
+      "clinical_intent": "Document continued JIA benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.B",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for members 2 years and older using adalimumab for moderately to severely active articular JIA who maintain positive response demonstrated by improvement in active joint count, limited movement, or functional ability.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "B. Articular juvenile idiopathic arthritis (JIA)"
+        ],
+        "page_start": 9,
+        "page_end": 10
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_PSA_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for psoriatic arthritis and demonstrating improvement in swollen joints, tender joints, dactylitis, enthesitis, axial disease, skin or nail involvement, functional status, or CRP?",
+      "clinical_intent": "Document continued PsA benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.C",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for adult members using adalimumab for psoriatic arthritis who achieve or maintain positive clinical response evidenced by improvement in swollen/tender joints, dactylitis, enthesitis, axial disease, skin/nail involvement, functional status, or CRP.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "C. Psoriatic arthritis (PsA)"
+        ],
+        "page_start": 9,
+        "page_end": 10
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_AS_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for ankylosing spondylitis or non-radiographic axial spondyloarthritis and showing improvement in functional status, spinal pain, inflammation, swollen/tender joints, or CRP?",
+      "clinical_intent": "Document continued AS/nr-axSpA benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.D",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for adult members with ankylosing spondylitis or non-radiographic axial spondyloarthritis who exhibit improvement in functional status, spinal pain, inflammation, swollen/tender joints, or CRP.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "D. Ankylosing spondylitis (AS) and non-radiographic axial spondyloarthritis (nr-axSpA)"
+        ],
+        "page_start": 10,
+        "page_end": 10
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_CD_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for Crohn's disease and achieving/maintaining remission or showing improvement in abdominal pain, diarrhea, weight, abdominal mass, hematocrit, mucosal appearance, or disease activity scoring tools such as CDAI?",
+      "clinical_intent": "Document continued Crohn's disease benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.E",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for members using adalimumab for moderately to severely active Crohn's disease who achieve or maintain remission, or who have positive clinical response evidenced by improvement in abdominal pain, diarrhea, body weight, abdominal mass, hematocrit, mucosal appearance, or CDAI score.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "E. Crohn\u2019s disease (CD)"
+        ],
+        "page_start": 10,
+        "page_end": 11
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_UC_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for ulcerative colitis and achieving/maintaining remission or showing improvement in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance, or scores such as UCEIS/Mayo?",
+      "clinical_intent": "Document continued UC benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.F",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for members using adalimumab for moderately to severely active UC who achieve or maintain remission, or who improve in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance, or disease activity scores.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "F. Ulcerative colitis (UC)"
+        ],
+        "page_start": 11,
+        "page_end": 11
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_PSO_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for plaque psoriasis and demonstrating reduction in affected BSA or improvement in signs and symptoms such as itching, redness, flaking, scaling, burning, cracking, or pain?",
+      "clinical_intent": "Document continued plaque psoriasis benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.G",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for adults using adalimumab for moderate to severe plaque psoriasis who achieve or maintain a positive clinical response with reduced BSA or improved symptoms.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "G. Plaque psoriasis (PsO)"
+        ],
+        "page_start": 11,
+        "page_end": 12
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_HS_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for hidradenitis suppurativa and demonstrating reductions in abscess/nodule counts, sinus tracts/scarring, lesion frequency, pain, suppuration, relapse frequency, or improvement in quality of life or disease severity scores?",
+      "clinical_intent": "Document continued HS benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.H",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for members 12 years and older using adalimumab for HS who demonstrate positive response with reductions in abscess/inflammatory nodules, sinus tract formation, lesion frequency, pain, suppuration, relapses, or improved quality of life or disease severity assessment scores.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "H. Hidradenitis suppurativa"
+        ],
+        "page_start": 11,
+        "page_end": 12
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_UVEITIS_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for non-infectious uveitis and demonstrating reduced flare frequency, stable or improved anterior chamber cell grade, vitreous haze, visual acuity, lowered glucocorticoid requirements, or absence of new inflammatory retinal lesions?",
+      "clinical_intent": "Document continued uveitis benefit.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.I",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for members using adalimumab for non-infectious uveitis who achieve or maintain positive clinical response with reduced flares, improved ocular inflammation, better visual acuity, reduced glucocorticoid use, or no new inflammatory lesions.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "I. Uveitis (non-infectious intermediate, posterior and panuveitis)"
+        ],
+        "page_start": 11,
+        "page_end": 13
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_ICI_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for immunotherapy-related inflammatory arthritis and maintaining a positive clinical response with low disease activity or improvement in signs and symptoms?",
+      "clinical_intent": "Document continued benefit for immune checkpoint inhibitor toxicity.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.J",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for members using adalimumab for immunotherapy-related inflammatory arthritis who achieve or maintain a positive clinical response with low disease activity or improvement in signs and symptoms.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "J. Immune checkpoint inhibitor-related toxicity"
+        ],
+        "page_start": 13,
+        "page_end": 13
+      }
+    },
+    {
+      "criterion_id": "CR_CONT_OTHER_RESPONSE",
+      "criterion_kind": "cluster_criterion",
+      "prompt": "Is the member using adalimumab for an indication outlined in Section II (including Behcet's disease or pyoderma gangrenosum) and maintaining a positive clinical response with low disease activity or symptom improvement?",
+      "clinical_intent": "Document continued benefit for other Section II indications.",
+      "answer_type": "boolean",
+      "required": true,
+      "code_binding": {
+        "source_codes": [],
+        "code_role": "UNKNOWN"
+      },
+      "preferred_data_domains": [
+        "condition",
+        "observation"
+      ],
+      "policy_time_language": "Per Section III.K",
+      "retrieval_priority": "medium",
+      "prefill_allowed": true,
+      "clinician_must_confirm": true,
+      "evidence": "Continuation is medically necessary for members using adalimumab for indications outlined in Section II who achieve or maintain a positive clinical response with low disease activity or improvement in signs and symptoms.",
+      "locator": {
+        "section_path": [
+          "III. Continuation of Therapy",
+          "K. All other indications"
+        ],
+        "page_start": 13,
+        "page_end": 13
+      }
+    }
+  ],
+  "notes": {
+    "parsing_notes": "Mapped Section II initial approvals and Section III continuations into routes, clusters, and criteria; dosing tables and investigational lists not modeled.",
+    "confidence": "MEDIUM"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "status": "complete",
+  "payload": {
+    "review_summary": {
+      "selected_scope": {
+        "selected_route_id": "ROUTE_ADALIMUMAB",
+        "selected_phase": "continuation",
+        "selected_cluster_id": "CL_CONT_UC"
+      },
+      "selected_scope_display": {
+        "route_label": "Adalimumab and biosimilars for labeled inflammatory indications",
+        "phase_label": "Continuation",
+        "cluster_label": "Ulcerative colitis (continuation)"
+      },
+      "criterion_totals": {
+        "total": 3,
+        "answered": 3,
+        "unanswered_required": 0,
+        "conflicts": 0
+      },
+      "logic_evaluation": {
+        "selected_cluster_satisfied": true,
+        "selected_cluster_status": "satisfied",
+        "satisfied_criterion_ids": [
+          "CRG_NO_CONCOMITANT",
+          "CR_INIT_UC_DIAG",
+          "CR_CONT_UC_RESPONSE"
+        ],
+        "not_satisfied_criterion_ids": [],
+        "unresolved_criterion_ids": [],
+        "criterion_counts": {
+          "satisfied": 3,
+          "not_satisfied": 0,
+          "unresolved": 0
+        }
+      }
+    },
+    "answered_criteria": [
+      {
+        "criterion_id": "CRG_NO_CONCOMITANT",
+        "criterion_kind": "route_guard",
+        "prompt": "Is the member not using another biologic or targeted synthetic drug concomitantly for the same indication?",
+        "final_answer": true,
+        "final_source": "clinician",
+        "display_state": "satisfied",
+        "comment": null
+      },
+      {
+        "criterion_id": "CR_INIT_UC_DIAG",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Does the member have moderately to severely active ulcerative colitis?",
+        "final_answer": true,
+        "final_source": "clinician",
+        "display_state": "satisfied",
+        "comment": null
+      },
+      {
+        "criterion_id": "CR_CONT_UC_RESPONSE",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Is the member using adalimumab for ulcerative colitis and achieving/maintaining remission or showing improvement in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance, or scores such as UCEIS/Mayo?",
+        "final_answer": true,
+        "final_source": "clinician",
+        "display_state": "satisfied",
+        "comment": "The patient has acheived disease remission after 3 months of treatment."
+      }
+    ],
+    "unanswered_required_items": [],
+    "warnings": [],
+    "submission_ready": true
+  },
+  "messages": [
+    "Processed criterion CRG_NO_CONCOMITANT for cluster CL_CONT_UC.",
+    "Processed criterion CR_INIT_UC_DIAG for cluster CL_CONT_UC.",
+    "Processed criterion CR_CONT_UC_RESPONSE for cluster CL_CONT_UC."
+  ]
+}

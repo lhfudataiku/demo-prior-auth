@@ -1,0 +1,186 @@
+<script setup lang="ts">
+import type { CriterionAnswers, ScenarioOption, Screen1Payload } from '../Api'
+import { labelForCriterionKind } from '../uiLabels'
+
+defineProps<{
+  screen1: Screen1Payload | null
+  loading: boolean
+  screen1Answers: CriterionAnswers
+  scenarios: ScenarioOption[]
+  selectedPolicyId: string
+  subjectIdInput?: string
+}>()
+
+const emit = defineEmits<{
+  'select-policy': [policyId: string]
+  'update-subject-id': [value: string]
+  'select-billing-code': [billingCode: string]
+  'select-phase': [phase: string]
+  'select-cluster': [clusterId: string]
+  'answer-guard': [criterionId: string, answer: boolean | null]
+  proceed: []
+}>()
+
+function normalizeBoolean(value: string) {
+  if (value === 'true') return true
+  if (value === 'false') return false
+  return null
+}
+</script>
+
+<template>
+  <section class="page-stack" v-if="screen1">
+    <header class="page-header">
+      <div>
+        <h1>Select scope</h1>
+        <p class="hero-copy">
+          Confirm the billing code, route branch, and cluster before opening chart-backed review.
+        </p>
+      </div>
+    </header>
+
+    <section class="panel">
+      <div class="section-header">
+        <p class="eyebrow">Current selection</p>
+        <h2>Scope builder</h2>
+      </div>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Patient ID</span>
+          <select
+            :value="subjectIdInput ?? ''"
+            :disabled="loading"
+            @change="emit('update-subject-id', ($event.target as HTMLSelectElement).value)"
+          >
+            <option value="">Select a patient</option>
+            <option v-for="subjectId in screen1.patient_id_options" :key="subjectId" :value="subjectId">
+              {{ subjectId }}
+            </option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Policy</span>
+          <select :value="selectedPolicyId" :disabled="loading" @change="emit('select-policy', ($event.target as HTMLSelectElement).value)">
+            <option v-for="option in scenarios" :key="option.policy_id" :value="option.policy_id">
+              {{ option.policy_id }} — {{ option.label }}
+            </option>
+          </select>
+        </label>
+      </div>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Billing code</span>
+          <select
+            :value="screen1.payload.selection.billing_code ?? ''"
+            :disabled="loading"
+            @change="emit('select-billing-code', ($event.target as HTMLSelectElement).value)"
+          >
+            <option value="">Select a billing code</option>
+            <!-- TODO: Replace these placeholder billing-code labels with policy_master_v4.billing_code_sets labels. -->
+            <option
+              v-for="option in screen1.payload.billing_code_options"
+              :key="option.billing_code"
+              :value="option.billing_code"
+            >
+              {{ option.billing_code }}
+            </option>
+          </select>
+        </label>
+
+        <label class="field" v-if="screen1.payload.phase_options.length > 0 || screen1.payload.selection.selected_phase">
+          <span>Phase</span>
+          <select
+            :value="screen1.payload.selection.selected_phase ?? ''"
+            :disabled="loading || screen1.payload.phase_options.length === 0"
+            @change="emit('select-phase', ($event.target as HTMLSelectElement).value)"
+          >
+            <option value="">Select a phase</option>
+            <option v-for="option in screen1.payload.phase_options" :key="option.value" :value="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </label>
+      </div>
+
+      <div class="field" v-if="screen1.payload.cluster_options.length">
+        <span>Cluster</span>
+        <select
+          :value="screen1.payload.selection.selected_cluster_id ?? ''"
+          :disabled="loading"
+          @change="emit('select-cluster', ($event.target as HTMLSelectElement).value)"
+        >
+          <option value="">Select a clinical cluster</option>
+          <option v-for="option in screen1.payload.cluster_options" :key="option.cluster_id" :value="option.cluster_id">
+            {{ option.cluster_label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="scope-preview" v-if="screen1.payload.route_display.route_label">
+        <p class="label">Matched route</p>
+        <p class="result-headline">{{ screen1.payload.route_display.route_label }}</p>
+        <p class="summary-meta">{{ screen1.payload.route_display.route_id }}</p>
+      </div>
+    </section>
+
+    <section
+      v-if="screen1.payload.route_guard_questions.length || screen1.payload.cluster_entry_guard_questions.length"
+      class="panel"
+    >
+      <div class="section-header">
+        <p class="eyebrow">Clinician questions</p>
+        <h2>Guard questions</h2>
+      </div>
+
+      <div class="guard-stack">
+        <article
+          v-for="question in [...screen1.payload.route_guard_questions, ...screen1.payload.cluster_entry_guard_questions]"
+          :key="question.criterion_id"
+          class="guard-card"
+        >
+          <div class="chip-row">
+            <span
+              class="kind-badge"
+              :data-tone="question.criterion_kind === 'route_guard' ? 'kind-route' : 'kind-entry'"
+            >
+              {{ labelForCriterionKind(question.criterion_kind) }}
+            </span>
+            <span v-if="question.required" class="detail-chip">Required</span>
+          </div>
+          <h3>{{ question.prompt }}</h3>
+          <label class="field">
+            <span>Answer</span>
+            <select
+              :value="screen1Answers[question.criterion_id]?.answer === null || screen1Answers[question.criterion_id]?.answer === undefined ? '' : String(screen1Answers[question.criterion_id]?.answer)"
+              :disabled="loading"
+              @change="emit('answer-guard', question.criterion_id, normalizeBoolean(($event.target as HTMLSelectElement).value))"
+            >
+              <option value="">Leave unanswered</option>
+              <option value="true">Criterion met</option>
+              <option value="false">Criterion unmet</option>
+            </select>
+          </label>
+        </article>
+      </div>
+    </section>
+
+    <div class="page-actions">
+      <div v-if="loading" class="cta-status" aria-live="polite">
+        <span class="loading-spinner" aria-hidden="true" />
+        <div class="cta-status-copy">
+          <span class="label">Preparing next step</span>
+          <p class="summary-meta">Building the eligibility review from the current scope selection.</p>
+        </div>
+      </div>
+      <button
+        class="primary-button"
+        :disabled="loading || !subjectIdInput || screen1.payload.next_action !== 'proceed_screen_2'"
+        @click="emit('proceed')"
+      >
+        {{ loading ? 'Preparing eligibility review...' : 'Continue to eligibility review' }}
+      </button>
+    </div>
+  </section>
+</template>
