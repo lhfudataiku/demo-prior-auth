@@ -26,4 +26,4 @@ jq -s '
 echo "Prepared merged definition for ${PROJECT_KEY}/${WEBAPP_ID}" >&2
 echo "Applying updated standard webapp definition from ${PATCH_FILE}" >&2
 
-dku webapp set-definition "${WEBAPP_ID}" "${PROJECT_KEY}" "@${TMP_MERGED}"
+dku webapp set-definition "${WEBAPP_ID}" -P "${PROJECT_KEY}" --definition "@${TMP_MERGED}"
