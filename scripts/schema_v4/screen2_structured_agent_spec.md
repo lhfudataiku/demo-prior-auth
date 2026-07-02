@@ -2,8 +2,8 @@
 
 ## Purpose
 
-This Structured Visual Agent owns Screen 2 and Screen 3 orchestration after
-Screen 1 has already resolved the selected route, phase, cluster, and guards.
+This Structured Visual Agent owns Screen 2 orchestration after Screen 1 has
+already resolved the selected route, phase, cluster, and guards.
 
 It should:
 - accept `subject_id + scoped_policy_context`
@@ -22,8 +22,7 @@ POC guardrail:
 - Don't overcode. This is a POC.
 
 Document role:
-- use this file as the technical Screen 2 / Screen 3 Structured Agent build
-  spec
+- use this file as the technical Screen 2 Structured Agent build spec
 - use `scripts/schema_v4/prior-auth_assistant.md` for higher-level workflow,
   webapp, and ownership guidance
 
@@ -127,22 +126,62 @@ this object directly.
 }
 ```
 
-### Screen 3 response
+### Downstream Screen 3 response
+
+This is the deterministic backend/webapp output built from the reviewed
+Screen 2 artifact. It is documented here because the Structured Agent's output
+feeds this contract, but the agent does not emit this response directly.
 
 ```json
 {
   "status": "complete | warning | blocked | error",
   "payload": {
     "review_summary": {},
-    "answered_criteria": [],
-    "unanswered_required_items": [],
-    "warnings": [
+    "satisfied_criteria": [
       {
         "criterion_id": "string",
         "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
         "prompt": "string",
-        "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
-        "type": "clinician_override | other_warning_type",
+        "final_answer": true,
+        "final_source": "chart | clinician | unresolved",
+        "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered | unresolved",
+        "justification": "string or null",
+        "comment": "string or null",
+        "conflict_flag": false,
+        "conflict_reason": "string or null"
+      }
+    ],
+    "rejected_criteria": [
+      {
+        "criterion_id": "string",
+        "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
+        "prompt": "string",
+        "final_answer": false,
+        "final_source": "chart | clinician | unresolved",
+        "display_state": "not_satisfied",
+        "justification": "string or null",
+        "comment": "string or null",
+        "conflict_flag": true,
+        "conflict_reason": "string or null"
+      }
+    ],
+    "unresolved_criteria": [
+      {
+        "criterion_id": "string",
+        "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
+        "prompt": "string",
+        "display_state": "needs_clinician | unanswered | unresolved",
+        "justification": "string or null",
+        "final_answer": null,
+        "final_source": "unresolved",
+        "comment": "string or null",
+        "conflict_flag": false,
+        "conflict_reason": "string or null"
+      }
+    ],
+    "review_alerts": [
+      {
+        "type": "human_review_rejected | missing_review_result | other_alert_type",
         "message": "string"
       }
     ],
@@ -151,6 +190,19 @@ this object directly.
   "messages": []
 }
 ```
+
+Presentation guidance:
+- keep payload `status` as the deterministic workflow status for Screen 3
+- a webapp may present
+  `payload.review_summary.logic_evaluation.selected_cluster_status` as the
+  primary audited eligibility status
+- keep `payload.submission_ready` as a separate operational readiness flag
+- bucket criteria by final disposition only:
+  - `satisfied_criteria`
+  - `rejected_criteria`
+  - `unresolved_criteria`
+- preserve clinician/chart disagreement as per-card audit metadata via
+  `conflict_flag` and `conflict_reason` rather than a duplicate section
 
 ## State Contract
 
@@ -294,24 +346,23 @@ Screen 2 display-note:
 9. `request_screen_2_human_review` — `CORE_LOOP`
    - use prompt file
      `scripts/agent_flow/agents/review_request_agent_prompt.md`
-   - enable `State aware` so the block can use the built-in state read/write
-     tool
    - call the managed custom Python tool described in
      `scripts/schema_v4/screen2_human_review_tool_spec.md`
    - wrap the prepared payload under a single top-level object:
      - `{"review_request": state["screen_2_review_tool_input"]}`
    - `review_request` must be emitted as a JSON object, not as a quoted string
    - do not reconstruct or summarize nested payload fields in the core loop
-   - after the tool returns, serialize the exact returned object to JSON and
-     write that JSON string into `state["screen_2_review_result"]` using the
-     built-in state tool
    - configure the managed tool with `Enforce human approval before making tool
      call`
    - allow human editing of tool inputs when available so the reviewer can
      update criterion answers before approval
-   - do not rely on `Additional output handling: Save to state` as the primary
-     persistence mechanism for this block
-   - stop after the state write; do not re-enter another review iteration
+   - in the current live `NkBiV9OM-v2` implementation:
+     - `stateAware = false`
+     - `scratchpadAware = false`
+     - the block relies on `outputMode = SAVE_TO_STATE` with
+       `outputKey = "screen_2_review_result"`
+   - stop after the tool result has been persisted; do not re-enter another
+     review iteration
 
 Step 9 meaning:
 - in `native DSS approval mode`, this is the actual managed human-review
@@ -364,18 +415,27 @@ Optional API fallback:
   and pass it through unchanged under `review_request`
 - the core loop must preserve JSON typing and must not convert the prepared
   object into a Python-style string literal
-- enable `State aware` and use the built-in state write capability to persist
-  the tool result explicitly as a JSON string
+- the current live `NkBiV9OM-v2` block persists the tool result through
+  `outputMode = SAVE_TO_STATE` on `screen_2_review_result`
+- `stateAware` and manual state writes are not required for the current live
+  implementation, although they remain a valid alternative pattern
 - configure the managed tool to enforce human approval before execution
 - if the reviewer edits criterion answers, treat those edits as clinician input
 - after approval, emit the reviewed Screen 2 artifact and let the backend
   deterministically recompute Screen 3
 - no LLM block, delegated reasoning block, or chart retrieval is required after
   approval
-- if approval is rejected, do not continue to Screen 3 submission-ready output
-- if any required criterion remains unresolved and unanswered, `submission_ready=false`
-- if clinician answers conflict with chart-backed `criterion_result_map`, emit a
-  structured warning item without changing the clinician-selected final
+- if approval is rejected, do not continue to downstream Screen 3 generation
+
+## Downstream deterministic Screen 3 rules
+
+These rules apply to the backend/webapp layer that consumes
+`screen_2_review_result`, not to the Structured Agent graph itself.
+
+- if any required criterion remains unresolved and unanswered,
+  `submission_ready=false`
+- if clinician answers conflict with chart-backed `criterion_result_map`, emit
+  a structured warning item without changing the clinician-selected final
   criterion disposition
 - if all required criteria are answered, allow `proceed_screen_3`
 
@@ -472,7 +532,7 @@ Guidance:
       }
     },
     "ui_resolution": {
-      "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
+      "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered",
       "prefill_value": null,
       "use_chart_as_prefill": false,
       "conflict_flag": false,

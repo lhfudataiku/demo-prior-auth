@@ -233,14 +233,17 @@ export interface Screen2ReviewResult {
   human_validated: boolean
 }
 
-export interface AnsweredCriterion {
+export interface ReviewCriterion {
   criterion_id: string
   criterion_kind: string
   prompt: string
-  final_answer: boolean | string | number
+  final_answer: boolean | string | number | null
   final_source: 'chart' | 'clinician' | 'unresolved'
-  display_state: string
+  display_state: 'satisfied' | 'not_satisfied' | 'needs_clinician' | 'conflict' | 'unanswered' | 'unresolved'
+  justification: string | null
   comment: string | null
+  conflict_flag: boolean
+  conflict_reason: string | null
 }
 
 export interface AttentionItem {
@@ -260,15 +263,16 @@ export interface Screen3Payload {
       selected_scope_display?: SelectedScopeDisplay
       criterion_totals: {
         total: number
-        answered: number
-        unanswered_required: number
-        conflicts: number
+        satisfied: number
+        rejected: number
+        unresolved: number
       }
       logic_evaluation: LogicEvaluation
     }
-    answered_criteria: AnsweredCriterion[]
-    unanswered_required_items: Array<Record<string, unknown>>
-    warnings: AttentionItem[]
+    satisfied_criteria: ReviewCriterion[]
+    rejected_criteria: ReviewCriterion[]
+    unresolved_criteria: ReviewCriterion[]
+    review_alerts: AttentionItem[]
     submission_ready: boolean
   }
   messages: string[]

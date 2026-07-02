@@ -1,0 +1,180 @@
+Structured AI Agent for Prior Authorization
+Problem Statement
+Prior Authorization (PA) is an administrative procedure in health insurance where healthcare providers must collect the necessary clinical evidence and supporting documentation for specific medical treatments to secure coverage under a patient's health plan.
+This process is:
+The administrative process is characterized by repetitive, time-intensive manual tasks.
+The process involves navigating the complex landscape of the fragmented U.S. market, which comprises regional and national health plans with distinct prior-authorization rules. This complexity frequently results in care denials and incomplete submissions.
+Ultimately, this administrative load diverts critical resources away from patients and causes significant delays in treatment.
+The core challenge is not clinical judgment — it is the structured assembly and validation of required evidence against the patient’s unique health plan.
+
+Medical Claim Process (Revenue Cycle Management) Overview
+
+The Medical Claims Process typically includes:
+
+Patient registration and insurance verification
+Medical coding and charge capture
+Claim submission through electronic systems
+Payer adjudication and review
+Payment posting and reconciliation
+Denial management and appeals
+Medical claim clearinghouses or medical revenue management companies provide end-to-end services to manage the full medical claim reimbursement lifecycle. 
+Reference: https://www.relyservices.com/blog/medical-claims-process-guide
+
+User Stories
+Hospital System and Physician Groups (Provider)
+It is challenging for healthcare professionals to navigate different regional and national health plans with distinct prior-authorization rules. The documentation and back-and-forth communication required by prior authorization generate an immense administrative burden and lead to clinicians' burnout. 
+
+Persona: "As a clinician, I want an agent to request a prior authorization check based on my patient’s health plan. The agent will autofill the eligibility criteria/ questionnaire based on the electronic health record and prompt for additional documentation for unmet criteria.
+Key Agentic Task: extract clinical evidence from the FHIR-based data and map it to the eligibility requirements from the coverage policy, identify the documentation gap, and generate submission-ready bundle.
+Value Proposition: Faster “time-to-treatment” and reduced claim denial
+
+Claims Clearinghouse and Revenue Cycle Management
+RCM companies often act as an outsourced "back office" for healthcare providers. They enable providers to navigate the thousands of health plans in the US healthcare market. It’s challenging to keep track of the constantly changing coverage policies of health plans offered by national and regional payers and to transmit data with specific EDI (Electronic Data Interchange) formats.
+
+Persona: "As an RCM Manager, I want an agent to pre-scrub authorizations for 'Technical Denials' (e.g., missing NPI, incorrect CPT code, or expired eligibility) before they reach the payer, so that I can maintain a 98% first-pass approval rate."
+Key Agentic Task: takes the FHIR-based data and maps it into the specific EDI formats required by thousands of different regional payers.
+Value Proposition: Faster “time-to-payment” and reduced claims denial
+Health Insurance (Payer)
+Payers are overwhelmed by the volume of manual reviews while facing increasingly stringent decision timeframes and quality regulatory requirements. Their primary pain point is the “medical necessity” review, which requires healthcare professionals to audit within a given timeframe. 
+
+Persona: "As a Payer Medical Director, I want an agent that automatically extracts clinical biomarkers from a provider's EHR, so that I can instantly approve 80% of routine requests without a manual nurse review."
+Key Agentic Task: The agent validates the prior authorization request, identifies the eligibility gap, prompts manual review, and drafts a denial letter. 
+Value Proposition: Reduced administrative spend (MLR), higher member satisfaction.
+
+
+Proposed Framework
+We propose a few Structured AI Agent workflows that automate the preparation and validation of prior authorization submissions for each persona.
+
+Step
+Provider Agent 
+Clearinghouse Agent 
+Payer Agent 
+1. Trigger
+Identifies a breast cancer drug order in the EHR.
+Verifies the patient's active insurance eligibility.
+Checks if the specific CPT code is on the "PA-Required" list.
+2. Evidence
+Pull Pathology and Lab reports.
+Flags any missing fields required by this specific regional payer.
+Ingests the clinical evidence via a secure FHIR API.
+3. Logic
+Maps clinical data to the insurer’s coverage policy checklist.
+Converts the clinical bundle into a claim-ready format.
+Executes a "Rules Engine" check against the medical policy.
+4. Outcome
+Presents the final "Package" to the doctor.
+Transmits the authorized bundle to the Payer.
+Triage the submissions into instance “approval” or “require manual review”
+
+
+The agent would:
+Retrieve payer policy requirements
+Convert criteria into a structured checklist
+Map patient clinical data (e.g., FHIR-based records) to each requirement
+Identify missing or incomplete evidence
+Present structured gaps to the clinician for review
+Assemble a compliant, submission-ready authorization package
+Log all steps for auditability
+
+Why this is a good fit
+Operates within a clearly defined workflow
+Uses governed, standardized clinical data
+Produces structured outputs (checklists, submission packets)
+Maintains a full audit trail
+Includes an explicit human-in-the-loop checkpoint
+Integrates directly into operational EHR systems
+The agent does not make coverage decisions. It structures, validates, and assembles evidence to accelerate compliant submission.
+Expected Impact
+Significant reduction in administrative preparation time
+Improved submission completeness and quality
+Faster authorization cycles
+Reduced provider burden
+Increased auditability and compliance confidence
+
+
+
+Infrastructure 
+Reasoning Framework
+To achieve a semi-automated prior authorization request with a human-in-the-loop validation process, we propose a reasoning framework that includes the following steps: 
+
+Check Prior auth requirement: input patient_id, CPT code, or NDC code
+Search for relevant health plan policy, turned into an eligibility criteria checklist
+Query the EHR in accordance with the checklist/ questionnaire
+Synthesize the coverage requirement and relevant patient records/evidence
+Returned the structured prompts for the clinicians to answer for the unmet criteria
+
+Export the bundled submission package, including the clinical evidence (FHIR sources)
+
+Reference: https://www.youtube.com/watch?v=BRX7HUBlEqw
+
+Factual / Metadata Reasoning
+Search for the patient’s demographic information
+Search for relevant diagnoses, medications, procedures, and visit codes within a time constraint from the electronic health records
+Evidence Retrieval & Semantic Reasoning
+Extract the coverage eligibility criteria from a coverage requirement document and generate a checklist to conduct machine-readable queries
+Aware of the clustering conditions in the eligibility criteria, and make multiple queries to identify relevant health evidence
+Run a semantic similarity search against the unstructured clinical notes to find relevant medical evidence
+Generative & Human-Centric Reasoning
+Synthesize the coverage eligibility and medical evidence into a human-readable checklist
+Generate a structured prompt for clinicians to provide the required information uncovered by the initial query
+Output a submission bundle with clinical evidence
+Required Data
+
+Data 
+Source
+Description
+License
+Demo MIMIC-IV FHIR Dataset
+link
+A sample of structured EHR data in the FHIR schema of 100 patients. 
+Open Data Commons Open Database License v1.0
+MIMIC-IV Note
+link
+Deidentified discharge notes and radiology reports. There are 243 discharge notes and 4892 radiology reports linked to the 100 patients from the demo MIMIC-IV dataset.
+PhysioNet Credentialed Health Data License 1.5.0
+(Problematic)
+Payer Policy Data (Aetna CRD API)
+link
+The API returns a "Card" containing the URL to the specific FHIR Questionnaire (the checklist) needed for approval.
+
+
+Payer Policy Data (PDF)
+link
+Alternative to the CRD APIs. Manually sample a few policy PDFs.
+
+
+
+
+
+Core Components
+
+EHR MCP Server
+Build a Python FastMCP server inside theCode Studio
+Load the ndjson files into an in-memory SQLite database or pandas/Spark dataframes
+Create tools for queries: get_patient_demographics(patient_id), get_active_medications(patient_id), get_lab_results(patient_id, loinc_code)...
+Helpful links:
+Dataiku MCP Server Documentation
+EHR MCP github
+
+
+
+POC Component
+Dataiku Feature Used
+Purpose
+EHR Dataset
+Managed Folder
+Stores the MIMIC-IV NDJSON files securely.
+Data Serving
+MCP server hosted by Code Studio
+Runs the Python FastMCP server to expose the data.
+Data Serving (Alternative)
+Use Pathling package to load and query FHIR data
+It’s the simplest way to work with FHIR data locally. It supports PySpark for operations on large datasets. No additional requirement for infrastructure.
+Policy Retrieval
+Python Request / API
+Calls the Aetna CRD Sandbox for real-time rules.
+Policy Fallback
+Knowledge Bank (RAG)
+Parses uploaded PDF policies if the API is unavailable.
+
+

@@ -1,0 +1,52 @@
+/* Dataiku-aligned design tokens for the prior-auth webapp. */
+
+:root {
+  --dk-black: #1a1a1a;
+  --dk-white: #fffef9;
+  --dk-dark-green: #06312e;
+  --dk-beige: #f8f4e4;
+  --dk-green: #3edab2;
+  --dk-light-green: #c7fff1;
+  --dk-blue: #7092f2;
+  --dk-blue-soft: rgba(112, 146, 242, 0.24);
+  --dk-blue-grey: #42485b;
+  --dk-orange: #edab4f;
+  --dk-orange-soft: rgba(237, 171, 79, 0.32);
+  --dk-brown: #816948;
+
+  --background: var(--dk-white);
+  --foreground: var(--dk-black);
+  --card: var(--dk-beige);
+  --card-foreground: var(--dk-black);
+  --popover: var(--dk-white);
+  --popover-foreground: var(--dk-black);
+  --primary: var(--dk-dark-green);
+  --primary-foreground: var(--dk-white);
+  --secondary: rgba(248, 244, 228, 0.82);
+  --secondary-foreground: var(--dk-black);
+  --muted: rgba(248, 244, 228, 0.56);
+  --muted-foreground: rgba(26, 26, 26, 0.64);
+  --accent: rgba(199, 255, 241, 0.72);
+  --accent-foreground: var(--dk-dark-green);
+  --destructive: #a14d3b;
+  --destructive-foreground: var(--dk-white);
+  --border: rgba(26, 26, 26, 0.1);
+  --input: rgba(26, 26, 26, 0.18);
+  --ring: rgba(62, 218, 178, 0.38);
+
+  --sidebar: var(--dk-dark-green);
+  --sidebar-foreground: rgba(255, 254, 249, 0.94);
+  --sidebar-primary: var(--dk-green);
+  --sidebar-primary-foreground: var(--dk-black);
+  --sidebar-accent: rgba(255, 254, 249, 0.08);
+  --sidebar-accent-foreground: var(--dk-white);
+  --sidebar-border: rgba(255, 254, 249, 0.12);
+  --sidebar-ring: rgba(62, 218, 178, 0.45);
+
+  --chart-1: var(--dk-green);
+  --chart-2: var(--dk-blue);
+  --chart-3: var(--dk-orange);
+  --chart-4: #a8bcdd;
+  --chart-5: #e9d3b3;
+  --radius: 1rem;
+}

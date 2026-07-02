@@ -14,12 +14,15 @@ sources.
 ### 1. High-level architecture and workflow
 - `scripts/schema_v4/prior-auth_assistant.md`
 - owns project scope, webapp flow, component ownership, Screen 1 versus Screen
-  2/3 responsibilities, and the Screen 1 -> Screen 2 handoff contract
+  2/3 responsibilities, including the rule that Screen 3 is deterministic
+  downstream of the Structured Agent, and the Screen 1 -> Screen 2 handoff
+  contract
 
 ### 2. Technical Structured Agent build spec
 - `scripts/schema_v4/screen2_structured_agent_spec.md`
-- owns the Screen 2 / Screen 3 request and response contracts, state keys,
-  block graph, deterministic helper usage, and submit-path behavior
+- owns the Screen 2 request and response contracts, the reviewed Screen 2
+  artifact contract, state keys, block graph, deterministic helper usage, and
+  submit-path behavior
 
 ### 3. Screen 2 human review tool contract
 - `scripts/schema_v4/screen2_human_review_tool_spec.md`

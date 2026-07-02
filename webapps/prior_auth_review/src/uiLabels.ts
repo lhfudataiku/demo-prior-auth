@@ -92,6 +92,7 @@ export function labelForChartStatus(value: string | null | undefined): string {
 export function humanizeToken(value: string | null | undefined): string {
   if (!value) return '—'
   return value
-    .replaceAll('_', ' ')
-    .replace(/\b\w/g, (match) => match.toUpperCase())
+    .split('_')
+    .join(' ')
+    .replace(/\b\w/g, (match: string) => match.toUpperCase())
 }

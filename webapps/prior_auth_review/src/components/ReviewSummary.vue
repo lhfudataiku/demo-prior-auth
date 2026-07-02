@@ -26,24 +26,24 @@ defineProps<{
           <dd>{{ screen3.payload.review_summary.criterion_totals.total }}</dd>
         </div>
         <div>
-          <dt>Answered</dt>
-          <dd>{{ screen3.payload.review_summary.criterion_totals.answered }}</dd>
+          <dt>Satisfied</dt>
+          <dd>{{ screen3.payload.review_summary.criterion_totals.satisfied }}</dd>
         </div>
         <div>
-          <dt>Unanswered required</dt>
-          <dd>{{ screen3.payload.review_summary.criterion_totals.unanswered_required }}</dd>
+          <dt>Rejected</dt>
+          <dd>{{ screen3.payload.review_summary.criterion_totals.rejected }}</dd>
         </div>
         <div>
-          <dt>Conflicts</dt>
-          <dd>{{ screen3.payload.review_summary.criterion_totals.conflicts }}</dd>
+          <dt>Unresolved</dt>
+          <dd>{{ screen3.payload.review_summary.criterion_totals.unresolved }}</dd>
         </div>
       </dl>
 
-      <div class="warning-list" v-if="screen3.payload.warnings.length">
-        <p class="label">Warnings</p>
+      <div class="warning-list" v-if="screen3.payload.review_alerts.length">
+        <p class="label">Review alerts</p>
         <ul>
           <li
-            v-for="warning in screen3.payload.warnings"
+            v-for="warning in screen3.payload.review_alerts"
             :key="`${warning.criterion_id ?? 'warning'}:${warning.type ?? 'warning'}:${warning.message}`"
           >
             {{ warning.message }}
@@ -51,11 +51,11 @@ defineProps<{
         </ul>
       </div>
 
-      <div class="warning-list" v-if="screen3.payload.unanswered_required_items.length">
-        <p class="label">Unanswered required items</p>
+      <div class="warning-list" v-if="screen3.payload.unresolved_criteria.length">
+        <p class="label">Unresolved criteria</p>
         <ul>
           <li
-            v-for="item in screen3.payload.unanswered_required_items"
+            v-for="item in screen3.payload.unresolved_criteria"
             :key="String(item.criterion_id)"
           >
             {{ item.prompt }}
@@ -64,9 +64,9 @@ defineProps<{
       </div>
 
       <div class="answers-list">
-        <p class="label">Answered criteria</p>
+        <p class="label">Rejected criteria</p>
         <ul>
-          <li v-for="criterion in screen3.payload.answered_criteria" :key="criterion.criterion_id">
+          <li v-for="criterion in screen3.payload.rejected_criteria" :key="criterion.criterion_id">
             <strong>{{ criterion.criterion_id }}</strong> — {{ criterion.final_answer }} ({{ criterion.final_source }})
           </li>
         </ul>

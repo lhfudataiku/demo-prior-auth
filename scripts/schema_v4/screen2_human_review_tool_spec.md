@@ -3,7 +3,7 @@
 ## Purpose
 
 This managed custom Python tool is the POC human-in-the-loop boundary between
-Screen 2 evidence review and Screen 3 final review.
+Screen 2 evidence review and deterministic downstream Screen 3 generation.
 
 POC guardrail:
 - Don't overcode. This is a POC.
@@ -109,8 +109,8 @@ Notes:
 - Do not change `criterion_result_map`.
 - Treat returned answers as clinician input for
   `build_criterion_ui_map(...)`.
-- Let the Structured Agent recompute conflicts, completeness, and Screen 3
-  payload deterministically after approval.
+- Let the backend/webapp layer deterministically recompute conflicts,
+  completeness, and Screen 3 payloads after approval.
 - `approved_criterion_answers` is the approved snapshot of clinician input and
   should keep the same inner schema as `criterion_answers`.
 

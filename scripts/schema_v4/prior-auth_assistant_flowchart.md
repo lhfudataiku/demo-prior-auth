@@ -43,10 +43,13 @@ flowchart TD
     LogicEval["evaluate_logic_tree_from_state(...)"]
     Screen2Payload["prepare_screen_2_review_payload\nbuild_screen2_payload(...)"]
     ReviewTool["request_screen_2_human_review\nmanaged Python tool\nhuman approval enforced"]
-    CaptureReview["capture_screen_2_review_result(...)\nmerge approved edits"]
+    EmitReview["emit screen_2_review_result\nreviewed Screen 2 artifact"]
+  end
 
+  subgraph PostReview["Deterministic post-review backend/webapp"]
+    CaptureReview["consume screen_2_review_result\nmerge approved edits"]
     Screen3Payload["build_screen3_payload(...)"]
-    Emit3["Screen 3 response\nreview_summary + warnings + submission_ready"]
+    Emit3["Screen 3 response\nreview_summary + criteria buckets + review_alerts + submission_ready"]
   end
 
   S1 -->|"screen_1 request / submit:\npolicy_id, subject_id, billing_code,\nselected_phase?, selected_cluster_id?,\nroute guard answers?, cluster-entry guard answers?"| B1
@@ -71,15 +74,15 @@ flowchart TD
   Screen2Payload --> ReviewTool
   ReviewTool --> S2
 
-  S2 -->|"human approval:\napprove or edit criterion_answers"| CaptureReview
-  ReviewTool --> CaptureReview
-  CaptureReview --> UIMap
-  CaptureReview --> LogicEval
+  S2 -->|"human approval:\napprove or edit criterion_answers"| EmitReview
+  ReviewTool --> EmitReview
+  EmitReview --> CaptureReview
   CaptureReview --> Screen3Payload
   Screen3Payload --> Emit3
   Emit3 --> S3
 
   B1 --> SessionDS
+  EmitReview --> SessionDS
   CaptureReview --> SessionDS
 ```
 
@@ -93,5 +96,5 @@ Notes:
 - `criterion_answers` is the working clinician-input map; `approved_criterion_answers` is the approved or submitted snapshot after review.
 - Native DSS approval mode uses the managed Python tool as the actual human-review checkpoint.
 - Standard webapp review mode uses the same payload shape but collects approved clinician edits directly from the webapp submit flow.
-- After approval or submit, the Structured Agent or backend deterministically merges approved edits, rebuilds UI state, recomputes logic, and emits the Screen 3 payload.
+- After approval or submit, the backend/webapp layer deterministically merges approved edits, rebuilds UI state, recomputes logic, and emits the Screen 3 payload.
 - POC execution stays flattened: evaluate each criterion once, build `criterion_result_map`, then apply results back to the selected logic tree.

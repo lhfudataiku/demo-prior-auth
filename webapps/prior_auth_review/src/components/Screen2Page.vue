@@ -2,6 +2,7 @@
 import { computed, nextTick, watch } from 'vue'
 import type { AgentRunProgress, CriterionAnswers, CriterionRow, LogicEvaluation, Screen2Payload } from '../Api'
 import CriterionCard from './CriterionCard.vue'
+import { EaBadge, EaButton, EaEmpty } from './ui'
 import { humanizeToken, labelForCriterionState, toneForStatus } from '../uiLabels'
 
 const props = defineProps<{
@@ -27,6 +28,30 @@ const emit = defineEmits<{
   submit: []
 }>()
 
+function labelForAgentPhase(blockId: string | null | undefined) {
+  switch (blockId) {
+    case 'init_state':
+    case 'plan_retrieval':
+      return 'Preparing the review'
+    case 'execute_plan':
+    case 'reason_one_criterion':
+      return 'Gathering chart evidence'
+    case 'accumulate_result':
+    case 'build_criterion_ui_map':
+      return 'Preparing criteria for review'
+    case 'evaluate_logic_tree':
+      return 'Analyzing chart evidence'
+    case 'prepare_screen_2_review_payload':
+      return 'Building the eligibility review'
+    case 'request_screen_2_human_review':
+      return 'Review ready'
+    case 'emit_review_result_artifact':
+      return 'Preparing final review'
+    default:
+      return null
+  }
+}
+
 const progressPercent = computed(() => {
   const total = props.agentProgress?.total_criteria
   const completed = props.agentProgress?.completed_criteria ?? 0
@@ -41,37 +66,35 @@ const canEdit = computed(() =>
     || props.agentStatus === null,
 )
 
-const showCriteria = computed(() =>
-  props.criteria.length > 0,
-)
+const showCriteria = computed(() => props.criteria.length > 0)
+const agentPhaseLabel = computed(() => labelForAgentPhase(props.agentProgress?.current_block_id))
 
 const reviewProgressTitle = computed(() => {
   if (props.submitting) return 'Preparing final review'
   if (props.agentStatus === 'failed') return 'Review interrupted'
   if (props.agentStatus === 'hitl_paused') return 'Review ready'
   if (props.agentStatus === 'completed') return 'Review complete'
-  if (props.agentStatus === 'running') return 'Preparing review'
+  if (props.agentStatus === 'running') return 'Review in progress'
   if (props.logicEvaluation) return 'Review ready'
-  return 'Preparing review'
+  return 'Preparing the review'
 })
 
 const reviewProgressBody = computed(() => {
   if (props.submitting) return 'We are finalizing the clinician-approved review and preparing the submission summary.'
   if (props.agentStatus === 'failed') return 'The agent run failed before the review could be completed.'
-  if (props.agentStatus === 'hitl_paused') return 'Chart evidence is hydrated and the review is ready for clinician confirmation.'
+  if (props.agentStatus === 'hitl_paused') return 'The eligibility review is ready for clinician confirmation.'
   if (props.agentStatus === 'completed') return 'The reviewed output has been finalized successfully.'
   if (props.agentStatus === 'running') {
-    if (props.agentProgress?.current_criterion_prompt) return props.agentProgress.current_criterion_prompt
-    return 'The Structured Agent is reviewing chart evidence and preparing the eligibility review.'
+    return agentPhaseLabel.value ?? 'The review is in progress.'
   }
   if (props.logicEvaluation) return 'Resolve any remaining issues, then continue to the final submission review.'
-  return 'The backend is still rendering the review content.'
+  return 'Preparing the review.'
 })
 
 const progressSummary = computed(() => {
   const total = props.agentProgress?.total_criteria ?? props.criteriaCount
   const completed = props.agentProgress?.completed_criteria ?? 0
-  if (typeof total !== 'number' || total <= 0) return 'Rendering criteria'
+  if (typeof total !== 'number' || total <= 0) return 'Preparing criteria for review'
   if (props.agentStatus === 'hitl_paused' || props.logicEvaluation) return `${total} criteria ready for review`
   return `${completed} of ${total} criteria reviewed`
 })
@@ -113,97 +136,147 @@ watch(
 </script>
 
 <template>
-  <section class="page-stack" v-if="screen2 || agentStatus || criteria.length">
-    <header class="page-header">
-      <div>
-        <h1>Eligibility review</h1>
-        <p class="hero-copy">
+  <section v-if="screen2 || agentStatus || criteria.length" class="space-y-6">
+    <header class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+      <div class="space-y-2">
+        <h1 class="font-serif text-3xl font-semibold text-foreground lg:text-4xl">Eligibility review</h1>
+        <p class="max-w-3xl text-sm text-muted-foreground lg:text-base">
           Compare chart evidence with clinician input, resolve disagreements, and prepare the final summary.
         </p>
       </div>
-      <div class="header-actions">
-        <div class="status-kv">
-          <span class="label">Review stage</span>
-          <span class="status-chip" :data-tone="toneForStatus(agentStatus || screen2?.status || 'running')">
-            {{ reviewProgressTitle }}
-          </span>
-        </div>
+      <div class="grid gap-2">
+        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Review stage</span>
+        <EaBadge :tone="toneForStatus(agentStatus || screen2?.status || 'running')">
+          {{ reviewProgressTitle }}
+        </EaBadge>
       </div>
     </header>
 
-    <section class="panel" v-if="showReviewProgress">
-      <div class="section-header">
-        <p class="eyebrow">Structured agent</p>
-        <h2>Review progress</h2>
-      </div>
-      <div class="progress-hero">
-        <span v-if="agentStatus === 'running' || submitting" class="loading-spinner" aria-hidden="true" />
-        <div class="progress-hero-copy">
-          <p class="body-copy">{{ reviewProgressBody }}</p>
-          <p v-if="agentMessage" class="summary-meta">{{ agentMessage }}</p>
+    <section
+      v-if="showReviewProgress"
+      class="rounded-[1.75rem] border border-border bg-card p-6 shadow-sm"
+    >
+      <div class="mb-6 flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
+        <div class="space-y-1">
+          <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Structured agent</p>
+          <h2 class="font-serif text-2xl font-semibold text-foreground">Review progress</h2>
         </div>
-      </div>
-      <div v-if="agentProgress" class="status-bar streaming-status">
-        <div class="status-item" v-if="agentProgress.total_criteria !== null">
-          <span class="label">Queue</span>
-          <span class="status-chip" data-tone="neutral">
-            {{ agentProgress.completed_criteria }} / {{ agentProgress.total_criteria }}
-          </span>
-        </div>
-        <div class="status-item" v-if="agentProgress.current_criterion_id">
-          <span class="label">Current criterion</span>
-          <span class="status-chip" data-tone="neutral">{{ agentProgress.current_criterion_id }}</span>
-        </div>
-        <div class="status-item" v-if="agentProgress.current_block_id">
-          <span class="label">Current block</span>
-          <span class="status-chip" data-tone="neutral">{{ agentProgress.current_block_id }}</span>
-        </div>
-      </div>
-      <div v-if="progressPercent !== null" class="progress-meter" aria-hidden="true">
-        <div class="progress-meter__fill" :style="{ width: `${progressPercent}%` }" />
-      </div>
-      <details class="evidence-panel" v-if="agentEvents.length || agentProgress?.current_block_id">
-        <summary>Agent details</summary>
-        <div class="summary-stack">
-          <p v-if="agentProgress?.current_block_id" class="summary-meta">Current block: {{ agentProgress.current_block_id }}</p>
-          <p v-if="agentEvents.length" class="summary-meta">Events captured: {{ agentEvents.length }}</p>
-        </div>
-      </details>
-    </section>
-
-    <section class="status-bar panel" v-if="logicEvaluation || criteriaCount !== null">
-      <div class="status-item">
-        <span class="label">Cluster status</span>
-        <span class="status-chip" :data-tone="toneForStatus(logicEvaluation?.selected_cluster_status || 'running')">
-          {{ logicEvaluation ? labelForCriterionState(logicEvaluation.selected_cluster_status) : humanizeToken(agentStatus || 'running') }}
-        </span>
-      </div>
-      <div class="status-item">
-        <span class="label">Review progress</span>
-        <span class="status-chip status-chip--loading" :data-tone="toneForStatus(agentStatus || (logicEvaluation ? 'ok' : 'running'))">
-          <span v-if="agentStatus === 'running' || submitting" class="loading-spinner loading-spinner--inline" aria-hidden="true" />
+        <EaBadge tone="neutral">
           {{ progressSummary }}
-        </span>
+        </EaBadge>
       </div>
-      <div class="status-item">
-        <span class="label">Criteria count</span>
-        <span class="detail-chip" >{{ criteriaCount ?? '—' }}</span>
-      </div>
-      <div class="status-item">
-        <span class="label">Satisfied</span>
-        <span class="status-chip" data-tone="positive">{{ logicEvaluation?.criterion_counts.satisfied ?? '—' }}</span>
-      </div>
-      <div class="status-item">
-        <span class="label">Not satisfied</span>
-        <span class="status-chip" data-tone="warning">{{ logicEvaluation?.criterion_counts.not_satisfied ?? '—' }}</span>
-      </div>
-      <div class="status-item">
-        <span class="label">Unresolved</span>
-        <span class="status-chip" data-tone="neutral">{{ logicEvaluation?.criterion_counts.unresolved ?? '—' }}</span>
+
+      <div class="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.9fr)]">
+        <div class="rounded-[1.5rem] border border-border bg-background px-5 py-4">
+          <div class="flex items-start gap-3">
+            <span
+              v-if="agentStatus === 'running' || submitting"
+              class="loading-spinner mt-0.5"
+              aria-hidden="true"
+            />
+            <div class="grid gap-2">
+              <p class="text-base text-foreground">{{ reviewProgressBody }}</p>
+              <p v-if="agentMessage" class="font-mono text-xs text-muted-foreground">{{ agentMessage }}</p>
+            </div>
+          </div>
+
+          <div
+            v-if="progressPercent !== null"
+            class="mt-4 h-2.5 overflow-hidden rounded-full bg-muted"
+            aria-hidden="true"
+          >
+            <div
+              class="h-full rounded-full bg-[linear-gradient(90deg,var(--dk-green),var(--dk-dark-green))] transition-[width] duration-200"
+              :style="{ width: `${progressPercent}%` }"
+            />
+          </div>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+          <div class="rounded-[1.5rem] border border-border bg-background px-4 py-4">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Runtime</span>
+            <p class="mt-2 font-serif text-xl font-semibold text-foreground">
+              {{ dataSource === 'dss' ? 'Live Structured Agent' : 'Fixture-backed review' }}
+            </p>
+            <p class="mt-1 text-sm text-muted-foreground">
+              {{ dataSource === 'dss'
+                ? 'Managed chart review with clinician confirmation.'
+                : 'Deterministic local artifact path for iterative frontend work.' }}
+            </p>
+          </div>
+
+          <div
+            v-if="agentProgress"
+            class="rounded-[1.5rem] border border-border bg-background px-4 py-4"
+          >
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Queue detail</span>
+            <div class="mt-3 grid gap-3">
+              <div v-if="agentProgress.total_criteria !== null" class="grid gap-1">
+                <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Criteria</span>
+                <p class="text-sm text-foreground">
+                  {{ agentProgress.completed_criteria }} / {{ agentProgress.total_criteria }}
+                </p>
+              </div>
+              <div v-if="agentProgress.current_criterion_id" class="grid gap-1">
+                <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Current criterion</span>
+                <p class="font-mono text-xs text-foreground">{{ agentProgress.current_criterion_id }}</p>
+              </div>
+              <div v-if="agentPhaseLabel || agentProgress.current_block_id" class="grid gap-1">
+                <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Current phase</span>
+                <p class="text-sm text-foreground">{{ agentPhaseLabel ?? humanizeToken(agentProgress.current_block_id) }}</p>
+              </div>
+              <div v-if="agentEvents.length" class="grid gap-1">
+                <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Events captured</span>
+                <p class="text-sm text-foreground">{{ agentEvents.length }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="criteria-stack" v-if="showCriteria">
+    <section
+      v-if="logicEvaluation || criteriaCount !== null"
+      class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+    >
+      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Cluster status</span>
+        <div class="mt-3 flex items-center gap-3">
+          <EaBadge :tone="toneForStatus(logicEvaluation?.selected_cluster_status || 'running')">
+            {{ logicEvaluation ? labelForCriterionState(logicEvaluation.selected_cluster_status) : humanizeToken(agentStatus || 'running') }}
+          </EaBadge>
+        </div>
+      </article>
+
+      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Criteria count</span>
+        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">{{ criteriaCount ?? '—' }}</p>
+        <p class="mt-1 text-sm text-muted-foreground">{{ progressSummary }}</p>
+      </article>
+
+      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Satisfied</span>
+        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+          {{ logicEvaluation?.criterion_counts.satisfied ?? '—' }}
+        </p>
+      </article>
+
+      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Not satisfied</span>
+        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+          {{ logicEvaluation?.criterion_counts.not_satisfied ?? '—' }}
+        </p>
+      </article>
+
+      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Unresolved</span>
+        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+          {{ logicEvaluation?.criterion_counts.unresolved ?? '—' }}
+        </p>
+      </article>
+    </section>
+
+    <section v-if="showCriteria" class="grid gap-4">
       <CriterionCard
         v-for="criterion in criteria"
         :key="criterion.criterion_id"
@@ -218,26 +291,39 @@ watch(
       />
     </section>
 
-    <div class="page-actions page-actions--sticky">
-      <div class="page-actions-shell">
-        <div v-if="showActionLoading" class="cta-status" aria-live="polite">
+    <EaEmpty
+      v-else
+      title="Waiting for review criteria"
+      description="The eligibility review will appear here as chart evidence is prepared for clinician review."
+      class="rounded-[1.75rem] border border-dashed border-border bg-card py-14"
+    />
+
+    <div class="sticky bottom-3 z-10 mt-2">
+      <div class="grid gap-3 rounded-[1.5rem] border border-border bg-background/95 p-4 shadow-[0_16px_30px_rgba(26,26,26,0.08)] backdrop-blur">
+        <div
+          v-if="showActionLoading"
+          class="flex items-start gap-3 rounded-[1.25rem] border border-border bg-card px-4 py-3"
+          aria-live="polite"
+        >
           <span class="loading-spinner" aria-hidden="true" />
-          <div class="cta-status-copy">
-            <span class="label">Preparing next step</span>
-            <p class="summary-meta">
+          <div class="grid gap-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Preparing next step</span>
+            <p class="text-sm text-muted-foreground">
               {{ submitting
                 ? 'Building the final submission review from the approved answers.'
-                : 'The backend is still hydrating the review before you can continue.' }}
+                : 'The eligibility review is still being prepared before you can continue.' }}
             </p>
           </div>
         </div>
-        <button
-          class="primary-button"
+        <EaButton
+          variant="accent"
+          size="lg"
+          class="w-full justify-center sm:w-auto"
           :disabled="!isSubmitReady"
           @click="emit('submit')"
         >
           {{ actionButtonLabel }}
-        </button>
+        </EaButton>
       </div>
     </div>
   </section>
