@@ -1,13 +1,13 @@
 from pathlib import Path
 from webaiku.extension import WEBAIKU
-from webapps.prior_auth_review.backend.backend import api
+from webapps.prior_auth_review.backend.backend import api, compat
 
 WEBAPP_DIST = "webapps/prior_auth_review/dist"
 
 
 def init_dss_app(app):
     WEBAIKU(app, WEBAPP_DIST)
-    WEBAIKU.extend(app, [api])
+    WEBAIKU.extend(app, [api, compat])
 
 
 if "app" in globals():

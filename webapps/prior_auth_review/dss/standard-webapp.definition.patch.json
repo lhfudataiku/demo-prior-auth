@@ -1,0 +1,17 @@
+{
+  "params": {
+    "html": "",
+    "css": "",
+    "js": "const backendURL = dataiku.getWebAppBackendUrl('');\nwindow.addEventListener('load', function() {\n    document.body.style.margin = '0';\n    const ifrm = document.createElement('iframe');\n    ifrm.setAttribute('src', backendURL);\n    ifrm.setAttribute('style', 'position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden;');\n    document.body.replaceChildren(ifrm);\n});\n",
+    "python": "from webapps.prior_auth_review.backend.wsgi import init_dss_app\n\ninit_dss_app(app)",
+    "backendEnabled": true,
+    "enableJavascriptModules": false,
+    "autoStartBackend": true,
+    "backendAPIAccessEnabled": false,
+    "backendFramework": "FLASK",
+    "libraries": [
+      "jquery",
+      "dataiku"
+    ]
+  }
+}

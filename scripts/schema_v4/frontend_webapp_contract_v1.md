@@ -629,6 +629,13 @@ Current normalization rule:
   exposing it to the frontend
 - the frontend should not depend directly on raw DSS tool-call wrapper details
 
+Current DSS wrapper note:
+- the deployed standard-webapp shell may still use an older browser bootstrap
+  around the backend iframe
+- the backend currently keeps compatibility for legacy wrapper requests such as
+  `/first_api_call` and `/dist/...` while the wrapper definition is being
+  aligned with the current Vite/Flask implementation
+
 ## Current Gaps And Temporary Adapters
 
 - `local` mode still exists as a deliberate fixture/static development path

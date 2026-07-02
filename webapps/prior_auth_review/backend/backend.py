@@ -2,8 +2,9 @@ import json
 import threading
 import time
 import uuid
+from pathlib import Path
 
-from flask import Blueprint, Flask, jsonify, request
+from flask import Blueprint, Flask, jsonify, request, send_from_directory
 
 try:
     import dataiku  # type: ignore
@@ -39,8 +40,10 @@ from webapps.prior_auth_review.backend.utils import (
 
 
 api = Blueprint("prior_auth_review_api", __name__, url_prefix="/api")
+compat = Blueprint("prior_auth_review_compat", __name__)
 _run_lock = threading.Lock()
 _runs = {}
+_WEBAPP_DIST_DIR = Path(__file__).resolve().parents[1] / "dist"
 
 
 def _catalog_item(policy_id: str):
@@ -53,6 +56,22 @@ def _with_patient_age(patient_summary):
     summary = dict(patient_summary)
     summary["age"] = calculate_age(summary.get("birth_date"))
     return summary
+
+
+@compat.route("/first_api_call", methods=["GET"])
+def legacy_first_api_call():
+    return jsonify(
+        {
+            "status": "ok",
+            "message": "Prior auth review backend is running.",
+            "app": "prior_auth_review",
+        }
+    )
+
+
+@compat.route("/dist/<path:relative_path>", methods=["GET"])
+def legacy_dist_asset(relative_path: str):
+    return send_from_directory(_WEBAPP_DIST_DIR, relative_path)
 
 
 def _resolve_selected_scope_context(policy_id: str, body: dict):
