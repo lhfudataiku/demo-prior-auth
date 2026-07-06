@@ -15,7 +15,7 @@ const badgeVariants = cva(
         inherited: 'border-dk-blue/18 bg-dk-light-green/75 text-dk-blue-grey',
         positive: 'border-dk-dark-green/12 bg-dk-light-green text-dk-dark-green',
         warning: 'border-dk-brown/18 bg-dk-orange-soft text-dk-brown',
-        critical: 'border-dk-brown/22 bg-dk-brown/15 text-dk-brown',
+        critical: 'border-destructive/30 bg-destructive/12 text-destructive',
       },
     },
     defaultVariants: {

@@ -1,52 +1,61 @@
-/* Dataiku-aligned design tokens for the prior-auth webapp. */
+/* Design tokens — aligned to the bs-blueprint framework (Dataiku indigo/neutral).
+   Single source of truth for colors + radius. Light theme only (the webapp runs
+   in a light DSS iframe with no theme toggle).
+
+   The legacy --dk-* palette is retained but remapped onto the bs-blueprint
+   scheme, so existing dk-* utility usages (badges, gradients, borders, rings)
+   re-theme here without per-component edits. */
 
 :root {
-  --dk-black: #1a1a1a;
-  --dk-white: #fffef9;
-  --dk-dark-green: #06312e;
-  --dk-beige: #f8f4e4;
-  --dk-green: #3edab2;
-  --dk-light-green: #c7fff1;
-  --dk-blue: #7092f2;
-  --dk-blue-soft: rgba(112, 146, 242, 0.24);
-  --dk-blue-grey: #42485b;
-  --dk-orange: #edab4f;
-  --dk-orange-soft: rgba(237, 171, 79, 0.32);
-  --dk-brown: #816948;
+  /* Legacy Dataiku palette, remapped onto the bs-blueprint indigo/neutral scheme. */
+  --dk-black: hsl(240 10% 3.9%);
+  --dk-white: hsl(0 0% 100%);
+  --dk-dark-green: hsl(233.92 50% 35%);        /* brand indigo (primary) */
+  --dk-green: hsl(233.92 50% 46%);             /* lighter indigo accent */
+  --dk-light-green: hsl(233 100% 96.5%);       /* light indigo tint */
+  --dk-beige: hsl(240 4.8% 95.9%);             /* neutral panel tint */
+  --dk-blue: hsl(221 47% 45%);                 /* info / route */
+  --dk-blue-soft: hsl(221 47% 45% / 0.16);
+  --dk-blue-grey: hsl(240 3.8% 46.1%);         /* neutral text */
+  --dk-orange: hsl(22 84% 50%);                /* warning / entry (amber) */
+  --dk-orange-soft: hsl(22 84% 50% / 0.18);
+  --dk-brown: hsl(22 48% 34%);                 /* warm text for warning/critical */
 
-  --background: var(--dk-white);
-  --foreground: var(--dk-black);
-  --card: var(--dk-beige);
-  --card-foreground: var(--dk-black);
-  --popover: var(--dk-white);
-  --popover-foreground: var(--dk-black);
-  --primary: var(--dk-dark-green);
-  --primary-foreground: var(--dk-white);
-  --secondary: rgba(248, 244, 228, 0.82);
-  --secondary-foreground: var(--dk-black);
-  --muted: rgba(248, 244, 228, 0.56);
-  --muted-foreground: rgba(26, 26, 26, 0.64);
-  --accent: rgba(199, 255, 241, 0.72);
-  --accent-foreground: var(--dk-dark-green);
-  --destructive: #a14d3b;
-  --destructive-foreground: var(--dk-white);
-  --border: rgba(26, 26, 26, 0.1);
-  --input: rgba(26, 26, 26, 0.18);
-  --ring: rgba(62, 218, 178, 0.38);
+  /* Semantic tokens (bs-blueprint light). */
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(240 10% 3.9%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(240 10% 3.9%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(240 10% 3.9%);
+  --primary: hsl(233.92 50% 35%);
+  --primary-foreground: hsl(0 0% 98%);
+  --secondary: hsl(240 4.8% 95.9%);
+  --secondary-foreground: hsl(240 5.9% 10%);
+  --muted: hsl(240 4.8% 95.9%);
+  --muted-foreground: hsl(240 3.8% 46.1%);
+  --accent: hsl(240 4.8% 95.9%);
+  --accent-foreground: hsl(240 5.9% 10%);
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(240 5.9% 90%);
+  --input: hsl(240 5.9% 90%);
+  --ring: hsl(240 5% 64.9%);
 
-  --sidebar: var(--dk-dark-green);
-  --sidebar-foreground: rgba(255, 254, 249, 0.94);
-  --sidebar-primary: var(--dk-green);
-  --sidebar-primary-foreground: var(--dk-black);
-  --sidebar-accent: rgba(255, 254, 249, 0.08);
-  --sidebar-accent-foreground: var(--dk-white);
-  --sidebar-border: rgba(255, 254, 249, 0.12);
-  --sidebar-ring: rgba(62, 218, 178, 0.45);
+  --chart-1: hsl(22 84% 60%);
+  --chart-2: hsl(172 46% 48%);
+  --chart-3: hsl(221 47% 31%);
+  --chart-4: hsl(72 77% 75%);
+  --chart-5: hsl(56 77% 69%);
 
-  --chart-1: var(--dk-green);
-  --chart-2: var(--dk-blue);
-  --chart-3: var(--dk-orange);
-  --chart-4: #a8bcdd;
-  --chart-5: #e9d3b3;
-  --radius: 1rem;
+  --radius: 0.625rem;
+
+  --sidebar: hsl(223 78% 98%);
+  --sidebar-foreground: hsl(233.92 50% 35%);
+  --sidebar-primary: hsl(233.92 50% 35%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(0 0% 100%);
+  --sidebar-accent-foreground: hsl(233.92 50% 35%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }

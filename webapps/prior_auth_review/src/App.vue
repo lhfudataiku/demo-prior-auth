@@ -61,7 +61,7 @@ onMounted(() => {
           </div>
         </header>
 
-        <div v-if="store.error" class="mb-6 rounded-2xl border border-[rgba(161,77,59,0.2)] bg-[rgba(161,77,59,0.12)] px-4 py-3 text-sm text-[#6e352a]">
+        <div v-if="store.error" class="mb-6 rounded-2xl border border-destructive/25 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           {{ store.error }}
         </div>
 
