@@ -1,6 +1,7 @@
 export { default as EaBadge } from './EaBadge.vue'
 export { default as EaButton } from './EaButton.vue'
 export { default as EaEmpty } from './EaEmpty.vue'
+export { default as EaInfo } from './EaInfo.vue'
 export { default as EaInput } from './EaInput.vue'
 export { default as EaSelect } from './EaSelect.vue'
 export { default as EaTextarea } from './EaTextarea.vue'

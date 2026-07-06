@@ -5,7 +5,7 @@ The attached markdown files are the source of truth. Ignore assumptions from pri
 Your job is to work incrementally, preserve existing architecture unless instructed otherwise, and update the relevant spec/docs when implementation details change.
 
 Start by reading:
-- PROJECT_CONTEXT.md
+- project_workspace/PROJECT_CONTEXT.md
 - scripts/schema_v4/prior-auth_assistant.md
 - scripts/schema_v4/screen2_structured_agent_spec.md
 - scripts/schema_v4/frontend_webapp_contract_v1.md

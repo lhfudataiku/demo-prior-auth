@@ -634,6 +634,22 @@ textarea {
   }
 }
 
+/* Indeterminate progress bar for streaming states where no criterion total
+   is known yet (agent still planning the review). */
+.progress-indeterminate {
+  width: 40%;
+  animation: progress-indeterminate 1.4s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    margin-left: -40%;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
 .result-headline,
 .summary-meta,
 .mono {

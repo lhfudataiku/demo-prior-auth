@@ -2,8 +2,8 @@
 import { computed, nextTick, watch } from 'vue'
 import type { AgentRunProgress, CriterionAnswers, CriterionRow, LogicEvaluation, Screen2Payload } from '../Api'
 import CriterionCard from './CriterionCard.vue'
-import { EaBadge, EaButton, EaEmpty } from './ui'
-import { humanizeToken, labelForCriterionState, toneForStatus } from '../uiLabels'
+import { EaBadge, EaButton, EaEmpty, EaInfo } from './ui'
+import { humanizeToken, labelForCriterionState } from '../uiLabels'
 
 const props = defineProps<{
   screen2: Screen2Payload | null
@@ -85,10 +85,17 @@ const reviewProgressBody = computed(() => {
   if (props.agentStatus === 'hitl_paused') return 'The eligibility review is ready for clinician confirmation.'
   if (props.agentStatus === 'completed') return 'The reviewed output has been finalized successfully.'
   if (props.agentStatus === 'running') {
-    return agentPhaseLabel.value ?? 'The review is in progress.'
+    return 'Comparing chart evidence against each policy criterion.'
   }
   if (props.logicEvaluation) return 'Resolve any remaining issues, then continue to the final submission review.'
   return 'Preparing the review.'
+})
+
+// Surfaces the clinician-facing agent phase (labelForAgentPhase) as the panel
+// heading while running; falls back to the high-level stage title otherwise.
+const reviewProgressHeading = computed(() => {
+  if (props.agentStatus === 'running' && agentPhaseLabel.value) return agentPhaseLabel.value
+  return reviewProgressTitle.value
 })
 
 const progressSummary = computed(() => {
@@ -145,10 +152,11 @@ watch(
         </p>
       </div>
       <div class="grid gap-2">
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Review stage</span>
-        <EaBadge :tone="toneForStatus(agentStatus || screen2?.status || 'running')">
-          {{ reviewProgressTitle }}
-        </EaBadge>
+        <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+          Review stage
+          <EaInfo>Where this case sits in the automated eligibility review, from preparation through clinician confirmation.</EaInfo>
+        </span>
+        <p class="font-serif text-3xl font-semibold text-foreground">{{ reviewProgressTitle }}</p>
       </div>
     </header>
 
@@ -167,28 +175,35 @@ watch(
       </div>
 
       <div class="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.9fr)]">
-        <div class="rounded-[1.5rem] border border-border bg-background px-5 py-4">
+        <div class="flex flex-col justify-between gap-6 rounded-[1.5rem] border border-border bg-background px-6 py-5">
           <div class="flex items-start gap-3">
             <span
               v-if="agentStatus === 'running' || submitting"
-              class="loading-spinner mt-0.5"
+              class="loading-spinner mt-1"
               aria-hidden="true"
             />
-            <div class="grid gap-2">
-              <p class="text-base text-foreground">{{ reviewProgressBody }}</p>
+            <div class="grid gap-1.5">
+              <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                {{ agentStatus === 'running' ? 'Current phase' : 'Review status' }}
+              </span>
+              <p class="font-serif text-2xl font-semibold text-foreground">{{ reviewProgressHeading }}</p>
+              <p class="text-sm text-muted-foreground">{{ reviewProgressBody }}</p>
               <p v-if="agentMessage" class="font-mono text-xs text-muted-foreground">{{ agentMessage }}</p>
             </div>
           </div>
 
-          <div
-            v-if="progressPercent !== null"
-            class="mt-4 h-2.5 overflow-hidden rounded-full bg-muted"
-            aria-hidden="true"
-          >
-            <div
-              class="h-full rounded-full bg-[linear-gradient(90deg,var(--dk-green),var(--dk-dark-green))] transition-[width] duration-200"
-              :style="{ width: `${progressPercent}%` }"
-            />
+          <div class="grid gap-2">
+            <div class="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">
+              <span>{{ progressSummary }}</span>
+              <span v-if="progressPercent !== null">{{ progressPercent }}%</span>
+            </div>
+            <div class="h-2.5 overflow-hidden rounded-full bg-muted" aria-hidden="true">
+              <div
+                class="h-full rounded-full bg-[linear-gradient(90deg,var(--dk-green),var(--dk-dark-green))] transition-[width] duration-200"
+                :class="{ 'progress-indeterminate': progressPercent === null && (agentStatus === 'running' || submitting) }"
+                :style="progressPercent !== null ? { width: `${progressPercent}%` } : undefined"
+              />
+            </div>
           </div>
         </div>
 
@@ -221,10 +236,6 @@ watch(
                 <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Current criterion</span>
                 <p class="font-mono text-xs text-foreground">{{ agentProgress.current_criterion_id }}</p>
               </div>
-              <div v-if="agentPhaseLabel || agentProgress.current_block_id" class="grid gap-1">
-                <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Current phase</span>
-                <p class="text-sm text-foreground">{{ agentPhaseLabel ?? humanizeToken(agentProgress.current_block_id) }}</p>
-              </div>
               <div v-if="agentEvents.length" class="grid gap-1">
                 <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Events captured</span>
                 <p class="text-sm text-foreground">{{ agentEvents.length }}</p>
@@ -237,43 +248,59 @@ watch(
 
     <section
       v-if="logicEvaluation || criteriaCount !== null"
-      class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+      class="rounded-[1.75rem] border border-border bg-card p-6 shadow-sm"
     >
-      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Cluster status</span>
-        <div class="mt-3 flex items-center gap-3">
-          <EaBadge :tone="toneForStatus(logicEvaluation?.selected_cluster_status || 'running')">
-            {{ logicEvaluation ? labelForCriterionState(logicEvaluation.selected_cluster_status) : humanizeToken(agentStatus || 'running') }}
-          </EaBadge>
+      <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+        <div class="space-y-1">
+          <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Outcome</p>
+          <h2 class="font-serif text-2xl font-semibold text-foreground">Eligibility summary</h2>
         </div>
-      </article>
-
-      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Criteria count</span>
-        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">{{ criteriaCount ?? '—' }}</p>
-        <p class="mt-1 text-sm text-muted-foreground">{{ progressSummary }}</p>
-      </article>
-
-      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Satisfied</span>
-        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
-          {{ logicEvaluation?.criterion_counts.satisfied ?? '—' }}
-        </p>
-      </article>
-
-      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Not satisfied</span>
-        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
-          {{ logicEvaluation?.criterion_counts.not_satisfied ?? '—' }}
-        </p>
-      </article>
-
-      <article class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Unresolved</span>
-        <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
-          {{ logicEvaluation?.criterion_counts.unresolved ?? '—' }}
-        </p>
-      </article>
+        <div class="grid gap-2">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Cluster status
+            <EaInfo>Overall eligibility of the selected diagnosis cluster after combining all its criteria through the policy logic tree.</EaInfo>
+          </span>
+          <p class="font-serif text-3xl font-semibold text-foreground">
+            {{ logicEvaluation ? labelForCriterionState(logicEvaluation.selected_cluster_status) : humanizeToken(agentStatus || 'running') }}
+          </p>
+        </div>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Criteria count
+            <EaInfo>Total number of policy criteria evaluated for this cluster.</EaInfo>
+          </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">{{ criteriaCount ?? '—' }}</p>
+        </div>
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Satisfied
+            <EaInfo>Criteria met by chart evidence or confirmed by the clinician.</EaInfo>
+          </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+            {{ logicEvaluation?.criterion_counts.satisfied ?? '—' }}
+          </p>
+        </div>
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Not satisfied
+            <EaInfo>Criteria the chart evidence did not meet.</EaInfo>
+          </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+            {{ logicEvaluation?.criterion_counts.not_satisfied ?? '—' }}
+          </p>
+        </div>
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Unresolved
+            <EaInfo>Criteria still needing clinician input before the review can be finalized.</EaInfo>
+          </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+            {{ logicEvaluation?.criterion_counts.unresolved ?? '—' }}
+          </p>
+        </div>
+      </div>
     </section>
 
     <section v-if="showCriteria" class="grid gap-4">

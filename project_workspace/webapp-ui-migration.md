@@ -6,6 +6,93 @@ This document captures the implemented UI migration work for the prior-auth
 webapp, the remaining gaps, and the current validation status. It started as a
 plan and now serves as the rollout record for the redesigned local branch.
 
+## DSS Deployment Status — 2026-07-03
+
+> Session focus: getting the migrated webapp to render in DSS. Target project
+> `DEMO_PRIOR_AUTH_AGENT`, webapp `Oa6EjMT` (STANDARD / FLASK backend). Instance
+> `design.solutions.dataiku-dss.io`, DSS version **14.7.0**.
+
+### Symptom
+
+The webapp renders a **blank page in DSS**, while the frontend renders correctly
+under local Vite dev. This triggered the backend/serving investigation below.
+
+### Root cause (confirmed)
+
+The blank page is a **backend/wrapper problem, not a frontend-migration problem.**
+
+- The frontend migration (`55689d9`) did **not** break DSS serving. The built
+  output is structurally identical to `main`: same `vite build --base=./`, same
+  relative `./assets/index-*.js` references, same `<div id="app">` mount, and an
+  unchanged `src/api/index.ts` backend-URL resolver. The migration was
+  frontend-only by design and, per this doc, was never DSS-validated.
+- The break was introduced later by `21c1e13 "backend fix"`, which replaced
+  webaiku's native serving with a `bs-blueprint`-style **iframe wrapper**
+  (`dss/standard-webapp.definition.patch.json`) whose JS tab does
+  `iframe.src = getWebAppBackendUrl('')`. On a **FLASK** standard webapp, DSS
+  serves the webapp's own html/css/js tabs at the backend root, so that iframe
+  reloads the tabs → **infinite iframe recursion** → the SPA bundle is never
+  requested. Confirmed by inspecting the nested-iframe DOM in the browser (no
+  `/assets/index-*.js` request ever fires).
+- `bs-blueprint` avoids this only because it is **FASTAPI**: on DSS 14.4+ the
+  FastAPI app owns the backend URL and serves the SPA directly (no tabs
+  shadowing, no recursion).
+
+### Attempts this session (none rendered)
+
+All were variations on the FLASK + iframe approach:
+
+1. Added `?URL=` to the iframe src (webaiku's expected base-tag param) — still blank.
+2. Rewrote `wsgi.py` to serve `dist/` directly from Flask, dropping webaiku's
+   `ServeBlueprint` — still blank (FLASK still serves tabs at `/`; recursion).
+3. Set `enableJavascriptModules: true` on the definition — no effect.
+4. Enabled `backendAPIAccessEnabled` to curl the served HTML — the backend
+   mandates a browser session, so API-key access is refused.
+
+### Resolution taken
+
+Reverted the backend to **native webaiku** — commit
+`1d7bb05 "Revert backend to webaiku (undo 21c1e13 iframe wrapper)"`:
+
+- `backend/wsgi.py` + `backend/backend.py` restored to their pre-break
+  (`55689d9`) state (webaiku `WEBAIKU.extend(app, [api])`, no `compat` blueprint).
+- `dss/` wrapper (`standard-webapp.definition.patch.json` + sync script) removed.
+- This also undid the session's Flask-static attempt (`fc5baf7`).
+
+### Current state
+
+- **Repo (`ui-alignment`):** backend on webaiku; `dss/` wrapper removed; committed
+  as `1d7bb05` — **not yet pushed**.
+- **DSS library:** git-linked to `ui-alignment`; needs a **push + re-sync** to pick
+  up the reverted `wsgi.py`.
+- **Live DSS webapp `Oa6EjMT`:** definition still holds the **iframe wrapper** set
+  during debugging (not tracked in git — see blocker), so the webapp is **still
+  blank** until the definition is fixed.
+- **Code env `demo_prior-auth`:** Python 3.11 with `flask` / `webaiku` / `pathling`.
+  **No `fastapi` / `uvicorn`** installed yet (needed only for the FastAPI path).
+
+### Open blocker
+
+The **DSS webapp definition** (html/css/js tabs) is **not tracked in git**. The
+original, pre-`21c1e13` webaiku-native wrapper is unknown, so the revert alone
+cannot restore a rendering webapp — the live definition still iframes the backend
+root. Recovering or reconstructing the original tabs is required to test the
+webaiku path.
+
+### Paths forward
+
+- **A — Restore the webaiku definition (stay on FLASK):** set the original
+  html/css/js tabs back on `Oa6EjMT`, push + re-sync the library, and test. Lower
+  effort but unproven (never DSS-validated; the FLASK-serves-tabs-at-root behavior
+  may still block it).
+- **B — FastAPI migration (recommended):** port the backend to FastAPI per
+  `backend-migration.md`. Aligns with `bs-blueprint` (this doc's stated goal),
+  is proven on this instance (DSS 14.7.0 supports native FASTAPI), and sidesteps
+  the FLASK wrapper problem entirely. Requires adding `fastapi` / `uvicorn` to the
+  code env `demo_prior-auth`.
+
+See **`backend-migration.md`** for the detailed FastAPI migration plan.
+
 ## Current Implementation Status
 
 Implemented on the current local branch:

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { AttentionItem, Screen2ReviewResult, Screen3Payload } from '../Api'
-import { EaBadge, EaButton, EaEmpty } from './ui'
+import { EaBadge, EaButton, EaEmpty, EaInfo } from './ui'
 import { humanizeToken, labelForCriterionKind, labelForCriterionState, toneForStatus } from '../uiLabels'
 
 function kindTone(value: string | null | undefined): 'route' | 'entry' | 'inherited' | 'cluster' {
@@ -46,7 +46,10 @@ const submissionReadyLabel = computed(() => (props.screen3?.payload.submission_r
         </p>
       </div>
       <div class="grid gap-2">
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Status</span>
+        <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+          Status
+          <EaInfo>Final eligibility disposition of the selected diagnosis cluster after clinician review.</EaInfo>
+        </span>
         <p class="font-serif text-3xl font-semibold text-foreground">{{ overallStatusLabel }}</p>
       </div>
     </header>
@@ -58,31 +61,46 @@ const submissionReadyLabel = computed(() => (props.screen3?.payload.submission_r
           <h2 class="font-serif text-2xl font-semibold text-foreground">Submission readiness</h2>
         </div>
         <div class="grid gap-2">
-          <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Submission ready</span>
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Submission ready
+            <EaInfo>Whether the reviewed cluster meets policy requirements and the prior-authorization package can be submitted.</EaInfo>
+          </span>
           <p class="font-serif text-3xl font-semibold text-foreground">{{ submissionReadyLabel }}</p>
         </div>
       </div>
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-          <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Total criteria</span>
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Total criteria
+            <EaInfo>All policy criteria evaluated for the selected cluster.</EaInfo>
+          </span>
           <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
             {{ screen3.payload.review_summary.criterion_totals.total }}
           </p>
         </div>
         <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-          <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Satisfied</span>
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Satisfied
+            <EaInfo>Criteria met by chart evidence or confirmed by the clinician.</EaInfo>
+          </span>
           <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
             {{ screen3.payload.review_summary.criterion_totals.satisfied }}
           </p>
         </div>
         <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-          <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Unresolved</span>
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Unresolved
+            <EaInfo>Criteria still needing clinician input before submission.</EaInfo>
+          </span>
           <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
             {{ screen3.payload.review_summary.criterion_totals.unresolved }}
           </p>
         </div>
         <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
-          <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Rejected</span>
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Rejected
+            <EaInfo>Criteria that ended not met after review.</EaInfo>
+          </span>
           <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
             {{ screen3.payload.review_summary.criterion_totals.rejected }}
           </p>
