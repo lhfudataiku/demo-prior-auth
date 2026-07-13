@@ -687,7 +687,7 @@ def build_screen1_payload(
             "cluster_entry_guard_questions": cluster_entry_guard_questions,
             "selected_scope_context": scoped_policy_context,
             "criterion_answers": safe_answers,
-            "next_action": next_action or "proceed_screen_2",
+            "next_action": "proceed_screen_2",
         },
         "messages": list(resolved.get("messages", []) or []),
     }

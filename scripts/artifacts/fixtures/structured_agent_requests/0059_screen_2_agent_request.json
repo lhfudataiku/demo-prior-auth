@@ -1,0 +1,609 @@
+{
+  "session_id": "fixture-0059-CL_peakflow_obstructive_conditions",
+  "subject_id": "8e77dd0b-932d-5790-9ba6-5c6df8434457",
+  "policy_id": "0059",
+  "screen_id": "screen_2",
+  "payload": {
+    "selected_route_id": "RR_peak_flow_mechanical",
+    "selected_phase": "other",
+    "selected_cluster_id": "CL_peakflow_obstructive_conditions",
+    "scoped_policy_context": {
+      "policy_id": "0059",
+      "selected_route_id": "RR_peak_flow_mechanical",
+      "selected_route_label": "Standard mechanical peak flow meter or spacer DME",
+      "selected_phase": "other",
+      "selected_phase_label": "Other",
+      "selected_cluster_id": "CL_peakflow_obstructive_conditions",
+      "selected_cluster_label": "Obstructive pulmonary condition requiring mechanical peak flow meter or spacer",
+      "selected_route": {
+        "route_id": "RR_peak_flow_mechanical",
+        "label": "Standard mechanical peak flow meter or spacer DME",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+          "A4614",
+          "A4627",
+          "S8096",
+          "S8097",
+          "S8100",
+          "S8101",
+          "S8110"
+        ],
+        "route_kind": "covered_request",
+        "phase_prompt_required": false,
+        "phase_branches": [
+          {
+            "phase": "other",
+            "is_default": true,
+            "route_guard_ids": [
+              "RG_peakflow_not_for_copd"
+            ],
+            "cluster_ids": [
+              "CL_peakflow_obstructive_conditions"
+            ]
+          }
+        ],
+        "routing_notes": "Mechanical peak flow meters and spacers are covered when used for management of asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+        "evidence": "Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+        "locator": {
+          "section_path": [
+            "Policy",
+            "Scope of Policy"
+          ],
+          "page_start": 1,
+          "page_end": 1
+        }
+      },
+      "selected_phase_branch": {
+        "phase": "other",
+        "is_default": true,
+        "route_guard_ids": [
+          "RG_peakflow_not_for_copd"
+        ],
+        "cluster_summaries": [
+          {
+            "cluster_id": "CL_peakflow_obstructive_conditions",
+            "condition_key": "obstructive_pulmonary_conditions",
+            "condition_label": "Obstructive pulmonary condition requiring mechanical peak flow meter or spacer",
+            "condition_synonyms": [
+              "Asthma",
+              "Bronchitis",
+              "Emphysema",
+              "Chronic lower respiratory disease"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "J20.0-J21.9",
+              "J40-J47.9",
+              "J67.0-J67.9"
+            ],
+            "cluster_entry_guard_ids": []
+          }
+        ]
+      },
+      "selected_route_guards": [
+        {
+          "guard_id": "RG_peakflow_not_for_copd",
+          "label": "Device not used to diagnose chronic obstructive pulmonary disease",
+          "guard_type": "limitation",
+          "applies_to_route_ids": [
+            "RR_peak_flow_mechanical"
+          ],
+          "applies_to_phases": [
+            "other"
+          ],
+          "ask_timing": "before_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_RG_peakflow_not_for_copd"
+              }
+            ]
+          },
+          "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
+          "locator": {
+            "section_path": [
+              "III. Policy Limitations and Exclusions"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        }
+      ],
+      "selected_cluster_summary": {
+        "cluster_id": "CL_peakflow_obstructive_conditions",
+        "condition_key": "obstructive_pulmonary_conditions",
+        "condition_label": "Obstructive pulmonary condition requiring mechanical peak flow meter or spacer",
+        "condition_synonyms": [
+          "Asthma",
+          "Bronchitis",
+          "Emphysema",
+          "Chronic lower respiratory disease"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+          "J20.0-J21.9",
+          "J40-J47.9",
+          "J67.0-J67.9"
+        ],
+        "cluster_entry_guard_ids": []
+      },
+      "selected_cluster": {
+        "cluster_id": "CL_peakflow_obstructive_conditions",
+        "route_id": "RR_peak_flow_mechanical",
+        "phase": "other",
+        "condition_key": "obstructive_pulmonary_conditions",
+        "condition_label": "Obstructive pulmonary condition requiring mechanical peak flow meter or spacer",
+        "condition_synonyms": [
+          "Asthma",
+          "Bronchitis",
+          "Emphysema",
+          "Chronic lower respiratory disease"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+          "J20.0-J21.9",
+          "J40-J47.9",
+          "J67.0-J67.9"
+        ],
+        "inherits_diagnosis_from_cluster_ids": [],
+        "cluster_entry_guard_ids": [],
+        "logic_profile_id": "UNKNOWN",
+        "logic_root": {
+          "node_type": "group",
+          "operator": "all",
+          "children": [
+            {
+              "node_type": "criterion_ref",
+              "criterion_id": "CR_CLUSTER_peakflow_obstructive_diagnosis"
+            }
+          ]
+        },
+        "evidence": "Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+        "locator": {
+          "section_path": [
+            "Policy",
+            "Scope of Policy"
+          ],
+          "page_start": 1,
+          "page_end": 1
+        }
+      },
+      "selected_cluster_entry_guards": [],
+      "selected_logic_profiles": [],
+      "selected_inherited_diagnosis_clusters": [],
+      "effective_diagnosis_code_candidates": [
+        "J20.0-J21.9",
+        "J40-J47.9",
+        "J67.0-J67.9"
+      ],
+      "selected_route_guard_criterion_ids": [
+        "CR_RG_peakflow_not_for_copd"
+      ],
+      "selected_cluster_entry_guard_criterion_ids": [],
+      "selected_inherited_diagnosis_criterion_ids": [],
+      "selected_cluster_criterion_ids": [
+        "CR_CLUSTER_peakflow_obstructive_diagnosis"
+      ],
+      "selected_criteria_catalog": [
+        {
+          "criterion_id": "CR_CLUSTER_peakflow_obstructive_diagnosis",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Documented diagnosis of asthma, bronchitis, emphysema, chronic lower respiratory disease, acute bronchitis/bronchiolitis, or hypersensitivity pneumonitis due to organic dust that warrants use of a mechanical peak flow meter or spacer.",
+          "clinical_intent": "Confirm covered obstructive pulmonary condition requiring DME management",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "J20.0-J21.9",
+              "J40-J47.9",
+              "J67.0-J67.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy"
+            ],
+            "page_start": 1,
+            "page_end": 1
+          }
+        },
+        {
+          "criterion_id": "CR_RG_peakflow_not_for_copd",
+          "criterion_kind": "route_guard",
+          "prompt": "Is this peak flow meter or spacer being requested for management of an existing obstructive pulmonary condition rather than to diagnose chronic obstructive pulmonary disease?",
+          "clinical_intent": "Ensure device is not being used to diagnose COPD",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "UNKNOWN",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
+          "locator": {
+            "section_path": [
+              "III. Policy Limitations and Exclusions"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        }
+      ]
+    },
+    "policy_master_v4": {
+      "policy_id": "0059",
+      "document_type": "COVERAGE_POLICY",
+      "title": "Peak Flow Meters",
+      "source": {
+        "policy_url": "https://www.aetna.com/cpb/medical/data/1_99/0059.html#dummyLink4"
+      },
+      "billing_code_sets": [
+        {
+          "code": "A4614",
+          "system": "HCPCS",
+          "description": "Peak expiratory flow rate meter, hand held",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "A4627",
+          "system": "HCPCS",
+          "description": "Spacer, bag or reservoir, with or without mask, for use with metered dose inhaler",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "S8096",
+          "system": "HCPCS",
+          "description": "Portable peak flow meter",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "S8097",
+          "system": "HCPCS",
+          "description": "Asthma kit (including but not limited to portable peak expiratory flow meter, instructional video, brochure, and/or spacer)",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "S8100",
+          "system": "HCPCS",
+          "description": "Holding chamber or spacer for use with an inhaler or nebulizer; without mask",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "S8101",
+          "system": "HCPCS",
+          "description": "Holding chamber or spacer for use with an inhaler or nebulizer; with mask",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "S8110",
+          "system": "HCPCS",
+          "description": "Peak expiratory flow rate (physician services)",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "J20.0-J21.9",
+          "system": "ICD-10",
+          "description": "Acute bronchitis and acute bronchiolitis",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "J40-J47.9",
+          "system": "ICD-10",
+          "description": "Chronic lower respiratory diseases",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "code": "J67.0-J67.9",
+          "system": "ICD-10",
+          "description": "Hypersensitivity pneumonitis due to organic dust",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        }
+      ],
+      "request_routes": [
+        {
+          "route_id": "RR_peak_flow_mechanical",
+          "label": "Standard mechanical peak flow meter or spacer DME",
+          "coverage_status": "covered",
+          "terminal_disposition": "continue",
+          "billing_codes": [
+            "A4614",
+            "A4627",
+            "S8096",
+            "S8097",
+            "S8100",
+            "S8101",
+            "S8110"
+          ],
+          "route_kind": "covered_request",
+          "phase_prompt_required": false,
+          "phase_branches": [
+            {
+              "phase": "other",
+              "is_default": true,
+              "route_guard_ids": [
+                "RG_peakflow_not_for_copd"
+              ],
+              "cluster_ids": [
+                "CL_peakflow_obstructive_conditions"
+              ]
+            }
+          ],
+          "routing_notes": "Mechanical peak flow meters and spacers are covered when used for management of asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+          "evidence": "Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy"
+            ],
+            "page_start": 1,
+            "page_end": 1
+          }
+        }
+      ],
+      "route_guards": [
+        {
+          "guard_id": "RG_peakflow_not_for_copd",
+          "label": "Device not used to diagnose chronic obstructive pulmonary disease",
+          "guard_type": "limitation",
+          "applies_to_route_ids": [
+            "RR_peak_flow_mechanical"
+          ],
+          "applies_to_phases": [
+            "other"
+          ],
+          "ask_timing": "before_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_RG_peakflow_not_for_copd"
+              }
+            ]
+          },
+          "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
+          "locator": {
+            "section_path": [
+              "III. Policy Limitations and Exclusions"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        }
+      ],
+      "cluster_entry_guards": [],
+      "condition_clusters": [
+        {
+          "cluster_id": "CL_peakflow_obstructive_conditions",
+          "route_id": "RR_peak_flow_mechanical",
+          "phase": "other",
+          "condition_key": "obstructive_pulmonary_conditions",
+          "condition_label": "Obstructive pulmonary condition requiring mechanical peak flow meter or spacer",
+          "condition_synonyms": [
+            "Asthma",
+            "Bronchitis",
+            "Emphysema",
+            "Chronic lower respiratory disease"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "J20.0-J21.9",
+            "J40-J47.9",
+            "J67.0-J67.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CLUSTER_peakflow_obstructive_diagnosis"
+              }
+            ]
+          },
+          "evidence": "Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy"
+            ],
+            "page_start": 1,
+            "page_end": 1
+          }
+        }
+      ],
+      "logic_profiles": [],
+      "criteria_catalog": [
+        {
+          "criterion_id": "CR_RG_peakflow_not_for_copd",
+          "criterion_kind": "route_guard",
+          "prompt": "Is this peak flow meter or spacer being requested for management of an existing obstructive pulmonary condition rather than to diagnose chronic obstructive pulmonary disease?",
+          "clinical_intent": "Ensure device is not being used to diagnose COPD",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "UNKNOWN",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Peak flow meters should not be used to diagnose chronic obstructive pulmonary disease.",
+          "locator": {
+            "section_path": [
+              "III. Policy Limitations and Exclusions"
+            ],
+            "page_start": 2,
+            "page_end": 2
+          }
+        },
+        {
+          "criterion_id": "CR_CLUSTER_peakflow_obstructive_diagnosis",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Documented diagnosis of asthma, bronchitis, emphysema, chronic lower respiratory disease, acute bronchitis/bronchiolitis, or hypersensitivity pneumonitis due to organic dust that warrants use of a mechanical peak flow meter or spacer.",
+          "clinical_intent": "Confirm covered obstructive pulmonary condition requiring DME management",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "J20.0-J21.9",
+              "J40-J47.9",
+              "J67.0-J67.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers standard mechanical peak flow meters and spacers for metered-dose inhalers medically necessary durable medical equipment (DME) for members with asthma, bronchitis, emphysema, or other obstructive pulmonary conditions.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Scope of Policy"
+            ],
+            "page_start": 1,
+            "page_end": 1
+          }
+        }
+      ],
+      "notes": {
+        "parsing_notes": "Covered logic focuses on mechanical peak flow meters and spacers for obstructive pulmonary conditions; electronic devices are noted as investigational and the guard prevents use for COPD diagnosis.",
+        "confidence": "MEDIUM"
+      }
+    },
+    "retrieval_plan_v1": null,
+    "criterion_answers": {}
+  }
+}

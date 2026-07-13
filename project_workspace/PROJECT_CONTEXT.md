@@ -83,6 +83,8 @@ Backend:
   - DSS Screen 2 run start / poll / HITL resume endpoints
   - normalization of live run state for the frontend
   - deterministic Screen 3 derivation from reviewed artifacts
+  - in `dss` mode, resolves the Structured Agent from the current DSS project
+    context rather than hard-coding a project key
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/data_access.py`
   - explicit data source access layer
   - separate `local` and `dss` code paths
@@ -163,6 +165,7 @@ Current implemented behavior:
 
 ## Important Runtime Values
 
+- DSS project key: `DEMO_PRIOR_AUTH_AGENT`
 - Structured Agent id: `NkBiV9OM`
 - Structured Agent version: `v2`
 - patient dataset name constant: `Patient`
@@ -172,8 +175,18 @@ Current implemented behavior:
 
 Referenced in:
 
+- `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/project_workspace/project_wiki/template/release_notes_v0.1.0.md`
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/data_access.py`
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/webapps/prior_auth_review/backend/wsgi_local.py`
+
+Current deployment note:
+
+- the deployed standard webapp and Structured Agent live in DSS project
+  `DEMO_PRIOR_AUTH_AGENT`
+- the backend currently uses the active/default DSS project context to resolve
+  `agent:NkBiV9OM`
+- this means the webapp and agent must be deployed together in the same DSS
+  project context unless the backend resolution logic is made explicit
 
 ## Current Data Access Behavior
 

@@ -44,19 +44,6 @@ export function toneForStatus(value: string | null | undefined): string {
   return normalized || 'neutral'
 }
 
-export function labelForNextAction(value: string | null | undefined): string {
-  const labels: Record<string, string> = {
-    collect_billing_code: 'Select billing code',
-    collect_phase: 'Select treatment phase',
-    collect_cluster: 'Select diagnosis cluster',
-    proceed_screen_2: 'Ready for eligibility review',
-    stay_screen_2: 'Continue eligibility review',
-    proceed_screen_3: 'Ready for final review',
-    blocked: 'Additional input required',
-  }
-  return labels[value || ''] ?? humanizeToken(value)
-}
-
 export function labelForCriterionKind(value: string | null | undefined): string {
   const labels: Record<string, string> = {
     route_guard: 'Route guard',
@@ -92,6 +79,7 @@ export function labelForChartStatus(value: string | null | undefined): string {
 export function humanizeToken(value: string | null | undefined): string {
   if (!value) return '—'
   return value
-    .replaceAll('_', ' ')
-    .replace(/\b\w/g, (match) => match.toUpperCase())
+    .split('_')
+    .join(' ')
+    .replace(/\b\w/g, (match: string) => match.toUpperCase())
 }

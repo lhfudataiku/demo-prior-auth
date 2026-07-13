@@ -30,6 +30,10 @@ Source fixtures live under:
 - `src/Api.ts`: typed API contract
 - `src/stores/priorAuthStore.ts`: scenario loading and review state
 - `src/components/`: Screen 2 / Screen 3 UI pieces
+- `dss/standard-webapp.definition.patch.json`: checked-in DSS standard webapp
+  definition patch
+- `dss/sync_standard_webapp_definition.sh`: CLI sync helper for the DSS webapp
+  wrapper definition
 
 ## Local development
 
@@ -59,6 +63,9 @@ Notes:
 - DSS and the local `WEBAIKU` shell both expect that `dist` folder to exist
 - if `webaiku` or the DSS `dataiku` package is unavailable locally,
   `wsgi_local.py` falls back to serving the API only; use Vite for the frontend
+- the deployed DSS standard-webapp wrapper is a separate definition from the
+  backend/python code; keep it in sync with
+  `dss/standard-webapp.definition.patch.json`
 
 Expected local ports:
 - frontend: `5173`
@@ -79,6 +86,32 @@ Expected local ports:
 In `dss` mode, run state includes block-level streaming progress derived from
 the Structured Agent context, so the frontend can show queue progress and the
 current criterion while the agent is running.
+
+## DSS standard webapp definition
+
+The live DSS standard webapp wrapper for `Oa6EjMT` is not fully derived from
+the Vite bundle or the Flask backend. Its browser-side `params.js` must also be
+kept aligned.
+
+Source of truth in this repo:
+
+- `webapps/prior_auth_review/dss/standard-webapp.definition.patch.json`
+
+Sync command after review:
+
+```bash
+webapps/prior_auth_review/dss/sync_standard_webapp_definition.sh DEMO_PRIOR_AUTH_AGENT Oa6EjMT
+```
+
+Important note:
+
+- the current backend keeps compatibility routes for the legacy DSS wrapper
+  paths `/first_api_call` and `/dist/...`
+- this prevents blank-page failures while the deployed standard-webapp
+  definition is still using the older bootstrap
+- the long-term target is the simpler wrapper in
+  `standard-webapp.definition.patch.json`, which iframes
+  `dataiku.getWebAppBackendUrl('')` directly
 
 ## Notes
 

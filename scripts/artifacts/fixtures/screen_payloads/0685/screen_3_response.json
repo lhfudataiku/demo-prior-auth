@@ -1,49 +1,88 @@
 {
-  "status": "complete",
+  "status": "blocked",
   "payload": {
     "review_summary": {
       "selected_scope": {
         "selected_route_id": "route_bevacizumab_nonocular",
         "selected_phase": "initial",
-        "selected_cluster_id": "CLUST_INIT_NSCLC"
+        "selected_cluster_id": "cluster_nsclc_initial"
+      },
+      "selected_scope_display": {
+        "route_label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+        "phase_label": "Initial",
+        "cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer"
       },
       "criterion_totals": {
-        "total": 1,
-        "answered": 1,
-        "unanswered_required": 0,
-        "conflicts": 0
+        "total": 3,
+        "satisfied": 1,
+        "rejected": 0,
+        "unresolved": 2
       },
       "logic_evaluation": {
-        "selected_cluster_satisfied": "true",
-        "selected_cluster_status": "satisfied",
+        "selected_cluster_satisfied": false,
+        "selected_cluster_status": "unresolved",
         "satisfied_criterion_ids": [
-          "CR_INIT_NSCLC"
+          "CR_GUARD_NOT_CETUX_PANI"
         ],
         "not_satisfied_criterion_ids": [],
-        "unresolved_criterion_ids": [],
+        "unresolved_criterion_ids": [
+          "CR_NSCLC_NOT_PEMETREXED_MAINT",
+          "CR_NSCLC_ADVANCED"
+        ],
         "criterion_counts": {
           "satisfied": 1,
           "not_satisfied": 0,
-          "unresolved": 0
+          "unresolved": 2
         }
       }
     },
-    "answered_criteria": [
+    "satisfied_criteria": [
       {
-        "criterion_id": "CR_INIT_NSCLC",
-        "criterion_kind": "cluster_criterion",
-        "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
+        "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+        "criterion_kind": "route_guard",
+        "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
         "final_answer": true,
         "final_source": "chart",
         "display_state": "satisfied",
-        "comment": null
+        "justification": "For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
       }
     ],
-    "unanswered_required_items": [],
-    "warnings": [],
-    "submission_ready": true
+    "rejected_criteria": [],
+    "unresolved_criteria": [
+      {
+        "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+        "criterion_kind": "cluster_entry_guard",
+        "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+        "final_answer": null,
+        "final_source": "unresolved",
+        "display_state": "needs_clinician",
+        "justification": "Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
+      },
+      {
+        "criterion_id": "CR_NSCLC_ADVANCED",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+        "final_answer": null,
+        "final_source": "unresolved",
+        "display_state": "needs_clinician",
+        "justification": "The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
+      }
+    ],
+    "review_alerts": [],
+    "submission_ready": false
   },
   "messages": [
-    "Processed criterion CR_INIT_NSCLC for cluster CLUST_INIT_NSCLC."
+    "Processed criterion CR_GUARD_NOT_CETUX_PANI for cluster cluster_nsclc_initial.",
+    "Processed criterion CR_NSCLC_NOT_PEMETREXED_MAINT for cluster cluster_nsclc_initial.",
+    "Processed criterion CR_NSCLC_ADVANCED for cluster cluster_nsclc_initial."
   ]
 }

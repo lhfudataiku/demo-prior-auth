@@ -1,0 +1,67 @@
+{
+  "CR_GUARD_NOT_CETUX_PANI": {
+    "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+    "status": "Found",
+    "meets_criterion": true,
+    "extracted_value": {
+      "bevacizumab_with_cetuximab_or_panitumumab": "not documented",
+      "EHR_medication_exposure": "no records for bevacizumab, cetuximab, or panitumumab found",
+      "note_evidence": "no mention of cetuximab/Erbitux or panitumumab/Vectibix in retrieved notes"
+    },
+    "justification": "For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.",
+    "sources": {
+      "structured": [
+        "EHR_Query_Tool: no medication request records for subject e7e213ac-81c0-5c7f-8d57-81519132353e showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix) in the EHR."
+      ],
+      "notes": [
+        "Clinical note semantic search for subject e7e213ac-81c0-5c7f-8d57-81519132353e: retrieved discharge notes mentioning NSCLC and other care, with no evidence of cetuximab/Erbitux or panitumumab/Vectibix combination use."
+      ]
+    }
+  },
+  "CR_NSCLC_NOT_PEMETREXED_MAINT": {
+    "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+    "status": "Missing",
+    "meets_criterion": false,
+    "justification": "Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.",
+    "sources": {
+      "structured": [],
+      "notes": []
+    }
+  },
+  "CR_NSCLC_ADVANCED": {
+    "criterion_id": "CR_NSCLC_ADVANCED",
+    "status": "Ambiguous",
+    "meets_criterion": false,
+    "extracted_value": {
+      "diagnosis": "Non-small cell lung cancer (NSCLC)",
+      "coded_support": "No structured condition/problem-list record matched C34.00-C34.92 in the EHR query",
+      "narrative_support": "Clinical notes describe NSCLC/adenocarcinoma of the lung with extrinsic compression of both main stem bronchi, tumor debulking and bronchial stenting, and planned palliative chemo/radiation",
+      "qualifier_status": "Advanced/unresectable/metastatic status is not explicitly documented as a coded or unambiguous structured fact"
+    },
+    "justification": "The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.",
+    "sources": {
+      "structured": [
+        {
+          "tool": "EHR_Query_Tool",
+          "evidence": "There are no condition or problem-list records for subject e7e213ac-81c0-5c7f-8d57-81519132353e that match recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer with ICD-10 codes in the C34.00\u2013C34.92 range."
+        }
+      ],
+      "notes": [
+        {
+          "tool": "Clinical_note_semantic_search_tool",
+          "note_id": "10021312-DS-19",
+          "admittime": "2020-08-16T00:32:00",
+          "dischtime": "2020-08-18T17:35:00",
+          "excerpt": "the patient was diagnosed with NSCLC compressing her mainstem bronchi ... work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting ... NSCLC: The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+        },
+        {
+          "tool": "Clinical_note_semantic_search_tool",
+          "note_id": "10021312-DS-20",
+          "admittime": "2020-09-12T14:42:00",
+          "dischtime": "2020-09-20T18:40:00",
+          "excerpt": "history of recent diagnosis of adenocarcinoma of the lung ... plan for initiation of palliative chemo and radiation ... Non-small cell lung cancer: Recent diagnosis with mapping and plan for palliative chemo and radiation ... diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+        }
+      ]
+    }
+  }
+}

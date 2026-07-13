@@ -1,10 +1,14 @@
 {
-  "CR_ONCO_CD20_BCELL": {
-    "criterion_id": "CR_ONCO_CD20_BCELL",
+  "CR_ONCO_CD20_POS": {
+    "criterion_id": "CR_ONCO_CD20_POS",
     "criterion_kind": "cluster_criterion",
-    "prompt": "Does the member have one of the listed CD20-positive B-cell oncologic disorders (e.g., B-cell ALL, B-cell lymphomas, CLL/SLL, Hodgkin lymphoma, Waldenstr\u00f6m macroglobulinemia, Rosai-Dorfman disease, PTLD, hairy cell leukemia) confirmed to be CD20-positive by testing or analysis?",
+    "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
     "answer_type": "boolean",
     "required": true,
+    "planner_context": {
+      "criterion_archetype": "ARC_hybrid_structured_note",
+      "retrieval_strategy": "hybrid"
+    },
     "clinician_input": {
       "answer": null,
       "value": null,
@@ -13,63 +17,25 @@
       "answered": false
     },
     "chart_result": {
-      "status": "Found",
+      "status": "Ambiguous",
       "meets_criterion": false,
       "extracted_value": {
-        "condition_count": 21,
-        "diagnosis_codes": [
-          "C91.10",
-          "C91.11"
+        "condition_records": [
+          {
+            "code": "C91.10",
+            "condition_name": "Chronic lymphocytic leukemia of B-cell type not having achieved remission"
+          },
+          {
+            "code": "C91.11",
+            "condition_name": "Chronic lymphocytic leukemia of B-cell type in remission"
+          }
         ],
-        "description": "chronic lymphocytic leukemia of B-cell type",
-        "date_range": "2020-07-2024",
-        "cd20_testing_evidence": "none documented"
+        "cd20_positivity_confirmed": false
       },
-      "justification": "The patient has 21 condition records matching the requested CD20-positive B-cell oncologic disorder code ranges, all for chronic lymphocytic leukemia of B-cell type (C91.10/C91.11). However, the chart does not contain any documented CD20-positive testing or analysis for these encounters, and the criterion requires confirmation of CD20 positivity.",
+      "justification": "Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier\u2014CD20 positivity confirmed by testing or analysis\u2014was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.",
       "sources": {
         "structured": [
-          {
-            "source": "EHR_Query_Tool",
-            "evidence": "21 condition records with codes in requested ranges; chronic lymphocytic leukemia of B-cell type; no CD20-specific observation recorded"
-          }
-        ],
-        "notes": []
-      }
-    },
-    "ui_resolution": {
-      "display_state": "not_satisfied",
-      "prefill_value": false,
-      "use_chart_as_prefill": true,
-      "conflict_flag": false,
-      "conflict_reason": null,
-      "final_answer": false,
-      "final_source": "chart"
-    }
-  },
-  "CR_ONCO_CONT_NO_TOXICITY": {
-    "criterion_id": "CR_ONCO_CONT_NO_TOXICITY",
-    "criterion_kind": "cluster_criterion",
-    "prompt": "Is there no evidence of unacceptable toxicity while continuing rituximab for the oncologic indication?",
-    "answer_type": "boolean",
-    "required": true,
-    "clinician_input": {
-      "answer": null,
-      "value": null,
-      "comment": null,
-      "override_prefill": false,
-      "answered": false
-    },
-    "chart_result": {
-      "status": "Missing",
-      "meets_criterion": false,
-      "extracted_value": null,
-      "justification": "Structured observation retrieval for subject_id cb70e6ae-90b1-562b-8ab0-467c65d18d5e found no matching rows indicating evidence of unacceptable toxicity or severe adverse reaction to rituximab Hycela. No documentation of absence was retrieved, so the chart lacks sufficient evidence to confirm the criterion.",
-      "sources": {
-        "structured": [
-          {
-            "tool": "EHR_Query_Tool",
-            "evidence": "No matching rows were found for subject_id cb70e6ae-90b1-562b-8ab0-467c65d18d5e indicating unacceptable toxicity or severe adverse reaction to rituximab Hycela in the provided observation data."
-          }
+          "EHR query result for subject cb70e6ae-90b1-562b-8ab0-467c65d18d5e: 21 qualifying condition records; 20 C91.10 and 1 C91.11; no linked observation evidence confirming CD20 positivity."
         ],
         "notes": []
       }
@@ -80,6 +46,8 @@
       "use_chart_as_prefill": false,
       "conflict_flag": false,
       "conflict_reason": null,
+      "comment_required": false,
+      "comment_guidance": null,
       "final_answer": null,
       "final_source": "unresolved"
     }

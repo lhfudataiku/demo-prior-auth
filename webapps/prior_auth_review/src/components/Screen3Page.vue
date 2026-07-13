@@ -1,19 +1,27 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { AttentionItem, Screen2ReviewResult, Screen3Payload } from '../Api'
+import { EaBadge, EaButton, EaEmpty, EaInfo } from './ui'
 import { humanizeToken, labelForCriterionKind, labelForCriterionState, toneForStatus } from '../uiLabels'
 
-function kindTone(value: string | null | undefined): string {
-  if (value === 'route_guard') return 'kind-route'
-  if (value === 'cluster_entry_guard') return 'kind-entry'
-  if (value === 'inherited_diagnosis') return 'kind-inherited'
-  return 'kind-cluster'
+function kindTone(value: string | null | undefined): 'route' | 'entry' | 'inherited' | 'cluster' {
+  if (value === 'route_guard') return 'route'
+  if (value === 'cluster_entry_guard') return 'entry'
+  if (value === 'inherited_diagnosis') return 'inherited'
+  return 'cluster'
 }
 
-function warningKey(warning: AttentionItem): string {
-  return `${warning.criterion_id ?? 'warning'}:${warning.type ?? 'warning'}:${warning.message}`
+function alertKey(alert: AttentionItem): string {
+  return `${alert.criterion_id ?? 'alert'}:${alert.type ?? 'alert'}:${alert.message}`
 }
 
-defineProps<{
+function finalSourceTone(value: string | null | undefined) {
+  if (value === 'clinician') return 'cluster'
+  if (value === 'chart') return 'positive'
+  return 'neutral'
+}
+
+const props = defineProps<{
   reviewResult: Screen2ReviewResult | null
   screen3: Screen3Payload | null
 }>()
@@ -21,155 +29,288 @@ defineProps<{
 const emit = defineEmits<{
   'jump-to-criterion': [criterionId: string]
 }>()
+
+const overallStatusLabel = computed(() =>
+  labelForCriterionState(props.screen3?.payload.review_summary.logic_evaluation.selected_cluster_status ?? props.screen3?.status),
+)
+const submissionReadyLabel = computed(() => (props.screen3?.payload.submission_ready ? 'Ready' : 'Hold'))
 </script>
 
 <template>
-  <section class="page-stack" v-if="screen3">
-    <header class="page-header">
-      <div>
-        <h1>Audited summary</h1>
-        <p class="hero-copy">
+  <section v-if="screen3" class="space-y-6">
+    <header class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+      <div class="space-y-2">
+        <h1 class="font-serif text-3xl font-semibold text-foreground lg:text-4xl">Audited summary</h1>
+        <p class="max-w-3xl text-sm text-muted-foreground lg:text-base">
           Final deterministic summary after clinician review.
         </p>
       </div>
-      <div class="status-kv">
-        <span class="label">Status</span>
-        <span class="status-chip" :data-tone="toneForStatus(screen3.status)">{{ humanizeToken(screen3.status) }}</span>
+      <div class="grid gap-2">
+        <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+          Status
+          <EaInfo>Final eligibility disposition of the selected diagnosis cluster after clinician review.</EaInfo>
+        </span>
+        <p class="font-serif text-3xl font-semibold text-foreground">{{ overallStatusLabel }}</p>
       </div>
     </header>
 
-    <section class="panel">
-      <div class="section-header">
-        <p class="eyebrow">Outcome</p>
-        <h2>Submission readiness</h2>
+    <section class="rounded-[1.75rem] border border-border bg-card p-6 shadow-sm">
+      <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+        <div class="space-y-1">
+          <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Outcome</p>
+          <h2 class="font-serif text-2xl font-semibold text-foreground">Submission readiness</h2>
+        </div>
+        <div class="grid gap-2">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Submission ready
+            <EaInfo>Whether the reviewed cluster meets policy requirements and the prior-authorization package can be submitted.</EaInfo>
+          </span>
+          <p class="font-serif text-3xl font-semibold text-foreground">{{ submissionReadyLabel }}</p>
+        </div>
       </div>
-      <div class="review-outcome-grid">
-        <div class="outcome-tile">
-          <span class="label">Human validated</span>
-          <span class="status-chip" :data-tone="reviewResult?.human_validated ? 'positive' : 'neutral'">
-            {{ reviewResult?.human_validated ? 'Yes' : 'No' }}
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Total criteria
+            <EaInfo>All policy criteria evaluated for the selected cluster.</EaInfo>
           </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+            {{ screen3.payload.review_summary.criterion_totals.total }}
+          </p>
         </div>
-        <div class="outcome-tile">
-          <span class="label">Submission ready</span>
-          <span class="status-chip" :data-tone="screen3.payload.submission_ready ? 'positive' : 'warning'">
-            {{ screen3.payload.submission_ready ? 'Yes' : 'No' }}
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Satisfied
+            <EaInfo>Criteria met by chart evidence or confirmed by the clinician.</EaInfo>
           </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+            {{ screen3.payload.review_summary.criterion_totals.satisfied }}
+          </p>
         </div>
-        <div class="outcome-tile">
-          <span class="label">Warnings</span>
-          <span class="status-chip" :data-tone="screen3.payload.review_summary.criterion_totals.conflicts ? 'warning' : 'positive'">
-            {{ screen3.payload.review_summary.criterion_totals.conflicts }}
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Unresolved
+            <EaInfo>Criteria still needing clinician input before submission.</EaInfo>
           </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+            {{ screen3.payload.review_summary.criterion_totals.unresolved }}
+          </p>
+        </div>
+        <div class="rounded-[1.5rem] border border-border bg-card px-5 py-5 shadow-sm">
+          <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Rejected
+            <EaInfo>Criteria that ended not met after review.</EaInfo>
+          </span>
+          <p class="mt-3 font-serif text-3xl font-semibold text-foreground">
+            {{ screen3.payload.review_summary.criterion_totals.rejected }}
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="panel">
-      <div class="section-header">
-        <p class="eyebrow">Counts</p>
-        <h2>Review totals</h2>
+    <section
+      v-if="screen3.payload.review_alerts.length"
+      class="rounded-[1.75rem] border border-border bg-card p-6 shadow-sm"
+    >
+      <div class="mb-6 space-y-1">
+        <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Review alerts</p>
+        <h2 class="font-serif text-2xl font-semibold text-foreground">Review-level issues</h2>
       </div>
-      <dl class="summary-grid">
-        <div>
-          <dt>Total criteria</dt>
-          <dd>{{ screen3.payload.review_summary.criterion_totals.total }}</dd>
-        </div>
-        <div>
-          <dt>Answered</dt>
-          <dd>{{ screen3.payload.review_summary.criterion_totals.answered }}</dd>
-        </div>
-        <div>
-          <dt>Unanswered required</dt>
-          <dd>{{ screen3.payload.review_summary.criterion_totals.unanswered_required }}</dd>
-        </div>
-        <div>
-          <dt>Cluster status</dt>
-          <dd>
-            <span class="status-chip" :data-tone="toneForStatus(screen3.payload.review_summary.logic_evaluation.selected_cluster_status)">
-              {{ labelForCriterionState(screen3.payload.review_summary.logic_evaluation.selected_cluster_status) }}
-            </span>
-          </dd>
-        </div>
-      </dl>
-    </section>
-
-    <section class="panel" v-if="screen3.payload.warnings.length">
-      <div class="section-header">
-        <p class="eyebrow">Warnings</p>
-        <h2>Items needing attention</h2>
-      </div>
-      <ul class="answer-list">
-        <li v-for="warning in screen3.payload.warnings" :key="warningKey(warning)">
-          <strong>{{ warning.prompt ?? humanizeToken(warning.type) }}</strong>
-          <span class="summary-meta">{{ warning.criterion_id ?? 'Review warning' }}</span>
-          <div class="chip-row">
-            <span v-if="warning.criterion_kind" class="kind-badge" :data-tone="kindTone(String(warning.criterion_kind))">
-              {{ labelForCriterionKind(String(warning.criterion_kind ?? 'cluster_criterion')) }}
-            </span>
-            <span class="status-chip" :data-tone="toneForStatus(warning.display_state ?? warning.type ?? 'warning')">
-              {{ labelForCriterionState(String(warning.display_state ?? 'conflict')) }}
-            </span>
+      <div class="grid gap-3">
+        <article
+          v-for="alert in screen3.payload.review_alerts"
+          :key="alertKey(alert)"
+          class="rounded-[1.5rem] border border-dk-orange/30 bg-background px-5 py-5"
+        >
+          <div class="flex flex-wrap items-center gap-2">
+            <EaBadge tone="warning">{{ humanizeToken(alert.type ?? 'alert') }}</EaBadge>
           </div>
-          <p class="hero-copy">{{ warning.message }}</p>
-          <button
-            v-if="warning.criterion_id"
-            class="text-button"
-            type="button"
-            @click="emit('jump-to-criterion', String(warning.criterion_id))"
-          >
-            Return to this criterion
-          </button>
-        </li>
-      </ul>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-foreground">
+            {{ humanizeToken(alert.type ?? 'review_alert') }}
+          </h3>
+          <div class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Justification</span>
+            <p class="text-sm leading-6 text-muted-foreground">{{ alert.message }}</p>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="panel" v-if="screen3.payload.unanswered_required_items.length">
-      <div class="section-header">
-        <p class="eyebrow">Unanswered required items</p>
-        <h2>Resolve before submission</h2>
+    <section
+      v-if="screen3.payload.unresolved_criteria.length"
+      class="rounded-[1.75rem] border border-border bg-card p-6 shadow-sm"
+    >
+      <div class="mb-6 space-y-1">
+        <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Unresolved criteria</p>
+        <h2 class="font-serif text-2xl font-semibold text-foreground">Resolve before submission</h2>
       </div>
-      <ul class="answer-list">
-        <li v-for="item in screen3.payload.unanswered_required_items" :key="String(item.criterion_id ?? item.prompt)">
-          <strong>{{ item.prompt }}</strong>
-          <span class="summary-meta">{{ item.criterion_id ?? 'Pending criterion' }}</span>
-          <div class="chip-row">
-            <span class="kind-badge" :data-tone="kindTone(String(item.criterion_kind ?? 'cluster_criterion'))">
-              {{ labelForCriterionKind(String(item.criterion_kind ?? 'cluster_criterion')) }}
-            </span>
-            <span class="status-chip" data-tone="neutral">Required</span>
+      <div class="grid gap-3">
+        <article
+          v-for="criterion in screen3.payload.unresolved_criteria"
+          :key="criterion.criterion_id"
+          class="rounded-[1.5rem] border border-border bg-background px-5 py-5"
+        >
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div class="flex flex-wrap items-center gap-2">
+              <EaBadge :tone="kindTone(criterion.criterion_kind)">
+                {{ labelForCriterionKind(criterion.criterion_kind) }}
+              </EaBadge>
+              <EaBadge tone="neutral">{{ criterion.criterion_id }}</EaBadge>
+            </div>
+            <div class="space-y-1 lg:text-right">
+              <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Eligibility</span>
+              <div class="flex lg:justify-end">
+                <EaBadge :tone="toneForStatus(criterion.display_state)">
+                  {{ labelForCriterionState(criterion.display_state) }}
+                </EaBadge>
+              </div>
+            </div>
           </div>
-          <button
-            v-if="item.criterion_id"
-            class="text-button"
-            type="button"
-            @click="emit('jump-to-criterion', String(item.criterion_id))"
+          <h3 class="mt-4 font-serif text-xl font-semibold text-foreground">{{ criterion.prompt }}</h3>
+          <div class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Justification</span>
+            <p class="text-sm leading-6 text-muted-foreground">
+              {{ criterion.justification || 'This item still requires clinician input before the submission package can be finalized.' }}
+            </p>
+          </div>
+          <EaButton
+            variant="ghost"
+            size="sm"
+            class="mt-4 justify-start px-0"
+            @click="emit('jump-to-criterion', criterion.criterion_id)"
           >
             Resolve in Screen 2
-          </button>
-        </li>
-      </ul>
+          </EaButton>
+        </article>
+      </div>
     </section>
 
-    <section class="panel">
-      <div class="section-header">
-        <p class="eyebrow">Answered criteria</p>
-        <h2>Resolved items</h2>
+    <section
+      v-if="screen3.payload.rejected_criteria.length"
+      class="rounded-[1.75rem] border border-border bg-card p-6 shadow-sm"
+    >
+      <div class="mb-6 space-y-1">
+        <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Rejected criteria</p>
+        <h2 class="font-serif text-2xl font-semibold text-foreground">Resolve before submission</h2>
       </div>
-      <ul class="answer-list">
-        <li v-for="criterion in screen3.payload.answered_criteria" :key="criterion.criterion_id">
-          <strong>{{ criterion.prompt }}</strong>
-          <span class="summary-meta">{{ criterion.criterion_id }}</span>
-          <div class="chip-row">
-            <span class="kind-badge" :data-tone="kindTone(criterion.criterion_kind)">
-              {{ labelForCriterionKind(criterion.criterion_kind) }}
-            </span>
-            <span class="status-chip" :data-tone="toneForStatus(criterion.display_state)">
-              {{ labelForCriterionState(criterion.display_state) }}
-            </span>
+      <div
+        class="grid gap-3"
+      >
+        <article
+          v-for="criterion in screen3.payload.rejected_criteria"
+          :key="criterion.criterion_id"
+          class="rounded-[1.5rem] border border-border bg-background px-5 py-5"
+        >
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div class="flex flex-wrap items-center gap-2">
+              <EaBadge :tone="kindTone(criterion.criterion_kind)">
+                {{ labelForCriterionKind(criterion.criterion_kind) }}
+              </EaBadge>
+              <EaBadge tone="neutral">{{ criterion.criterion_id }}</EaBadge>
+              <EaBadge v-if="criterion.conflict_flag" tone="warning">Clinician override</EaBadge>
+            </div>
+            <div class="space-y-1 lg:text-right">
+              <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Eligibility</span>
+              <div class="flex lg:justify-end">
+                <EaBadge :tone="toneForStatus(criterion.display_state)">
+                  {{ labelForCriterionState(criterion.display_state) }}
+                </EaBadge>
+              </div>
+            </div>
           </div>
-        </li>
-      </ul>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-foreground">{{ criterion.prompt }}</h3>
+          <div v-if="criterion.final_source !== 'unresolved'" class="mt-5 flex flex-wrap items-center gap-2">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Evidence:</span>
+            <EaBadge :tone="finalSourceTone(criterion.final_source)">
+              {{ humanizeToken(criterion.final_source) }}
+            </EaBadge>
+          </div>
+          <div class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Justification</span>
+            <p class="text-sm leading-6 text-muted-foreground">
+              {{ criterion.justification || 'No chart justification returned.' }}
+            </p>
+          </div>
+          <div v-if="criterion.comment" class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Clinician comment</span>
+            <p class="text-sm leading-6 text-muted-foreground">{{ criterion.comment }}</p>
+          </div>
+          <div v-else-if="criterion.conflict_flag && criterion.conflict_reason" class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Override note</span>
+            <p class="text-sm leading-6 text-muted-foreground">{{ criterion.conflict_reason }}</p>
+          </div>
+          <EaButton
+            variant="ghost"
+            size="sm"
+            class="mt-4 justify-start px-0"
+            @click="emit('jump-to-criterion', criterion.criterion_id)"
+          >
+            Resolve in Screen 2
+          </EaButton>
+        </article>
+      </div>
+    </section>
+
+    <section class="rounded-[1.75rem] border border-border bg-card p-6 shadow-sm">
+      <div class="mb-6 space-y-1">
+        <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Satisfied criteria</p>
+        <h2 class="font-serif text-2xl font-semibold text-foreground">Ready to submit</h2>
+      </div>
+      <div
+        v-if="screen3.payload.satisfied_criteria.length"
+        class="grid gap-3"
+      >
+        <article
+          v-for="criterion in screen3.payload.satisfied_criteria"
+          :key="criterion.criterion_id"
+          class="rounded-[1.5rem] border border-border bg-background px-5 py-5"
+        >
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div class="flex flex-wrap items-center gap-2">
+              <EaBadge :tone="kindTone(criterion.criterion_kind)">
+                {{ labelForCriterionKind(criterion.criterion_kind) }}
+              </EaBadge>
+              <EaBadge tone="neutral">{{ criterion.criterion_id }}</EaBadge>
+              <EaBadge v-if="criterion.conflict_flag" tone="warning">Clinician override</EaBadge>
+            </div>
+            <div class="space-y-1 lg:text-right">
+              <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Eligibility</span>
+              <div class="flex lg:justify-end">
+                <EaBadge :tone="toneForStatus(criterion.display_state)">
+                  {{ labelForCriterionState(criterion.display_state) }}
+                </EaBadge>
+              </div>
+            </div>
+          </div>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-foreground">{{ criterion.prompt }}</h3>
+          <div v-if="criterion.final_source !== 'unresolved'" class="mt-5 flex flex-wrap items-center gap-2">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Evidence:</span>
+            <EaBadge :tone="finalSourceTone(criterion.final_source)">
+              {{ humanizeToken(criterion.final_source) }}
+            </EaBadge>
+          </div>
+          <div class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Justification</span>
+            <p class="text-sm leading-6 text-muted-foreground">
+              {{ criterion.justification || 'No chart justification returned.' }}
+            </p>
+          </div>
+          <div v-if="criterion.comment" class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Clinician comment</span>
+            <p class="text-sm leading-6 text-muted-foreground">{{ criterion.comment }}</p>
+          </div>
+          <div v-else-if="criterion.conflict_flag && criterion.conflict_reason" class="mt-4 space-y-1">
+            <span class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">Override note</span>
+            <p class="text-sm leading-6 text-muted-foreground">{{ criterion.conflict_reason }}</p>
+          </div>
+        </article>
+      </div>
+      <EaEmpty
+        v-else
+        title="No satisfied criteria"
+        description="No criteria currently end in a meets-criterion disposition."
+        class="rounded-[1.5rem] border border-dashed border-border bg-background py-12"
+      />
     </section>
   </section>
 </template>

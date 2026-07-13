@@ -556,9 +556,9 @@ def _merge_reviewed_screen2_payload(
 def _build_screen3_sections(
     criteria: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
-    answered_criteria: List[Dict[str, Any]] = []
-    unanswered_required_items: List[Dict[str, Any]] = []
-    warnings: List[Dict[str, Any]] = []
+    satisfied_criteria: List[Dict[str, Any]] = []
+    rejected_criteria: List[Dict[str, Any]] = []
+    unresolved_criteria: List[Dict[str, Any]] = []
 
     for row in criteria:
         if not isinstance(row, dict):
@@ -570,59 +570,39 @@ def _build_screen3_sections(
         conflict_flag = _coerce_bool(ui_resolution.get("conflict_flag"), default=False)
         comment_required = _coerce_bool(ui_resolution.get("comment_required"), default=False)
 
-        if final_answer is None and row.get("required"):
-            unanswered_required_items.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "display_state": ui_resolution.get("display_state"),
-                }
+        criterion_summary = {
+            "criterion_id": row.get("criterion_id"),
+            "criterion_kind": row.get("criterion_kind"),
+            "prompt": row.get("prompt"),
+            "final_answer": final_answer,
+            "final_source": ui_resolution.get("final_source"),
+            "display_state": ui_resolution.get("display_state"),
+            "justification": ((row.get("chart_result", {}) or {}).get("justification")),
+            "comment": clinician_input.get("comment"),
+            "conflict_flag": conflict_flag,
+            "conflict_reason": (
+                ui_resolution.get("comment_guidance")
+                if comment_required
+                else ui_resolution.get("conflict_reason")
             )
-            continue
+            or None,
+        }
 
-        if final_answer is not None:
-            answered_criteria.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "final_answer": final_answer,
-                    "final_source": ui_resolution.get("final_source"),
-                    "display_state": ui_resolution.get("display_state"),
-                    "comment": clinician_input.get("comment"),
-                }
-            )
+        if final_answer is True:
+            satisfied_criteria.append(criterion_summary)
+        elif final_answer is False:
+            rejected_criteria.append(criterion_summary)
+        elif row.get("required"):
+            unresolved_criteria.append(criterion_summary)
 
-        if conflict_flag:
-            warnings.append(
-                {
-                    "criterion_id": row.get("criterion_id"),
-                    "criterion_kind": row.get("criterion_kind"),
-                    "prompt": row.get("prompt"),
-                    "display_state": ui_resolution.get("display_state"),
-                    "type": "clinician_override",
-                    "message": (
-                        ui_resolution.get("comment_guidance")
-                        if comment_required
-                        else ui_resolution.get("conflict_reason")
-                    )
-                    or "Clinician answer differs from chart-backed evidence.",
-                }
-            )
-
-    submission_ready = not unanswered_required_items
     status = "complete"
-    if unanswered_required_items:
+    if unresolved_criteria:
         status = "blocked"
-    elif warnings:
-        status = "warning"
 
     return {
-        "answered_criteria": answered_criteria,
-        "unanswered_required_items": unanswered_required_items,
-        "warnings": warnings,
-        "submission_ready": submission_ready,
+        "satisfied_criteria": satisfied_criteria,
+        "rejected_criteria": rejected_criteria,
+        "unresolved_criteria": unresolved_criteria,
         "status": status,
     }
 
@@ -689,21 +669,32 @@ def build_screen3_payload_data(state: Optional[StateDict]) -> Dict[str, Any]:
         "selected_scope_display": _selected_scope_display(selected_scope_context),
         "criterion_totals": {
             "total": len(criteria),
-            "answered": len(sections["answered_criteria"]),
-            "unanswered_required": len(sections["unanswered_required_items"]),
-            "conflicts": len(sections["warnings"]),
+            "satisfied": len(sections["satisfied_criteria"]),
+            "rejected": len(sections["rejected_criteria"]),
+            "unresolved": len(sections["unresolved_criteria"]),
         },
         "logic_evaluation": runtime_state.get("logic_evaluation", {}) or {},
     }
+
+    logic_evaluation = runtime_state.get("logic_evaluation", {}) or {}
+    cluster_status = logic_evaluation.get("selected_cluster_status") if isinstance(logic_evaluation, dict) else None
+    if cluster_status not in {"satisfied", "not_satisfied", "unresolved"}:
+        if sections["rejected_criteria"]:
+            cluster_status = "not_satisfied"
+        elif sections["unresolved_criteria"]:
+            cluster_status = "unresolved"
+        else:
+            cluster_status = "satisfied"
 
     return {
         "status": sections["status"],
         "payload": {
             "review_summary": review_summary,
-            "answered_criteria": sections["answered_criteria"],
-            "unanswered_required_items": sections["unanswered_required_items"],
-            "warnings": sections["warnings"],
-            "submission_ready": sections["submission_ready"],
+            "satisfied_criteria": sections["satisfied_criteria"],
+            "rejected_criteria": sections["rejected_criteria"],
+            "unresolved_criteria": sections["unresolved_criteria"],
+            "review_alerts": [],
+            "submission_ready": cluster_status == "satisfied",
         },
         "messages": list(runtime_state.get("messages", []) or []),
     }
@@ -723,15 +714,16 @@ def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dic
                     },
                     "criterion_totals": {
                         "total": 0,
-                        "answered": 0,
-                        "unanswered_required": 0,
-                        "conflicts": 0,
+                        "satisfied": 0,
+                        "rejected": 0,
+                        "unresolved": 0,
                     },
                     "logic_evaluation": {},
                 },
-                "answered_criteria": [],
-                "unanswered_required_items": [],
-                "warnings": [
+                "satisfied_criteria": [],
+                "rejected_criteria": [],
+                "unresolved_criteria": [],
+                "review_alerts": [
                     {
                         "type": "missing_review_result",
                         "message": "Structured Agent did not return a valid screen_2_review_result artifact.",
@@ -755,15 +747,16 @@ def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dic
                     },
                     "criterion_totals": {
                         "total": 0,
-                        "answered": 0,
-                        "unanswered_required": 0,
-                        "conflicts": 0,
+                        "satisfied": 0,
+                        "rejected": 0,
+                        "unresolved": 0,
                     },
                     "logic_evaluation": {},
                 },
-                "answered_criteria": [],
-                "unanswered_required_items": [],
-                "warnings": [
+                "satisfied_criteria": [],
+                "rejected_criteria": [],
+                "unresolved_criteria": [],
+                "review_alerts": [
                     {
                         "type": "missing_reviewed_screen_2_payload",
                         "message": "Review result did not include a valid reviewed_screen_2_payload.",
@@ -782,9 +775,9 @@ def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dic
         "selected_scope_display": payload.get("selected_scope_display"),
         "criterion_totals": {
             "total": len(criteria),
-            "answered": 0,
-            "unanswered_required": 0,
-            "conflicts": 0,
+            "satisfied": 0,
+            "rejected": 0,
+            "unresolved": 0,
         },
         "logic_evaluation": logic_evaluation,
     }
@@ -793,17 +786,25 @@ def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dic
 
     review_summary["criterion_totals"] = {
         "total": len(criteria),
-        "answered": len(sections["answered_criteria"]),
-        "unanswered_required": len(sections["unanswered_required_items"]),
-        "conflicts": len(sections["warnings"]),
+        "satisfied": len(sections["satisfied_criteria"]),
+        "rejected": len(sections["rejected_criteria"]),
+        "unresolved": len(sections["unresolved_criteria"]),
     }
 
-    warnings = list(sections["warnings"])
-    submission_ready = sections["submission_ready"]
+    review_alerts: List[Dict[str, Any]] = []
+    cluster_status = (logic_evaluation.get("selected_cluster_status") if isinstance(logic_evaluation, dict) else None)
+    if cluster_status not in {"satisfied", "not_satisfied", "unresolved"}:
+        if sections["rejected_criteria"]:
+            cluster_status = "not_satisfied"
+        elif sections["unresolved_criteria"]:
+            cluster_status = "unresolved"
+        else:
+            cluster_status = "satisfied"
+    submission_ready = cluster_status == "satisfied"
     status = sections["status"]
     if review_result.get("approval_status") == "rejected":
         status = "blocked"
-        warnings.insert(
+        review_alerts.insert(
             0,
             {
                 "type": "human_review_rejected",
@@ -816,9 +817,10 @@ def build_screen3_payload_from_review_result_data(raw_review_result: Any) -> Dic
         "status": status,
         "payload": {
             "review_summary": review_summary,
-            "answered_criteria": sections["answered_criteria"],
-            "unanswered_required_items": sections["unanswered_required_items"],
-            "warnings": warnings,
+            "satisfied_criteria": sections["satisfied_criteria"],
+            "rejected_criteria": sections["rejected_criteria"],
+            "unresolved_criteria": sections["unresolved_criteria"],
+            "review_alerts": review_alerts,
             "submission_ready": submission_ready,
         },
         "messages": list(screen_2_payload.get("messages", []) or []),

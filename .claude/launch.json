@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "prior-auth-webapp",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "webapps/prior_auth_review",
+      "port": 5173,
+      "autoPort": true
+    }
+  ]
+}

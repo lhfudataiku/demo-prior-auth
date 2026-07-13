@@ -1,49 +1,74 @@
 {
-  "status": "complete",
+  "status": "blocked",
   "payload": {
     "review_summary": {
       "selected_scope": {
-        "selected_route_id": "route_peak_flow_mechanical_spacers",
+        "selected_route_id": "RR_peak_flow_mechanical",
         "selected_phase": "other",
-        "selected_cluster_id": "cluster_peak_flow_chronic_lower_respiratory"
+        "selected_cluster_id": "CL_peakflow_obstructive_conditions"
+      },
+      "selected_scope_display": {
+        "route_label": "Standard mechanical peak flow meter or spacer DME",
+        "phase_label": "Other",
+        "cluster_label": "Obstructive pulmonary condition requiring mechanical peak flow meter or spacer"
       },
       "criterion_totals": {
-        "total": 1,
-        "answered": 1,
-        "unanswered_required": 0,
-        "conflicts": 0
+        "total": 2,
+        "satisfied": 1,
+        "rejected": 0,
+        "unresolved": 1
       },
       "logic_evaluation": {
-        "selected_cluster_satisfied": true,
-        "selected_cluster_status": "satisfied",
+        "selected_cluster_satisfied": false,
+        "selected_cluster_status": "unresolved",
         "satisfied_criterion_ids": [
-          "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY"
+          "CR_CLUSTER_peakflow_obstructive_diagnosis"
         ],
         "not_satisfied_criterion_ids": [],
-        "unresolved_criterion_ids": [],
+        "unresolved_criterion_ids": [
+          "CR_RG_peakflow_not_for_copd"
+        ],
         "criterion_counts": {
           "satisfied": 1,
           "not_satisfied": 0,
-          "unresolved": 0
+          "unresolved": 1
         }
       }
     },
-    "answered_criteria": [
+    "satisfied_criteria": [
       {
-        "criterion_id": "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY",
+        "criterion_id": "CR_CLUSTER_peakflow_obstructive_diagnosis",
         "criterion_kind": "cluster_criterion",
-        "prompt": "Does the member have a diagnosis of a chronic lower respiratory disease such as asthma, chronic bronchitis, or emphysema (ICD-10 J40-J47.9) that warrants use of a standard mechanical peak flow meter or spacer for managing the obstructive condition?",
+        "prompt": "Documented diagnosis of asthma, bronchitis, emphysema, chronic lower respiratory disease, acute bronchitis/bronchiolitis, or hypersensitivity pneumonitis due to organic dust that warrants use of a mechanical peak flow meter or spacer.",
         "final_answer": true,
         "final_source": "chart",
         "display_state": "satisfied",
-        "comment": null
+        "justification": "Structured EHR evidence shows five condition entries for the patient with ICD-10 J45.909 (unspecified asthma, uncomplicated). Asthma is one of the obstructive pulmonary conditions covered by the criterion, and no additional qualifier beyond documented diagnosis is required by the criterion text. No conflicting evidence was identified.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
       }
     ],
-    "unanswered_required_items": [],
-    "warnings": [],
-    "submission_ready": true
+    "rejected_criteria": [],
+    "unresolved_criteria": [
+      {
+        "criterion_id": "CR_RG_peakflow_not_for_copd",
+        "criterion_kind": "route_guard",
+        "prompt": "Is this peak flow meter or spacer being requested for management of an existing obstructive pulmonary condition rather than to diagnose chronic obstructive pulmonary disease?",
+        "final_answer": null,
+        "final_source": "unresolved",
+        "display_state": "needs_clinician",
+        "justification": "The chart includes asthma in past medical history, which is consistent with an obstructive pulmonary condition, but I did not find documentation that the peak flow meter/spacer request is specifically for management of that condition or explicit documentation that it is not being used to diagnose COPD. The exclusion/intent qualifier remains unresolved, so this cannot be adjudicated as met or not met from the available evidence.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
+      }
+    ],
+    "review_alerts": [],
+    "submission_ready": false
   },
   "messages": [
-    "Processed criterion CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY for cluster cluster_peak_flow_chronic_lower_respiratory."
+    "Processed criterion CR_RG_peakflow_not_for_copd for cluster CL_peakflow_obstructive_conditions.",
+    "Processed criterion CR_CLUSTER_peakflow_obstructive_diagnosis for cluster CL_peakflow_obstructive_conditions."
   ]
 }

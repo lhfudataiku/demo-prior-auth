@@ -26,7 +26,7 @@ Document role:
 - `policy_master_v4` is the only canonical policy artifact.
 - `route_index_v4` is a deterministic routing view derived from `policy_master_v4`.
 - Screen 1 is deterministic app/backend logic.
-- The Dataiku Structured Visual Agent is the critical orchestration layer for Screen 2 and Screen 3.
+- The Dataiku Structured Visual Agent is the critical orchestration layer for Screen 2.
 - Runtime execution uses flattened criterion execution:
   - generate `retrieval_plan_v1`
   - evaluate each criterion once
@@ -61,19 +61,20 @@ POC human-review behavior:
   custom Python tool configured with human approval before execution
 - the reviewer may approve the payload as-is or edit criterion answers when the
   tool configuration allows editable inputs
-- approved or edited answers are merged back into agent state before Screen 3 is
-  built
+- approved or edited answers are returned as the reviewed Screen 2 artifact for
+  deterministic downstream Screen 3 generation
 
 Runtime modes:
 - `native DSS approval mode`
   - the Structured Agent reaches the human-review tool boundary
   - DSS pauses for managed human approval before the tool executes
   - the tool returns `approved_criterion_answers`
-  - the Structured Agent deterministically recomputes Screen 3
+  - backend/helper code deterministically builds Screen 3 from the reviewed
+    Screen 2 artifact
 - `standard webapp review mode`
   - the webapp renders Screen 2 directly from `screen_2_payload`
   - clinician edits are collected in the same answer-map shape
-  - backend or agent submit logic deterministically recomputes Screen 3
+  - backend submit logic deterministically builds Screen 3
 - use the same answer schema in both modes; do not fork the clinician-input model
 
 Recommended UI behavior:
@@ -172,7 +173,8 @@ Responsibility:
 - call the Criterion Reasoning Agent once per criterion
 - build `criterion_result_map`
 - evaluate the selected logic tree
-- return Screen 2 and Screen 3 payloads
+- return the reviewed Screen 2 artifact for deterministic downstream
+  transformation
 
 Implementation spec:
 - `scripts/schema_v4/screen2_structured_agent_spec.md`
@@ -302,6 +304,10 @@ Deployment adapter note:
 - keep one backend adapter responsible for obtaining Screen 2 from Structured
   Agent output so the UI contract remains stable across static-artifact mode and
   live agent mode
+- in the current DSS deployment, the backend resolves the Structured Agent from
+  the active/default DSS project context rather than hard-coding a project key
+- the current deployed project key is `DEMO_PRIOR_AUTH_AGENT`; the standard
+  webapp and Structured Agent are expected to live in that same project context
 - in deployment mode, Screen 1 should hand `selected_scope_context` to the
   Dataiku Structured Agent, which should generate `structured_agent_context`
   and expose `screen_2_payload` for Screen 2 rendering
@@ -340,7 +346,7 @@ Structured Agent should:
 7. apply results to the selected logic tree
 8. build the Screen 2 review payload
 9. request human approval through the managed Screen 2 review tool
-10. merge approved or edited answers and build Screen 3
+10. emit the reviewed Screen 2 artifact as the stable downstream handoff object
 
 Conflict handling rule:
 - `criterion_ui_map` should compare chart-backed `criterion_result_map` against
@@ -353,8 +359,8 @@ Implementation note:
   `selected_scope_context`
 - reserve `scoped_policy_context` for the Screen 1 / API payload field name
 
-### Screen 3: Structured Agent
-Structured Agent should:
+### Screen 3: Deterministic backend/webapp layer
+Backend/webapp should:
 1. consume the approved Screen 2 review result
 2. merge clinician answers with chart-backed results
 3. recompute completeness and conflicts

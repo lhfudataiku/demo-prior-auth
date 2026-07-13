@@ -1,0 +1,46 @@
+[
+  {
+    "policy_id": "0059",
+    "fixture_file": "0059_screen_2_agent_request.json",
+    "session_id": "fixture-0059-CL_peakflow_obstructive_conditions",
+    "subject_id": "91f25704-6153-5259-bdd7-2ca6478de14a",
+    "billing_code": "A4614",
+    "selected_cluster_id": "CL_peakflow_obstructive_conditions",
+    "selected_route_id": "RR_peak_flow_mechanical",
+    "selected_phase": "other",
+    "criterion_count": 2
+  },
+  {
+    "policy_id": "0685",
+    "fixture_file": "0685_screen_2_agent_request.json",
+    "session_id": "fixture-0685-cluster_nsclc_initial",
+    "subject_id": "91f25704-6153-5259-bdd7-2ca6478de14a",
+    "billing_code": "J9035",
+    "selected_cluster_id": "cluster_nsclc_initial",
+    "selected_route_id": "route_bevacizumab_nonocular",
+    "selected_phase": "initial",
+    "criterion_count": 3
+  },
+  {
+    "policy_id": "0655",
+    "fixture_file": "0655_screen_2_agent_request.json",
+    "session_id": "fixture-0655-CL_CONT_UC",
+    "subject_id": "91f25704-6153-5259-bdd7-2ca6478de14a",
+    "billing_code": "J0139",
+    "selected_cluster_id": "CL_CONT_UC",
+    "selected_route_id": "ROUTE_ADALIMUMAB",
+    "selected_phase": "continuation",
+    "criterion_count": 3
+  },
+  {
+    "policy_id": "0314",
+    "fixture_file": "0314_screen_2_agent_request.json",
+    "session_id": "fixture-0314-cluster_oncologic_iv_initial",
+    "subject_id": "91f25704-6153-5259-bdd7-2ca6478de14a",
+    "billing_code": "J9312",
+    "selected_cluster_id": "cluster_oncologic_iv_initial",
+    "selected_route_id": "route_rituximab_iv",
+    "selected_phase": "initial",
+    "criterion_count": 1
+  }
+]

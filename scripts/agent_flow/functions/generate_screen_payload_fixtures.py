@@ -81,6 +81,20 @@ def _parse_review_result_from_artifact(artifact_payload: Dict[str, Any]) -> Dict
     return normalize_review_result_data(parsed)
 
 
+def _parse_review_result_from_state(state: Dict[str, Any]) -> Dict[str, Any]:
+    raw_review_result = state.get("screen_2_review_result")
+    if isinstance(raw_review_result, dict):
+        return normalize_review_result_data(raw_review_result)
+    if not isinstance(raw_review_result, str) or not raw_review_result.strip():
+        return {}
+
+    try:
+        parsed = json.loads(raw_review_result)
+    except json.JSONDecodeError:
+        return {}
+    return normalize_review_result_data(parsed)
+
+
 def _resolve_artifact_path(policy_id: str, explicit_source: Optional[str]) -> Path:
     if explicit_source:
         source_path = Path(explicit_source)
@@ -147,7 +161,9 @@ def main() -> None:
         screen_2_payload = build_screen2_payload_data(state_with_ui)
         _write_json(fixture_dir / "screen_2_response.json", screen_2_payload)
 
-        review_result = _parse_review_result_from_artifact(artifact_payload)
+        review_result = _parse_review_result_from_state(state)
+        if not review_result:
+            review_result = _parse_review_result_from_artifact(artifact_payload)
         if not review_result:
             review_result = _build_review_result_fixture(
                 screen_2_payload=screen_2_payload,

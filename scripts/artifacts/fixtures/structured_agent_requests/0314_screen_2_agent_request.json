@@ -1,0 +1,4425 @@
+{
+  "session_id": "fixture-0314-cluster_oncologic_iv_initial",
+  "subject_id": "cb70e6ae-90b1-562b-8ab0-467c65d18d5e",
+  "policy_id": "0314",
+  "screen_id": "screen_2",
+  "payload": {
+    "selected_route_id": "route_rituximab_iv",
+    "selected_phase": "initial",
+    "selected_cluster_id": "cluster_oncologic_iv_initial",
+    "scoped_policy_context": {
+      "policy_id": "0314",
+      "selected_route_id": "route_rituximab_iv",
+      "selected_route_label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+      "selected_phase": "initial",
+      "selected_phase_label": "Initial",
+      "selected_cluster_id": "cluster_oncologic_iv_initial",
+      "selected_cluster_label": "CD20-positive B-cell malignancies",
+      "selected_route": {
+        "route_id": "route_rituximab_iv",
+        "label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+          "J9312",
+          "Q5115",
+          "Q5119",
+          "Q5123"
+        ],
+        "route_kind": "covered_request",
+        "phase_prompt_required": true,
+        "phase_branches": [
+          {
+            "phase": "initial",
+            "is_default": true,
+            "route_guard_ids": [],
+            "cluster_ids": [
+              "cluster_oncologic_iv_initial",
+              "cluster_hematologic_iv_initial",
+              "cluster_icpi_toxicity_iv_initial",
+              "cluster_ra_iv_initial",
+              "cluster_vasculitis_iv_initial",
+              "cluster_sjogren_iv_initial",
+              "cluster_ms_iv_initial",
+              "cluster_nmosd_iv_initial",
+              "cluster_blistering_iv_initial",
+              "cluster_cryoglobulinemia_iv_initial",
+              "cluster_transplant_iv_initial",
+              "cluster_membranous_iv_initial",
+              "cluster_opsoclonus_iv_initial",
+              "cluster_lupus_iv_initial",
+              "cluster_myasthenia_iv_initial",
+              "cluster_susac_iv_initial"
+            ]
+          },
+          {
+            "phase": "continuation",
+            "is_default": false,
+            "route_guard_ids": [],
+            "cluster_ids": [
+              "cluster_oncologic_iv_continuation",
+              "cluster_hematologic_iv_continuation",
+              "cluster_icpi_toxicity_iv_continuation",
+              "cluster_ra_iv_continuation",
+              "cluster_vasculitis_iv_continuation",
+              "cluster_sjogren_iv_continuation",
+              "cluster_ms_iv_continuation",
+              "cluster_nmosd_iv_continuation",
+              "cluster_blistering_iv_continuation",
+              "cluster_cryoglobulinemia_iv_continuation",
+              "cluster_transplant_iv_continuation",
+              "cluster_membranous_iv_continuation",
+              "cluster_opsoclonus_iv_continuation",
+              "cluster_lupus_iv_continuation",
+              "cluster_myasthenia_iv_continuation",
+              "cluster_susac_iv_continuation"
+            ]
+          }
+        ],
+        "routing_notes": "Iv rituximab indications span hematologic, oncologic, rheumatologic, neurologic, and transplant-related conditions; continuation requires confirming ongoing benefit or absence of toxicity.",
+        "evidence": "Section I and III describe the medically necessary oncologic, hematologic, rheumatologic, neurologic, and transplant-related indications for rituximab and the associated continuation criteria in Sections II and IV.",
+        "locator": {
+          "section_path": [
+            "Policy",
+            "Treatment of Hematologic and Oncologic Conditions"
+          ],
+          "page_start": 2,
+          "page_end": 7
+        }
+      },
+      "selected_phase_branch": {
+        "phase": "initial",
+        "is_default": true,
+        "route_guard_ids": [],
+        "cluster_summaries": [
+          {
+            "cluster_id": "cluster_oncologic_iv_initial",
+            "condition_key": "oncologic_cd20_positive_bcell_malignancies",
+            "condition_label": "CD20-positive B-cell malignancies",
+            "condition_synonyms": [
+              "Diffuse large B-cell lymphoma",
+              "Follicular lymphoma",
+              "Mantle cell lymphoma",
+              "Chronic lymphocytic leukemia",
+              "Waldenström macroglobulinemia",
+              "Post-transplant lymphoproliferative disorder"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C81.00 - C81.09",
+              "C81.40 - C81.49",
+              "C82.00 - C82.99",
+              "C83.00 - C83.09",
+              "C83.10 - C83.19",
+              "C83.30 - C83.3A",
+              "C83.50 - C83.59",
+              "C83.70 - C83.79",
+              "C83.80 - C83.89",
+              "C83.90 - C83.99",
+              "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+              "C85.10 - C85.19",
+              "C85.20 - C85.29",
+              "C85.80 - C85.99",
+              "C86.00 - C86.41",
+              "C86.50 - C86.51",
+              "C86.60 - C86.61",
+              "C88.00 - C88.01",
+              "C88.40 - C88.41",
+              "C91.00 - C91.01",
+              "C91.10 - C91.12",
+              "C91.40 - C91.42",
+              "D47.Z1",
+              "D47.Z2",
+              "D76.3"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_hematologic_iv_initial",
+            "condition_key": "hematologic_autoimmune_and_transplant_conditions",
+            "condition_label": "Refractory hematologic autoimmune and transplant-related conditions",
+            "condition_synonyms": [
+              "Refractory ITP",
+              "Autoimmune hemolytic anemia",
+              "Thrombotic thrombocytopenic purpura",
+              "Chronic graft-versus-host disease",
+              "EBV-related PTLD prevention",
+              "Non-myeloablative allogeneic conditioning"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "D59.0 - D59.19",
+              "D69.3",
+              "M31.10 - M31.19",
+              "D89.811",
+              "D47.Z1",
+              "D47.Z2"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_icpi_toxicity_iv_initial",
+            "condition_key": "immune_checkpoint_inhibitor_related_toxicities",
+            "condition_label": "Immune checkpoint inhibitor-related toxicities",
+            "condition_synonyms": [
+              "Checkpoint inhibitor toxicity",
+              "ICI-related encephalitis"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "G04.81"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_ra_iv_initial",
+            "condition_key": "moderately_to_severely_active_rheumatoid_arthritis",
+            "condition_label": "Moderately to severely active rheumatoid arthritis",
+            "condition_synonyms": [
+              "RA",
+              "Rheumatoid arthritis requiring biologic therapy"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "M05.00 - M14.89"
+            ],
+            "cluster_entry_guard_ids": [
+              "CEG_RA_NO_OTHER_BIO"
+            ]
+          },
+          {
+            "cluster_id": "cluster_vasculitis_iv_initial",
+            "condition_key": "anca_associated_vasculitis_and_pauciimmune_gn",
+            "condition_label": "GPA, MPA, EGPA or pauci-immune glomerulonephritis",
+            "condition_synonyms": [
+              "Granulomatosis with polyangiitis",
+              "Microscopic polyangiitis",
+              "Eosinophilic granulomatosis with polyangiitis",
+              "Pauci-immune glomerulonephritis"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "M30.1",
+              "M31.30 - M31.31",
+              "N01.3"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_sjogren_iv_initial",
+            "condition_key": "sjogren_syndrome_refractory",
+            "condition_label": "Sjögren’s syndrome refractory to other immunosuppressive therapy",
+            "condition_synonyms": [
+              "Sicca syndrome",
+              "Sjögren"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "M35.00 - M35.09"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_ms_iv_initial",
+            "condition_key": "relapsing_remitting_multiple_sclerosis",
+            "condition_label": "Relapsing remitting multiple sclerosis (RRMS)",
+            "condition_synonyms": [
+              "RRMS"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "G35.A - G35.D"
+            ],
+            "cluster_entry_guard_ids": [
+              "CEG_MS_NO_OTHER_DMOD"
+            ]
+          },
+          {
+            "cluster_id": "cluster_nmosd_iv_initial",
+            "condition_key": "neuromyelitis_optica_spectrum_disorder",
+            "condition_label": "Neuromyelitis optica spectrum disorder (NMOSD)",
+            "condition_synonyms": [
+              "Devic disease",
+              "NMOSD"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "G36.0"
+            ],
+            "cluster_entry_guard_ids": [
+              "CEG_NMOSD_NO_OTHER_BIO"
+            ]
+          },
+          {
+            "cluster_id": "cluster_blistering_iv_initial",
+            "condition_key": "autoimmune_blistering_diseases",
+            "condition_label": "Autoimmune blistering diseases",
+            "condition_synonyms": [
+              "Pemphigus vulgaris",
+              "Pemphigus foliaceus",
+              "Bullous pemphigoid",
+              "Acquired epidermolysis bullosa"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "L10.0",
+              "L10.2",
+              "L10.81",
+              "L12.0",
+              "L12.1",
+              "L12.30 - L12.35"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_cryoglobulinemia_iv_initial",
+            "condition_key": "cryoglobulinemia_refractory",
+            "condition_label": "Cryoglobulinemia refractory to corticosteroids and other immunosuppressives",
+            "condition_synonyms": [
+              "Cryoglobulinemia"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "D89.1"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_transplant_iv_initial",
+            "condition_key": "solid_organ_transplant_and_antibody_mediated_rejection",
+            "condition_label": "Solid organ transplant treatment and prevention of antibody-mediated rejection",
+            "condition_synonyms": [
+              "Transplant desensitization",
+              "Antibody mediated rejection prevention"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "T86.00 - T86.99",
+              "Z94.0 - Z94.9"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_membranous_iv_initial",
+            "condition_key": "membranous_nephropathy_moderate_high_risk",
+            "condition_label": "Membranous nephropathy at moderate to high risk for progression",
+            "condition_synonyms": [
+              "Diffuse membranous glomerulonephritis",
+              "Membranous nephropathy"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "N04.20 - N04.29",
+              "N06.20 - N06.29"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_opsoclonus_iv_initial",
+            "condition_key": "opsoclonus_myoclonus_ataxia_associated_with_neuroblastoma",
+            "condition_label": "Opsoclonus-myoclonus-ataxia associated with neuroblastoma",
+            "condition_synonyms": [
+              "OMA with neuroblastoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "H55.89"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_lupus_iv_initial",
+            "condition_key": "systemic_lupus_erythematosus_refractory",
+            "condition_label": "Systemic lupus erythematosus refractory to immunosuppressive therapy",
+            "condition_synonyms": [
+              "SLE refractory"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "M32.0 - M32.9"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_myasthenia_iv_initial",
+            "condition_key": "refractory_myasthenia_gravis",
+            "condition_label": "Refractory myasthenia gravis",
+            "condition_synonyms": [
+              "MG refractory"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "G70.00 - G70.01"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_susac_iv_initial",
+            "condition_key": "susac_syndrome",
+            "condition_label": "Susac syndrome",
+            "condition_synonyms": [
+              "Susac disease"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "G93.49"
+            ],
+            "cluster_entry_guard_ids": []
+          }
+        ]
+      },
+      "selected_route_guards": [],
+      "selected_cluster_summary": {
+        "cluster_id": "cluster_oncologic_iv_initial",
+        "condition_key": "oncologic_cd20_positive_bcell_malignancies",
+        "condition_label": "CD20-positive B-cell malignancies",
+        "condition_synonyms": [
+          "Diffuse large B-cell lymphoma",
+          "Follicular lymphoma",
+          "Mantle cell lymphoma",
+          "Chronic lymphocytic leukemia",
+          "Waldenström macroglobulinemia",
+          "Post-transplant lymphoproliferative disorder"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+          "C81.00 - C81.09",
+          "C81.40 - C81.49",
+          "C82.00 - C82.99",
+          "C83.00 - C83.09",
+          "C83.10 - C83.19",
+          "C83.30 - C83.3A",
+          "C83.50 - C83.59",
+          "C83.70 - C83.79",
+          "C83.80 - C83.89",
+          "C83.90 - C83.99",
+          "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+          "C85.10 - C85.19",
+          "C85.20 - C85.29",
+          "C85.80 - C85.99",
+          "C86.00 - C86.41",
+          "C86.50 - C86.51",
+          "C86.60 - C86.61",
+          "C88.00 - C88.01",
+          "C88.40 - C88.41",
+          "C91.00 - C91.01",
+          "C91.10 - C91.12",
+          "C91.40 - C91.42",
+          "D47.Z1",
+          "D47.Z2",
+          "D76.3"
+        ],
+        "cluster_entry_guard_ids": []
+      },
+      "selected_cluster": {
+        "cluster_id": "cluster_oncologic_iv_initial",
+        "route_id": "route_rituximab_iv",
+        "phase": "initial",
+        "condition_key": "oncologic_cd20_positive_bcell_malignancies",
+        "condition_label": "CD20-positive B-cell malignancies",
+        "condition_synonyms": [
+          "Diffuse large B-cell lymphoma",
+          "Follicular lymphoma",
+          "Mantle cell lymphoma",
+          "Chronic lymphocytic leukemia",
+          "Waldenström macroglobulinemia",
+          "Post-transplant lymphoproliferative disorder"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+          "C81.00 - C81.09",
+          "C81.40 - C81.49",
+          "C82.00 - C82.99",
+          "C83.00 - C83.09",
+          "C83.10 - C83.19",
+          "C83.30 - C83.3A",
+          "C83.50 - C83.59",
+          "C83.70 - C83.79",
+          "C83.80 - C83.89",
+          "C83.90 - C83.99",
+          "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+          "C85.10 - C85.19",
+          "C85.20 - C85.29",
+          "C85.80 - C85.99",
+          "C86.00 - C86.41",
+          "C86.50 - C86.51",
+          "C86.60 - C86.61",
+          "C88.00 - C88.01",
+          "C88.40 - C88.41",
+          "C91.00 - C91.01",
+          "C91.10 - C91.12",
+          "C91.40 - C91.42",
+          "D47.Z1",
+          "D47.Z2",
+          "D76.3"
+        ],
+        "inherits_diagnosis_from_cluster_ids": [],
+        "cluster_entry_guard_ids": [],
+        "logic_profile_id": "UNKNOWN",
+        "logic_root": {
+          "node_type": "group",
+          "operator": "all",
+          "children": [
+            {
+              "node_type": "criterion_ref",
+              "criterion_id": "CR_ONCO_CD20_POS"
+            }
+          ]
+        },
+        "evidence": "Section I.A states that rituximab is medically necessary for the treatment of the enumerated CD20-positive oncologic disorders when CD20 positivity is confirmed by testing or analysis.",
+        "locator": {
+          "section_path": [
+            "Policy",
+            "Treatment of Hematologic and Oncologic Conditions",
+            "I. Criteria for Initial Approval",
+            "A. Oncologic indications"
+          ],
+          "page_start": 2,
+          "page_end": 3
+        }
+      },
+      "selected_cluster_entry_guards": [],
+      "selected_logic_profiles": [],
+      "selected_inherited_diagnosis_clusters": [],
+      "effective_diagnosis_code_candidates": [
+        "C81.00 - C81.09",
+        "C81.40 - C81.49",
+        "C82.00 - C82.99",
+        "C83.00 - C83.09",
+        "C83.10 - C83.19",
+        "C83.30 - C83.3A",
+        "C83.50 - C83.59",
+        "C83.70 - C83.79",
+        "C83.80 - C83.89",
+        "C83.90 - C83.99",
+        "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+        "C85.10 - C85.19",
+        "C85.20 - C85.29",
+        "C85.80 - C85.99",
+        "C86.00 - C86.41",
+        "C86.50 - C86.51",
+        "C86.60 - C86.61",
+        "C88.00 - C88.01",
+        "C88.40 - C88.41",
+        "C91.00 - C91.01",
+        "C91.10 - C91.12",
+        "C91.40 - C91.42",
+        "D47.Z1",
+        "D47.Z2",
+        "D76.3"
+      ],
+      "selected_route_guard_criterion_ids": [],
+      "selected_cluster_entry_guard_criterion_ids": [],
+      "selected_inherited_diagnosis_criterion_ids": [],
+      "selected_cluster_criterion_ids": [
+        "CR_ONCO_CD20_POS"
+      ],
+      "selected_criteria_catalog": [
+        {
+          "criterion_id": "CR_ONCO_CD20_POS",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+          "clinical_intent": "Confirm the request is for a covered CD20-positive B-cell malignancy.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C81.00 - C81.09",
+              "C81.40 - C81.49",
+              "C82.00 - C82.99",
+              "C83.00 - C83.09",
+              "C83.10 - C83.19",
+              "C83.30 - C83.3A",
+              "C83.50 - C83.59",
+              "C83.70 - C83.79",
+              "C83.80 - C83.89",
+              "C83.90 - C83.99",
+              "C84.00 - C84.79",
+              "C84.A0 - C84.Z9",
+              "C84.90 - C84.99",
+              "C85.10 - C85.19",
+              "C85.20 - C85.29",
+              "C85.80 - C85.99",
+              "C86.00 - C86.41",
+              "C86.50 - C86.51",
+              "C86.60 - C86.61",
+              "C88.00 - C88.01",
+              "C88.40 - C88.41",
+              "C91.00 - C91.01",
+              "C91.10 - C91.12",
+              "C91.40 - C91.42",
+              "D47.Z1",
+              "D47.Z2",
+              "D76.3"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation"
+          ],
+          "policy_time_language": "For treatment of the oncologic disorders listed in Section I.A that are CD20-positive as confirmed by testing or analysis.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers rituximab medically necessary for the listed CD20-positive oncologic disorders when CD20 positivity is confirmed by testing or analysis (Section I.A).",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "I. Criteria for Initial Approval",
+              "A. Oncologic indications"
+            ],
+            "page_start": 2,
+            "page_end": 3
+          }
+        }
+      ]
+    },
+    "policy_master_v4": {
+      "policy_id": "0314",
+      "document_type": "COVERAGE_POLICY",
+      "title": "Rituximab (Aetna Medical Clinical Policy Bulletin 0314)",
+      "source": {
+        "policy_url": "https://www.aetna.com/cpb/medical/data/300_399/0314.html"
+      },
+      "billing_code_sets": [
+        {
+          "code": "62350",
+          "system": "CPT",
+          "description": "Implantation, revision or repositioning of tunneled intrathecal or epidural catheter, for long-term medication administration via an external pump or implantable reservoir/infusion pump; without laminectomy",
+          "code_role": "request",
+          "coverage_status": "not_covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "CPT codes not covered for indications listed in the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "62351",
+          "system": "CPT",
+          "description": "Implantation, revision or repositioning of tunneled intrathecal or epidural catheter, for long-term medication administration via an external pump or implantable reservoir/infusion pump; with laminectomy",
+          "code_role": "request",
+          "coverage_status": "not_covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "CPT codes not covered for indications listed in the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "83520",
+          "system": "CPT",
+          "description": "Immunoassay for analyte other than infectious agent antibody or infectious agent antigen; quantitative, not otherwise specified [anti-chimeric antibody testing and/or chimeric anti-TNF antibody testing for Rituxan therapy]",
+          "code_role": "request",
+          "coverage_status": "investigational",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "CPT codes not covered for indications listed in the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "96450",
+          "system": "CPT",
+          "description": "Chemotherapy administration, into CNS (eg, intrathecal), requiring and including spinal puncture",
+          "code_role": "request",
+          "coverage_status": "investigational",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "CPT codes not covered for indications listed in the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "85651",
+          "system": "CPT",
+          "description": "Sedimentation rate, erythrocyte; non-automated",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "85652",
+          "system": "CPT",
+          "description": "Sedimentation rate, erythrocyte; automated",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "86140",
+          "system": "CPT",
+          "description": "C-reactive protein",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "86141",
+          "system": "CPT",
+          "description": "C-reactive protein; high sensitivity (hsCRP)",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "86200",
+          "system": "CPT",
+          "description": "Cyclic citrullinated peptide (CCP), antibody",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "86430",
+          "system": "CPT",
+          "description": "Rheumatoid factor; qualitative",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "86431",
+          "system": "CPT",
+          "description": "Rheumatoid factor; quantitative",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "96401 - 96446",
+          "system": "CPT",
+          "description": "Chemotherapy administration",
+          "code_role": "related",
+          "coverage_status": "related",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "Other CPT codes related to the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "J9312",
+          "system": "HCPCS",
+          "description": "Injection, rituximab, 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "Q5115",
+          "system": "HCPCS",
+          "description": "Injection, rituximab-abbs, biosimilar, (Truxima), 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "Q5119",
+          "system": "HCPCS",
+          "description": "Injection, rituximab-pvvr, biosimilar, (RUXIENCE), 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "Q5123",
+          "system": "HCPCS",
+          "description": "Injection, rituximab-arrx, biosimilar, (riabni), 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "J9311",
+          "system": "HCPCS",
+          "description": "Injection, rituximab 10 mg and hyaluronidase",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "HCPCS codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "code": "C81.00 - C81.09",
+          "system": "ICD-10",
+          "description": "Nodular lymphocyte predominant Hodgkin lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C81.40 - C81.49",
+          "system": "ICD-10",
+          "description": "Lymphocyte-rich Hodgkin lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C82.00 - C82.99",
+          "system": "ICD-10",
+          "description": "Follicular lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C83.00 - C83.09",
+          "system": "ICD-10",
+          "description": "Small cell B-cell lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C83.10 - C83.19",
+          "system": "ICD-10",
+          "description": "Mantle cell lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C83.30 - C83.3A",
+          "system": "ICD-10",
+          "description": "Diffuse large B-cell lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C83.50 - C83.59",
+          "system": "ICD-10",
+          "description": "Lymphoblastic (diffuse) lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C83.70 - C83.79",
+          "system": "ICD-10",
+          "description": "Burkitt lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C83.80 - C83.89",
+          "system": "ICD-10",
+          "description": "Other non-follicular lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C83.90 - C83.99",
+          "system": "ICD-10",
+          "description": "Non-follicular (diffuse) lymphoma, unspecified",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+          "system": "ICD-10",
+          "description": "Mature T/NK – cell lymphomas",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C85.10 - C85.19",
+          "system": "ICD-10",
+          "description": "Unspecified B-cell and mediastinal (thymic) large B-cell lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C85.20 - C85.29",
+          "system": "ICD-10",
+          "description": "Mediastinal (thymic) large B-cell lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C85.80 - C85.99",
+          "system": "ICD-10",
+          "description": "Other specified types of non-Hodgkin lymphoma and non-Hodgkin's lymphoma, unspecified",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C86.00 - C86.41",
+          "system": "ICD-10",
+          "description": "Extranodal NK/T-cell lymphoma, nasal type, Hepatosplenic T-cell lymphoma, Enteropathy-type (intestinal) T-cell lymphoma, Subcutaneous panniculitis-like T-cell lymphoma, and Blastic NK-cell lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C86.50 - C86.51",
+          "system": "ICD-10",
+          "description": "Angioimmunoblastic T-cell lymphoma",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C86.60 - C86.61",
+          "system": "ICD-10",
+          "description": "Primary cutaneous CD30-positive T-cell proliferations",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C88.00 - C88.01",
+          "system": "ICD-10",
+          "description": "Waldenstrom's macroglobulinemia [Bing-Neel syndrome]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C88.40 - C88.41",
+          "system": "ICD-10",
+          "description": "Extranodal marginal zone B-cell lymphoma of mucosa-associated lymphoid tissue [MALT-lymphoma]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C91.00 - C91.01",
+          "system": "ICD-10",
+          "description": "Acute lymphoblastic leukemia [ALL] [Philadelphia chromosome-negative]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C91.10 - C91.12",
+          "system": "ICD-10",
+          "description": "Chronic lymphocytic leukemia of B-cell type [small lymphocytic lymphoma]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "C91.40 - C91.42",
+          "system": "ICD-10",
+          "description": "Hairy cell leukemia",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "D47.Z1",
+          "system": "ICD-10",
+          "description": "Post-transplant lymphoproliferative disorder (PTLD)",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "D47.Z2",
+          "system": "ICD-10",
+          "description": "Castleman disease",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "D59.0 - D59.19",
+          "system": "ICD-10",
+          "description": "Autoimmune hemolytic anemias [refractory]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "D69.3",
+          "system": "ICD-10",
+          "description": "Immune thrombocytopenic purpura [refractory]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "D76.3",
+          "system": "ICD-10",
+          "description": "Other histiocytosis syndromes [Rosai-Dorfman disease]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "D89.1",
+          "system": "ICD-10",
+          "description": "Cryoglobulinemia [refractory to corticosteroids and other immunosuppressive agents]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "D89.811",
+          "system": "ICD-10",
+          "description": "Chronic graft-versus-host disease",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "G04.81",
+          "system": "ICD-10",
+          "description": "Other encephalitis and encephalomyelitis [for immune checkpoint inhibitor related encephalitis]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "G35.A - G35.D",
+          "system": "ICD-10",
+          "description": "Multiple sclerosis",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "G36.0",
+          "system": "ICD-10",
+          "description": "Neuromyelitis optica [Devic]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "G70.00 - G70.01",
+          "system": "ICD-10",
+          "description": "Myasthenia gravis [muscle-specific tyrosine kinase myasthenia gravis (MuSK-MG)]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "G93.49",
+          "system": "ICD-10",
+          "description": "Other encephalopathy [Susac syndrome]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "H55.89",
+          "system": "ICD-10",
+          "description": "Other irregular eye movements [opsoclonus-myoclonus-ataxia associated with neuroblastoma]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "I77.6",
+          "system": "ICD-10",
+          "description": "Arteritis, unspecified [anti-neutrophil cytoplasmic antibody-associated (ANCA-associated) vasculitides]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "I77.82",
+          "system": "ICD-10",
+          "description": "Antineutrophilic cytoplasmic antibody [ANCA] vasculitis",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "L10.0",
+          "system": "ICD-10",
+          "description": "Pemphigus vulgaris [corticosteroid-refractory]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "L10.2",
+          "system": "ICD-10",
+          "description": "Pemphigus foliaceous [corticosteroid-refractory]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "L10.81",
+          "system": "ICD-10",
+          "description": "Paraneoplastic pemphigus [corticosteroid-refractory]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "L12.0",
+          "system": "ICD-10",
+          "description": "Bullous pemphigoid",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "L12.1",
+          "system": "ICD-10",
+          "description": "Citricial pemphigoid",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "L12.30 - L12.35",
+          "system": "ICD-10",
+          "description": "Acquired epidermolysis bullosa",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "L40.1",
+          "system": "ICD-10",
+          "description": "Generalized pustular psoriasis",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "M05.00 - M14.89",
+          "system": "ICD-10",
+          "description": "Rheumatoid arthritis and other inflammatory polyarthropathies [not covered for patients under the age of 18]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "M30.1",
+          "system": "ICD-10",
+          "description": "Polyarteritis with lung involvement [eosinophilic granulomatosis with polyangiitis (EGPA)] [medically necessary when rituximab is used in conjunction with glucocorticoids]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "M31.10 - M31.19",
+          "system": "ICD-10",
+          "description": "Thrombotic microangiopathy [refractory thrombotic thrombocytopenic purpura]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "M31.30 - M31.31",
+          "system": "ICD-10",
+          "description": "Wegener's granulomatosis [medically necessary when rituximab is used in conjunction with glucocorticoids]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "M32.0 - M32.9",
+          "system": "ICD-10",
+          "description": "Systemic lupus erythematosus",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "M35.00 - M35.09",
+          "system": "ICD-10",
+          "description": "Sicca syndrome [Sjogren]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "N01.3",
+          "system": "ICD-10",
+          "description": "Rapidly progressive nephritic syndrome with diffuse mesangial proliferative glomerulonephritis [pauci-immune glomerulonephritis] [in conjunction with glucocorticoids]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "N04.20 - N04.29",
+          "system": "ICD-10",
+          "description": "Nephrotic syndrome with diffuse membranous glomerulonephritis",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "N06.20 - N06.29",
+          "system": "ICD-10",
+          "description": "Isolated proteinuria with diffuse membranous glomerulonephritis",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 20
+          }
+        },
+        {
+          "code": "T86.00 - T86.99",
+          "system": "ICD-10",
+          "description": "Complications of transplanted organs and tissue [antibody mediated rejection in heart transplant recipients]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 21
+          }
+        },
+        {
+          "code": "Z94.0 - Z94.9",
+          "system": "ICD-10",
+          "description": "Transplanted organ and tissue status [prevention (desensitization) of antibody mediated rejection in highly sensitized solid organ transplant recipients]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "ICD-10 codes covered if selection criteria are met"
+            ],
+            "page_start": 19,
+            "page_end": 21
+          }
+        }
+      ],
+      "request_routes": [
+        {
+          "route_id": "route_rituximab_iv",
+          "label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+          "coverage_status": "covered",
+          "terminal_disposition": "continue",
+          "billing_codes": [
+            "J9312",
+            "Q5115",
+            "Q5119",
+            "Q5123"
+          ],
+          "route_kind": "covered_request",
+          "phase_prompt_required": true,
+          "phase_branches": [
+            {
+              "phase": "initial",
+              "is_default": true,
+              "route_guard_ids": [],
+              "cluster_ids": [
+                "cluster_oncologic_iv_initial",
+                "cluster_hematologic_iv_initial",
+                "cluster_icpi_toxicity_iv_initial",
+                "cluster_ra_iv_initial",
+                "cluster_vasculitis_iv_initial",
+                "cluster_sjogren_iv_initial",
+                "cluster_ms_iv_initial",
+                "cluster_nmosd_iv_initial",
+                "cluster_blistering_iv_initial",
+                "cluster_cryoglobulinemia_iv_initial",
+                "cluster_transplant_iv_initial",
+                "cluster_membranous_iv_initial",
+                "cluster_opsoclonus_iv_initial",
+                "cluster_lupus_iv_initial",
+                "cluster_myasthenia_iv_initial",
+                "cluster_susac_iv_initial"
+              ]
+            },
+            {
+              "phase": "continuation",
+              "is_default": false,
+              "route_guard_ids": [],
+              "cluster_ids": [
+                "cluster_oncologic_iv_continuation",
+                "cluster_hematologic_iv_continuation",
+                "cluster_icpi_toxicity_iv_continuation",
+                "cluster_ra_iv_continuation",
+                "cluster_vasculitis_iv_continuation",
+                "cluster_sjogren_iv_continuation",
+                "cluster_ms_iv_continuation",
+                "cluster_nmosd_iv_continuation",
+                "cluster_blistering_iv_continuation",
+                "cluster_cryoglobulinemia_iv_continuation",
+                "cluster_transplant_iv_continuation",
+                "cluster_membranous_iv_continuation",
+                "cluster_opsoclonus_iv_continuation",
+                "cluster_lupus_iv_continuation",
+                "cluster_myasthenia_iv_continuation",
+                "cluster_susac_iv_continuation"
+              ]
+            }
+          ],
+          "routing_notes": "Iv rituximab indications span hematologic, oncologic, rheumatologic, neurologic, and transplant-related conditions; continuation requires confirming ongoing benefit or absence of toxicity.",
+          "evidence": "Section I and III describe the medically necessary oncologic, hematologic, rheumatologic, neurologic, and transplant-related indications for rituximab and the associated continuation criteria in Sections II and IV.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions"
+            ],
+            "page_start": 2,
+            "page_end": 7
+          }
+        },
+        {
+          "route_id": "route_rituxan_hycela",
+          "label": "Rituximab and hyaluronidase (Rituxan Hycela)",
+          "coverage_status": "covered",
+          "terminal_disposition": "continue",
+          "billing_codes": [
+            "J9311"
+          ],
+          "route_kind": "covered_request",
+          "phase_prompt_required": true,
+          "phase_branches": [
+            {
+              "phase": "initial",
+              "is_default": true,
+              "route_guard_ids": [
+                "RG_HYCELA_PRIOR_IV"
+              ],
+              "cluster_ids": [
+                "cluster_oncologic_hycela_initial"
+              ]
+            },
+            {
+              "phase": "continuation",
+              "is_default": false,
+              "route_guard_ids": [
+                "RG_HYCELA_PRIOR_IV"
+              ],
+              "cluster_ids": [
+                "cluster_oncologic_hycela_continuation"
+              ]
+            }
+          ],
+          "routing_notes": "Rituxan Hycela initial and continuation coverage is limited to CD20-positive oncologic indications after a tolerable IV rituximab dose; continuation also requires ongoing toxicity evaluation.",
+          "evidence": "Section 'Rituximab and hyaluronidase (Rituxan Hycela)' specifies that Hycela is medically necessary for the same CD20-positive oncologic disorders in members who previously tolerated an IV rituximab dose, with continuation permitted when toxicity remains acceptable.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Rituximab and Hyaluronidase (Rituxan Hycela)"
+            ],
+            "page_start": 8,
+            "page_end": 9
+          }
+        },
+        {
+          "route_id": "route_intrathecal_catheter_not_covered",
+          "label": "Intrathecal/epidural catheter placement for rituximab administration",
+          "coverage_status": "not_covered",
+          "terminal_disposition": "stop_not_covered",
+          "billing_codes": [
+            "62350",
+            "62351"
+          ],
+          "route_kind": "excluded_request",
+          "phase_prompt_required": false,
+          "phase_branches": [
+            {
+              "phase": "other",
+              "is_default": true,
+              "route_guard_ids": [],
+              "cluster_ids": []
+            }
+          ],
+          "routing_notes": "Intra/epidural catheter placement for long-term rituximab administration is not covered as listed in the CPT table for excluded codes.",
+          "evidence": "The 'CPT codes not covered for indications listed in the CPB' table explicitly lists 62350 and 62351 as not covered.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Applicable CPT / HCPCS / ICD-10 Codes",
+              "CPT codes not covered for indications listed in the CPB"
+            ],
+            "page_start": 19,
+            "page_end": 19
+          }
+        },
+        {
+          "route_id": "route_anti_chimeric_testing",
+          "label": "Anti-chimeric antibody testing for rituximab therapy",
+          "coverage_status": "investigational",
+          "terminal_disposition": "stop_investigational",
+          "billing_codes": [
+            "83520"
+          ],
+          "route_kind": "investigational_request",
+          "phase_prompt_required": false,
+          "phase_branches": [
+            {
+              "phase": "other",
+              "is_default": true,
+              "route_guard_ids": [],
+              "cluster_ids": []
+            }
+          ],
+          "routing_notes": "Anti-chimeric antibody or chimeric anti-TNF antibody testing in association with rituximab is considered investigational due to insufficient evidence.",
+          "evidence": "Experimental, Investigational, or Unproven I states that anti-chimeric antibody testing for rituximab therapy is experimental.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "I."
+            ],
+            "page_start": 16,
+            "page_end": 16
+          }
+        },
+        {
+          "route_id": "route_intrathecal_rituximab",
+          "label": "Intrathecal rituximab administration",
+          "coverage_status": "investigational",
+          "terminal_disposition": "stop_investigational",
+          "billing_codes": [
+            "96450"
+          ],
+          "route_kind": "investigational_request",
+          "phase_prompt_required": false,
+          "phase_branches": [
+            {
+              "phase": "other",
+              "is_default": true,
+              "route_guard_ids": [],
+              "cluster_ids": []
+            }
+          ],
+          "routing_notes": "Intrathecal administration of rituximab is investigational for progressive multiple sclerosis.",
+          "evidence": "Experimental, Investigational, or Unproven II states that intrathecal rituximab for progressive multiple sclerosis is experimental because effectiveness has not been established.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "II."
+            ],
+            "page_start": 17,
+            "page_end": 17
+          }
+        }
+      ],
+      "route_guards": [
+        {
+          "guard_id": "RG_HYCELA_PRIOR_IV",
+          "label": "Prior tolerable IV rituximab dose before Hycela",
+          "guard_type": "coverage_gate",
+          "applies_to_route_ids": [
+            "route_rituxan_hycela"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "ask_timing": "before_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_GUARD_HYCELA_PRIOR_IV"
+              }
+            ]
+          },
+          "evidence": "Rituxan Hycela is considered medically necessary only in members who have received at least one full dose of an IV rituximab product without experiencing severe adverse reactions (Section I).",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Rituximab and Hyaluronidase (Rituxan Hycela)",
+              "I. Criteria for Initial Approval"
+            ],
+            "page_start": 8,
+            "page_end": 8
+          }
+        }
+      ],
+      "cluster_entry_guards": [
+        {
+          "guard_id": "CEG_RA_NO_OTHER_BIO",
+          "label": "No concomitant biologic or targeted synthetic for RA",
+          "guard_type": "exclusion",
+          "applies_to_route_ids": [
+            "route_rituximab_iv"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "applies_to_cluster_ids": [
+            "cluster_ra_iv_initial",
+            "cluster_ra_iv_continuation"
+          ],
+          "ask_timing": "after_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_GUARD_RA_NO_OTHER_BIO"
+              }
+            ]
+          },
+          "evidence": "Exclusions A states that the member will not receive rituximab concurrently with any other biologic or targeted synthetic drug for rheumatoid arthritis.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "II. Exclusions"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "guard_id": "CEG_MS_NO_OTHER_DMOD",
+          "label": "No concomitant disease-modifying MS agents",
+          "guard_type": "exclusion",
+          "applies_to_route_ids": [
+            "route_rituximab_iv"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "applies_to_cluster_ids": [
+            "cluster_ms_iv_initial",
+            "cluster_ms_iv_continuation"
+          ],
+          "ask_timing": "after_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_GUARD_MS_NO_OTHER_DMOD"
+              }
+            ]
+          },
+          "evidence": "Exclusions B states that the member will not receive rituximab with other disease modifying multiple sclerosis agents (Ampyra and Nuedexta are not disease modifying).",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "II. Exclusions"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "guard_id": "CEG_NMOSD_NO_OTHER_BIO",
+          "label": "No concomitant biologics for NMOSD",
+          "guard_type": "exclusion",
+          "applies_to_route_ids": [
+            "route_rituximab_iv"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "applies_to_cluster_ids": [
+            "cluster_nmosd_iv_initial",
+            "cluster_nmosd_iv_continuation"
+          ],
+          "ask_timing": "after_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_GUARD_NMOSD_NO_OTHER_BIO"
+              }
+            ]
+          },
+          "evidence": "Exclusions C specifies that rituximab will not be used concomitantly with other biologics for the treatment of neuromyelitis optica.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "II. Exclusions"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        }
+      ],
+      "condition_clusters": [
+        {
+          "cluster_id": "cluster_oncologic_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "oncologic_cd20_positive_bcell_malignancies",
+          "condition_label": "CD20-positive B-cell malignancies",
+          "condition_synonyms": [
+            "Diffuse large B-cell lymphoma",
+            "Follicular lymphoma",
+            "Mantle cell lymphoma",
+            "Chronic lymphocytic leukemia",
+            "Waldenström macroglobulinemia",
+            "Post-transplant lymphoproliferative disorder"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C81.00 - C81.09",
+            "C81.40 - C81.49",
+            "C82.00 - C82.99",
+            "C83.00 - C83.09",
+            "C83.10 - C83.19",
+            "C83.30 - C83.3A",
+            "C83.50 - C83.59",
+            "C83.70 - C83.79",
+            "C83.80 - C83.89",
+            "C83.90 - C83.99",
+            "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+            "C85.10 - C85.19",
+            "C85.20 - C85.29",
+            "C85.80 - C85.99",
+            "C86.00 - C86.41",
+            "C86.50 - C86.51",
+            "C86.60 - C86.61",
+            "C88.00 - C88.01",
+            "C88.40 - C88.41",
+            "C91.00 - C91.01",
+            "C91.10 - C91.12",
+            "C91.40 - C91.42",
+            "D47.Z1",
+            "D47.Z2",
+            "D76.3"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_ONCO_CD20_POS"
+              }
+            ]
+          },
+          "evidence": "Section I.A states that rituximab is medically necessary for the treatment of the enumerated CD20-positive oncologic disorders when CD20 positivity is confirmed by testing or analysis.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "I. Criteria for Initial Approval",
+              "A. Oncologic indications"
+            ],
+            "page_start": 2,
+            "page_end": 3
+          }
+        },
+        {
+          "cluster_id": "cluster_oncologic_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "oncologic_cd20_positive_bcell_malignancies_continuation",
+          "condition_label": "CD20-positive B-cell malignancies (continuation)",
+          "condition_synonyms": [
+            "CD20-positive B-cell lymphomas",
+            "Oncologic continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_oncologic_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_ONCO_CONT_NO_TOX"
+              }
+            ]
+          },
+          "evidence": "Section II.A indicates continuation is medically necessary for oncologic indications listed in Section I.A when there is no evidence of unacceptable toxicity.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "II. Continuation of Therapy",
+              "A. Oncologic indications"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_hematologic_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "hematologic_autoimmune_and_transplant_conditions",
+          "condition_label": "Refractory hematologic autoimmune and transplant-related conditions",
+          "condition_synonyms": [
+            "Refractory ITP",
+            "Autoimmune hemolytic anemia",
+            "Thrombotic thrombocytopenic purpura",
+            "Chronic graft-versus-host disease",
+            "EBV-related PTLD prevention",
+            "Non-myeloablative allogeneic conditioning"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "D59.0 - D59.19",
+            "D69.3",
+            "M31.10 - M31.19",
+            "D89.811",
+            "D47.Z1",
+            "D47.Z2"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_HEMATOLOGIC_REFR"
+              }
+            ]
+          },
+          "evidence": "Section I.B lists refractory ITP, autoimmune hemolytic anemia, thrombotic thrombocytopenic purpura, chronic graft-versus-host disease, prevention of EBV-related PTLD, and use as part of non-myeloablative conditioning as medically necessary hematologic indications.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "I. Criteria for Initial Approval",
+              "B. Hematologic indications"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "cluster_id": "cluster_hematologic_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "hematologic_autoimmune_and_transplant_conditions_continuation",
+          "condition_label": "Refractory hematologic autoimmune and transplant-related conditions (continuation)",
+          "condition_synonyms": [
+            "Hematologic continuation",
+            "Autoimmune hematologic benefit"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_hematologic_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section II.C states continuation is medically necessary for hematologic indications in Section I.B when members are experiencing benefit from therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "II. Continuation of Therapy",
+              "C. All other indications"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_icpi_toxicity_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "immune_checkpoint_inhibitor_related_toxicities",
+          "condition_label": "Immune checkpoint inhibitor-related toxicities",
+          "condition_synonyms": [
+            "Checkpoint inhibitor toxicity",
+            "ICI-related encephalitis"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "G04.81"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_ICPI_TOX"
+              }
+            ]
+          },
+          "evidence": "Section I.C states that rituximab is medically necessary for immune checkpoint inhibitor-related toxicities.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "I. Criteria for Initial Approval",
+              "C. Immune checkpoint inhibitor-related toxicities"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "cluster_id": "cluster_icpi_toxicity_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "immune_checkpoint_inhibitor_related_toxicities_continuation",
+          "condition_label": "Immune checkpoint inhibitor-related toxicities (continuation)",
+          "condition_synonyms": [
+            "Checkpoint inhibitor continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_icpi_toxicity_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section II.B states continuation is medically necessary for immune checkpoint inhibitor-related toxicities when members are experiencing benefit from therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "II. Continuation of Therapy",
+              "B. Immune checkpoint inhibitor-related toxicities"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_ra_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "moderately_to_severely_active_rheumatoid_arthritis",
+          "condition_label": "Moderately to severely active rheumatoid arthritis",
+          "condition_synonyms": [
+            "RA",
+            "Rheumatoid arthritis requiring biologic therapy"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "M05.00 - M14.89"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [
+            "CEG_RA_NO_OTHER_BIO"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_RA_DIAG"
+              },
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_RA_COMBO_DMARD"
+              },
+              {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_RA_PRIOR_BIOLOGIC"
+                  },
+                  {
+                    "node_type": "group",
+                    "operator": "all",
+                    "children": [
+                      {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_RA_BIOMARKER_PANEL"
+                      },
+                      {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_RA_DMARD_RESPONSE"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "evidence": "Section III.A describes initial approval for adults with moderately to severely active RA who have previously received a biologic or targeted synthetic medication or who meet the biomarker and MTX response requirements, and who are receiving rituximab with methotrexate or leflunomide unless clinically contraindicated.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 6,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_ra_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "moderately_to_severely_active_rheumatoid_arthritis_continuation",
+          "condition_label": "Moderately to severely active rheumatoid arthritis (continuation)",
+          "condition_synonyms": [
+            "RA continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_ra_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [
+            "CEG_RA_NO_OTHER_BIO"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_RA_CONT_RESPONSE"
+              }
+            ]
+          },
+          "evidence": "Section IV.A states that continuation is medically necessary in adults with moderately to severely active RA who achieve or maintain a 20% improvement in tender joint count, swollen joint count, pain, or disability after at least two doses.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_vasculitis_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "anca_associated_vasculitis_and_pauciimmune_gn",
+          "condition_label": "GPA, MPA, EGPA or pauci-immune glomerulonephritis",
+          "condition_synonyms": [
+            "Granulomatosis with polyangiitis",
+            "Microscopic polyangiitis",
+            "Eosinophilic granulomatosis with polyangiitis",
+            "Pauci-immune glomerulonephritis"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "M30.1",
+            "M31.30 - M31.31",
+            "N01.3"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_VASCULITIS_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.B lists GPA, MPA, EGPA, and pauci-immune glomerulonephritis as medically necessary indications.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "B. Granulomatosis with polyangiitis (GPA) (Wegener’s granulomatosis), microscopic polyangiitis (MPA), eosinophilic granulomatosis with polyangiitis (EGPA), or pauci-immune glomerulonephritis treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_vasculitis_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "anca_associated_vasculitis_and_pauciimmune_gn_continuation",
+          "condition_label": "GPA, MPA, EGPA or pauci-immune glomerulonephritis (continuation)",
+          "condition_synonyms": [
+            "Vasculitis continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_vasculitis_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states that continuation for other indications is medically necessary when the member is receiving benefit from therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_sjogren_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "sjogren_syndrome_refractory",
+          "condition_label": "Sjögren’s syndrome refractory to other immunosuppressive therapy",
+          "condition_synonyms": [
+            "Sicca syndrome",
+            "Sjögren"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "M35.00 - M35.09"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_SJOGREN_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.C requires that corticosteroids and other immunosuppressive agents were ineffective before rituximab for Sjögren’s syndrome.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "C. Sjögren’s syndrome - for treatment when corticosteroids and other immunosuppressive agents were ineffective"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_sjogren_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "sjogren_syndrome_continuation",
+          "condition_label": "Sjögren’s syndrome (continuation)",
+          "condition_synonyms": [
+            "Sjögren continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_sjogren_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states reauthorization is medically necessary for other indications when members are receiving benefit from therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_ms_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "relapsing_remitting_multiple_sclerosis",
+          "condition_label": "Relapsing remitting multiple sclerosis (RRMS)",
+          "condition_synonyms": [
+            "RRMS"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "G35.A - G35.D"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [
+            "CEG_MS_NO_OTHER_DMOD"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_MS_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.D designates rituximab as medically necessary for relapsing remitting MS treatment.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "D. Relapsing remitting multiple sclerosis (MS) treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_ms_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "relapsing_remitting_multiple_sclerosis_continuation",
+          "condition_label": "Relapsing remitting multiple sclerosis (continuation)",
+          "condition_synonyms": [
+            "RRMS continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_ms_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [
+            "CEG_MS_NO_OTHER_DMOD"
+          ],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.B states that continuation for relapsing remitting MS is medically necessary for members experiencing disease stability or improvement.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "B. Multiple sclerosis treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_nmosd_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "neuromyelitis_optica_spectrum_disorder",
+          "condition_label": "Neuromyelitis optica spectrum disorder (NMOSD)",
+          "condition_synonyms": [
+            "Devic disease",
+            "NMOSD"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "G36.0"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [
+            "CEG_NMOSD_NO_OTHER_BIO"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_NMOSD_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.E lists neuromyelitis optica (NMOSD) as a medically necessary indication.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "E. Neuromyelitis optica (i.e., neuromyelitis optica spectrum disorder (NMOSD), Devic disease) treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_nmosd_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "neuromyelitis_optica_spectrum_disorder_continuation",
+          "condition_label": "Neuromyelitis optica spectrum disorder (continuation)",
+          "condition_synonyms": [
+            "NMOSD continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_nmosd_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [
+            "CEG_NMOSD_NO_OTHER_BIO"
+          ],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states continuation is medically necessary for indications listed in Section III when members are receiving benefit.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_blistering_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "autoimmune_blistering_diseases",
+          "condition_label": "Autoimmune blistering diseases",
+          "condition_synonyms": [
+            "Pemphigus vulgaris",
+            "Pemphigus foliaceus",
+            "Bullous pemphigoid",
+            "Acquired epidermolysis bullosa"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "L10.0",
+            "L10.2",
+            "L10.81",
+            "L12.0",
+            "L12.1",
+            "L12.30 - L12.35"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_BLISTERING_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.F describes rituximab as medically necessary for autoimmune blistering diseases such as pemphigus vulgaris, pemphigus foliaceus, bullous pemphigoid, cicatricial pemphigoid, acquired epidermolysis bullosa, and paraneoplastic pemphigus.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "F. Autoimmune blistering disease - for treatment of autoimmune blistering diseases (e.g., pemphigus vulgaris, pemphigus foliaceus, bullous pemphigoid, cicatricial pemphigoid, epidermolysis bullosa acquisita and paraneoplastic pemphigus)"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_blistering_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "autoimmune_blistering_diseases_continuation",
+          "condition_label": "Autoimmune blistering diseases (continuation)",
+          "condition_synonyms": [
+            "Blistering disease continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_blistering_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states continuation is medically necessary for other indications when members are receiving benefit from therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_cryoglobulinemia_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "cryoglobulinemia_refractory",
+          "condition_label": "Cryoglobulinemia refractory to corticosteroids and other immunosuppressives",
+          "condition_synonyms": [
+            "Cryoglobulinemia"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "D89.1"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CRYOGLOBULINEMIA_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.G states that rituximab is medically necessary for cryoglobulinemia when corticosteroids and other immunosuppressive agents were ineffective.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "G. Cryoglobulinemia - for treatment when corticosteroids and other immunosuppressive agents were ineffective"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_cryoglobulinemia_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "cryoglobulinemia_continuation",
+          "condition_label": "Cryoglobulinemia (continuation)",
+          "condition_synonyms": [
+            "Cryoglobulinemia continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_cryoglobulinemia_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states continuation is medically necessary for other indications when members are experiencing benefit.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_transplant_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "solid_organ_transplant_and_antibody_mediated_rejection",
+          "condition_label": "Solid organ transplant treatment and prevention of antibody-mediated rejection",
+          "condition_synonyms": [
+            "Transplant desensitization",
+            "Antibody mediated rejection prevention"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "T86.00 - T86.99",
+            "Z94.0 - Z94.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_TRANSPLANT_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.H declares rituximab medically necessary for solid organ transplant treatment and prevention of antibody mediated rejection.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "H. Solid organ transplant treatment and prevention of antibody mediated rejection in solid organ transplant"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_transplant_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "solid_organ_transplant_and_antibody_mediated_rejection_continuation",
+          "condition_label": "Solid organ transplant treatment and prevention of antibody-mediated rejection (continuation)",
+          "condition_synonyms": [
+            "Transplant continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_transplant_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states continuation is medically necessary for other indications when members show benefit.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_membranous_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "membranous_nephropathy_moderate_high_risk",
+          "condition_label": "Membranous nephropathy at moderate to high risk for progression",
+          "condition_synonyms": [
+            "Diffuse membranous glomerulonephritis",
+            "Membranous nephropathy"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "N04.20 - N04.29",
+            "N06.20 - N06.29"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_MEMBRANOUS_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.L indicates rituximab is medically necessary for membranous nephropathy when the member is at moderate to high risk for disease progression.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "L. Membranous nephropathy - for treatment of membranous nephropathy when member is at moderate to high risk for disease progression"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_membranous_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "membranous_nephropathy_continuation",
+          "condition_label": "Membranous nephropathy (continuation)",
+          "condition_synonyms": [
+            "Membranous nephropathy continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_membranous_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states continuation is medically necessary when members continue to receive benefit.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_opsoclonus_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "opsoclonus_myoclonus_ataxia_associated_with_neuroblastoma",
+          "condition_label": "Opsoclonus-myoclonus-ataxia associated with neuroblastoma",
+          "condition_synonyms": [
+            "OMA with neuroblastoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "H55.89"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_OPSOCLONUS_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.I describes that rituximab is medically necessary for opsoclonus-myoclonus-ataxia associated with neuroblastoma when refractory to steroids and chemotherapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "I. Opsoclonus-myoclonus-ataxia associated with neuroblastoma - for treatment when the member is refractory to steroids and chemotherapy"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_opsoclonus_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "opsoclonus_myoclonus_ataxia_associated_with_neuroblastoma_continuation",
+          "condition_label": "Opsoclonus-myoclonus-ataxia (continuation)",
+          "condition_synonyms": [
+            "OMA continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_opsoclonus_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Continuation for other indications is medically necessary when members derive benefit, per Section IV.C.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_lupus_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "systemic_lupus_erythematosus_refractory",
+          "condition_label": "Systemic lupus erythematosus refractory to immunosuppressive therapy",
+          "condition_synonyms": [
+            "SLE refractory"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "M32.0 - M32.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_SLE_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.J indicates rituximab is medically necessary for systemic lupus erythematosus that is refractory to immunosuppressive therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "J. Systemic lupus erythematosus (SLE) that is refractory to immunosuppressive therapy"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_lupus_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "systemic_lupus_erythematosus_continuation",
+          "condition_label": "Systemic lupus erythematosus (continuation)",
+          "condition_synonyms": [
+            "SLE continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_lupus_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states that continuation is medically necessary for other indications when benefit persists.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_myasthenia_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "refractory_myasthenia_gravis",
+          "condition_label": "Refractory myasthenia gravis",
+          "condition_synonyms": [
+            "MG refractory"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "G70.00 - G70.01"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_MYASTHENIA_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.K states rituximab is medically necessary for treatment of refractory myasthenia gravis.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "K. Myasthenia gravis - for treatment of refractory myasthenia gravis"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_myasthenia_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "refractory_myasthenia_gravis_continuation",
+          "condition_label": "Refractory myasthenia gravis (continuation)",
+          "condition_synonyms": [
+            "MG continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_myasthenia_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states continuation is medically necessary for other indications when benefit is present.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_susac_iv_initial",
+          "route_id": "route_rituximab_iv",
+          "phase": "initial",
+          "condition_key": "susac_syndrome",
+          "condition_label": "Susac syndrome",
+          "condition_synonyms": [
+            "Susac disease"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "G93.49"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_SUSAC_DIAG"
+              }
+            ]
+          },
+          "evidence": "Section III.M lists Susac syndrome as medically necessary for rituximab treatment.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "M. Susac syndrome treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_susac_iv_continuation",
+          "route_id": "route_rituximab_iv",
+          "phase": "continuation",
+          "condition_key": "susac_syndrome_continuation",
+          "condition_label": "Susac syndrome (continuation)",
+          "condition_synonyms": [
+            "Susac continuation"
+          ],
+          "diagnosis_basis": "mixed",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_susac_iv_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Section IV.C states continuation is medically necessary for other indications when the member is benefiting from therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "C. Other indications"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "cluster_id": "cluster_oncologic_hycela_initial",
+          "route_id": "route_rituxan_hycela",
+          "phase": "initial",
+          "condition_key": "hycela_cd20_positive_bcell_malignancies",
+          "condition_label": "CD20-positive B-cell malignancies (Rituxan Hycela)",
+          "condition_synonyms": [
+            "Oncologic Hycela",
+            "CD20-positive lymphoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C81.00 - C81.09",
+            "C82.00 - C82.99",
+            "C83.00 - C83.09",
+            "C83.10 - C83.19",
+            "C83.30 - C83.398",
+            "C83.50 - C83.59",
+            "C83.80 - C83.99",
+            "C85.10 - C85.19",
+            "C85.20 - C85.29",
+            "C88.00 - C88.01",
+            "C88.40 - C88.41",
+            "C91.10 - C91.12",
+            "C91.40 - C91.42",
+            "D47.Z1",
+            "D47.Z2"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_ONCO_CD20_POS"
+              }
+            ]
+          },
+          "evidence": "The Rituxan Hycela section indicates Hycela is medically necessary for the listed CD20-positive oncologic disorders in members who have tolerated an IV rituximab infusion.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Rituximab and Hyaluronidase (Rituxan Hycela)",
+              "I. Criteria for Initial Approval"
+            ],
+            "page_start": 8,
+            "page_end": 9
+          }
+        },
+        {
+          "cluster_id": "cluster_oncologic_hycela_continuation",
+          "route_id": "route_rituxan_hycela",
+          "phase": "continuation",
+          "condition_key": "hycela_cd20_positive_bcell_malignancies_continuation",
+          "condition_label": "CD20-positive B-cell malignancies (Rituxan Hycela continuation)",
+          "condition_synonyms": [
+            "Hycel continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_oncologic_hycela_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_ONCO_CONT_NO_TOX"
+              }
+            ]
+          },
+          "evidence": "The Hycela continuation section refers to the general continuation statement (no evidence of unacceptable toxicity) for reauthorization.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Rituximab and Hyaluronidase (Rituxan Hycela)",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 9,
+            "page_end": 9
+          }
+        }
+      ],
+      "logic_profiles": [
+        {
+          "logic_profile_id": "LP_CONT_BENEFIT",
+          "label": "Continuation requires ongoing benefit",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_BENEFIT"
+              }
+            ]
+          },
+          "evidence": "Sections II.B, II.C, and IV.C describe that continuation for the listed indications is medically necessary when members are experiencing benefit, including disease stability or improvement.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 4,
+            "page_end": 5
+          }
+        }
+      ],
+      "criteria_catalog": [
+        {
+          "criterion_id": "CR_ONCO_CD20_POS",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+          "clinical_intent": "Confirm the request is for a covered CD20-positive B-cell malignancy.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C81.00 - C81.09",
+              "C81.40 - C81.49",
+              "C82.00 - C82.99",
+              "C83.00 - C83.09",
+              "C83.10 - C83.19",
+              "C83.30 - C83.3A",
+              "C83.50 - C83.59",
+              "C83.70 - C83.79",
+              "C83.80 - C83.89",
+              "C83.90 - C83.99",
+              "C84.00 - C84.79",
+              "C84.A0 - C84.Z9",
+              "C84.90 - C84.99",
+              "C85.10 - C85.19",
+              "C85.20 - C85.29",
+              "C85.80 - C85.99",
+              "C86.00 - C86.41",
+              "C86.50 - C86.51",
+              "C86.60 - C86.61",
+              "C88.00 - C88.01",
+              "C88.40 - C88.41",
+              "C91.00 - C91.01",
+              "C91.10 - C91.12",
+              "C91.40 - C91.42",
+              "D47.Z1",
+              "D47.Z2",
+              "D76.3"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation"
+          ],
+          "policy_time_language": "For treatment of the oncologic disorders listed in Section I.A that are CD20-positive as confirmed by testing or analysis.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers rituximab medically necessary for the listed CD20-positive oncologic disorders when CD20 positivity is confirmed by testing or analysis (Section I.A).",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "I. Criteria for Initial Approval",
+              "A. Oncologic indications"
+            ],
+            "page_start": 2,
+            "page_end": 3
+          }
+        },
+        {
+          "criterion_id": "CR_ONCO_CONT_NO_TOX",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is there no evidence of unacceptable toxicity from rituximab that would preclude continuation for the oncologic indication?",
+          "clinical_intent": "Document absence of unacceptable toxicity for continuation.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation"
+          ],
+          "policy_time_language": "For members requesting reauthorization for an oncologic indication listed in Section I.A when there is no evidence of unacceptable toxicity.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section II.A states continuation is medically necessary when there is no evidence of unacceptable toxicity.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "II. Continuation of Therapy",
+              "A. Oncologic indications"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_HEMATOLOGIC_REFR",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have a refractory hematologic autoimmune or transplant-related indication listed in Section I.B (refractory ITP, autoimmune hemolytic anemia, thrombotic thrombocytopenic purpura, chronic GVHD, prevention of EBV-related PTLD, or as part of a non-myeloablative conditioning regimen)?",
+          "clinical_intent": "Confirm the request aligns with the medically necessary hematologic indications.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "D59.0 - D59.19",
+              "D69.3",
+              "M31.10 - M31.19",
+              "D89.811",
+              "D47.Z1",
+              "D47.Z2"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Refractory immune thrombocytopenic purpura, autoimmune hemolytic anemia, thrombotic thrombocytopenic purpura, chronic graft-versus-host disease, EBV-related PTLD prevention, or use as part of non-myeloablative conditioning are medically necessary (Section I.B).",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section I.B lists these hematologic indications as medically necessary for rituximab.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "I. Criteria for Initial Approval",
+              "B. Hematologic indications"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "criterion_id": "CR_ICPI_TOX",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member being treated for immune checkpoint inhibitor-related toxicities (e.g., immune checkpoint inhibitor-related encephalitis) as described in Section I.C?",
+          "clinical_intent": "Document that therapy is for a covered immune checkpoint inhibitor-related toxicity.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "G04.81"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section I.C states rituximab is medically necessary for immune checkpoint inhibitor-related toxicities.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section I.C lists immune checkpoint inhibitor-related toxicities as a covered indication.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "I. Criteria for Initial Approval",
+              "C. Immune checkpoint inhibitor-related toxicities"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "criterion_id": "CR_CONT_BENEFIT",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member experiencing ongoing clinical benefit from rituximab therapy (including disease stability or improvement for MS) as described in Sections II and IV?",
+          "clinical_intent": "Ensure continuation aligns with policy stating benefit is required.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation",
+            "medication"
+          ],
+          "policy_time_language": "Continuation is medically necessary when members are experiencing benefit (disease stability or improvement for RRMS) from therapy (Sections II.B, II.C, IV.B, IV.C).",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Sections II.B, II.C, and IV.C describe that reauthorization is medically necessary when members are experiencing benefit, and Section IV.B describes disease stability or improvement for MS.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Hematologic and Oncologic Conditions",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 4,
+            "page_end": 5
+          }
+        },
+        {
+          "criterion_id": "CR_RA_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have moderately to severely active rheumatoid arthritis (RA) as described in Section III.A?",
+          "clinical_intent": "Confirm the request is for the appropriate RA population.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "M05.00 - M14.89"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.A states rituximab is medically necessary for adults with moderately to severely active RA.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.A documents eligibility for RA.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 6,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_RA_COMBO_DMARD",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is rituximab being prescribed in combination with methotrexate or leflunomide, or is there a documented clinical reason not to use those agents?",
+          "clinical_intent": "Ensure RA therapy aligns with combination therapy requirement.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "The requested medication must be prescribed in combination with methotrexate or leflunomide unless the member has a clinical reason not to use them.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.A specifies the combination requirement.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 6,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_RA_PRIOR_BIOLOGIC",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Has the member previously received a biologic or targeted synthetic drug indicated for moderately to severely active RA (e.g., Rinvoq, Xeljanz)?",
+          "clinical_intent": "Document prior biologic or targeted synthetic therapy required for one initial approval pathway.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "Section III.A pathway 1 requires prior biologic or targeted synthetic therapy.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.A, criterion 1 describes prior biologic or targeted synthetic therapy as a necessary element.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 6,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_RA_BIOMARKER_PANEL",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have the required RA biomarker documentation (positive RF or anti-CCP or completion of RF, anti-CCP, and CRP/ESR testing) as described in Section III.A?",
+          "clinical_intent": "Ensure biomarker criteria for the alternative RA approval pathway are met.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation"
+          ],
+          "policy_time_language": "Section III.A indicates the member must meet the biomarker testing criteria (positive RF or anti-CCP or RF, anti-CCP, and CRP/ESR).",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.A details the biomarker testing requirement for pathway 2.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 6,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_RA_DMARD_RESPONSE",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Has the member had an inadequate response to at least a 3-month trial of methotrexate at ≥15 mg/week, or has the member had methotrexate intolerance plus an inadequate response to another conventional agent (e.g., hydroxychloroquine, leflunomide, sulfasalazine)?",
+          "clinical_intent": "Document required prior DMARD response or intolerance for RA pathway 2.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication",
+            "condition"
+          ],
+          "policy_time_language": "Section III.A includes inadequate MTX response or intolerance plus another conventional agent as a requirement for pathway 2.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.A describes the DMARD response requirement for the second RA pathway.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 6,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_RA_CONT_RESPONSE",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Has the member achieved or maintained a positive clinical response (≥20% improvement in tender joint count, swollen joint count, pain, or disability) after at least two doses of rituximab?",
+          "clinical_intent": "Document RA continuation benefit per policy.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation"
+          ],
+          "policy_time_language": "Section IV.A requires a ≥20% improvement in disease activity measures after at least two doses for continuation.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section IV.A describes the positive clinical response (20% improvement) criterion for RA continuation.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "IV. Continuation of Therapy",
+              "A. Rheumatoid arthritis (RA)"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_VASCULITIS_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have granulomatosis with polyangiitis, microscopic polyangiitis, eosinophilic granulomatosis with polyangiitis, or pauci-immune glomerulonephritis as described in Section III.B?",
+          "clinical_intent": "Confirm that rituximab is intended for a covered vasculitis indication.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "M30.1",
+              "M31.30 - M31.31",
+              "N01.3"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.B lists these vasculitis and pauci-immune glomerulonephritis diagnoses as medically necessary.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.B enumerates the vasculitis indications.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "B. Granulomatosis with polyangiitis (GPA) (Wegener’s granulomatosis), microscopic polyangiitis (MPA), eosinophilic granulomatosis with polyangiitis (EGPA), or pauci-immune glomerulonephritis treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_SJOGREN_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member diagnosed with Sjögren’s syndrome after corticosteroids and other immunosuppressive agents were ineffective?",
+          "clinical_intent": "Confirm coverage criteria for Sjögren’s syndrome.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "M35.00 - M35.09"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.C specifies corticosteroids and other immunosuppressive agents must have been ineffective for Sjögren’s syndrome.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.C describes the Sjögren’s syndrome coverage requirement.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "C. Sjögren’s syndrome - for treatment when corticosteroids and other immunosuppressive agents were ineffective"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_MS_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have relapsing remitting multiple sclerosis as described in Section III.D?",
+          "clinical_intent": "Verify the request is for RRMS treatment.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "G35.A - G35.D"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.D states rituximab is medically necessary for RRMS treatment.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.D describes RRMS as a covered indication.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "D. Relapsing remitting multiple sclerosis (MS) treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_NMOSD_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member being treated for neuromyelitis optica spectrum disorder (Devic disease) per Section III.E?",
+          "clinical_intent": "Confirm NMOSD indication.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "G36.0"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.E lists neuromyelitis optica (NMOSD) treatment as medically necessary.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.E enumerates NMOSD as an approved indication.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "E. Neuromyelitis optica (i.e., neuromyelitis optica spectrum disorder (NMOSD), Devic disease) treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_BLISTERING_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have an autoimmune blistering disease (e.g., pemphigus vulgaris, pemphigus foliaceus, bullous pemphigoid, cicatricial pemphigoid, acquired epidermolysis bullosa, paraneoplastic pemphigus) as described in Section III.F?",
+          "clinical_intent": "Document the autoimmune blistering diagnosis.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "L10.0",
+              "L10.2",
+              "L10.81",
+              "L12.0",
+              "L12.1",
+              "L12.30 - L12.35"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.F lists the autoimmune blistering diagnoses that are medically necessary.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.F describes autoimmune blistering diseases as medically necessary indications.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "F. Autoimmune blistering disease"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_CRYOGLOBULINEMIA_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member diagnosed with cryoglobulinemia that has been refractory to corticosteroids and other immunosuppressive agents?",
+          "clinical_intent": "Confirm the cryoglobulinemia indication is met.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "D89.1"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.G states cryoglobulinemia is medically necessary when corticosteroids and other immunosuppressive agents were ineffective.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.G enumerates cryoglobulinemia when standard therapies have failed.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "G. Cryoglobulinemia"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_TRANSPLANT_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member being treated for a solid organ transplant-related indication or prevention of antibody-mediated rejection in a highly sensitized recipient as described in Section III.H?",
+          "clinical_intent": "Document transplant treatment or prevention of antibody-mediated rejection.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "T86.00 - T86.99",
+              "Z94.0 - Z94.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.H makes these transplant-related indications medically necessary.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.H covers treatment and prevention of antibody-mediated rejection in solid organ transplant recipients.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "H. Solid organ transplant treatment and prevention of antibody mediated rejection in solid organ transplant"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_MEMBRANOUS_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have membranous nephropathy and is at moderate to high risk for disease progression?",
+          "clinical_intent": "Ensure membranous nephropathy meets the high-risk requirement.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "N04.20 - N04.29",
+              "N06.20 - N06.29"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.L states membranous nephropathy is medically necessary for members at moderate to high risk for progression.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.L outlines membranous nephropathy coverage when disease progression risk is moderate to high.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "L. Membranous nephropathy"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_OPSOCLONUS_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member diagnosed with opsoclonus-myoclonus-ataxia associated with neuroblastoma after being refractory to steroids and chemotherapy?",
+          "clinical_intent": "Document the rare neurologic indication.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "H55.89"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.I states this indication is medically necessary when refractory to steroids and chemotherapy.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.I describes opsoclonus-myoclonus-ataxia with neuroblastoma as a covered indication.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "I. Opsoclonus-myoclonus-ataxia associated with neuroblastoma"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_SLE_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member diagnosed with systemic lupus erythematosus that is refractory to immunosuppressive therapy?",
+          "clinical_intent": "Confirm SLE meets the refractory requirement.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "M32.0 - M32.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.J states SLE refractory to immunosuppressive therapy is medically necessary.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.J outlines SLE coverage when refractory to immunosuppressives.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "J. Systemic lupus erythematosus (SLE)"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_MYASTHENIA_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member diagnosed with refractory myasthenia gravis?",
+          "clinical_intent": "Confirm the neurologic autoimmune indication.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "G70.00 - G70.01"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.K states rituximab is medically necessary for refractory myasthenia gravis.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.K describes that rituximab is used for refractory myasthenia gravis.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "K. Myasthenia gravis"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_SUSAC_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is the member diagnosed with Susac syndrome?",
+          "clinical_intent": "Document the Susac syndrome indication.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "G93.49"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "Section III.M indicates Susac syndrome is medically necessary for rituximab treatment.",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section III.M lists Susac syndrome as covered.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "III. Criteria for Initial Approval",
+              "M. Susac syndrome treatment"
+            ],
+            "page_start": 7,
+            "page_end": 7
+          }
+        },
+        {
+          "criterion_id": "CR_GUARD_HYCELA_PRIOR_IV",
+          "criterion_kind": "route_guard",
+          "prompt": "Has the member received at least one full dose of an IV rituximab product without experiencing severe adverse reactions before starting Rituxan Hycela?",
+          "clinical_intent": "Ensure Hycela is initiated only after a tolerable IV rituximab exposure.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "Rituxan Hycela is medically necessary only after at least one full dose of IV rituximab without severe adverse reactions.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "The Rituxan Hycela initial approval criteria require prior tolerable IV rituximab dosing.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Rituximab and Hyaluronidase (Rituxan Hycela)",
+              "I. Criteria for Initial Approval"
+            ],
+            "page_start": 8,
+            "page_end": 8
+          }
+        },
+        {
+          "criterion_id": "CR_GUARD_RA_NO_OTHER_BIO",
+          "criterion_kind": "cluster_entry_guard",
+          "prompt": "Is the member not receiving rituximab concurrently with another biologic or targeted synthetic drug for rheumatoid arthritis?",
+          "clinical_intent": "Prevent concurrent biologic or targeted synthetic use per policy exclusions.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "Exclusion A states members will not receive rituximab with any other biologic or targeted synthetic drug for RA.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section II.A Exclusions outlines the prohibition of concomitant biologic or targeted synthetic RA therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "II. Exclusions"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "criterion_id": "CR_GUARD_MS_NO_OTHER_DMOD",
+          "criterion_kind": "cluster_entry_guard",
+          "prompt": "Is the member not receiving rituximab concurrently with other disease-modifying multiple sclerosis agents (not including Ampyra or Nuedexta)?",
+          "clinical_intent": "Ensure MS treatment does not overlap with disallowed disease-modifying therapies.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "Exclusion B states members will not receive rituximab with other disease modifying MS agents (Ampyra and Nuedexta are not disease modifying).",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section II.B of the exclusions prevents simultaneous use with other disease modifying MS agents (Ampyra/Nuedexta exempt).",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "II. Exclusions"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "criterion_id": "CR_GUARD_NMOSD_NO_OTHER_BIO",
+          "criterion_kind": "cluster_entry_guard",
+          "prompt": "Is the member not receiving rituximab with other biologics for the treatment of neuromyelitis optica?",
+          "clinical_intent": "Prevent combination biologic therapy for NMOSD per policy.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "Exclusion C states members will not use rituximab concomitantly with other biologics for neuromyelitis optica.",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Section II.C Exclusions prohibits concurrent biologics for neuromyelitis optica treatment.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Treatment of Rheumatoid Arthritis and Other Conditions",
+              "II. Exclusions"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        }
+      ],
+      "notes": {
+        "parsing_notes": "Extracted rituximab coverage across oncologic, hematologic, rheumatologic, neurologic, and transplant indications including Hycela requirements and continuation rules.",
+        "confidence": "MEDIUM"
+      }
+    },
+    "retrieval_plan_v1": null,
+    "criterion_answers": {}
+  }
+}

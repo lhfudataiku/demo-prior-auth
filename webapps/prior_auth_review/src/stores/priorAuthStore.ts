@@ -281,6 +281,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const agentProgress = ref<AgentRunProgress | null>(null)
   const pollTimer = ref<ReturnType<typeof setInterval> | null>(null)
   const focusedCriterionId = ref<string | null>(null)
+  let pollInFlight = false
 
   const reviewMetadata = ref<ReviewMetadata>({
     reviewer: 'POC reviewer',
@@ -326,7 +327,11 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   const selectedScopeDisplay = computed(() => screen2.value?.payload.selected_scope_display ?? null)
   const criteria = computed(() => {
     const current = screen2.value?.payload.criteria
-      ?? buildPlaceholderCriterionRows(selectedScopeContext.value, screen1Answers.value)
+      ?? (
+        dataSource.value === 'dss' && agentStatus.value === 'running'
+          ? []
+          : buildPlaceholderCriterionRows(selectedScopeContext.value, screen1Answers.value)
+      )
     return current.map((criterion) =>
       mergeCriterionForPreview(criterion, editedAnswers.value[criterion.criterion_id]),
     )
@@ -508,6 +513,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   }
 
   function goToPage(page: WorkflowPage) {
+    if (submitting.value) return
     if (page === 'screen2' && !screen2.value) return
     if (page === 'screen3' && !latestScreen3.value) return
     currentPage.value = page
@@ -541,6 +547,8 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
     if (!selectedPolicyId.value) return
     submitting.value = true
     error.value = null
+    latestScreen3.value = null
+    currentPage.value = 'screen2'
     try {
       if (dataSource.value === 'dss') {
         if (!runId.value) throw new Error('No active agent run.')
@@ -573,6 +581,7 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
       clearInterval(pollTimer.value)
       pollTimer.value = null
     }
+    pollInFlight = false
   }
 
   function hydratePausedRun(state: AgentRunState) {
@@ -622,38 +631,47 @@ export const usePriorAuthStore = defineStore('priorAuth', () => {
   }
 
   async function pollRunState() {
-    if (!runId.value) return
-    const state = await Api.getRunState(runId.value)
-    agentStatus.value = state.status
-    agentEvents.value = state.events ?? []
-    agentError.value = state.error ?? null
-    agentProgress.value = state.progress ?? agentProgress.value
+    if (!runId.value || pollInFlight) return
+    pollInFlight = true
+    const requestedRunId = runId.value
 
-    if (state.status === 'running') {
-      hydrateRunningRun(state)
-      return
-    }
+    try {
+      const state = await Api.getRunState(requestedRunId)
+      if (!runId.value || requestedRunId !== runId.value) return
 
-    if (state.status === 'hitl_paused') {
-      stopPolling()
-      hydratePausedRun(state)
-      return
-    }
+      agentStatus.value = state.status
+      agentEvents.value = state.events ?? []
+      agentError.value = state.error ?? null
+      agentProgress.value = state.progress ?? agentProgress.value
 
-    if (state.status === 'completed') {
-      stopPolling()
-      latestReviewResult.value = state.review_result ?? latestReviewResult.value
-      latestScreen3.value = state.screen_3_response ?? latestScreen3.value
-      if (latestScreen3.value) {
-        focusedCriterionId.value = null
-        currentPage.value = 'screen3'
+      if (state.status === 'running') {
+        hydrateRunningRun(state)
+        return
       }
-      return
-    }
 
-    if (state.status === 'failed') {
-      stopPolling()
-      error.value = state.error || 'Agent run failed.'
+      if (state.status === 'hitl_paused') {
+        stopPolling()
+        hydratePausedRun(state)
+        return
+      }
+
+      if (state.status === 'completed') {
+        stopPolling()
+        latestReviewResult.value = state.review_result ?? latestReviewResult.value
+        latestScreen3.value = state.screen_3_response ?? latestScreen3.value
+        if (latestScreen3.value) {
+          focusedCriterionId.value = null
+          currentPage.value = 'screen3'
+        }
+        return
+      }
+
+      if (state.status === 'failed') {
+        stopPolling()
+        error.value = state.error || 'Agent run failed.'
+      }
+    } finally {
+      pollInFlight = false
     }
   }
 

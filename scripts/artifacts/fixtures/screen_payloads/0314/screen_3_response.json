@@ -3,57 +3,56 @@
   "payload": {
     "review_summary": {
       "selected_scope": {
-        "selected_route_id": "RT_RITUXAN_HYCELA",
-        "selected_phase": "continuation",
-        "selected_cluster_id": "CL_HYCELA_ONCOLOGY_CONTINUATION"
+        "selected_route_id": "route_rituximab_iv",
+        "selected_phase": "initial",
+        "selected_cluster_id": "cluster_oncologic_iv_initial"
+      },
+      "selected_scope_display": {
+        "route_label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+        "phase_label": "Initial",
+        "cluster_label": "CD20-positive B-cell malignancies"
       },
       "criterion_totals": {
-        "total": 2,
-        "answered": 1,
-        "unanswered_required": 1,
-        "conflicts": 0
+        "total": 1,
+        "satisfied": 0,
+        "rejected": 0,
+        "unresolved": 1
       },
       "logic_evaluation": {
         "selected_cluster_satisfied": false,
-        "selected_cluster_status": "not_satisfied",
+        "selected_cluster_status": "unresolved",
         "satisfied_criterion_ids": [],
-        "not_satisfied_criterion_ids": [
-          "CR_ONCO_CD20_BCELL"
-        ],
+        "not_satisfied_criterion_ids": [],
         "unresolved_criterion_ids": [
-          "CR_ONCO_CONT_NO_TOXICITY"
+          "CR_ONCO_CD20_POS"
         ],
         "criterion_counts": {
           "satisfied": 0,
-          "not_satisfied": 1,
+          "not_satisfied": 0,
           "unresolved": 1
         }
       }
     },
-    "answered_criteria": [
+    "satisfied_criteria": [],
+    "rejected_criteria": [],
+    "unresolved_criteria": [
       {
-        "criterion_id": "CR_ONCO_CD20_BCELL",
+        "criterion_id": "CR_ONCO_CD20_POS",
         "criterion_kind": "cluster_criterion",
-        "prompt": "Does the member have one of the listed CD20-positive B-cell oncologic disorders (e.g., B-cell ALL, B-cell lymphomas, CLL/SLL, Hodgkin lymphoma, Waldenstr\u00f6m macroglobulinemia, Rosai-Dorfman disease, PTLD, hairy cell leukemia) confirmed to be CD20-positive by testing or analysis?",
-        "final_answer": false,
-        "final_source": "chart",
-        "display_state": "not_satisfied",
-        "comment": null
+        "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+        "final_answer": null,
+        "final_source": "unresolved",
+        "display_state": "needs_clinician",
+        "justification": "Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier\u2014CD20 positivity confirmed by testing or analysis\u2014was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
       }
     ],
-    "unanswered_required_items": [
-      {
-        "criterion_id": "CR_ONCO_CONT_NO_TOXICITY",
-        "criterion_kind": "cluster_criterion",
-        "prompt": "Is there no evidence of unacceptable toxicity while continuing rituximab for the oncologic indication?",
-        "display_state": "needs_clinician"
-      }
-    ],
-    "warnings": [],
+    "review_alerts": [],
     "submission_ready": false
   },
   "messages": [
-    "Processed criterion CR_ONCO_CD20_BCELL for cluster CL_HYCELA_ONCOLOGY_CONTINUATION.",
-    "Processed criterion CR_ONCO_CONT_NO_TOXICITY for cluster CL_HYCELA_ONCOLOGY_CONTINUATION."
+    "Processed criterion CR_ONCO_CD20_POS for cluster cluster_oncologic_iv_initial."
   ]
 }

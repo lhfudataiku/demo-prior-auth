@@ -114,6 +114,8 @@ The backend is responsible for:
 - serving the Screen 1 deterministic payload
 - loading patient summary data
 - choosing the runtime path based on `local` or `dss`
+- in `dss` mode, resolving the Structured Agent from the current DSS project
+  context
 - in `local` mode:
   - loading fixture/static Screen 2 data
   - deterministically building Screen 3 after review
@@ -169,6 +171,14 @@ Flow:
 - `dss` mode should use the run-based API
 - the frontend-facing Screen 2, review-result, and Screen 3 payload shapes
   should remain consistent across both modes
+
+### Current DSS deployment coupling
+
+- the deployed DSS project key is `DEMO_PRIOR_AUTH_AGENT`
+- the current backend resolves `agent:NkBiV9OM` from the active/default DSS
+  project context rather than passing an explicit project key to the agent call
+- operationally, this means the standard webapp and Structured Agent are
+  expected to live in the same DSS project context
 
 ## Frontend Information Architecture
 
@@ -345,7 +355,7 @@ Criteria count rule:
     }
   },
   "ui_resolution": {
-    "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
+    "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered",
     "prefill_value": true,
     "use_chart_as_prefill": true,
     "conflict_flag": false,
@@ -401,21 +411,57 @@ Answer-map semantics:
       "selected_scope_display": {},
       "criterion_totals": {
         "total": 0,
-        "answered": 0,
-        "unanswered_required": 0,
-        "conflicts": 0
+        "satisfied": 0,
+        "rejected": 0,
+        "unresolved": 0
       },
       "logic_evaluation": {}
     },
-    "answered_criteria": [],
-    "unanswered_required_items": [],
-    "warnings": [
+    "satisfied_criteria": [
       {
         "criterion_id": "string",
         "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
         "prompt": "string",
-        "display_state": "satisfied | not_satisfied | needs_clinician | unanswered",
-        "type": "clinician_override | other_warning_type",
+        "final_answer": true,
+        "final_source": "chart | clinician | unresolved",
+        "display_state": "satisfied | not_satisfied | needs_clinician | conflict | unanswered | unresolved",
+        "justification": "string or null",
+        "comment": "string or null",
+        "conflict_flag": false,
+        "conflict_reason": "string or null"
+      }
+    ],
+    "rejected_criteria": [
+      {
+        "criterion_id": "string",
+        "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
+        "prompt": "string",
+        "final_answer": false,
+        "final_source": "chart | clinician | unresolved",
+        "display_state": "not_satisfied",
+        "justification": "string or null",
+        "comment": "string or null",
+        "conflict_flag": true,
+        "conflict_reason": "string or null"
+      }
+    ],
+    "unresolved_criteria": [
+      {
+        "criterion_id": "string",
+        "criterion_kind": "route_guard | cluster_entry_guard | inherited_diagnosis | cluster_criterion",
+        "prompt": "string",
+        "display_state": "needs_clinician | unanswered | unresolved",
+        "justification": "string or null",
+        "final_answer": null,
+        "final_source": "unresolved",
+        "comment": "string or null",
+        "conflict_flag": false,
+        "conflict_reason": "string or null"
+      }
+    ],
+    "review_alerts": [
+      {
+        "type": "human_review_rejected | missing_review_result | other_alert_type",
         "message": "string"
       }
     ],
@@ -429,14 +475,33 @@ Frontend may rely on:
 - `payload.review_summary.selected_scope`
 - `payload.review_summary.criterion_totals`
 - `payload.review_summary.logic_evaluation`
-- `payload.answered_criteria`
-- `payload.unanswered_required_items`
-- `payload.warnings`
+- `payload.satisfied_criteria`
+- `payload.rejected_criteria`
+- `payload.unresolved_criteria`
+- `payload.review_alerts`
 - `payload.submission_ready`
 
 Screen 3 readiness rule:
-- `submission_ready=true` when there are no unanswered required items
-- warnings remain advisory by default and do not block submission on their own
+- `submission_ready=true` only when
+  `payload.review_summary.logic_evaluation.selected_cluster_status = satisfied`
+- a fully reviewed but ineligible case therefore remains not ready for
+  submission
+- `review_alerts` are reserved for global review/runtime issues and are not used
+  as criterion-grouping buckets
+
+Screen 3 presentation rule:
+- `status` remains the deterministic workflow status for the Screen 3 payload
+  (`complete | warning | blocked | error`)
+- the webapp may present
+  `payload.review_summary.logic_evaluation.selected_cluster_status` as the
+  primary eligibility status in the audited-summary header
+- criterion cards should be grouped by final disposition only:
+  - `satisfied_criteria`
+  - `rejected_criteria`
+  - `unresolved_criteria`
+- clinician/chart disagreement should remain card-level audit metadata via
+  `conflict_flag` and `conflict_reason`, rather than create a duplicate
+  criterion section
 
 ### 7. DSS run-based API
 
@@ -564,22 +629,30 @@ Current normalization rule:
   exposing it to the frontend
 - the frontend should not depend directly on raw DSS tool-call wrapper details
 
+Current DSS wrapper note:
+- the deployed standard-webapp shell may still use an older browser bootstrap
+  around the backend iframe
+- the backend currently keeps compatibility for legacy wrapper requests such as
+  `/first_api_call` and `/dist/...` while the wrapper definition is being
+  aligned with the current Vite/Flask implementation
+
 ## Current Gaps And Temporary Adapters
 
 - `local` mode still exists as a deliberate fixture/static development path
 - patient summary is still a separate webapp/backend concern rather than part
   of the Structured Agent payload
 - DSS streaming state is currently surfaced to the frontend in a normalized run
-  state, but the Screen 2 streaming presentation is not yet fully unified with
-  the standard Screen 2 criterion-review surface
+  state and rendered inside the standard Screen 2 criterion-review surface
+- in live `dss` mode, the frontend should not render placeholder criterion
+  cards before the first real `screen_2_snapshot` is available
 
 ## Planned Work
 
 Planned next work at the time of this revision:
-- unify DSS streaming presentation into the standard Screen 2 layout rather
-  than maintaining a separate workflow-status panel
-- progressively hydrate the same Screen 2 status card and criterion cards while
-  the DSS run is active
+- continue polishing the DSS streaming presentation inside the standard Screen
+  2 layout rather than maintaining a separate workflow-status panel
+- progressively stream the same Screen 2 status card and real criterion cards
+  while the DSS run is active
 - keep Screen 2 UI behavior visually consistent between `local` and `dss`
   runtime modes
 - continue tightening backend run-state normalization so the frontend depends on
