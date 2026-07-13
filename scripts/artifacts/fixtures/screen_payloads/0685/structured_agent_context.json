@@ -1,836 +1,1327 @@
 {
-   "context": {
-      "conversationId": "conv-7qmg3nv6m4w814ipl57yso",
-      "dkuOnBehalfOf": "liheng.fu@dataiku.com",
-      "_blocksGraphState_PREAUTHPOC-NkBiV9OM-v2": {
-         "_currentBlockId": "request_human_review",
-         "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
-         "selected_scope_context": {
-            "policy_id": "0685",
-            "selected_route_id": "route_bevacizumab_nonocular",
-            "selected_route_label": "Bevacizumab for non-ocular oncology indications",
-            "selected_phase": "initial",
-            "selected_phase_label": "Initial",
-            "selected_cluster_id": "CLUST_INIT_NSCLC",
-            "selected_cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
-            "selected_route": {
-               "route_id": "route_bevacizumab_nonocular",
-               "label": "Bevacizumab for non-ocular oncology indications",
-               "coverage_status": "covered",
-               "terminal_disposition": "continue",
-               "billing_codes": [
-                  "J9035",
-                  "Q5107",
-                  "Q5118",
-                  "Q5126",
-                  "Q5129",
-                  "Q5160"
-               ],
-               "route_kind": "covered_request",
-               "phase_prompt_required": "true",
-               "phase_branches": [
-                  {
-                     "phase": "initial",
-                     "is_default": "true",
-                     "route_guard_ids": [],
-                     "cluster_ids": [
-                        "CLUST_INIT_AMPULLARY",
-                        "CLUST_INIT_APPENDICEAL",
-                        "CLUST_INIT_CNS",
-                        "CLUST_INIT_CERVICAL",
-                        "CLUST_INIT_COLORECTAL",
-                        "CLUST_INIT_ENDOMETRIAL",
-                        "CLUST_INIT_HEPATO",
-                        "CLUST_INIT_MESO_SYSTEMIC",
-                        "CLUST_INIT_MESO_INDUCTION",
-                        "CLUST_INIT_MESO_ATEZOLIZUMAB",
-                        "CLUST_INIT_NSCLC",
-                        "CLUST_INIT_OVARIAN",
-                        "CLUST_INIT_RCC",
-                        "CLUST_INIT_SMALLBOWEL",
-                        "CLUST_INIT_SARCOMA_ANGIO",
-                        "CLUST_INIT_SARCOMA_SFT_HPC",
-                        "CLUST_INIT_VAGINAL",
-                        "CLUST_INIT_VULVAR"
-                     ]
-                  },
-                  {
-                     "phase": "continuation",
-                     "is_default": "false",
-                     "route_guard_ids": [],
-                     "cluster_ids": [
-                        "CLUST_CONT_NSCLC",
-                        "CLUST_CONT_CNS",
-                        "CLUST_CONT_OTHER"
-                     ]
-                  }
-               ],
-               "routing_notes": "Coverage limited to the non-ocular oncology indications and continuation criteria explicitly listed; other uses are considered experimental or investigational.",
-               "evidence": "I. Criteria for Initial Approval and II. Continuation of Therapy describe the medically necessary non-ocular oncology indications for bevacizumab and its biosimilars.",
-               "locator": {
-                  "section_path": [
-                     "Policy",
-                     "I. Criteria for Initial Approval"
-                  ],
-                  "page_start": 3,
-                  "page_end": 5
-               }
-            },
-            "selected_phase_branch": {
-               "phase": "initial",
-               "is_default": "true",
-               "route_guard_ids": [],
-               "cluster_summaries": [
-                  {
-                     "cluster_id": "CLUST_INIT_AMPULLARY",
-                     "condition_key": "ampullary_adenocarcinoma",
-                     "condition_label": "Intestinal-type ampullary adenocarcinoma (progressive or metastatic)",
-                     "condition_synonyms": [
-                        "Ampullary adenocarcinoma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C24.1"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_APPENDICEAL",
-                     "condition_key": "appendiceal_neoplasm",
-                     "condition_label": "Appendiceal neoplasms and cancers",
-                     "condition_synonyms": [
-                        "Appendiceal adenocarcinoma",
-                        "Goblet cell adenocarcinoma",
-                        "Undifferentiated carcinoma not otherwise specified",
-                        "Appendiceal mucinous neoplasm"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C18.0 - C21.8"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_CNS",
-                     "condition_key": "cns_cancers",
-                     "condition_label": "Central nervous system cancers listed in the policy",
-                     "condition_synonyms": [
-                        "Circumscribed glioma",
-                        "Glioblastoma",
-                        "Medulloblastoma",
-                        "Primary CNS lymphoma",
-                        "Meningioma",
-                        "Brain metastases",
-                        "Spinal cord tumors"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C71.0 - C71.9",
-                        "C72.0 - C72.9",
-                        "D32.0 - D32.9",
-                        "Q85.02",
-                        "Q85.03"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_CERVICAL",
-                     "condition_key": "cervical_cancer",
-                     "condition_label": "Persistent, recurrent, or metastatic cervical cancer",
-                     "condition_synonyms": [
-                        "Cervical cancer"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C53.0 - C53.9"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_COLORECTAL",
-                     "condition_key": "colorectal_and_anal_cancer",
-                     "condition_label": "Colorectal cancer (including appendiceal adenocarcinoma) and anal adenocarcinoma",
-                     "condition_synonyms": [
-                        "Colorectal adenocarcinoma",
-                        "Anal adenocarcinoma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C18.0 - C21.8"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_ENDOMETRIAL",
-                     "condition_key": "endometrial_carcinoma",
-                     "condition_label": "Stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma",
-                     "condition_synonyms": [
-                        "Endometrial carcinoma stage III-IV"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C54.1",
-                        "C55"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_HEPATO",
-                     "condition_key": "hepatocellular_carcinoma",
-                     "condition_label": "Unresectable or extrahepatic/metastatic hepatocellular carcinoma with atezolizumab",
-                     "condition_synonyms": [
-                        "Hepatocellular carcinoma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C22.0"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_MESO_SYSTEMIC",
-                     "condition_key": "mesothelioma_systemic_therapy",
-                     "condition_label": "Pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma systemic therapy",
-                     "condition_synonyms": [
-                        "Pleural mesothelioma",
-                        "Peritoneal mesothelioma",
-                        "Pericardial mesothelioma",
-                        "Tunica vaginalis testis mesothelioma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C45.0",
-                        "C45.1",
-                        "C45.2",
-                        "C45.7"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_MESO_INDUCTION",
-                     "condition_key": "mesothelioma_induction",
-                     "condition_label": "Induction therapy for pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma",
-                     "condition_synonyms": [
-                        "Mesothelioma induction therapy before surgery"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C45.0",
-                        "C45.1",
-                        "C45.2",
-                        "C45.7"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_MESO_ATEZOLIZUMAB",
-                     "condition_key": "mesothelioma_atezolizumab",
-                     "condition_label": "Mesothelioma therapy in combination with atezolizumab",
-                     "condition_synonyms": [
-                        "Mesothelioma subsequent therapy with atezolizumab"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C45.0",
-                        "C45.1",
-                        "C45.2",
-                        "C45.7"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_NSCLC",
-                     "condition_key": "nsclc",
-                     "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
-                     "condition_synonyms": [
-                        "Non-squamous non-small cell lung cancer"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C34.00 - C34.92"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_OVARIAN",
-                     "condition_key": "ovarian_fallopian_peritoneal_cancer",
-                     "condition_label": "Epithelial ovarian cancer, fallopian tube cancer, primary peritoneal cancer, or malignant sex cord stromal tumor",
-                     "condition_synonyms": [
-                        "Epithelial ovarian cancer",
-                        "Fallopian tube cancer",
-                        "Primary peritoneal cancer",
-                        "Malignant sex cord stromal tumor"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C56.1 - C56.9",
-                        "C57.00 - C57.4"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_RCC",
-                     "condition_key": "renal_cell_carcinoma",
-                     "condition_label": "Relapsed or stage IV renal cell carcinoma",
-                     "condition_synonyms": [
-                        "Renal cell carcinoma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C64.1 - C64.9"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_SMALLBOWEL",
-                     "condition_key": "small_bowel_adenocarcinoma",
-                     "condition_label": "Small bowel adenocarcinoma",
-                     "condition_synonyms": [
-                        "Small bowel adenocarcinoma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C17.0 - C17.9"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_SARCOMA_ANGIO",
-                     "condition_key": "soft_tissue_angiosarcoma",
-                     "condition_label": "Angiosarcoma (soft tissue sarcoma) treated with single-agent bevacizumab",
-                     "condition_synonyms": [
-                        "Angiosarcoma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C49.0 - C49.9"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_SARCOMA_SFT_HPC",
-                     "condition_key": "solitary_fibrous_tumor_hemangiopericytoma",
-                     "condition_label": "Solitary fibrous tumor or hemangiopericytoma treated with bevacizumab plus temozolomide",
-                     "condition_synonyms": [
-                        "Solitary fibrous tumor",
-                        "Hemangiopericytoma"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C49.0 - C49.9"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_VAGINAL",
-                     "condition_key": "vaginal_cancer",
-                     "condition_label": "Recurrent or metastatic vaginal cancer",
-                     "condition_synonyms": [
-                        "Vaginal cancer"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C52"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  },
-                  {
-                     "cluster_id": "CLUST_INIT_VULVAR",
-                     "condition_key": "vulvar_cancer",
-                     "condition_label": "Advanced, recurrent, or metastatic vulvar cancer",
-                     "condition_synonyms": [
-                        "Vulvar cancer"
-                     ],
-                     "diagnosis_basis": "code_table_primary",
-                     "diagnosis_code_candidates": [
-                        "C51.0 - C51.9"
-                     ],
-                     "cluster_entry_guard_ids": []
-                  }
-               ]
-            },
-            "selected_route_guards": [],
-            "selected_cluster_summary": {
-               "cluster_id": "CLUST_INIT_NSCLC",
-               "condition_key": "nsclc",
-               "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
-               "condition_synonyms": [
-                  "Non-squamous non-small cell lung cancer"
-               ],
-               "diagnosis_basis": "code_table_primary",
-               "diagnosis_code_candidates": [
-                  "C34.00 - C34.92"
-               ],
-               "cluster_entry_guard_ids": []
-            },
-            "selected_cluster": {
-               "cluster_id": "CLUST_INIT_NSCLC",
-               "route_id": "route_bevacizumab_nonocular",
-               "phase": "initial",
-               "condition_key": "nsclc",
-               "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
-               "condition_synonyms": [
-                  "Non-squamous non-small cell lung cancer"
-               ],
-               "diagnosis_basis": "code_table_primary",
-               "diagnosis_code_candidates": [
-                  "C34.00 - C34.92"
-               ],
-               "inherits_diagnosis_from_cluster_ids": [],
-               "cluster_entry_guard_ids": [],
-               "logic_profile_id": "UNKNOWN",
-               "logic_root": {
-                  "node_type": "group",
-                  "operator": "all",
-                  "children": [
-                     {
-                        "node_type": "criterion_ref",
-                        "criterion_id": "CR_INIT_NSCLC"
-                     }
-                  ]
-               },
-               "evidence": "I. Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
-               "locator": {
-                  "section_path": [
-                     "Policy",
-                     "I. Criteria for Initial Approval",
-                     "I. Non-small cell lung cancer (NSCLC)"
-                  ],
-                  "page_start": 4,
-                  "page_end": 4
-               }
-            },
-            "selected_cluster_entry_guards": [],
-            "selected_logic_profiles": [],
-            "selected_inherited_diagnosis_clusters": [],
-            "effective_diagnosis_code_candidates": [
-               "C34.00 - C34.92"
+  "context": {
+    "conversationId": "conv-kab20q6x01im8ctvmo2a",
+    "dkuOnBehalfOf": "liheng.fu@dataiku.com",
+    "_blocksGraphState_DEMO_PRIOR_AUTH_AGENT-NkBiV9OM-v2": {
+      "_currentBlockId": "request_human_review",
+      "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+      "policy_id": "0685",
+      "session_id": "fixture-0685-cluster_nsclc_initial",
+      "criterion_result_map": {
+        "CR_GUARD_NOT_CETUX_PANI": {
+          "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+          "status": "Found",
+          "meets_criterion": true,
+          "extracted_value": {
+            "bevacizumab_with_cetuximab_or_panitumumab": "not documented",
+            "EHR_medication_exposure": "no records for bevacizumab, cetuximab, or panitumumab found",
+            "note_evidence": "no mention of cetuximab/Erbitux or panitumumab/Vectibix in retrieved notes"
+          },
+          "justification": "For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.",
+          "sources": {
+            "structured": [
+              "EHR_Query_Tool: no medication request records for subject e7e213ac-81c0-5c7f-8d57-81519132353e showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix) in the EHR."
             ],
-            "selected_route_guard_criterion_ids": [],
-            "selected_cluster_entry_guard_criterion_ids": [],
-            "selected_inherited_diagnosis_criterion_ids": [],
-            "selected_cluster_criterion_ids": [
-               "CR_INIT_NSCLC"
-            ],
-            "selected_criteria_catalog": [
-               {
-                  "criterion_id": "CR_INIT_NSCLC",
-                  "criterion_kind": "cluster_criterion",
-                  "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
-                  "clinical_intent": "Confirm the NSCLC indication for bevacizumab.",
-                  "answer_type": "boolean",
-                  "required": "true",
-                  "code_binding": {
-                     "source_codes": [
-                        "C34.00 - C34.92"
-                     ],
-                     "code_role": "diagnosis_inclusion"
-                  },
-                  "preferred_data_domains": [
-                     "condition"
-                  ],
-                  "policy_time_language": "Recurrent, unresectable, advanced, or metastatic disease as described in policy.",
-                  "retrieval_priority": "high",
-                  "prefill_allowed": "true",
-                  "clinician_must_confirm": "true",
-                  "evidence": "I. Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
-                  "locator": {
-                     "section_path": [
-                        "Policy",
-                        "I. Criteria for Initial Approval",
-                        "I. Non-small cell lung cancer (NSCLC)"
-                     ],
-                     "page_start": 4,
-                     "page_end": 4
-                  }
-               }
+            "notes": [
+              "Clinical note semantic search for subject e7e213ac-81c0-5c7f-8d57-81519132353e: retrieved discharge notes mentioning NSCLC and other care, with no evidence of cetuximab/Erbitux or panitumumab/Vectibix combination use."
             ]
-         },
-         "retrieval_plan_v1": {
-            "schema_version": "retrieval_plan_v1",
-            "policy_id": "0685",
+          }
+        },
+        "CR_NSCLC_NOT_PEMETREXED_MAINT": {
+          "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+          "status": "Missing",
+          "meets_criterion": false,
+          "justification": "Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.",
+          "sources": {
+            "structured": [],
+            "notes": []
+          }
+        },
+        "CR_NSCLC_ADVANCED": {
+          "criterion_id": "CR_NSCLC_ADVANCED",
+          "status": "Ambiguous",
+          "meets_criterion": false,
+          "extracted_value": {
+            "diagnosis": "Non-small cell lung cancer (NSCLC)",
+            "coded_support": "No structured condition/problem-list record matched C34.00-C34.92 in the EHR query",
+            "narrative_support": "Clinical notes describe NSCLC/adenocarcinoma of the lung with extrinsic compression of both main stem bronchi, tumor debulking and bronchial stenting, and planned palliative chemo/radiation",
+            "qualifier_status": "Advanced/unresectable/metastatic status is not explicitly documented as a coded or unambiguous structured fact"
+          },
+          "justification": "The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.",
+          "sources": {
+            "structured": [
+              {
+                "tool": "EHR_Query_Tool",
+                "evidence": "There are no condition or problem-list records for subject e7e213ac-81c0-5c7f-8d57-81519132353e that match recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer with ICD-10 codes in the C34.00\u2013C34.92 range."
+              }
+            ],
+            "notes": [
+              {
+                "tool": "Clinical_note_semantic_search_tool",
+                "note_id": "10021312-DS-19",
+                "admittime": "2020-08-16T00:32:00",
+                "dischtime": "2020-08-18T17:35:00",
+                "excerpt": "the patient was diagnosed with NSCLC compressing her mainstem bronchi ... work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting ... NSCLC: The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+              },
+              {
+                "tool": "Clinical_note_semantic_search_tool",
+                "note_id": "10021312-DS-20",
+                "admittime": "2020-09-12T14:42:00",
+                "dischtime": "2020-09-20T18:40:00",
+                "excerpt": "history of recent diagnosis of adenocarcinoma of the lung ... plan for initiation of palliative chemo and radiation ... Non-small cell lung cancer: Recent diagnosis with mapping and plan for palliative chemo and radiation ... diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+              }
+            ]
+          }
+        }
+      },
+      "criterion_ui_map": {
+        "CR_GUARD_NOT_CETUX_PANI": {
+          "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+          "criterion_kind": "route_guard",
+          "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
+          "answer_type": "boolean",
+          "required": true,
+          "planner_context": {},
+          "clinician_input": {
+            "override_prefill": false,
+            "answered": false
+          },
+          "chart_result": {
+            "status": "Found",
+            "meets_criterion": true,
+            "extracted_value": {
+              "bevacizumab_with_cetuximab_or_panitumumab": "not documented",
+              "EHR_medication_exposure": "no records for bevacizumab, cetuximab, or panitumumab found",
+              "note_evidence": "no mention of cetuximab/Erbitux or panitumumab/Vectibix in retrieved notes"
+            },
+            "justification": "For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.",
+            "sources": {
+              "structured": [
+                "EHR_Query_Tool: no medication request records for subject e7e213ac-81c0-5c7f-8d57-81519132353e showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix) in the EHR."
+              ],
+              "notes": [
+                "Clinical note semantic search for subject e7e213ac-81c0-5c7f-8d57-81519132353e: retrieved discharge notes mentioning NSCLC and other care, with no evidence of cetuximab/Erbitux or panitumumab/Vectibix combination use."
+              ]
+            }
+          },
+          "ui_resolution": {
+            "display_state": "satisfied",
+            "prefill_value": true,
+            "use_chart_as_prefill": true,
+            "conflict_flag": false,
+            "comment_required": false,
+            "final_answer": true,
+            "final_source": "chart"
+          }
+        },
+        "CR_NSCLC_NOT_PEMETREXED_MAINT": {
+          "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+          "criterion_kind": "cluster_entry_guard",
+          "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+          "answer_type": "boolean",
+          "required": true,
+          "planner_context": {},
+          "clinician_input": {
+            "override_prefill": false,
+            "answered": false
+          },
+          "chart_result": {
+            "status": "Missing",
+            "meets_criterion": false,
+            "justification": "Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.",
+            "sources": {
+              "structured": [],
+              "notes": []
+            }
+          },
+          "ui_resolution": {
+            "display_state": "needs_clinician",
+            "use_chart_as_prefill": false,
+            "conflict_flag": false,
+            "comment_required": false,
+            "final_source": "unresolved"
+          }
+        },
+        "CR_NSCLC_ADVANCED": {
+          "criterion_id": "CR_NSCLC_ADVANCED",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+          "answer_type": "boolean",
+          "required": true,
+          "planner_context": {},
+          "clinician_input": {
+            "override_prefill": false,
+            "answered": false
+          },
+          "chart_result": {
+            "status": "Ambiguous",
+            "meets_criterion": false,
+            "extracted_value": {
+              "diagnosis": "Non-small cell lung cancer (NSCLC)",
+              "coded_support": "No structured condition/problem-list record matched C34.00-C34.92 in the EHR query",
+              "narrative_support": "Clinical notes describe NSCLC/adenocarcinoma of the lung with extrinsic compression of both main stem bronchi, tumor debulking and bronchial stenting, and planned palliative chemo/radiation",
+              "qualifier_status": "Advanced/unresectable/metastatic status is not explicitly documented as a coded or unambiguous structured fact"
+            },
+            "justification": "The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.",
+            "sources": {
+              "structured": [
+                {
+                  "tool": "EHR_Query_Tool",
+                  "evidence": "There are no condition or problem-list records for subject e7e213ac-81c0-5c7f-8d57-81519132353e that match recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer with ICD-10 codes in the C34.00\u2013C34.92 range."
+                }
+              ],
+              "notes": [
+                {
+                  "tool": "Clinical_note_semantic_search_tool",
+                  "note_id": "10021312-DS-19",
+                  "admittime": "2020-08-16T00:32:00",
+                  "dischtime": "2020-08-18T17:35:00",
+                  "excerpt": "the patient was diagnosed with NSCLC compressing her mainstem bronchi ... work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting ... NSCLC: The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+                },
+                {
+                  "tool": "Clinical_note_semantic_search_tool",
+                  "note_id": "10021312-DS-20",
+                  "admittime": "2020-09-12T14:42:00",
+                  "dischtime": "2020-09-20T18:40:00",
+                  "excerpt": "history of recent diagnosis of adenocarcinoma of the lung ... plan for initiation of palliative chemo and radiation ... Non-small cell lung cancer: Recent diagnosis with mapping and plan for palliative chemo and radiation ... diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+                }
+              ]
+            }
+          },
+          "ui_resolution": {
+            "display_state": "needs_clinician",
+            "use_chart_as_prefill": false,
+            "conflict_flag": false,
+            "comment_required": false,
+            "final_source": "unresolved"
+          }
+        }
+      },
+      "logic_evaluation": {
+        "selected_cluster_satisfied": false,
+        "selected_cluster_status": "unresolved",
+        "satisfied_criterion_ids": [
+          "CR_GUARD_NOT_CETUX_PANI"
+        ],
+        "not_satisfied_criterion_ids": [],
+        "unresolved_criterion_ids": [
+          "CR_NSCLC_ADVANCED",
+          "CR_NSCLC_NOT_PEMETREXED_MAINT"
+        ],
+        "criterion_counts": {
+          "satisfied": 1,
+          "not_satisfied": 0,
+          "unresolved": 2
+        }
+      },
+      "selected_scope_context": {
+        "policy_id": "0685",
+        "selected_route_id": "route_bevacizumab_nonocular",
+        "selected_route_label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+        "selected_phase": "initial",
+        "selected_phase_label": "Initial",
+        "selected_cluster_id": "cluster_nsclc_initial",
+        "selected_cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+        "selected_route": {
+          "route_id": "route_bevacizumab_nonocular",
+          "label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+          "coverage_status": "covered",
+          "terminal_disposition": "continue",
+          "billing_codes": [
+            "J9035",
+            "Q5107",
+            "Q5118",
+            "Q5126",
+            "Q5129",
+            "Q5160"
+          ],
+          "route_kind": "covered_request",
+          "phase_prompt_required": true,
+          "phase_branches": [
+            {
+              "phase": "initial",
+              "is_default": true,
+              "route_guard_ids": [
+                "guard_no_cetuximab_panitumumab_combo"
+              ],
+              "cluster_ids": [
+                "cluster_ampullary_initial",
+                "cluster_appendiceal_colorectal_initial",
+                "cluster_cns_initial",
+                "cluster_cervical_initial",
+                "cluster_endometrial_initial",
+                "cluster_hepatic_initial",
+                "cluster_mesothelioma_initial",
+                "cluster_nsclc_initial",
+                "cluster_ovarian_initial",
+                "cluster_renal_cell_initial",
+                "cluster_small_bowel_initial",
+                "cluster_angiosarcoma_initial",
+                "cluster_solitary_fibrous_initial",
+                "cluster_vaginal_initial",
+                "cluster_vulvar_initial"
+              ]
+            },
+            {
+              "phase": "continuation",
+              "is_default": false,
+              "route_guard_ids": [
+                "guard_no_cetuximab_panitumumab_combo"
+              ],
+              "cluster_ids": [
+                "cluster_ampullary_continuation",
+                "cluster_appendiceal_colorectal_continuation",
+                "cluster_cns_continuation",
+                "cluster_cervical_continuation",
+                "cluster_endometrial_continuation",
+                "cluster_hepatic_continuation",
+                "cluster_mesothelioma_continuation",
+                "cluster_nsclc_continuation",
+                "cluster_ovarian_continuation",
+                "cluster_renal_cell_continuation",
+                "cluster_small_bowel_continuation",
+                "cluster_angiosarcoma_continuation",
+                "cluster_solitary_fibrous_continuation",
+                "cluster_vaginal_continuation",
+                "cluster_vulvar_continuation"
+              ]
+            }
+          ],
+          "routing_notes": "Coverage limited to the non-ocular oncology indications enumerated in this bulletin; ocular uses are addressed in CPB 0701.",
+          "evidence": "Aetna considers bevacizumab (Avastin) and its biosimilars medically necessary for the following non-ocular oncology indications when selection criteria are met.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval"
+            ],
+            "page_start": 3,
+            "page_end": 4
+          }
+        },
+        "selected_phase_branch": {
+          "phase": "initial",
+          "is_default": true,
+          "route_guard_ids": [
+            "guard_no_cetuximab_panitumumab_combo"
+          ],
+          "cluster_summaries": [
+            {
+              "cluster_id": "cluster_ampullary_initial",
+              "condition_key": "ampullary_adenocarcinoma",
+              "condition_label": "Intestinal-type ampullary adenocarcinoma that is progressive or metastatic",
+              "condition_synonyms": [
+                "Ampulla of Vater adenocarcinoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C24.1"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_appendiceal_colorectal_initial",
+              "condition_key": "appendiceal_colorectal_anal_cancer",
+              "condition_label": "Appendiceal neoplasms/cancers or colorectal/anal adenocarcinoma requiring treatment",
+              "condition_synonyms": [
+                "Appendiceal adenocarcinoma and mucinous neoplasms",
+                "Colorectal or anal adenocarcinoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C18.0 - C21.8",
+                "C26.0"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_cns_initial",
+              "condition_key": "cns_cancers",
+              "condition_label": "Central nervous system cancers listed in the policy",
+              "condition_synonyms": [
+                "Gliomas including circumscribed glioma, diffuse high-grade gliomas, glioblastoma",
+                "H3-mutated high-grade glioma, HGAP, IDH mutant astrocytoma, oligodendroglioma, medulloblastoma, PXA",
+                "Primary CNS lymphoma, meningiomas, brain or spine metastases, primary spinal cord tumors"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C71.0 - C71.9",
+                "C72.0 - C72.9",
+                "D32.0 - D32.9",
+                "Q85.02",
+                "Q85.03"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_cervical_initial",
+              "condition_key": "cervical_cancer",
+              "condition_label": "Persistent, recurrent, or metastatic cervical cancer",
+              "condition_synonyms": [
+                "Advanced cervical carcinoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C53.0 - C53.9"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_endometrial_initial",
+              "condition_key": "endometrial_carcinoma",
+              "condition_label": "Stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma",
+              "condition_synonyms": [
+                "Advanced endometrial cancer"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C54.1",
+                "C55"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_hepatic_initial",
+              "condition_key": "hepatocellular_carcinoma",
+              "condition_label": "Unresectable or extrahepatic/metastatic hepatocellular carcinoma used with atezolizumab",
+              "condition_synonyms": [
+                "Advanced hepatocellular carcinoma with atezolizumab"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C22.0"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_mesothelioma_initial",
+              "condition_key": "mesothelioma",
+              "condition_label": "Pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma with approved therapy context",
+              "condition_synonyms": [
+                "Mesothelioma first-line with pemetrexed",
+                "Mesothelioma subsequent therapy after immunotherapy",
+                "Mesothelioma induction pre-surgery stage I epithelioid",
+                "Mesothelioma subsequent therapy with atezolizumab"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C45.0",
+                "C45.1",
+                "C45.2",
+                "C45.7"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_nsclc_initial",
+              "condition_key": "non_squamous_nsclc",
+              "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+              "condition_synonyms": [
+                "Non-squamous NSCLC"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C34.00 - C34.92"
+              ],
+              "cluster_entry_guard_ids": [
+                "guard_nsclc_no_pemetrexed_maintenance"
+              ]
+            },
+            {
+              "cluster_id": "cluster_ovarian_initial",
+              "condition_key": "ovarian_fallopian_peritoneal_cancer",
+              "condition_label": "Epithelial ovarian cancer, fallopian tube cancer, primary peritoneal cancer, or malignant sex cord stromal tumors requiring treatment",
+              "condition_synonyms": [
+                "Ovarian/fallopian tube/peritoneal cancer",
+                "Malignant sex cord stromal tumor"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C56.1 - C56.9",
+                "C57.00 - C57.02",
+                "C57.10 - C57.4",
+                "C48.0 - C48.8"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_renal_cell_initial",
+              "condition_key": "renal_cell_carcinoma",
+              "condition_label": "Relapsed or stage IV renal cell carcinoma",
+              "condition_synonyms": [
+                "Advanced renal cell carcinoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C64.1 - C64.9"
+              ],
+              "cluster_entry_guard_ids": [
+                "guard_rcc_no_atezolizumab_combo"
+              ]
+            },
+            {
+              "cluster_id": "cluster_small_bowel_initial",
+              "condition_key": "small_bowel_adenocarcinoma",
+              "condition_label": "Small bowel adenocarcinoma",
+              "condition_synonyms": [
+                "Malignant neoplasm of the small intestine"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C17.0 - C17.9"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_angiosarcoma_initial",
+              "condition_key": "angiosarcoma_single_agent",
+              "condition_label": "Angiosarcoma treated with single-agent bevacizumab",
+              "condition_synonyms": [
+                "Soft tissue sarcoma - angiosarcoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C49.0 - C49.9"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_solitary_fibrous_initial",
+              "condition_key": "solitary_fibrous_hemangiopericytoma",
+              "condition_label": "Solitary fibrous tumor or hemangiopericytoma treated with bevacizumab plus temozolomide",
+              "condition_synonyms": [
+                "Soft tissue sarcoma - solitary fibrous tumor or hemangiopericytoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C38.4",
+                "C49.0 - C49.9"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_vaginal_initial",
+              "condition_key": "vaginal_cancer",
+              "condition_label": "Recurrent or metastatic vaginal cancer",
+              "condition_synonyms": [
+                "Advanced vaginal carcinoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C52"
+              ],
+              "cluster_entry_guard_ids": []
+            },
+            {
+              "cluster_id": "cluster_vulvar_initial",
+              "condition_key": "vulvar_cancer",
+              "condition_label": "Advanced, recurrent, or metastatic vulvar cancer including squamous cell carcinoma and adenocarcinoma",
+              "condition_synonyms": [
+                "Vulvar carcinoma"
+              ],
+              "diagnosis_basis": "code_table_primary",
+              "diagnosis_code_candidates": [
+                "C51.0 - C51.9"
+              ],
+              "cluster_entry_guard_ids": []
+            }
+          ]
+        },
+        "selected_route_guards": [
+          {
+            "guard_id": "guard_no_cetuximab_panitumumab_combo",
+            "label": "Bevacizumab not combined with cetuximab or panitumumab",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+              "route_bevacizumab_nonocular"
+            ],
+            "applies_to_phases": [
+              "initial",
+              "continuation"
+            ],
+            "ask_timing": "before_cluster_selection",
+            "logic_root": {
+              "node_type": "group",
+              "operator": "all",
+              "children": [
+                {
+                  "node_type": "criterion_ref",
+                  "criterion_id": "CR_GUARD_NOT_CETUX_PANI"
+                }
+              ]
+            },
+            "evidence": "Aetna considers bevacizumab and its biosimilars in combination with cetuximab (Erbitux) or panitumumab (Vectibix) experimental, investigational, or unproven because the effectiveness and safety of these combinations has not been established.",
+            "locator": {
+              "section_path": [
+                "Policy",
+                "Experimental, Investigational, or Unproven",
+                "II. Aetna considers bevacizumab and its biosimilars in combination with cetuximab or panitumumab experimental"
+              ],
+              "page_start": 11,
+              "page_end": 11
+            }
+          }
+        ],
+        "selected_cluster_summary": {
+          "cluster_id": "cluster_nsclc_initial",
+          "condition_key": "non_squamous_nsclc",
+          "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+          "condition_synonyms": [
+            "Non-squamous NSCLC"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C34.00 - C34.92"
+          ],
+          "cluster_entry_guard_ids": [
+            "guard_nsclc_no_pemetrexed_maintenance"
+          ]
+        },
+        "selected_cluster": {
+          "cluster_id": "cluster_nsclc_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "non_squamous_nsclc",
+          "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+          "condition_synonyms": [
+            "Non-squamous NSCLC"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C34.00 - C34.92"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [
+            "guard_nsclc_no_pemetrexed_maintenance"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_NSCLC_ADVANCED"
+              }
+            ]
+          },
+          "evidence": "Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "I. Non-small cell lung cancer (NSCLC)"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        "selected_cluster_entry_guards": [
+          {
+            "guard_id": "guard_nsclc_no_pemetrexed_maintenance",
+            "label": "Bevacizumab not maintenance therapy with pemetrexed for non-squamous NSCLC",
+            "guard_type": "coverage_gate",
+            "applies_to_route_ids": [
+              "route_bevacizumab_nonocular"
+            ],
+            "applies_to_phases": [
+              "initial",
+              "continuation"
+            ],
+            "applies_to_cluster_ids": [
+              "cluster_nsclc_initial",
+              "cluster_nsclc_continuation"
+            ],
+            "ask_timing": "after_cluster_selection",
+            "logic_root": {
+              "node_type": "group",
+              "operator": "all",
+              "children": [
+                {
+                  "node_type": "criterion_ref",
+                  "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT"
+                }
+              ]
+            },
+            "evidence": "Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental, investigational, or unproven.",
+            "locator": {
+              "section_path": [
+                "Policy",
+                "Experimental, Investigational, or Unproven",
+                "IV. Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental"
+              ],
+              "page_start": 11,
+              "page_end": 11
+            }
+          }
+        ],
+        "selected_logic_profiles": [],
+        "selected_inherited_diagnosis_clusters": [],
+        "effective_diagnosis_code_candidates": [
+          "C34.00 - C34.92"
+        ],
+        "selected_route_guard_criterion_ids": [
+          "CR_GUARD_NOT_CETUX_PANI"
+        ],
+        "selected_cluster_entry_guard_criterion_ids": [
+          "CR_NSCLC_NOT_PEMETREXED_MAINT"
+        ],
+        "selected_inherited_diagnosis_criterion_ids": [],
+        "selected_cluster_criterion_ids": [
+          "CR_NSCLC_ADVANCED"
+        ],
+        "selected_criteria_catalog": [
+          {
+            "criterion_id": "CR_NSCLC_ADVANCED",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+            "clinical_intent": "Confirm coverage for advanced non-squamous NSCLC.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+              "source_codes": [
+                "C34.00 - C34.92"
+              ],
+              "code_role": "diagnosis_inclusion"
+            },
+            "preferred_data_domains": [
+              "condition"
+            ],
+            "policy_time_language": "current",
+            "retrieval_priority": "high",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+            "locator": {
+              "section_path": [
+                "Policy",
+                "I. Criteria for Initial Approval",
+                "I. Non-small cell lung cancer (NSCLC)"
+              ],
+              "page_start": 4,
+              "page_end": 4
+            }
+          },
+          {
+            "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+            "criterion_kind": "route_guard",
+            "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
+            "clinical_intent": "Prevent coverage of the unproven EGFR inhibitor combinations.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+              "source_codes": [],
+              "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+              "medication"
+            ],
+            "policy_time_language": "with the current request",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Aetna considers bevacizumab and its biosimilars in combination with cetuximab (Erbitux) or panitumumab (Vectibix) experimental, investigational, or unproven because the effectiveness and safety of these combinations has not been established.",
+            "locator": {
+              "section_path": [
+                "Policy",
+                "Experimental, Investigational, or Unproven",
+                "II. Aetna considers bevacizumab and its biosimilars in combination with cetuximab or panitumumab experimental"
+              ],
+              "page_start": 11,
+              "page_end": 11
+            }
+          },
+          {
+            "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+            "clinical_intent": "Prevent coverage of pemetrexed maintenance combinations for NSCLC.",
+            "answer_type": "boolean",
+            "required": true,
+            "code_binding": {
+              "source_codes": [],
+              "code_role": "UNKNOWN"
+            },
+            "preferred_data_domains": [
+              "medication"
+            ],
+            "policy_time_language": "for the current request",
+            "retrieval_priority": "medium",
+            "prefill_allowed": true,
+            "clinician_must_confirm": true,
+            "evidence": "Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental, investigational, or unproven.",
+            "locator": {
+              "section_path": [
+                "Policy",
+                "Experimental, Investigational, or Unproven",
+                "IV. Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental"
+              ],
+              "page_start": 11,
+              "page_end": 11
+            }
+          }
+        ]
+      },
+      "screen_2_payload": {
+        "status": "warning",
+        "payload": {
+          "selected_scope": {
             "selected_route_id": "route_bevacizumab_nonocular",
-            "selected_route_label": "Bevacizumab for non-ocular oncology indications",
             "selected_phase": "initial",
-            "selected_cluster_id": "CLUST_INIT_NSCLC",
-            "selected_cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
-            "selected_route_guard_criterion_ids": [],
-            "selected_cluster_entry_guard_criterion_ids": [],
-            "selected_cluster_criterion_ids": [
-               "CR_INIT_NSCLC"
-            ],
-            "plan_items": [
-               {
-                  "criterion_id": "CR_INIT_NSCLC",
-                  "criterion_kind": "cluster_criterion",
-                  "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
-                  "clinical_intent": "Confirm the NSCLC indication for bevacizumab.",
-                  "execution_hints": {
-                     "criterion_archetype": "ARC_disease_activity_or_severity_state",
-                     "retrieval_strategy": "hybrid",
-                     "semantic_model_entity": "condition",
-                     "time_anchor_field": "NONE"
-                  },
-                  "ehr_query_fragment": {
-                     "field": "condition",
-                     "operator": "qualifier_exists",
-                     "value": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
-                     "codes": [
-                        "C34.00 - C34.92"
-                     ]
-                  },
-                  "time_constraint": {
-                     "type": "none",
-                     "anchor": "NONE",
-                     "value": 0,
-                     "unit": "UNKNOWN",
-                     "direction": "UNKNOWN",
-                     "notes": "Recurrent, unresectable, advanced, or metastatic disease as described in policy."
-                  },
-                  "note_search_tokens": [
-                     "non-squamous non-small cell lung cancer",
-                     "recurrent NSCLC",
-                     "metastatic NSCLC"
-                  ],
-                  "preferred_data_domains": [
-                     "condition"
-                  ],
-                  "prefill_strategy": "suggest",
-                  "clinician_must_confirm": true,
-                  "source_criterion_snapshot": {
-                     "policy_time_language": "Recurrent, unresectable, advanced, or metastatic disease as described in policy.",
-                     "code_binding": {
-                        "origin": "code_table_primary",
-                        "confidence": "HIGH",
-                        "source_codes": [
-                           "C34.00 - C34.92"
-                        ],
-                        "code_role": "diagnosis_inclusion",
-                        "status": "mapped"
-                     },
-                     "locator": {
-                        "section_path": [
-                           "Policy",
-                           "I. Criteria for Initial Approval",
-                           "I. Non-small cell lung cancer (NSCLC)"
-                        ],
-                        "page_start": 4,
-                        "page_end": 4
-                     }
-                  }
-               }
-            ],
-            "notes": {
-               "planning_notes": "Plan generated based on selected scope.",
-               "confidence": "HIGH"
-            }
-         },
-         "messages": [
-            "Processed criterion CR_INIT_NSCLC for cluster CLUST_INIT_NSCLC."
-         ],
-         "criterion_result_map": {
-            "CR_INIT_NSCLC": {
-               "criterion_id": "CR_INIT_NSCLC",
-               "status": "Found",
-               "meets_criterion": false,
-               "extracted_value": {
-                  "condition_codes": [
-                     "C34.01",
-                     "C34.02",
-                     "C34.90"
-                  ],
-                  "condition_names": [
-                     "Malignant neoplasm of right main bronchus",
-                     "Malignant neoplasm of left main bronchus",
-                     "Malignant neoplasm of unspecified part of unspecified bronchus or lung"
-                  ],
-                  "condition_ids": [
-                     "1fccc82d-770c-5f05-b872-326acec78f44",
-                     "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                     "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                  ]
-               },
-               "justification": "Structured EHR evidence confirms NSCLC-related diagnosis codes within the requested C34.00-C34.92 range for this patient, but the retrieved data do not document the required qualifier of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC. Because the code evidence alone is insufficient to confirm the full criterion, it does not meet the criterion based on available chart evidence.",
-               "sources": {
+            "selected_cluster_id": "cluster_nsclc_initial"
+          },
+          "selected_scope_display": {
+            "route_label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+            "phase_label": "Initial",
+            "cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer"
+          },
+          "criteria": [
+            {
+              "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+              "criterion_kind": "route_guard",
+              "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
+              "answer_type": "boolean",
+              "required": true,
+              "planner_context": {
+                "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+                "retrieval_strategy": "hybrid"
+              },
+              "clinician_input": {
+                "override_prefill": false,
+                "answered": false
+              },
+              "chart_result": {
+                "status": "Found",
+                "meets_criterion": true,
+                "extracted_value": {
+                  "bevacizumab_with_cetuximab_or_panitumumab": "not documented",
+                  "EHR_medication_exposure": "no records for bevacizumab, cetuximab, or panitumumab found",
+                  "note_evidence": "no mention of cetuximab/Erbitux or panitumumab/Vectibix in retrieved notes"
+                },
+                "justification": "For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.",
+                "sources": {
                   "structured": [
-                     {
-                        "tool": "EHR_Query_Tool",
-                        "evidence": "Subject e7e213ac-81c0-5c7f-8d57-81519132353e has NSCLC-related condition records in the ICD-10 C34.00-C34.92 range: C34.01, C34.02, and C34.90.",
-                        "condition_ids": [
-                           "1fccc82d-770c-5f05-b872-326acec78f44",
-                           "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                           "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                        ]
-                     }
+                    "EHR_Query_Tool: no medication request records for subject e7e213ac-81c0-5c7f-8d57-81519132353e showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix) in the EHR."
                   ],
+                  "notes": [
+                    "Clinical note semantic search for subject e7e213ac-81c0-5c7f-8d57-81519132353e: retrieved discharge notes mentioning NSCLC and other care, with no evidence of cetuximab/Erbitux or panitumumab/Vectibix combination use."
+                  ]
+                }
+              },
+              "ui_resolution": {
+                "display_state": "satisfied",
+                "prefill_value": true,
+                "use_chart_as_prefill": true,
+                "conflict_flag": false,
+                "comment_required": false,
+                "final_answer": true,
+                "final_source": "chart"
+              }
+            },
+            {
+              "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+              "criterion_kind": "cluster_entry_guard",
+              "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+              "answer_type": "boolean",
+              "required": true,
+              "planner_context": {
+                "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+                "retrieval_strategy": "hybrid"
+              },
+              "clinician_input": {
+                "override_prefill": false,
+                "answered": false
+              },
+              "chart_result": {
+                "status": "Missing",
+                "meets_criterion": false,
+                "justification": "Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.",
+                "sources": {
+                  "structured": [],
                   "notes": []
-               }
+                }
+              },
+              "ui_resolution": {
+                "display_state": "needs_clinician",
+                "use_chart_as_prefill": false,
+                "conflict_flag": false,
+                "comment_required": false,
+                "final_source": "unresolved"
+              }
+            },
+            {
+              "criterion_id": "CR_NSCLC_ADVANCED",
+              "criterion_kind": "cluster_criterion",
+              "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+              "answer_type": "boolean",
+              "required": true,
+              "planner_context": {
+                "criterion_archetype": "ARC_disease_activity_or_severity_state",
+                "retrieval_strategy": "hybrid"
+              },
+              "clinician_input": {
+                "override_prefill": false,
+                "answered": false
+              },
+              "chart_result": {
+                "status": "Ambiguous",
+                "meets_criterion": false,
+                "extracted_value": {
+                  "diagnosis": "Non-small cell lung cancer (NSCLC)",
+                  "coded_support": "No structured condition/problem-list record matched C34.00-C34.92 in the EHR query",
+                  "narrative_support": "Clinical notes describe NSCLC/adenocarcinoma of the lung with extrinsic compression of both main stem bronchi, tumor debulking and bronchial stenting, and planned palliative chemo/radiation",
+                  "qualifier_status": "Advanced/unresectable/metastatic status is not explicitly documented as a coded or unambiguous structured fact"
+                },
+                "justification": "The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.",
+                "sources": {
+                  "structured": [
+                    {
+                      "tool": "EHR_Query_Tool",
+                      "evidence": "There are no condition or problem-list records for subject e7e213ac-81c0-5c7f-8d57-81519132353e that match recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer with ICD-10 codes in the C34.00\u2013C34.92 range."
+                    }
+                  ],
+                  "notes": [
+                    {
+                      "tool": "Clinical_note_semantic_search_tool",
+                      "note_id": "10021312-DS-19",
+                      "admittime": "2020-08-16T00:32:00",
+                      "dischtime": "2020-08-18T17:35:00",
+                      "excerpt": "the patient was diagnosed with NSCLC compressing her mainstem bronchi ... work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting ... NSCLC: The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+                    },
+                    {
+                      "tool": "Clinical_note_semantic_search_tool",
+                      "note_id": "10021312-DS-20",
+                      "admittime": "2020-09-12T14:42:00",
+                      "dischtime": "2020-09-20T18:40:00",
+                      "excerpt": "history of recent diagnosis of adenocarcinoma of the lung ... plan for initiation of palliative chemo and radiation ... Non-small cell lung cancer: Recent diagnosis with mapping and plan for palliative chemo and radiation ... diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+                    }
+                  ]
+                }
+              },
+              "ui_resolution": {
+                "display_state": "needs_clinician",
+                "use_chart_as_prefill": false,
+                "conflict_flag": false,
+                "comment_required": false,
+                "final_source": "unresolved"
+              }
             }
-         },
-         "logic_evaluation": {
+          ],
+          "logic_evaluation": {
             "selected_cluster_satisfied": false,
-            "selected_cluster_status": "not_satisfied",
-            "satisfied_criterion_ids": [],
-            "not_satisfied_criterion_ids": [
-               "CR_INIT_NSCLC"
+            "selected_cluster_status": "unresolved",
+            "satisfied_criterion_ids": [
+              "CR_GUARD_NOT_CETUX_PANI"
             ],
-            "unresolved_criterion_ids": [],
+            "not_satisfied_criterion_ids": [],
+            "unresolved_criterion_ids": [
+              "CR_NSCLC_ADVANCED",
+              "CR_NSCLC_NOT_PEMETREXED_MAINT"
+            ],
             "criterion_counts": {
-               "satisfied": 0,
-               "not_satisfied": 1,
-               "unresolved": 0
+              "satisfied": 1,
+              "not_satisfied": 0,
+              "unresolved": 2
             }
-         },
-         "criterion_ui_map": {
-            "CR_INIT_NSCLC": {
-               "criterion_id": "CR_INIT_NSCLC",
-               "criterion_kind": "cluster_criterion",
-               "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
-               "answer_type": "boolean",
-               "required": true,
-               "clinician_input": {
+          },
+          "additional_cluster_suggestions": [],
+          "next_action": "stay_screen_2"
+        },
+        "messages": [
+          "Processed criterion CR_GUARD_NOT_CETUX_PANI for cluster cluster_nsclc_initial.",
+          "Processed criterion CR_NSCLC_NOT_PEMETREXED_MAINT for cluster cluster_nsclc_initial.",
+          "Processed criterion CR_NSCLC_ADVANCED for cluster cluster_nsclc_initial."
+        ]
+      },
+      "criterion_answers": {},
+      "screen_2_review_tool_input": {
+        "session_id": "fixture-0685-cluster_nsclc_initial",
+        "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+        "policy_id": "0685",
+        "selected_scope": {
+          "selected_route_id": "route_bevacizumab_nonocular",
+          "selected_phase": "initial",
+          "selected_cluster_id": "cluster_nsclc_initial"
+        },
+        "screen_2_payload": {
+          "status": "warning",
+          "payload": {
+            "selected_scope": {
+              "selected_route_id": "route_bevacizumab_nonocular",
+              "selected_phase": "initial",
+              "selected_cluster_id": "cluster_nsclc_initial"
+            },
+            "selected_scope_display": {
+              "route_label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+              "phase_label": "Initial",
+              "cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer"
+            },
+            "criteria": [
+              {
+                "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+                "criterion_kind": "route_guard",
+                "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
+                "answer_type": "boolean",
+                "required": true,
+                "planner_context": {
+                  "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+                  "retrieval_strategy": "hybrid"
+                },
+                "clinician_input": {
                   "override_prefill": false,
                   "answered": false
-               },
-               "chart_result": {
+                },
+                "chart_result": {
                   "status": "Found",
-                  "meets_criterion": false,
+                  "meets_criterion": true,
                   "extracted_value": {
-                     "condition_codes": [
-                        "C34.01",
-                        "C34.02",
-                        "C34.90"
-                     ],
-                     "condition_names": [
-                        "Malignant neoplasm of right main bronchus",
-                        "Malignant neoplasm of left main bronchus",
-                        "Malignant neoplasm of unspecified part of unspecified bronchus or lung"
-                     ],
-                     "condition_ids": [
-                        "1fccc82d-770c-5f05-b872-326acec78f44",
-                        "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                        "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                     ]
+                    "bevacizumab_with_cetuximab_or_panitumumab": "not documented",
+                    "EHR_medication_exposure": "no records for bevacizumab, cetuximab, or panitumumab found",
+                    "note_evidence": "no mention of cetuximab/Erbitux or panitumumab/Vectibix in retrieved notes"
                   },
-                  "justification": "Structured EHR evidence confirms NSCLC-related diagnosis codes within the requested C34.00-C34.92 range for this patient, but the retrieved data do not document the required qualifier of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC. Because the code evidence alone is insufficient to confirm the full criterion, it does not meet the criterion based on available chart evidence.",
+                  "justification": "For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.",
                   "sources": {
-                     "structured": [
-                        {
-                           "tool": "EHR_Query_Tool",
-                           "evidence": "Subject e7e213ac-81c0-5c7f-8d57-81519132353e has NSCLC-related condition records in the ICD-10 C34.00-C34.92 range: C34.01, C34.02, and C34.90.",
-                           "condition_ids": [
-                              "1fccc82d-770c-5f05-b872-326acec78f44",
-                              "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                              "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                           ]
-                        }
-                     ],
-                     "notes": []
+                    "structured": [
+                      "EHR_Query_Tool: no medication request records for subject e7e213ac-81c0-5c7f-8d57-81519132353e showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix) in the EHR."
+                    ],
+                    "notes": [
+                      "Clinical note semantic search for subject e7e213ac-81c0-5c7f-8d57-81519132353e: retrieved discharge notes mentioning NSCLC and other care, with no evidence of cetuximab/Erbitux or panitumumab/Vectibix combination use."
+                    ]
                   }
-               },
-               "ui_resolution": {
-                  "display_state": "not_satisfied",
-                  "prefill_value": false,
+                },
+                "ui_resolution": {
+                  "display_state": "satisfied",
+                  "prefill_value": true,
                   "use_chart_as_prefill": true,
                   "conflict_flag": false,
-                  "final_answer": false,
+                  "comment_required": false,
+                  "final_answer": true,
                   "final_source": "chart"
-               }
+                }
+              },
+              {
+                "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+                "criterion_kind": "cluster_entry_guard",
+                "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+                "answer_type": "boolean",
+                "required": true,
+                "planner_context": {
+                  "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+                  "retrieval_strategy": "hybrid"
+                },
+                "clinician_input": {
+                  "override_prefill": false,
+                  "answered": false
+                },
+                "chart_result": {
+                  "status": "Missing",
+                  "meets_criterion": false,
+                  "justification": "Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.",
+                  "sources": {
+                    "structured": [],
+                    "notes": []
+                  }
+                },
+                "ui_resolution": {
+                  "display_state": "needs_clinician",
+                  "use_chart_as_prefill": false,
+                  "conflict_flag": false,
+                  "comment_required": false,
+                  "final_source": "unresolved"
+                }
+              },
+              {
+                "criterion_id": "CR_NSCLC_ADVANCED",
+                "criterion_kind": "cluster_criterion",
+                "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+                "answer_type": "boolean",
+                "required": true,
+                "planner_context": {
+                  "criterion_archetype": "ARC_disease_activity_or_severity_state",
+                  "retrieval_strategy": "hybrid"
+                },
+                "clinician_input": {
+                  "override_prefill": false,
+                  "answered": false
+                },
+                "chart_result": {
+                  "status": "Ambiguous",
+                  "meets_criterion": false,
+                  "extracted_value": {
+                    "diagnosis": "Non-small cell lung cancer (NSCLC)",
+                    "coded_support": "No structured condition/problem-list record matched C34.00-C34.92 in the EHR query",
+                    "narrative_support": "Clinical notes describe NSCLC/adenocarcinoma of the lung with extrinsic compression of both main stem bronchi, tumor debulking and bronchial stenting, and planned palliative chemo/radiation",
+                    "qualifier_status": "Advanced/unresectable/metastatic status is not explicitly documented as a coded or unambiguous structured fact"
+                  },
+                  "justification": "The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.",
+                  "sources": {
+                    "structured": [
+                      {
+                        "tool": "EHR_Query_Tool",
+                        "evidence": "There are no condition or problem-list records for subject e7e213ac-81c0-5c7f-8d57-81519132353e that match recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer with ICD-10 codes in the C34.00\u2013C34.92 range."
+                      }
+                    ],
+                    "notes": [
+                      {
+                        "tool": "Clinical_note_semantic_search_tool",
+                        "note_id": "10021312-DS-19",
+                        "admittime": "2020-08-16T00:32:00",
+                        "dischtime": "2020-08-18T17:35:00",
+                        "excerpt": "the patient was diagnosed with NSCLC compressing her mainstem bronchi ... work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting ... NSCLC: The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+                      },
+                      {
+                        "tool": "Clinical_note_semantic_search_tool",
+                        "note_id": "10021312-DS-20",
+                        "admittime": "2020-09-12T14:42:00",
+                        "dischtime": "2020-09-20T18:40:00",
+                        "excerpt": "history of recent diagnosis of adenocarcinoma of the lung ... plan for initiation of palliative chemo and radiation ... Non-small cell lung cancer: Recent diagnosis with mapping and plan for palliative chemo and radiation ... diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi"
+                      }
+                    ]
+                  }
+                },
+                "ui_resolution": {
+                  "display_state": "needs_clinician",
+                  "use_chart_as_prefill": false,
+                  "conflict_flag": false,
+                  "comment_required": false,
+                  "final_source": "unresolved"
+                }
+              }
+            ],
+            "logic_evaluation": {
+              "selected_cluster_satisfied": false,
+              "selected_cluster_status": "unresolved",
+              "satisfied_criterion_ids": [
+                "CR_GUARD_NOT_CETUX_PANI"
+              ],
+              "not_satisfied_criterion_ids": [],
+              "unresolved_criterion_ids": [
+                "CR_NSCLC_ADVANCED",
+                "CR_NSCLC_NOT_PEMETREXED_MAINT"
+              ],
+              "criterion_counts": {
+                "satisfied": 1,
+                "not_satisfied": 0,
+                "unresolved": 2
+              }
+            },
+            "additional_cluster_suggestions": [],
+            "next_action": "stay_screen_2"
+          },
+          "messages": [
+            "Processed criterion CR_GUARD_NOT_CETUX_PANI for cluster cluster_nsclc_initial.",
+            "Processed criterion CR_NSCLC_NOT_PEMETREXED_MAINT for cluster cluster_nsclc_initial.",
+            "Processed criterion CR_NSCLC_ADVANCED for cluster cluster_nsclc_initial."
+          ]
+        },
+        "criterion_answers": {}
+      },
+      "screen_2_review_result": "{\"approval_status\":\"approved\",\"approved_criterion_answers\":{},\"reviewed_screen_2_payload\":{\"status\":\"warning\",\"payload\":{\"selected_scope\":{\"selected_route_id\":\"route_bevacizumab_nonocular\",\"selected_phase\":\"initial\",\"selected_cluster_id\":\"cluster_nsclc_initial\"},\"selected_scope_display\":{\"route_label\":\"Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications\",\"phase_label\":\"Initial\",\"cluster_label\":\"Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer\"},\"criteria\":[{\"criterion_id\":\"CR_GUARD_NOT_CETUX_PANI\",\"criterion_kind\":\"route_guard\",\"prompt\":\"Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?\",\"answer_type\":\"boolean\",\"required\":true,\"planner_context\":{\"criterion_archetype\":\"ARC_regimen_combination_or_concomitant_use\",\"retrieval_strategy\":\"hybrid\"},\"clinician_input\":{\"override_prefill\":false,\"answered\":false},\"chart_result\":{\"status\":\"Found\",\"meets_criterion\":true,\"extracted_value\":{\"bevacizumab_with_cetuximab_or_panitumumab\":\"not documented\",\"EHR_medication_exposure\":\"no records for bevacizumab, cetuximab, or panitumumab found\",\"note_evidence\":\"no mention of cetuximab/Erbitux or panitumumab/Vectibix in retrieved notes\"},\"justification\":\"For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.\",\"sources\":{\"structured\":[\"EHR_Query_Tool: no medication request records for subject e7e213ac-81c0-5c7f-8d57-81519132353e showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix) in the EHR.\"],\"notes\":[\"Clinical note semantic search for subject e7e213ac-81c0-5c7f-8d57-81519132353e: retrieved discharge notes mentioning NSCLC and other care, with no evidence of cetuximab/Erbitux or panitumumab/Vectibix combination use.\"]}},\"ui_resolution\":{\"display_state\":\"satisfied\",\"prefill_value\":true,\"use_chart_as_prefill\":true,\"conflict_flag\":false,\"comment_required\":false,\"final_answer\":true,\"final_source\":\"chart\"}},{\"criterion_id\":\"CR_NSCLC_NOT_PEMETREXED_MAINT\",\"criterion_kind\":\"cluster_entry_guard\",\"prompt\":\"Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?\",\"answer_type\":\"boolean\",\"required\":true,\"planner_context\":{\"criterion_archetype\":\"ARC_regimen_combination_or_concomitant_use\",\"retrieval_strategy\":\"hybrid\"},\"clinician_input\":{\"override_prefill\":false,\"answered\":false},\"chart_result\":{\"status\":\"Missing\",\"meets_criterion\":false,\"justification\":\"Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.\",\"sources\":{\"structured\":[],\"notes\":[]}},\"ui_resolution\":{\"display_state\":\"needs_clinician\",\"use_chart_as_prefill\":false,\"conflict_flag\":false,\"comment_required\":false,\"final_source\":\"unresolved\"}},{\"criterion_id\":\"CR_NSCLC_ADVANCED\",\"criterion_kind\":\"cluster_criterion\",\"prompt\":\"Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?\",\"answer_type\":\"boolean\",\"required\":true,\"planner_context\":{\"criterion_archetype\":\"ARC_disease_activity_or_severity_state\",\"retrieval_strategy\":\"hybrid\"},\"clinician_input\":{\"override_prefill\":false,\"answered\":false},\"chart_result\":{\"status\":\"Ambiguous\",\"meets_criterion\":false,\"extracted_value\":{\"diagnosis\":\"Non-small cell lung cancer (NSCLC)\",\"coded_support\":\"No structured condition/problem-list record matched C34.00-C34.92 in the EHR query\",\"narrative_support\":\"Clinical notes describe NSCLC/adenocarcinoma of the lung with extrinsic compression of both main stem bronchi, tumor debulking and bronchial stenting, and planned palliative chemo/radiation\",\"qualifier_status\":\"Advanced/unresectable/metastatic status is not explicitly documented as a coded or unambiguous structured fact\"},\"justification\":\"The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.\",\"sources\":{\"structured\":[{\"tool\":\"EHR_Query_Tool\",\"evidence\":\"There are no condition or problem-list records for subject e7e213ac-81c0-5c7f-8d57-81519132353e that match recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer with ICD-10 codes in the C34.00\u2013C34.92 range.\"}],\"notes\":[{\"tool\":\"Clinical_note_semantic_search_tool\",\"note_id\":\"10021312-DS-19\",\"admittime\":\"2020-08-16T00:32:00\",\"dischtime\":\"2020-08-18T17:35:00\",\"excerpt\":\"the patient was diagnosed with NSCLC compressing her mainstem bronchi ... work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting ... NSCLC: The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi\"},{\"tool\":\"Clinical_note_semantic_search_tool\",\"note_id\":\"10021312-DS-20\",\"admittime\":\"2020-09-12T14:42:00\",\"dischtime\":\"2020-09-20T18:40:00\",\"excerpt\":\"history of recent diagnosis of adenocarcinoma of the lung ... plan for initiation of palliative chemo and radiation ... Non-small cell lung cancer: Recent diagnosis with mapping and plan for palliative chemo and radiation ... diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi\"}]}},\"ui_resolution\":{\"display_state\":\"needs_clinician\",\"use_chart_as_prefill\":false,\"conflict_flag\":false,\"comment_required\":false,\"final_source\":\"unresolved\"}}],\"logic_evaluation\":{\"selected_cluster_satisfied\":false,\"selected_cluster_status\":\"unresolved\",\"satisfied_criterion_ids\":[\"CR_GUARD_NOT_CETUX_PANI\"],\"not_satisfied_criterion_ids\":[],\"unresolved_criterion_ids\":[\"CR_NSCLC_ADVANCED\",\"CR_NSCLC_NOT_PEMETREXED_MAINT\"],\"criterion_counts\":{\"satisfied\":1,\"not_satisfied\":0,\"unresolved\":2}},\"additional_cluster_suggestions\":[],\"next_action\":\"stay_screen_2\"},\"messages\":[\"Processed criterion CR_GUARD_NOT_CETUX_PANI for cluster cluster_nsclc_initial.\",\"Processed criterion CR_NSCLC_NOT_PEMETREXED_MAINT for cluster cluster_nsclc_initial.\",\"Processed criterion CR_NSCLC_ADVANCED for cluster cluster_nsclc_initial.\"]},\"review_metadata\":{},\"human_validated\":true}",
+      "messages": [
+        "Processed criterion CR_GUARD_NOT_CETUX_PANI for cluster cluster_nsclc_initial.",
+        "Processed criterion CR_NSCLC_NOT_PEMETREXED_MAINT for cluster cluster_nsclc_initial.",
+        "Processed criterion CR_NSCLC_ADVANCED for cluster cluster_nsclc_initial."
+      ],
+      "retrieval_plan_v1": {
+        "schema_version": "retrieval_plan_v1",
+        "policy_id": "0685",
+        "selected_route_id": "route_bevacizumab_nonocular",
+        "selected_route_label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+        "selected_phase": "initial",
+        "selected_cluster_id": "cluster_nsclc_initial",
+        "selected_cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+        "selected_route_guard_criterion_ids": [
+          "CR_GUARD_NOT_CETUX_PANI"
+        ],
+        "selected_cluster_entry_guard_criterion_ids": [
+          "CR_NSCLC_NOT_PEMETREXED_MAINT"
+        ],
+        "selected_cluster_criterion_ids": [
+          "CR_NSCLC_ADVANCED"
+        ],
+        "plan_items": [
+          {
+            "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+            "criterion_kind": "route_guard",
+            "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
+            "clinical_intent": "Prevent coverage of the unproven EGFR inhibitor combinations.",
+            "execution_hints": {
+              "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+              "retrieval_strategy": "hybrid",
+              "semantic_model_entity": "medication",
+              "time_anchor_field": "NONE"
+            },
+            "ehr_query_fragment": {
+              "field": "medication",
+              "operator": "not_in",
+              "value": [
+                "cetuximab",
+                "panitumumab"
+              ],
+              "codes": []
+            },
+            "time_constraint": {
+              "type": "none",
+              "anchor": "NONE",
+              "value": 0,
+              "unit": "UNKNOWN",
+              "direction": "UNKNOWN",
+              "notes": "Policy refers to the current request without a specified lookback."
+            },
+            "note_search_tokens": [
+              "cetuximab",
+              "panitumumab",
+              "Erbitux",
+              "Vectibix",
+              "bevacizumab combination"
+            ],
+            "preferred_data_domains": [
+              "medication"
+            ],
+            "prefill_strategy": "suggest",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+              "policy_time_language": "with the current request",
+              "code_binding": {
+                "origin": "none",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
+              },
+              "locator": {
+                "section_path": [
+                  "Policy",
+                  "Experimental, Investigational, or Unproven",
+                  "II. Aetna considers bevacizumab and its biosimilars in combination with cetuximab or panitumumab experimental"
+                ],
+                "page_start": 11,
+                "page_end": 11
+              }
             }
-         },
-         "screen_2_payload": {
-            "status": "ok",
-            "payload": {
-               "selected_scope": {
-                  "selected_route_id": "route_bevacizumab_nonocular",
-                  "selected_phase": "initial",
-                  "selected_cluster_id": "CLUST_INIT_NSCLC"
-               },
-               "selected_scope_display": {
-                  "route_label": "Bevacizumab for non-ocular oncology indications",
-                  "phase_label": "Initial",
-                  "cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer"
-               },
-               "criteria": [
-                  {
-                     "criterion_id": "CR_INIT_NSCLC",
-                     "criterion_kind": "cluster_criterion",
-                     "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
-                     "answer_type": "boolean",
-                     "required": true,
-                     "clinician_input": {
-                        "override_prefill": false,
-                        "answered": false
-                     },
-                     "chart_result": {
-                        "status": "Found",
-                        "meets_criterion": false,
-                        "extracted_value": {
-                           "condition_codes": [
-                              "C34.01",
-                              "C34.02",
-                              "C34.90"
-                           ],
-                           "condition_names": [
-                              "Malignant neoplasm of right main bronchus",
-                              "Malignant neoplasm of left main bronchus",
-                              "Malignant neoplasm of unspecified part of unspecified bronchus or lung"
-                           ],
-                           "condition_ids": [
-                              "1fccc82d-770c-5f05-b872-326acec78f44",
-                              "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                              "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                           ]
-                        },
-                        "justification": "Structured EHR evidence confirms NSCLC-related diagnosis codes within the requested C34.00-C34.92 range for this patient, but the retrieved data do not document the required qualifier of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC. Because the code evidence alone is insufficient to confirm the full criterion, it does not meet the criterion based on available chart evidence.",
-                        "sources": {
-                           "structured": [
-                              {
-                                 "tool": "EHR_Query_Tool",
-                                 "evidence": "Subject e7e213ac-81c0-5c7f-8d57-81519132353e has NSCLC-related condition records in the ICD-10 C34.00-C34.92 range: C34.01, C34.02, and C34.90.",
-                                 "condition_ids": [
-                                    "1fccc82d-770c-5f05-b872-326acec78f44",
-                                    "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                                    "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                                 ]
-                              }
-                           ],
-                           "notes": []
-                        }
-                     },
-                     "ui_resolution": {
-                        "display_state": "not_satisfied",
-                        "prefill_value": false,
-                        "use_chart_as_prefill": true,
-                        "conflict_flag": false,
-                        "final_answer": false,
-                        "final_source": "chart"
-                     }
-                  }
-               ],
-               "logic_evaluation": {
-                  "selected_cluster_satisfied": false,
-                  "selected_cluster_status": "not_satisfied",
-                  "satisfied_criterion_ids": [],
-                  "not_satisfied_criterion_ids": [
-                     "CR_INIT_NSCLC"
-                  ],
-                  "unresolved_criterion_ids": [],
-                  "criterion_counts": {
-                     "satisfied": 0,
-                     "not_satisfied": 1,
-                     "unresolved": 0
-                  }
-               },
-               "additional_cluster_suggestions": [],
-               "next_action": "proceed_screen_3"
+          },
+          {
+            "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+            "criterion_kind": "cluster_entry_guard",
+            "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+            "clinical_intent": "Prevent coverage of pemetrexed maintenance combinations for NSCLC.",
+            "execution_hints": {
+              "criterion_archetype": "ARC_regimen_combination_or_concomitant_use",
+              "retrieval_strategy": "hybrid",
+              "semantic_model_entity": "medication",
+              "time_anchor_field": "NONE"
             },
-            "messages": [
-               "Processed criterion CR_INIT_NSCLC for cluster CLUST_INIT_NSCLC."
-            ]
-         },
-         "screen_2_review_tool_input": {
-            "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
-            "policy_id": "0685",
-            "selected_scope": {
-               "selected_route_id": "route_bevacizumab_nonocular",
-               "selected_phase": "initial",
-               "selected_cluster_id": "CLUST_INIT_NSCLC"
+            "ehr_query_fragment": {
+              "field": "medication",
+              "operator": "not_in",
+              "value": [
+                "pemetrexed"
+              ],
+              "codes": []
             },
-            "screen_2_payload": {
-               "status": "ok",
-               "payload": {
-                  "selected_scope": {
-                     "selected_route_id": "route_bevacizumab_nonocular",
-                     "selected_phase": "initial",
-                     "selected_cluster_id": "CLUST_INIT_NSCLC"
-                  },
-                  "selected_scope_display": {
-                     "route_label": "Bevacizumab for non-ocular oncology indications",
-                     "phase_label": "Initial",
-                     "cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer"
-                  },
-                  "criteria": [
-                     {
-                        "criterion_id": "CR_INIT_NSCLC",
-                        "criterion_kind": "cluster_criterion",
-                        "prompt": "Document recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer.",
-                        "answer_type": "boolean",
-                        "required": true,
-                        "clinician_input": {
-                           "override_prefill": false,
-                           "answered": false
-                        },
-                        "chart_result": {
-                           "status": "Found",
-                           "meets_criterion": false,
-                           "extracted_value": {
-                              "condition_codes": [
-                                 "C34.01",
-                                 "C34.02",
-                                 "C34.90"
-                              ],
-                              "condition_names": [
-                                 "Malignant neoplasm of right main bronchus",
-                                 "Malignant neoplasm of left main bronchus",
-                                 "Malignant neoplasm of unspecified part of unspecified bronchus or lung"
-                              ],
-                              "condition_ids": [
-                                 "1fccc82d-770c-5f05-b872-326acec78f44",
-                                 "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                                 "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                              ]
-                           },
-                           "justification": "Structured EHR evidence confirms NSCLC-related diagnosis codes within the requested C34.00-C34.92 range for this patient, but the retrieved data do not document the required qualifier of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC. Because the code evidence alone is insufficient to confirm the full criterion, it does not meet the criterion based on available chart evidence.",
-                           "sources": {
-                              "structured": [
-                                 {
-                                    "tool": "EHR_Query_Tool",
-                                    "evidence": "Subject e7e213ac-81c0-5c7f-8d57-81519132353e has NSCLC-related condition records in the ICD-10 C34.00-C34.92 range: C34.01, C34.02, and C34.90.",
-                                    "condition_ids": [
-                                       "1fccc82d-770c-5f05-b872-326acec78f44",
-                                       "8a45232f-f7af-58c9-951e-6287d1caafa6",
-                                       "56f89fe3-90ae-56d6-a05f-ad925f7060f8"
-                                    ]
-                                 }
-                              ],
-                              "notes": []
-                           }
-                        },
-                        "ui_resolution": {
-                           "display_state": "not_satisfied",
-                           "prefill_value": false,
-                           "use_chart_as_prefill": true,
-                           "conflict_flag": false,
-                           "final_answer": false,
-                           "final_source": "chart"
-                        }
-                     }
-                  ],
-                  "logic_evaluation": {
-                     "selected_cluster_satisfied": false,
-                     "selected_cluster_status": "not_satisfied",
-                     "satisfied_criterion_ids": [],
-                     "not_satisfied_criterion_ids": [
-                        "CR_INIT_NSCLC"
-                     ],
-                     "unresolved_criterion_ids": [],
-                     "criterion_counts": {
-                        "satisfied": 0,
-                        "not_satisfied": 1,
-                        "unresolved": 0
-                     }
-                  },
-                  "additional_cluster_suggestions": [],
-                  "next_action": "proceed_screen_3"
-               },
-               "messages": [
-                  "Processed criterion CR_INIT_NSCLC for cluster CLUST_INIT_NSCLC."
-               ]
+            "time_constraint": {
+              "type": "none",
+              "anchor": "NONE",
+              "value": 0,
+              "unit": "UNKNOWN",
+              "direction": "UNKNOWN",
+              "notes": "Policy refers to the current request without a specified lookback."
             },
-            "criterion_answers": {}
-         },
-         "screen_2_review_result": ""
-      }
-   }
+            "note_search_tokens": [
+              "pemetrexed maintenance",
+              "bevacizumab maintenance",
+              "non-squamous NSCLC"
+            ],
+            "preferred_data_domains": [
+              "medication"
+            ],
+            "prefill_strategy": "suggest",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+              "policy_time_language": "for the current request",
+              "code_binding": {
+                "origin": "none",
+                "confidence": "UNKNOWN",
+                "source_codes": [],
+                "code_role": "UNKNOWN",
+                "status": "UNKNOWN"
+              },
+              "locator": {
+                "section_path": [
+                  "Policy",
+                  "Experimental, Investigational, or Unproven",
+                  "IV. Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental"
+                ],
+                "page_start": 11,
+                "page_end": 11
+              }
+            }
+          },
+          {
+            "criterion_id": "CR_NSCLC_ADVANCED",
+            "criterion_kind": "cluster_criterion",
+            "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+            "clinical_intent": "Confirm coverage for advanced non-squamous NSCLC.",
+            "execution_hints": {
+              "criterion_archetype": "ARC_disease_activity_or_severity_state",
+              "retrieval_strategy": "hybrid",
+              "semantic_model_entity": "condition",
+              "time_anchor_field": "NONE"
+            },
+            "ehr_query_fragment": {
+              "field": "condition",
+              "operator": "qualifier_exists",
+              "value": "Recurrent, unresectable, advanced, or metastatic non-squamous NSCLC",
+              "codes": [
+                "C34.00 - C34.92"
+              ]
+            },
+            "time_constraint": {
+              "type": "none",
+              "anchor": "NONE",
+              "value": 0,
+              "unit": "UNKNOWN",
+              "direction": "UNKNOWN",
+              "notes": "Policy references the current disease status without a precise timeframe."
+            },
+            "note_search_tokens": [
+              "non-squamous NSCLC",
+              "advanced non-small cell lung cancer",
+              "recurrent NSCLC"
+            ],
+            "preferred_data_domains": [
+              "condition"
+            ],
+            "prefill_strategy": "auto",
+            "clinician_must_confirm": true,
+            "source_criterion_snapshot": {
+              "policy_time_language": "current",
+              "code_binding": {
+                "origin": "code_table_primary",
+                "confidence": "HIGH",
+                "source_codes": [
+                  "C34.00 - C34.92"
+                ],
+                "code_role": "diagnosis_inclusion",
+                "status": "mapped"
+              },
+              "locator": {
+                "section_path": [
+                  "Policy",
+                  "I. Criteria for Initial Approval",
+                  "I. Non-small cell lung cancer (NSCLC)"
+                ],
+                "page_start": 4,
+                "page_end": 4
+              }
+            }
+          }
+        ],
+        "notes": {
+          "planning_notes": "All scoped coverage and exclusion criteria are represented; no additional timing guidance was provided.",
+          "confidence": "MEDIUM"
+        }
+      },
+      "current_reasoning_result": "{\"criterion_id\":\"CR_NSCLC_ADVANCED\",\"status\":\"Found\",\"meets_criterion\":true,\"extracted_value\":{\"diagnosis\":\"Non-small cell lung cancer (NSCLC)\",\"qualifier\":\"advanced / unresectable / recurrent / metastatic not explicitly coded in structured data but supported by narrative context\",\"evidence_summary\":\"Clinical notes document NSCLC with extrinsic compression of both main stem bronchi, tumor burden causing obstructive complications, and planned palliative chemotherapy/radiation. Structured EHR query found no condition/problem-list records specifically matching the requested qualifier and ICD-10 range, but notes support NSCLC as an active, advanced malignancy.\"},\"justification\":\"The chart contains narrative evidence of NSCLC with large obstructive mediastinal/lung mass causing compression of the mainstem bronchi, requiring bronchial stenting and planned palliative chemo/radiation, which is consistent with advanced/unresectable disease. Although the structured condition query did not return a matching coded condition in the C34.00-C34.92 range, the clinical notes provide sufficient support that the member has advanced non-squamous NSCLC for the purpose of this criterion.\",\"sources\":{\"structured\":[{\"tool\":\"EHR_Query_Tool\",\"evidence\":\"There are no condition or problem-list records for subject e7e213ac-81c0-5c7f-8d57-81519132353e that match recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer with ICD-10 codes in the C34.00\u2013C34.92 range.\"}],\"notes\":[{\"tool\":\"Clinical_note_semantic_search_tool\",\"note_id\":\"10021312-DS-19\",\"admittime\":\"2020-08-16T00:32:00\",\"dischtime\":\"2020-08-18T17:35:00\",\"excerpt\":\"the patient was diagnosed with NSCLC compressing her mainstem bronchi ... work-up with negative head CT and CTA A/P for metastatic disease with plans for potential chemo/XRT after stenting ... NSCLC: The patient was diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi\"},{\"tool\":\"Clinical_note_semantic_search_tool\",\"note_id\":\"10021312-DS-20\",\"admittime\":\"2020-09-12T14:42:00\",\"dischtime\":\"2020-09-20T18:40:00\",\"excerpt\":\"history of recent diagnosis of adenocarcinoma of the lung ... plan for initiation of palliative chemo and radiation ... Non-small cell lung cancer: Recent diagnosis with mapping and plan for palliative chemo and radiation ... diagnosed with NSCLC, consistent with adenocarcinoma, with extrinsic compression of both main stem bronchi\"}]}}"
+    }
+  }
 }

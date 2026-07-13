@@ -1,5 +1,5 @@
 {
-  "status": "complete",
+  "status": "blocked",
   "payload": {
     "review_summary": {
       "selected_scope": {
@@ -14,59 +14,69 @@
       },
       "criterion_totals": {
         "total": 3,
-        "answered": 3,
-        "unanswered_required": 0,
-        "conflicts": 0
+        "satisfied": 0,
+        "rejected": 0,
+        "unresolved": 3
       },
       "logic_evaluation": {
-        "selected_cluster_satisfied": true,
-        "selected_cluster_status": "satisfied",
-        "satisfied_criterion_ids": [
+        "selected_cluster_satisfied": false,
+        "selected_cluster_status": "unresolved",
+        "satisfied_criterion_ids": [],
+        "not_satisfied_criterion_ids": [],
+        "unresolved_criterion_ids": [
           "CRG_NO_CONCOMITANT",
           "CR_INIT_UC_DIAG",
           "CR_CONT_UC_RESPONSE"
         ],
-        "not_satisfied_criterion_ids": [],
-        "unresolved_criterion_ids": [],
         "criterion_counts": {
-          "satisfied": 3,
+          "satisfied": 0,
           "not_satisfied": 0,
-          "unresolved": 0
+          "unresolved": 3
         }
       }
     },
-    "answered_criteria": [
+    "satisfied_criteria": [],
+    "rejected_criteria": [],
+    "unresolved_criteria": [
       {
         "criterion_id": "CRG_NO_CONCOMITANT",
         "criterion_kind": "route_guard",
         "prompt": "Is the member not using another biologic or targeted synthetic drug concomitantly for the same indication?",
-        "final_answer": true,
-        "final_source": "clinician",
-        "display_state": "satisfied",
-        "comment": null
+        "final_answer": null,
+        "final_source": "unresolved",
+        "display_state": "needs_clinician",
+        "justification": "No chart evidence documents either the presence or the absence of another biologic or targeted synthetic drug used concomitantly for the same indication. The EHR query did not identify adalimumab-linked medication records or contemporaneous biologic/targeted synthetic therapy entries, and the available notes do not explicitly state that concomitant biologic/targeted synthetic therapy is absent. Under the plan rules for exclusion logic, silence is insufficient to confirm this route guard.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
       },
       {
         "criterion_id": "CR_INIT_UC_DIAG",
         "criterion_kind": "cluster_criterion",
         "prompt": "Does the member have moderately to severely active ulcerative colitis?",
-        "final_answer": true,
-        "final_source": "clinician",
-        "display_state": "satisfied",
-        "comment": null
+        "final_answer": null,
+        "final_source": "unresolved",
+        "display_state": "needs_clinician",
+        "justification": "Structured EHR evidence confirms ulcerative colitis coding within the policy range (K51.00-K51.919), but the criterion prompt asks for moderately to severely active ulcerative colitis. The available chart evidence does not establish disease activity/severity, so the diagnosis component is supported but the full criterion cannot be conclusively adjudicated from structured data alone.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
       },
       {
         "criterion_id": "CR_CONT_UC_RESPONSE",
         "criterion_kind": "cluster_criterion",
         "prompt": "Is the member using adalimumab for ulcerative colitis and achieving/maintaining remission or showing improvement in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance, or scores such as UCEIS/Mayo?",
-        "final_answer": true,
-        "final_source": "clinician",
-        "display_state": "satisfied",
-        "comment": "The patient has acheived disease remission after 3 months of treatment."
+        "final_answer": null,
+        "final_source": "unresolved",
+        "display_state": "needs_clinician",
+        "justification": "The chart confirms a UC condition record with ICD-10 K51.x, but no observations or note evidence were found showing remission or improvement in stool frequency, rectal bleeding, urgency, CRP, fecal calprotectin, mucosal appearance, UCEIS, or Mayo score. Diagnosis alone is insufficient to satisfy the continuation-response criterion.",
+        "comment": null,
+        "conflict_flag": false,
+        "conflict_reason": null
       }
     ],
-    "unanswered_required_items": [],
-    "warnings": [],
-    "submission_ready": true
+    "review_alerts": [],
+    "submission_ready": false
   },
   "messages": [
     "Processed criterion CRG_NO_CONCOMITANT for cluster CL_CONT_UC.",

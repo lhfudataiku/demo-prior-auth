@@ -1,0 +1,981 @@
+{
+   "context": {
+      "conversationId": "conv-2r8x1uh6adiulkg8ous32a",
+      "dkuOnBehalfOf": "liheng.fu@dataiku.com",
+      "_blocksGraphState_DEMO_PRIOR_AUTH_AGENT-NkBiV9OM-v2": {
+         "_currentBlockId": "request_human_review",
+         "subject_id": "cb70e6ae-90b1-562b-8ab0-467c65d18d5e",
+         "policy_id": "0314",
+         "session_id": "fixture-0314-cluster_oncologic_iv_initial",
+         "criterion_result_map": {
+            "CR_ONCO_CD20_POS": {
+               "criterion_id": "CR_ONCO_CD20_POS",
+               "status": "Ambiguous",
+               "meets_criterion": false,
+               "extracted_value": {
+                  "condition_records": [
+                     {
+                        "code": "C91.10",
+                        "condition_name": "Chronic lymphocytic leukemia of B-cell type not having achieved remission"
+                     },
+                     {
+                        "code": "C91.11",
+                        "condition_name": "Chronic lymphocytic leukemia of B-cell type in remission"
+                     }
+                  ],
+                  "cd20_positivity_confirmed": false
+               },
+               "justification": "Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier—CD20 positivity confirmed by testing or analysis—was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.",
+               "sources": {
+                  "structured": [
+                     "EHR query result for subject cb70e6ae-90b1-562b-8ab0-467c65d18d5e: 21 qualifying condition records; 20 C91.10 and 1 C91.11; no linked observation evidence confirming CD20 positivity."
+                  ],
+                  "notes": []
+               }
+            }
+         },
+         "criterion_ui_map": {
+            "CR_ONCO_CD20_POS": {
+               "criterion_id": "CR_ONCO_CD20_POS",
+               "criterion_kind": "cluster_criterion",
+               "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+               "answer_type": "boolean",
+               "required": true,
+               "planner_context": {},
+               "clinician_input": {
+                  "override_prefill": false,
+                  "answered": false
+               },
+               "chart_result": {
+                  "status": "Ambiguous",
+                  "meets_criterion": false,
+                  "extracted_value": {
+                     "condition_records": [
+                        {
+                           "code": "C91.10",
+                           "condition_name": "Chronic lymphocytic leukemia of B-cell type not having achieved remission"
+                        },
+                        {
+                           "code": "C91.11",
+                           "condition_name": "Chronic lymphocytic leukemia of B-cell type in remission"
+                        }
+                     ],
+                     "cd20_positivity_confirmed": false
+                  },
+                  "justification": "Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier—CD20 positivity confirmed by testing or analysis—was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.",
+                  "sources": {
+                     "structured": [
+                        "EHR query result for subject cb70e6ae-90b1-562b-8ab0-467c65d18d5e: 21 qualifying condition records; 20 C91.10 and 1 C91.11; no linked observation evidence confirming CD20 positivity."
+                     ],
+                     "notes": []
+                  }
+               },
+               "ui_resolution": {
+                  "display_state": "needs_clinician",
+                  "use_chart_as_prefill": false,
+                  "conflict_flag": false,
+                  "comment_required": false,
+                  "final_source": "unresolved"
+               }
+            }
+         },
+         "logic_evaluation": {
+            "selected_cluster_satisfied": false,
+            "selected_cluster_status": "unresolved",
+            "satisfied_criterion_ids": [],
+            "not_satisfied_criterion_ids": [],
+            "unresolved_criterion_ids": [
+               "CR_ONCO_CD20_POS"
+            ],
+            "criterion_counts": {
+               "satisfied": 0,
+               "not_satisfied": 0,
+               "unresolved": 1
+            }
+         },
+         "selected_scope_context": {
+            "policy_id": "0314",
+            "selected_route_id": "route_rituximab_iv",
+            "selected_route_label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+            "selected_phase": "initial",
+            "selected_phase_label": "Initial",
+            "selected_cluster_id": "cluster_oncologic_iv_initial",
+            "selected_cluster_label": "CD20-positive B-cell malignancies",
+            "selected_route": {
+               "route_id": "route_rituximab_iv",
+               "label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+               "coverage_status": "covered",
+               "terminal_disposition": "continue",
+               "billing_codes": [
+                  "J9312",
+                  "Q5115",
+                  "Q5119",
+                  "Q5123"
+               ],
+               "route_kind": "covered_request",
+               "phase_prompt_required": true,
+               "phase_branches": [
+                  {
+                     "phase": "initial",
+                     "is_default": true,
+                     "route_guard_ids": [],
+                     "cluster_ids": [
+                        "cluster_oncologic_iv_initial",
+                        "cluster_hematologic_iv_initial",
+                        "cluster_icpi_toxicity_iv_initial",
+                        "cluster_ra_iv_initial",
+                        "cluster_vasculitis_iv_initial",
+                        "cluster_sjogren_iv_initial",
+                        "cluster_ms_iv_initial",
+                        "cluster_nmosd_iv_initial",
+                        "cluster_blistering_iv_initial",
+                        "cluster_cryoglobulinemia_iv_initial",
+                        "cluster_transplant_iv_initial",
+                        "cluster_membranous_iv_initial",
+                        "cluster_opsoclonus_iv_initial",
+                        "cluster_lupus_iv_initial",
+                        "cluster_myasthenia_iv_initial",
+                        "cluster_susac_iv_initial"
+                     ]
+                  },
+                  {
+                     "phase": "continuation",
+                     "is_default": false,
+                     "route_guard_ids": [],
+                     "cluster_ids": [
+                        "cluster_oncologic_iv_continuation",
+                        "cluster_hematologic_iv_continuation",
+                        "cluster_icpi_toxicity_iv_continuation",
+                        "cluster_ra_iv_continuation",
+                        "cluster_vasculitis_iv_continuation",
+                        "cluster_sjogren_iv_continuation",
+                        "cluster_ms_iv_continuation",
+                        "cluster_nmosd_iv_continuation",
+                        "cluster_blistering_iv_continuation",
+                        "cluster_cryoglobulinemia_iv_continuation",
+                        "cluster_transplant_iv_continuation",
+                        "cluster_membranous_iv_continuation",
+                        "cluster_opsoclonus_iv_continuation",
+                        "cluster_lupus_iv_continuation",
+                        "cluster_myasthenia_iv_continuation",
+                        "cluster_susac_iv_continuation"
+                     ]
+                  }
+               ],
+               "routing_notes": "Iv rituximab indications span hematologic, oncologic, rheumatologic, neurologic, and transplant-related conditions; continuation requires confirming ongoing benefit or absence of toxicity.",
+               "evidence": "Section I and III describe the medically necessary oncologic, hematologic, rheumatologic, neurologic, and transplant-related indications for rituximab and the associated continuation criteria in Sections II and IV.",
+               "locator": {
+                  "section_path": [
+                     "Policy",
+                     "Treatment of Hematologic and Oncologic Conditions"
+                  ],
+                  "page_start": 2,
+                  "page_end": 7
+               }
+            },
+            "selected_phase_branch": {
+               "phase": "initial",
+               "is_default": true,
+               "route_guard_ids": [],
+               "cluster_summaries": [
+                  {
+                     "cluster_id": "cluster_oncologic_iv_initial",
+                     "condition_key": "oncologic_cd20_positive_bcell_malignancies",
+                     "condition_label": "CD20-positive B-cell malignancies",
+                     "condition_synonyms": [
+                        "Diffuse large B-cell lymphoma",
+                        "Follicular lymphoma",
+                        "Mantle cell lymphoma",
+                        "Chronic lymphocytic leukemia",
+                        "Waldenström macroglobulinemia",
+                        "Post-transplant lymphoproliferative disorder"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "C81.00 - C81.09",
+                        "C81.40 - C81.49",
+                        "C82.00 - C82.99",
+                        "C83.00 - C83.09",
+                        "C83.10 - C83.19",
+                        "C83.30 - C83.3A",
+                        "C83.50 - C83.59",
+                        "C83.70 - C83.79",
+                        "C83.80 - C83.89",
+                        "C83.90 - C83.99",
+                        "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+                        "C85.10 - C85.19",
+                        "C85.20 - C85.29",
+                        "C85.80 - C85.99",
+                        "C86.00 - C86.41",
+                        "C86.50 - C86.51",
+                        "C86.60 - C86.61",
+                        "C88.00 - C88.01",
+                        "C88.40 - C88.41",
+                        "C91.00 - C91.01",
+                        "C91.10 - C91.12",
+                        "C91.40 - C91.42",
+                        "D47.Z1",
+                        "D47.Z2",
+                        "D76.3"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_hematologic_iv_initial",
+                     "condition_key": "hematologic_autoimmune_and_transplant_conditions",
+                     "condition_label": "Refractory hematologic autoimmune and transplant-related conditions",
+                     "condition_synonyms": [
+                        "Refractory ITP",
+                        "Autoimmune hemolytic anemia",
+                        "Thrombotic thrombocytopenic purpura",
+                        "Chronic graft-versus-host disease",
+                        "EBV-related PTLD prevention",
+                        "Non-myeloablative allogeneic conditioning"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "D59.0 - D59.19",
+                        "D69.3",
+                        "M31.10 - M31.19",
+                        "D89.811",
+                        "D47.Z1",
+                        "D47.Z2"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_icpi_toxicity_iv_initial",
+                     "condition_key": "immune_checkpoint_inhibitor_related_toxicities",
+                     "condition_label": "Immune checkpoint inhibitor-related toxicities",
+                     "condition_synonyms": [
+                        "Checkpoint inhibitor toxicity",
+                        "ICI-related encephalitis"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "G04.81"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_ra_iv_initial",
+                     "condition_key": "moderately_to_severely_active_rheumatoid_arthritis",
+                     "condition_label": "Moderately to severely active rheumatoid arthritis",
+                     "condition_synonyms": [
+                        "RA",
+                        "Rheumatoid arthritis requiring biologic therapy"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "M05.00 - M14.89"
+                     ],
+                     "cluster_entry_guard_ids": [
+                        "CEG_RA_NO_OTHER_BIO"
+                     ]
+                  },
+                  {
+                     "cluster_id": "cluster_vasculitis_iv_initial",
+                     "condition_key": "anca_associated_vasculitis_and_pauciimmune_gn",
+                     "condition_label": "GPA, MPA, EGPA or pauci-immune glomerulonephritis",
+                     "condition_synonyms": [
+                        "Granulomatosis with polyangiitis",
+                        "Microscopic polyangiitis",
+                        "Eosinophilic granulomatosis with polyangiitis",
+                        "Pauci-immune glomerulonephritis"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "M30.1",
+                        "M31.30 - M31.31",
+                        "N01.3"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_sjogren_iv_initial",
+                     "condition_key": "sjogren_syndrome_refractory",
+                     "condition_label": "Sjögren’s syndrome refractory to other immunosuppressive therapy",
+                     "condition_synonyms": [
+                        "Sicca syndrome",
+                        "Sjögren"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "M35.00 - M35.09"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_ms_iv_initial",
+                     "condition_key": "relapsing_remitting_multiple_sclerosis",
+                     "condition_label": "Relapsing remitting multiple sclerosis (RRMS)",
+                     "condition_synonyms": [
+                        "RRMS"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "G35.A - G35.D"
+                     ],
+                     "cluster_entry_guard_ids": [
+                        "CEG_MS_NO_OTHER_DMOD"
+                     ]
+                  },
+                  {
+                     "cluster_id": "cluster_nmosd_iv_initial",
+                     "condition_key": "neuromyelitis_optica_spectrum_disorder",
+                     "condition_label": "Neuromyelitis optica spectrum disorder (NMOSD)",
+                     "condition_synonyms": [
+                        "Devic disease",
+                        "NMOSD"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "G36.0"
+                     ],
+                     "cluster_entry_guard_ids": [
+                        "CEG_NMOSD_NO_OTHER_BIO"
+                     ]
+                  },
+                  {
+                     "cluster_id": "cluster_blistering_iv_initial",
+                     "condition_key": "autoimmune_blistering_diseases",
+                     "condition_label": "Autoimmune blistering diseases",
+                     "condition_synonyms": [
+                        "Pemphigus vulgaris",
+                        "Pemphigus foliaceus",
+                        "Bullous pemphigoid",
+                        "Acquired epidermolysis bullosa"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "L10.0",
+                        "L10.2",
+                        "L10.81",
+                        "L12.0",
+                        "L12.1",
+                        "L12.30 - L12.35"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_cryoglobulinemia_iv_initial",
+                     "condition_key": "cryoglobulinemia_refractory",
+                     "condition_label": "Cryoglobulinemia refractory to corticosteroids and other immunosuppressives",
+                     "condition_synonyms": [
+                        "Cryoglobulinemia"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "D89.1"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_transplant_iv_initial",
+                     "condition_key": "solid_organ_transplant_and_antibody_mediated_rejection",
+                     "condition_label": "Solid organ transplant treatment and prevention of antibody-mediated rejection",
+                     "condition_synonyms": [
+                        "Transplant desensitization",
+                        "Antibody mediated rejection prevention"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "T86.00 - T86.99",
+                        "Z94.0 - Z94.9"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_membranous_iv_initial",
+                     "condition_key": "membranous_nephropathy_moderate_high_risk",
+                     "condition_label": "Membranous nephropathy at moderate to high risk for progression",
+                     "condition_synonyms": [
+                        "Diffuse membranous glomerulonephritis",
+                        "Membranous nephropathy"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "N04.20 - N04.29",
+                        "N06.20 - N06.29"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_opsoclonus_iv_initial",
+                     "condition_key": "opsoclonus_myoclonus_ataxia_associated_with_neuroblastoma",
+                     "condition_label": "Opsoclonus-myoclonus-ataxia associated with neuroblastoma",
+                     "condition_synonyms": [
+                        "OMA with neuroblastoma"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "H55.89"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_lupus_iv_initial",
+                     "condition_key": "systemic_lupus_erythematosus_refractory",
+                     "condition_label": "Systemic lupus erythematosus refractory to immunosuppressive therapy",
+                     "condition_synonyms": [
+                        "SLE refractory"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "M32.0 - M32.9"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_myasthenia_iv_initial",
+                     "condition_key": "refractory_myasthenia_gravis",
+                     "condition_label": "Refractory myasthenia gravis",
+                     "condition_synonyms": [
+                        "MG refractory"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "G70.00 - G70.01"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  },
+                  {
+                     "cluster_id": "cluster_susac_iv_initial",
+                     "condition_key": "susac_syndrome",
+                     "condition_label": "Susac syndrome",
+                     "condition_synonyms": [
+                        "Susac disease"
+                     ],
+                     "diagnosis_basis": "code_table_primary",
+                     "diagnosis_code_candidates": [
+                        "G93.49"
+                     ],
+                     "cluster_entry_guard_ids": []
+                  }
+               ]
+            },
+            "selected_route_guards": [],
+            "selected_cluster_summary": {
+               "cluster_id": "cluster_oncologic_iv_initial",
+               "condition_key": "oncologic_cd20_positive_bcell_malignancies",
+               "condition_label": "CD20-positive B-cell malignancies",
+               "condition_synonyms": [
+                  "Diffuse large B-cell lymphoma",
+                  "Follicular lymphoma",
+                  "Mantle cell lymphoma",
+                  "Chronic lymphocytic leukemia",
+                  "Waldenström macroglobulinemia",
+                  "Post-transplant lymphoproliferative disorder"
+               ],
+               "diagnosis_basis": "code_table_primary",
+               "diagnosis_code_candidates": [
+                  "C81.00 - C81.09",
+                  "C81.40 - C81.49",
+                  "C82.00 - C82.99",
+                  "C83.00 - C83.09",
+                  "C83.10 - C83.19",
+                  "C83.30 - C83.3A",
+                  "C83.50 - C83.59",
+                  "C83.70 - C83.79",
+                  "C83.80 - C83.89",
+                  "C83.90 - C83.99",
+                  "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+                  "C85.10 - C85.19",
+                  "C85.20 - C85.29",
+                  "C85.80 - C85.99",
+                  "C86.00 - C86.41",
+                  "C86.50 - C86.51",
+                  "C86.60 - C86.61",
+                  "C88.00 - C88.01",
+                  "C88.40 - C88.41",
+                  "C91.00 - C91.01",
+                  "C91.10 - C91.12",
+                  "C91.40 - C91.42",
+                  "D47.Z1",
+                  "D47.Z2",
+                  "D76.3"
+               ],
+               "cluster_entry_guard_ids": []
+            },
+            "selected_cluster": {
+               "cluster_id": "cluster_oncologic_iv_initial",
+               "route_id": "route_rituximab_iv",
+               "phase": "initial",
+               "condition_key": "oncologic_cd20_positive_bcell_malignancies",
+               "condition_label": "CD20-positive B-cell malignancies",
+               "condition_synonyms": [
+                  "Diffuse large B-cell lymphoma",
+                  "Follicular lymphoma",
+                  "Mantle cell lymphoma",
+                  "Chronic lymphocytic leukemia",
+                  "Waldenström macroglobulinemia",
+                  "Post-transplant lymphoproliferative disorder"
+               ],
+               "diagnosis_basis": "code_table_primary",
+               "diagnosis_code_candidates": [
+                  "C81.00 - C81.09",
+                  "C81.40 - C81.49",
+                  "C82.00 - C82.99",
+                  "C83.00 - C83.09",
+                  "C83.10 - C83.19",
+                  "C83.30 - C83.3A",
+                  "C83.50 - C83.59",
+                  "C83.70 - C83.79",
+                  "C83.80 - C83.89",
+                  "C83.90 - C83.99",
+                  "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+                  "C85.10 - C85.19",
+                  "C85.20 - C85.29",
+                  "C85.80 - C85.99",
+                  "C86.00 - C86.41",
+                  "C86.50 - C86.51",
+                  "C86.60 - C86.61",
+                  "C88.00 - C88.01",
+                  "C88.40 - C88.41",
+                  "C91.00 - C91.01",
+                  "C91.10 - C91.12",
+                  "C91.40 - C91.42",
+                  "D47.Z1",
+                  "D47.Z2",
+                  "D76.3"
+               ],
+               "inherits_diagnosis_from_cluster_ids": [],
+               "cluster_entry_guard_ids": [],
+               "logic_profile_id": "UNKNOWN",
+               "logic_root": {
+                  "node_type": "group",
+                  "operator": "all",
+                  "children": [
+                     {
+                        "node_type": "criterion_ref",
+                        "criterion_id": "CR_ONCO_CD20_POS"
+                     }
+                  ]
+               },
+               "evidence": "Section I.A states that rituximab is medically necessary for the treatment of the enumerated CD20-positive oncologic disorders when CD20 positivity is confirmed by testing or analysis.",
+               "locator": {
+                  "section_path": [
+                     "Policy",
+                     "Treatment of Hematologic and Oncologic Conditions",
+                     "I. Criteria for Initial Approval",
+                     "A. Oncologic indications"
+                  ],
+                  "page_start": 2,
+                  "page_end": 3
+               }
+            },
+            "selected_cluster_entry_guards": [],
+            "selected_logic_profiles": [],
+            "selected_inherited_diagnosis_clusters": [],
+            "effective_diagnosis_code_candidates": [
+               "C81.00 - C81.09",
+               "C81.40 - C81.49",
+               "C82.00 - C82.99",
+               "C83.00 - C83.09",
+               "C83.10 - C83.19",
+               "C83.30 - C83.3A",
+               "C83.50 - C83.59",
+               "C83.70 - C83.79",
+               "C83.80 - C83.89",
+               "C83.90 - C83.99",
+               "C84.00 - C84.79; C84.A0 - C84.Z9; C84.90 - C84.99",
+               "C85.10 - C85.19",
+               "C85.20 - C85.29",
+               "C85.80 - C85.99",
+               "C86.00 - C86.41",
+               "C86.50 - C86.51",
+               "C86.60 - C86.61",
+               "C88.00 - C88.01",
+               "C88.40 - C88.41",
+               "C91.00 - C91.01",
+               "C91.10 - C91.12",
+               "C91.40 - C91.42",
+               "D47.Z1",
+               "D47.Z2",
+               "D76.3"
+            ],
+            "selected_route_guard_criterion_ids": [],
+            "selected_cluster_entry_guard_criterion_ids": [],
+            "selected_inherited_diagnosis_criterion_ids": [],
+            "selected_cluster_criterion_ids": [
+               "CR_ONCO_CD20_POS"
+            ],
+            "selected_criteria_catalog": [
+               {
+                  "criterion_id": "CR_ONCO_CD20_POS",
+                  "criterion_kind": "cluster_criterion",
+                  "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+                  "clinical_intent": "Confirm the request is for a covered CD20-positive B-cell malignancy.",
+                  "answer_type": "boolean",
+                  "required": true,
+                  "code_binding": {
+                     "source_codes": [
+                        "C81.00 - C81.09",
+                        "C81.40 - C81.49",
+                        "C82.00 - C82.99",
+                        "C83.00 - C83.09",
+                        "C83.10 - C83.19",
+                        "C83.30 - C83.3A",
+                        "C83.50 - C83.59",
+                        "C83.70 - C83.79",
+                        "C83.80 - C83.89",
+                        "C83.90 - C83.99",
+                        "C84.00 - C84.79",
+                        "C84.A0 - C84.Z9",
+                        "C84.90 - C84.99",
+                        "C85.10 - C85.19",
+                        "C85.20 - C85.29",
+                        "C85.80 - C85.99",
+                        "C86.00 - C86.41",
+                        "C86.50 - C86.51",
+                        "C86.60 - C86.61",
+                        "C88.00 - C88.01",
+                        "C88.40 - C88.41",
+                        "C91.00 - C91.01",
+                        "C91.10 - C91.12",
+                        "C91.40 - C91.42",
+                        "D47.Z1",
+                        "D47.Z2",
+                        "D76.3"
+                     ],
+                     "code_role": "diagnosis_inclusion"
+                  },
+                  "preferred_data_domains": [
+                     "condition",
+                     "observation"
+                  ],
+                  "policy_time_language": "For treatment of the oncologic disorders listed in Section I.A that are CD20-positive as confirmed by testing or analysis.",
+                  "retrieval_priority": "high",
+                  "prefill_allowed": true,
+                  "clinician_must_confirm": true,
+                  "evidence": "Aetna considers rituximab medically necessary for the listed CD20-positive oncologic disorders when CD20 positivity is confirmed by testing or analysis (Section I.A).",
+                  "locator": {
+                     "section_path": [
+                        "Policy",
+                        "Treatment of Hematologic and Oncologic Conditions",
+                        "I. Criteria for Initial Approval",
+                        "A. Oncologic indications"
+                     ],
+                     "page_start": 2,
+                     "page_end": 3
+                  }
+               }
+            ]
+         },
+         "screen_2_payload": {
+            "status": "warning",
+            "payload": {
+               "selected_scope": {
+                  "selected_route_id": "route_rituximab_iv",
+                  "selected_phase": "initial",
+                  "selected_cluster_id": "cluster_oncologic_iv_initial"
+               },
+               "selected_scope_display": {
+                  "route_label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+                  "phase_label": "Initial",
+                  "cluster_label": "CD20-positive B-cell malignancies"
+               },
+               "criteria": [
+                  {
+                     "criterion_id": "CR_ONCO_CD20_POS",
+                     "criterion_kind": "cluster_criterion",
+                     "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+                     "answer_type": "boolean",
+                     "required": true,
+                     "planner_context": {
+                        "criterion_archetype": "ARC_hybrid_structured_note",
+                        "retrieval_strategy": "hybrid"
+                     },
+                     "clinician_input": {
+                        "override_prefill": false,
+                        "answered": false
+                     },
+                     "chart_result": {
+                        "status": "Ambiguous",
+                        "meets_criterion": false,
+                        "extracted_value": {
+                           "condition_records": [
+                              {
+                                 "code": "C91.10",
+                                 "condition_name": "Chronic lymphocytic leukemia of B-cell type not having achieved remission"
+                              },
+                              {
+                                 "code": "C91.11",
+                                 "condition_name": "Chronic lymphocytic leukemia of B-cell type in remission"
+                              }
+                           ],
+                           "cd20_positivity_confirmed": false
+                        },
+                        "justification": "Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier—CD20 positivity confirmed by testing or analysis—was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.",
+                        "sources": {
+                           "structured": [
+                              "EHR query result for subject cb70e6ae-90b1-562b-8ab0-467c65d18d5e: 21 qualifying condition records; 20 C91.10 and 1 C91.11; no linked observation evidence confirming CD20 positivity."
+                           ],
+                           "notes": []
+                        }
+                     },
+                     "ui_resolution": {
+                        "display_state": "needs_clinician",
+                        "use_chart_as_prefill": false,
+                        "conflict_flag": false,
+                        "comment_required": false,
+                        "final_source": "unresolved"
+                     }
+                  }
+               ],
+               "logic_evaluation": {
+                  "selected_cluster_satisfied": false,
+                  "selected_cluster_status": "unresolved",
+                  "satisfied_criterion_ids": [],
+                  "not_satisfied_criterion_ids": [],
+                  "unresolved_criterion_ids": [
+                     "CR_ONCO_CD20_POS"
+                  ],
+                  "criterion_counts": {
+                     "satisfied": 0,
+                     "not_satisfied": 0,
+                     "unresolved": 1
+                  }
+               },
+               "additional_cluster_suggestions": [],
+               "next_action": "stay_screen_2"
+            },
+            "messages": [
+               "Processed criterion CR_ONCO_CD20_POS for cluster cluster_oncologic_iv_initial."
+            ]
+         },
+         "criterion_answers": {},
+         "screen_2_review_tool_input": {
+            "session_id": "fixture-0314-cluster_oncologic_iv_initial",
+            "subject_id": "cb70e6ae-90b1-562b-8ab0-467c65d18d5e",
+            "policy_id": "0314",
+            "selected_scope": {
+               "selected_route_id": "route_rituximab_iv",
+               "selected_phase": "initial",
+               "selected_cluster_id": "cluster_oncologic_iv_initial"
+            },
+            "screen_2_payload": {
+               "status": "warning",
+               "payload": {
+                  "selected_scope": {
+                     "selected_route_id": "route_rituximab_iv",
+                     "selected_phase": "initial",
+                     "selected_cluster_id": "cluster_oncologic_iv_initial"
+                  },
+                  "selected_scope_display": {
+                     "route_label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+                     "phase_label": "Initial",
+                     "cluster_label": "CD20-positive B-cell malignancies"
+                  },
+                  "criteria": [
+                     {
+                        "criterion_id": "CR_ONCO_CD20_POS",
+                        "criterion_kind": "cluster_criterion",
+                        "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+                        "answer_type": "boolean",
+                        "required": true,
+                        "planner_context": {
+                           "criterion_archetype": "ARC_hybrid_structured_note",
+                           "retrieval_strategy": "hybrid"
+                        },
+                        "clinician_input": {
+                           "override_prefill": false,
+                           "answered": false
+                        },
+                        "chart_result": {
+                           "status": "Ambiguous",
+                           "meets_criterion": false,
+                           "extracted_value": {
+                              "condition_records": [
+                                 {
+                                    "code": "C91.10",
+                                    "condition_name": "Chronic lymphocytic leukemia of B-cell type not having achieved remission"
+                                 },
+                                 {
+                                    "code": "C91.11",
+                                    "condition_name": "Chronic lymphocytic leukemia of B-cell type in remission"
+                                 }
+                              ],
+                              "cd20_positivity_confirmed": false
+                           },
+                           "justification": "Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier—CD20 positivity confirmed by testing or analysis—was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.",
+                           "sources": {
+                              "structured": [
+                                 "EHR query result for subject cb70e6ae-90b1-562b-8ab0-467c65d18d5e: 21 qualifying condition records; 20 C91.10 and 1 C91.11; no linked observation evidence confirming CD20 positivity."
+                              ],
+                              "notes": []
+                           }
+                        },
+                        "ui_resolution": {
+                           "display_state": "needs_clinician",
+                           "use_chart_as_prefill": false,
+                           "conflict_flag": false,
+                           "comment_required": false,
+                           "final_source": "unresolved"
+                        }
+                     }
+                  ],
+                  "logic_evaluation": {
+                     "selected_cluster_satisfied": false,
+                     "selected_cluster_status": "unresolved",
+                     "satisfied_criterion_ids": [],
+                     "not_satisfied_criterion_ids": [],
+                     "unresolved_criterion_ids": [
+                        "CR_ONCO_CD20_POS"
+                     ],
+                     "criterion_counts": {
+                        "satisfied": 0,
+                        "not_satisfied": 0,
+                        "unresolved": 1
+                     }
+                  },
+                  "additional_cluster_suggestions": [],
+                  "next_action": "stay_screen_2"
+               },
+               "messages": [
+                  "Processed criterion CR_ONCO_CD20_POS for cluster cluster_oncologic_iv_initial."
+               ]
+            },
+            "criterion_answers": {}
+         },
+         "screen_2_review_result": "{\"approval_status\":\"approved\",\"approved_criterion_answers\":{},\"reviewed_screen_2_payload\":{\"status\":\"warning\",\"payload\":{\"selected_scope\":{\"selected_route_id\":\"route_rituximab_iv\",\"selected_phase\":\"initial\",\"selected_cluster_id\":\"cluster_oncologic_iv_initial\"},\"selected_scope_display\":{\"route_label\":\"Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)\",\"phase_label\":\"Initial\",\"cluster_label\":\"CD20-positive B-cell malignancies\"},\"criteria\":[{\"criterion_id\":\"CR_ONCO_CD20_POS\",\"criterion_kind\":\"cluster_criterion\",\"prompt\":\"Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?\",\"answer_type\":\"boolean\",\"required\":true,\"planner_context\":{\"criterion_archetype\":\"ARC_hybrid_structured_note\",\"retrieval_strategy\":\"hybrid\"},\"clinician_input\":{\"override_prefill\":false,\"answered\":false},\"chart_result\":{\"status\":\"Ambiguous\",\"meets_criterion\":false,\"extracted_value\":{\"condition_records\":[{\"code\":\"C91.10\",\"condition_name\":\"Chronic lymphocytic leukemia of B-cell type not having achieved remission\"},{\"code\":\"C91.11\",\"condition_name\":\"Chronic lymphocytic leukemia of B-cell type in remission\"}],\"cd20_positivity_confirmed\":false},\"justification\":\"Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier—CD20 positivity confirmed by testing or analysis—was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.\",\"sources\":{\"structured\":[\"EHR query result for subject cb70e6ae-90b1-562b-8ab0-467c65d18d5e: 21 qualifying condition records; 20 C91.10 and 1 C91.11; no linked observation evidence confirming CD20 positivity.\"],\"notes\":[]}},\"ui_resolution\":{\"display_state\":\"needs_clinician\",\"use_chart_as_prefill\":false,\"conflict_flag\":false,\"comment_required\":false,\"final_source\":\"unresolved\"}}],\"logic_evaluation\":{\"selected_cluster_satisfied\":false,\"selected_cluster_status\":\"unresolved\",\"satisfied_criterion_ids\":[],\"not_satisfied_criterion_ids\":[],\"unresolved_criterion_ids\":[\"CR_ONCO_CD20_POS\"],\"criterion_counts\":{\"satisfied\":0,\"not_satisfied\":0,\"unresolved\":1}},\"additional_cluster_suggestions\":[],\"next_action\":\"stay_screen_2\"},\"messages\":[\"Processed criterion CR_ONCO_CD20_POS for cluster cluster_oncologic_iv_initial.\"]},\"review_metadata\":{},\"human_validated\":true}",
+         "messages": [
+            "Processed criterion CR_ONCO_CD20_POS for cluster cluster_oncologic_iv_initial."
+         ],
+         "retrieval_plan_v1": {
+            "schema_version": "retrieval_plan_v1",
+            "policy_id": "0314",
+            "selected_route_id": "route_rituximab_iv",
+            "selected_route_label": "Rituximab IV products (Rituxan, Truxima, Riabni, Ruxience)",
+            "selected_phase": "initial",
+            "selected_cluster_id": "cluster_oncologic_iv_initial",
+            "selected_cluster_label": "CD20-positive B-cell malignancies",
+            "selected_route_guard_criterion_ids": [],
+            "selected_cluster_entry_guard_criterion_ids": [],
+            "selected_cluster_criterion_ids": [
+               "CR_ONCO_CD20_POS"
+            ],
+            "plan_items": [
+               {
+                  "criterion_id": "CR_ONCO_CD20_POS",
+                  "criterion_kind": "cluster_criterion",
+                  "prompt": "Does the member have one of the enumerated CD20-positive B-cell malignancies listed in Section I.A with CD20 positivity confirmed by testing or analysis?",
+                  "clinical_intent": "Confirm the request is for a covered CD20-positive B-cell malignancy.",
+                  "execution_hints": {
+                     "criterion_archetype": "ARC_hybrid_structured_note",
+                     "retrieval_strategy": "hybrid",
+                     "semantic_model_entity": "condition",
+                     "time_anchor_field": "NONE"
+                  },
+                  "ehr_query_fragment": {
+                     "field": "condition",
+                     "operator": "qualifier_exists",
+                     "value": "CD20 positivity confirmed by testing",
+                     "codes": [
+                        "C81.00 - C81.09",
+                        "C81.40 - C81.49",
+                        "C82.00 - C82.99",
+                        "C83.00 - C83.09",
+                        "C83.10 - C83.19",
+                        "C83.30 - C83.3A",
+                        "C83.50 - C83.59",
+                        "C83.70 - C83.79",
+                        "C83.80 - C83.89",
+                        "C83.90 - C83.99",
+                        "C84.00 - C84.79",
+                        "C84.A0 - C84.Z9",
+                        "C84.90 - C84.99",
+                        "C85.10 - C85.19",
+                        "C85.20 - C85.29",
+                        "C85.80 - C85.99",
+                        "C86.00 - C86.41",
+                        "C86.50 - C86.51",
+                        "C86.60 - C86.61",
+                        "C88.00 - C88.01",
+                        "C88.40 - C88.41",
+                        "C91.00 - C91.01",
+                        "C91.10 - C91.12",
+                        "C91.40 - C91.42",
+                        "D47.Z1",
+                        "D47.Z2",
+                        "D76.3"
+                     ]
+                  },
+                  "time_constraint": {
+                     "type": "none",
+                     "anchor": "NONE",
+                     "value": 0,
+                     "unit": "UNKNOWN",
+                     "direction": "UNKNOWN",
+                     "notes": "CD20 positivity confirmation timeline not specified."
+                  },
+                  "note_search_tokens": [
+                     "CD20-positive B-cell malignancy",
+                     "CD20 positivity",
+                     "rituximab"
+                  ],
+                  "preferred_data_domains": [
+                     "condition",
+                     "observation"
+                  ],
+                  "prefill_strategy": "suggest",
+                  "clinician_must_confirm": true,
+                  "source_criterion_snapshot": {
+                     "policy_time_language": "For treatment of the oncologic disorders listed in Section I.A that are CD20-positive as confirmed by testing or analysis.",
+                     "code_binding": {
+                        "origin": "code_table_primary",
+                        "confidence": "MEDIUM",
+                        "source_codes": [
+                           "C81.00 - C81.09",
+                           "C81.40 - C81.49",
+                           "C82.00 - C82.99",
+                           "C83.00 - C83.09",
+                           "C83.10 - C83.19",
+                           "C83.30 - C83.3A",
+                           "C83.50 - C83.59",
+                           "C83.70 - C83.79",
+                           "C83.80 - C83.89",
+                           "C83.90 - C83.99",
+                           "C84.00 - C84.79",
+                           "C84.A0 - C84.Z9",
+                           "C84.90 - C84.99",
+                           "C85.10 - C85.19",
+                           "C85.20 - C85.29",
+                           "C85.80 - C85.99",
+                           "C86.00 - C86.41",
+                           "C86.50 - C86.51",
+                           "C86.60 - C86.61",
+                           "C88.00 - C88.01",
+                           "C88.40 - C88.41",
+                           "C91.00 - C91.01",
+                           "C91.10 - C91.12",
+                           "C91.40 - C91.42",
+                           "D47.Z1",
+                           "D47.Z2",
+                           "D76.3"
+                        ],
+                        "code_role": "diagnosis_inclusion",
+                        "status": "mapped"
+                     },
+                     "locator": {
+                        "section_path": [
+                           "Policy",
+                           "Treatment of Hematologic and Oncologic Conditions",
+                           "I. Criteria for Initial Approval",
+                           "A. Oncologic indications"
+                        ],
+                        "page_start": 2,
+                        "page_end": 3
+                     }
+                  }
+               }
+            ],
+            "notes": {
+               "planning_notes": "NONE",
+               "confidence": "MEDIUM"
+            }
+         },
+         "current_reasoning_result": "{\"criterion_id\":\"CR_ONCO_CD20_POS\",\"status\":\"Found\",\"meets_criterion\":false,\"extracted_value\":{\"condition_records\":[{\"condition_id\":null,\"code\":\"C91.10\",\"condition_name\":\"Chronic lymphocytic leukemia of B-cell type not having achieved remission\",\"status\":null,\"onset_or_record_date\":null},{\"condition_id\":null,\"code\":\"C91.11\",\"condition_name\":\"Chronic lymphocytic leukemia of B-cell type in remission\",\"status\":null,\"onset_or_record_date\":null}],\"cd20_positivity_confirmed\":false},\"justification\":\"Structured EHR evidence shows qualifying CLL diagnoses within the policy's CD20-positive B-cell malignancy code set, but the retrieved observation data were empty and no note evidence confirming CD20 positivity by testing or analysis was found. Because the criterion requires both a covered diagnosis and documented CD20 positivity confirmation, the diagnosis is present but the qualifier is not established; therefore the criterion is not met on chart evidence.\",\"sources\":{\"structured\":[\"EHR query result for subject cb70e6ae-90b1-562b-8ab0-467c65d18d5e: 21 qualifying condition records, including 20 C91.10 and 1 C91.11; no linked observation evidence for CD20 positivity.\"],\"notes\":[]}}"
+      }
+   }
+}

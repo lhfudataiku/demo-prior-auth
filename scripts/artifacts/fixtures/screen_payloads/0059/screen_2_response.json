@@ -1,18 +1,72 @@
 {
-  "status": "ok",
+  "status": "warning",
   "payload": {
     "selected_scope": {
-      "selected_route_id": "route_peak_flow_mechanical_spacers",
+      "selected_route_id": "RR_peak_flow_mechanical",
       "selected_phase": "other",
-      "selected_cluster_id": "cluster_peak_flow_chronic_lower_respiratory"
+      "selected_cluster_id": "CL_peakflow_obstructive_conditions"
+    },
+    "selected_scope_display": {
+      "route_label": "Standard mechanical peak flow meter or spacer DME",
+      "phase_label": "Other",
+      "cluster_label": "Obstructive pulmonary condition requiring mechanical peak flow meter or spacer"
     },
     "criteria": [
       {
-        "criterion_id": "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY",
-        "criterion_kind": "cluster_criterion",
-        "prompt": "Does the member have a diagnosis of a chronic lower respiratory disease such as asthma, chronic bronchitis, or emphysema (ICD-10 J40-J47.9) that warrants use of a standard mechanical peak flow meter or spacer for managing the obstructive condition?",
+        "criterion_id": "CR_RG_peakflow_not_for_copd",
+        "criterion_kind": "route_guard",
+        "prompt": "Is this peak flow meter or spacer being requested for management of an existing obstructive pulmonary condition rather than to diagnose chronic obstructive pulmonary disease?",
         "answer_type": "boolean",
         "required": true,
+        "planner_context": {
+          "criterion_archetype": "ARC_note_only",
+          "retrieval_strategy": "note_first"
+        },
+        "clinician_input": {
+          "answer": null,
+          "value": null,
+          "comment": null,
+          "override_prefill": false,
+          "answered": false
+        },
+        "chart_result": {
+          "status": "Ambiguous",
+          "meets_criterion": false,
+          "extracted_value": null,
+          "justification": "The chart includes asthma in past medical history, which is consistent with an obstructive pulmonary condition, but I did not find documentation that the peak flow meter/spacer request is specifically for management of that condition or explicit documentation that it is not being used to diagnose COPD. The exclusion/intent qualifier remains unresolved, so this cannot be adjudicated as met or not met from the available evidence.",
+          "sources": {
+            "structured": [],
+            "notes": [
+              {
+                "note_id": "10039708-DS-18",
+                "subject_id": "8e77dd0b-932d-5790-9ba6-5c6df8434457",
+                "quote": "Past Medical History: ... Asthma ..."
+              }
+            ]
+          }
+        },
+        "ui_resolution": {
+          "display_state": "needs_clinician",
+          "prefill_value": null,
+          "use_chart_as_prefill": false,
+          "conflict_flag": false,
+          "conflict_reason": null,
+          "comment_required": false,
+          "comment_guidance": null,
+          "final_answer": null,
+          "final_source": "unresolved"
+        }
+      },
+      {
+        "criterion_id": "CR_CLUSTER_peakflow_obstructive_diagnosis",
+        "criterion_kind": "cluster_criterion",
+        "prompt": "Documented diagnosis of asthma, bronchitis, emphysema, chronic lower respiratory disease, acute bronchitis/bronchiolitis, or hypersensitivity pneumonitis due to organic dust that warrants use of a mechanical peak flow meter or spacer.",
+        "answer_type": "boolean",
+        "required": true,
+        "planner_context": {
+          "criterion_archetype": "ARC_dx_code_range_with_lookback",
+          "retrieval_strategy": "sql_first"
+        },
         "clinician_input": {
           "answer": null,
           "value": null,
@@ -24,30 +78,91 @@
           "status": "Found",
           "meets_criterion": true,
           "extracted_value": {
-            "diagnosis_code": "J45.909",
-            "diagnosis_name": "Unspecified asthma, uncomplicated",
-            "record_count": 5,
-            "condition_ids": [
-              "d12baf5d-ed9f-5615-b6f9-79c24d01ee2f",
-              "fcc2651a-1209-566e-99bf-10e0ae38db7b",
-              "b9225571-7eb0-5863-b3ce-884d4492cc14",
-              "c0c5eaad-0772-5a45-984a-6adf786c40b4",
-              "66dca9ef-4edb-5e25-93a3-28747049034f"
-            ],
-            "effective_datetimes": [
-              "2022-01-23",
-              "2022-06-18",
-              "2024-07-06",
-              "2025-09-26",
-              "2026-01-19"
+            "conditions": [
+              {
+                "condition_id": "d12baf5d-ed9f-5615-b6f9-79c24d01ee2f",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2022-01-23",
+                "abatement_date": "2022-02-26",
+                "encounter_id": "2c10e025-bc96-58d4-90c2-79bebdb0e7e5"
+              },
+              {
+                "condition_id": "c0c5eaad-0772-5a45-984a-6adf786c40b4",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2025-09-26",
+                "abatement_date": "2025-10-01",
+                "encounter_id": "68577c30-8973-5b58-a5d7-20497d146dfa"
+              },
+              {
+                "condition_id": "b9225571-7eb0-5863-b3ce-884d4492cc14",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2024-07-06",
+                "abatement_date": "2024-07-07",
+                "encounter_id": "f6ba0112-a909-5ff8-b696-d8340fea922c"
+              },
+              {
+                "condition_id": "fcc2651a-1209-566e-99bf-10e0ae38db7b",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2022-06-18",
+                "abatement_date": "2022-06-22",
+                "encounter_id": "b486c1ce-4567-57a8-94f3-7254272c50e4"
+              },
+              {
+                "condition_id": "66dca9ef-4edb-5e25-93a3-28747049034f",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2026-01-19",
+                "abatement_date": "2026-01-22",
+                "encounter_id": "0c4ee8c1-a9fb-5407-90d2-610a6921e92b"
+              }
             ]
           },
-          "justification": "Structured EHR evidence shows five chronic lower respiratory disease condition records for the patient, all coded ICD-10 J45.909 (Unspecified asthma, uncomplicated), which falls within the requested J40-J47.9 diagnosis range and supports the criterion.",
+          "justification": "Structured EHR evidence shows five condition entries for the patient with ICD-10 J45.909 (unspecified asthma, uncomplicated). Asthma is one of the obstructive pulmonary conditions covered by the criterion, and no additional qualifier beyond documented diagnosis is required by the criterion text. No conflicting evidence was identified.",
           "sources": {
             "structured": [
               {
-                "tool": "EHR_Query_Tool",
-                "evidence": "Five chronic lower respiratory disease records (all ICD-10 J45.909) with condition IDs d12baf5d-ed9f-5615-b6f9-79c24d01ee2f, fcc2651a-1209-566e-99bf-10e0ae38db7b, b9225571-7eb0-5863-b3ce-884d4492cc14, c0c5eaad-0772-5a45-984a-6adf786c40b4, and 66dca9ef-4edb-5e25-93a3-28747049034f; effective datetimes 2022-01-23, 2022-06-18, 2024-07-06, 2025-09-26, 2026-01-19; status not provided."
+                "condition_id": "d12baf5d-ed9f-5615-b6f9-79c24d01ee2f",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2022-01-23",
+                "abatement_date": "2022-02-26",
+                "encounter_id": "2c10e025-bc96-58d4-90c2-79bebdb0e7e5"
+              },
+              {
+                "condition_id": "c0c5eaad-0772-5a45-984a-6adf786c40b4",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2025-09-26",
+                "abatement_date": "2025-10-01",
+                "encounter_id": "68577c30-8973-5b58-a5d7-20497d146dfa"
+              },
+              {
+                "condition_id": "b9225571-7eb0-5863-b3ce-884d4492cc14",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2024-07-06",
+                "abatement_date": "2024-07-07",
+                "encounter_id": "f6ba0112-a909-5ff8-b696-d8340fea922c"
+              },
+              {
+                "condition_id": "fcc2651a-1209-566e-99bf-10e0ae38db7b",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2022-06-18",
+                "abatement_date": "2022-06-22",
+                "encounter_id": "b486c1ce-4567-57a8-94f3-7254272c50e4"
+              },
+              {
+                "condition_id": "66dca9ef-4edb-5e25-93a3-28747049034f",
+                "code": "J45.909",
+                "description": "Unspecified asthma, uncomplicated",
+                "onset_date": "2026-01-19",
+                "abatement_date": "2026-01-22",
+                "encounter_id": "0c4ee8c1-a9fb-5407-90d2-610a6921e92b"
               }
             ],
             "notes": []
@@ -59,29 +174,34 @@
           "use_chart_as_prefill": true,
           "conflict_flag": false,
           "conflict_reason": null,
+          "comment_required": false,
+          "comment_guidance": null,
           "final_answer": true,
           "final_source": "chart"
         }
       }
     ],
     "logic_evaluation": {
-      "selected_cluster_satisfied": true,
-      "selected_cluster_status": "satisfied",
+      "selected_cluster_satisfied": false,
+      "selected_cluster_status": "unresolved",
       "satisfied_criterion_ids": [
-        "CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY"
+        "CR_CLUSTER_peakflow_obstructive_diagnosis"
       ],
       "not_satisfied_criterion_ids": [],
-      "unresolved_criterion_ids": [],
+      "unresolved_criterion_ids": [
+        "CR_RG_peakflow_not_for_copd"
+      ],
       "criterion_counts": {
         "satisfied": 1,
         "not_satisfied": 0,
-        "unresolved": 0
+        "unresolved": 1
       }
     },
     "additional_cluster_suggestions": [],
-    "next_action": "proceed_screen_3"
+    "next_action": "stay_screen_2"
   },
   "messages": [
-    "Processed criterion CR_PEAKFLOW_CHRONIC_LOWER_RESPIRATORY for cluster cluster_peak_flow_chronic_lower_respiratory."
+    "Processed criterion CR_RG_peakflow_not_for_copd for cluster CL_peakflow_obstructive_conditions.",
+    "Processed criterion CR_CLUSTER_peakflow_obstructive_diagnosis for cluster CL_peakflow_obstructive_conditions."
   ]
 }

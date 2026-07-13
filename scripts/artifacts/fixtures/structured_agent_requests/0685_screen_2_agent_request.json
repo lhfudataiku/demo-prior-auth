@@ -1,0 +1,3231 @@
+{
+  "session_id": "fixture-0685-cluster_nsclc_initial",
+  "subject_id": "e7e213ac-81c0-5c7f-8d57-81519132353e",
+  "policy_id": "0685",
+  "screen_id": "screen_2",
+  "payload": {
+    "selected_route_id": "route_bevacizumab_nonocular",
+    "selected_phase": "initial",
+    "selected_cluster_id": "cluster_nsclc_initial",
+    "scoped_policy_context": {
+      "policy_id": "0685",
+      "selected_route_id": "route_bevacizumab_nonocular",
+      "selected_route_label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+      "selected_phase": "initial",
+      "selected_phase_label": "Initial",
+      "selected_cluster_id": "cluster_nsclc_initial",
+      "selected_cluster_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+      "selected_route": {
+        "route_id": "route_bevacizumab_nonocular",
+        "label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+        "coverage_status": "covered",
+        "terminal_disposition": "continue",
+        "billing_codes": [
+          "J9035",
+          "Q5107",
+          "Q5118",
+          "Q5126",
+          "Q5129",
+          "Q5160"
+        ],
+        "route_kind": "covered_request",
+        "phase_prompt_required": true,
+        "phase_branches": [
+          {
+            "phase": "initial",
+            "is_default": true,
+            "route_guard_ids": [
+              "guard_no_cetuximab_panitumumab_combo"
+            ],
+            "cluster_ids": [
+              "cluster_ampullary_initial",
+              "cluster_appendiceal_colorectal_initial",
+              "cluster_cns_initial",
+              "cluster_cervical_initial",
+              "cluster_endometrial_initial",
+              "cluster_hepatic_initial",
+              "cluster_mesothelioma_initial",
+              "cluster_nsclc_initial",
+              "cluster_ovarian_initial",
+              "cluster_renal_cell_initial",
+              "cluster_small_bowel_initial",
+              "cluster_angiosarcoma_initial",
+              "cluster_solitary_fibrous_initial",
+              "cluster_vaginal_initial",
+              "cluster_vulvar_initial"
+            ]
+          },
+          {
+            "phase": "continuation",
+            "is_default": false,
+            "route_guard_ids": [
+              "guard_no_cetuximab_panitumumab_combo"
+            ],
+            "cluster_ids": [
+              "cluster_ampullary_continuation",
+              "cluster_appendiceal_colorectal_continuation",
+              "cluster_cns_continuation",
+              "cluster_cervical_continuation",
+              "cluster_endometrial_continuation",
+              "cluster_hepatic_continuation",
+              "cluster_mesothelioma_continuation",
+              "cluster_nsclc_continuation",
+              "cluster_ovarian_continuation",
+              "cluster_renal_cell_continuation",
+              "cluster_small_bowel_continuation",
+              "cluster_angiosarcoma_continuation",
+              "cluster_solitary_fibrous_continuation",
+              "cluster_vaginal_continuation",
+              "cluster_vulvar_continuation"
+            ]
+          }
+        ],
+        "routing_notes": "Coverage limited to the non-ocular oncology indications enumerated in this bulletin; ocular uses are addressed in CPB 0701.",
+        "evidence": "Aetna considers bevacizumab (Avastin) and its biosimilars medically necessary for the following non-ocular oncology indications when selection criteria are met.",
+        "locator": {
+          "section_path": [
+            "Policy",
+            "I. Criteria for Initial Approval"
+          ],
+          "page_start": 3,
+          "page_end": 4
+        }
+      },
+      "selected_phase_branch": {
+        "phase": "initial",
+        "is_default": true,
+        "route_guard_ids": [
+          "guard_no_cetuximab_panitumumab_combo"
+        ],
+        "cluster_summaries": [
+          {
+            "cluster_id": "cluster_ampullary_initial",
+            "condition_key": "ampullary_adenocarcinoma",
+            "condition_label": "Intestinal-type ampullary adenocarcinoma that is progressive or metastatic",
+            "condition_synonyms": [
+              "Ampulla of Vater adenocarcinoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C24.1"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_appendiceal_colorectal_initial",
+            "condition_key": "appendiceal_colorectal_anal_cancer",
+            "condition_label": "Appendiceal neoplasms/cancers or colorectal/anal adenocarcinoma requiring treatment",
+            "condition_synonyms": [
+              "Appendiceal adenocarcinoma and mucinous neoplasms",
+              "Colorectal or anal adenocarcinoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C18.0 - C21.8",
+              "C26.0"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_cns_initial",
+            "condition_key": "cns_cancers",
+            "condition_label": "Central nervous system cancers listed in the policy",
+            "condition_synonyms": [
+              "Gliomas including circumscribed glioma, diffuse high-grade gliomas, glioblastoma",
+              "H3-mutated high-grade glioma, HGAP, IDH mutant astrocytoma, oligodendroglioma, medulloblastoma, PXA",
+              "Primary CNS lymphoma, meningiomas, brain or spine metastases, primary spinal cord tumors"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C71.0 - C71.9",
+              "C72.0 - C72.9",
+              "D32.0 - D32.9",
+              "Q85.02",
+              "Q85.03"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_cervical_initial",
+            "condition_key": "cervical_cancer",
+            "condition_label": "Persistent, recurrent, or metastatic cervical cancer",
+            "condition_synonyms": [
+              "Advanced cervical carcinoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C53.0 - C53.9"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_endometrial_initial",
+            "condition_key": "endometrial_carcinoma",
+            "condition_label": "Stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma",
+            "condition_synonyms": [
+              "Advanced endometrial cancer"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C54.1",
+              "C55"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_hepatic_initial",
+            "condition_key": "hepatocellular_carcinoma",
+            "condition_label": "Unresectable or extrahepatic/metastatic hepatocellular carcinoma used with atezolizumab",
+            "condition_synonyms": [
+              "Advanced hepatocellular carcinoma with atezolizumab"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C22.0"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_mesothelioma_initial",
+            "condition_key": "mesothelioma",
+            "condition_label": "Pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma with approved therapy context",
+            "condition_synonyms": [
+              "Mesothelioma first-line with pemetrexed",
+              "Mesothelioma subsequent therapy after immunotherapy",
+              "Mesothelioma induction pre-surgery stage I epithelioid",
+              "Mesothelioma subsequent therapy with atezolizumab"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C45.0",
+              "C45.1",
+              "C45.2",
+              "C45.7"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_nsclc_initial",
+            "condition_key": "non_squamous_nsclc",
+            "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+            "condition_synonyms": [
+              "Non-squamous NSCLC"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C34.00 - C34.92"
+            ],
+            "cluster_entry_guard_ids": [
+              "guard_nsclc_no_pemetrexed_maintenance"
+            ]
+          },
+          {
+            "cluster_id": "cluster_ovarian_initial",
+            "condition_key": "ovarian_fallopian_peritoneal_cancer",
+            "condition_label": "Epithelial ovarian cancer, fallopian tube cancer, primary peritoneal cancer, or malignant sex cord stromal tumors requiring treatment",
+            "condition_synonyms": [
+              "Ovarian/fallopian tube/peritoneal cancer",
+              "Malignant sex cord stromal tumor"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C56.1 - C56.9",
+              "C57.00 - C57.02",
+              "C57.10 - C57.4",
+              "C48.0 - C48.8"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_renal_cell_initial",
+            "condition_key": "renal_cell_carcinoma",
+            "condition_label": "Relapsed or stage IV renal cell carcinoma",
+            "condition_synonyms": [
+              "Advanced renal cell carcinoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C64.1 - C64.9"
+            ],
+            "cluster_entry_guard_ids": [
+              "guard_rcc_no_atezolizumab_combo"
+            ]
+          },
+          {
+            "cluster_id": "cluster_small_bowel_initial",
+            "condition_key": "small_bowel_adenocarcinoma",
+            "condition_label": "Small bowel adenocarcinoma",
+            "condition_synonyms": [
+              "Malignant neoplasm of the small intestine"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C17.0 - C17.9"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_angiosarcoma_initial",
+            "condition_key": "angiosarcoma_single_agent",
+            "condition_label": "Angiosarcoma treated with single-agent bevacizumab",
+            "condition_synonyms": [
+              "Soft tissue sarcoma - angiosarcoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C49.0 - C49.9"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_solitary_fibrous_initial",
+            "condition_key": "solitary_fibrous_hemangiopericytoma",
+            "condition_label": "Solitary fibrous tumor or hemangiopericytoma treated with bevacizumab plus temozolomide",
+            "condition_synonyms": [
+              "Soft tissue sarcoma - solitary fibrous tumor or hemangiopericytoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C38.4",
+              "C49.0 - C49.9"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_vaginal_initial",
+            "condition_key": "vaginal_cancer",
+            "condition_label": "Recurrent or metastatic vaginal cancer",
+            "condition_synonyms": [
+              "Advanced vaginal carcinoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C52"
+            ],
+            "cluster_entry_guard_ids": []
+          },
+          {
+            "cluster_id": "cluster_vulvar_initial",
+            "condition_key": "vulvar_cancer",
+            "condition_label": "Advanced, recurrent, or metastatic vulvar cancer including squamous cell carcinoma and adenocarcinoma",
+            "condition_synonyms": [
+              "Vulvar carcinoma"
+            ],
+            "diagnosis_basis": "code_table_primary",
+            "diagnosis_code_candidates": [
+              "C51.0 - C51.9"
+            ],
+            "cluster_entry_guard_ids": []
+          }
+        ]
+      },
+      "selected_route_guards": [
+        {
+          "guard_id": "guard_no_cetuximab_panitumumab_combo",
+          "label": "Bevacizumab not combined with cetuximab or panitumumab",
+          "guard_type": "coverage_gate",
+          "applies_to_route_ids": [
+            "route_bevacizumab_nonocular"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "ask_timing": "before_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_GUARD_NOT_CETUX_PANI"
+              }
+            ]
+          },
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with cetuximab (Erbitux) or panitumumab (Vectibix) experimental, investigational, or unproven because the effectiveness and safety of these combinations has not been established.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "II. Aetna considers bevacizumab and its biosimilars in combination with cetuximab or panitumumab experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        }
+      ],
+      "selected_cluster_summary": {
+        "cluster_id": "cluster_nsclc_initial",
+        "condition_key": "non_squamous_nsclc",
+        "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+        "condition_synonyms": [
+          "Non-squamous NSCLC"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+          "C34.00 - C34.92"
+        ],
+        "cluster_entry_guard_ids": [
+          "guard_nsclc_no_pemetrexed_maintenance"
+        ]
+      },
+      "selected_cluster": {
+        "cluster_id": "cluster_nsclc_initial",
+        "route_id": "route_bevacizumab_nonocular",
+        "phase": "initial",
+        "condition_key": "non_squamous_nsclc",
+        "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+        "condition_synonyms": [
+          "Non-squamous NSCLC"
+        ],
+        "diagnosis_basis": "code_table_primary",
+        "diagnosis_code_candidates": [
+          "C34.00 - C34.92"
+        ],
+        "inherits_diagnosis_from_cluster_ids": [],
+        "cluster_entry_guard_ids": [
+          "guard_nsclc_no_pemetrexed_maintenance"
+        ],
+        "logic_profile_id": "UNKNOWN",
+        "logic_root": {
+          "node_type": "group",
+          "operator": "all",
+          "children": [
+            {
+              "node_type": "criterion_ref",
+              "criterion_id": "CR_NSCLC_ADVANCED"
+            }
+          ]
+        },
+        "evidence": "Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+        "locator": {
+          "section_path": [
+            "Policy",
+            "I. Criteria for Initial Approval",
+            "I. Non-small cell lung cancer (NSCLC)"
+          ],
+          "page_start": 4,
+          "page_end": 4
+        }
+      },
+      "selected_cluster_entry_guards": [
+        {
+          "guard_id": "guard_nsclc_no_pemetrexed_maintenance",
+          "label": "Bevacizumab not maintenance therapy with pemetrexed for non-squamous NSCLC",
+          "guard_type": "coverage_gate",
+          "applies_to_route_ids": [
+            "route_bevacizumab_nonocular"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "applies_to_cluster_ids": [
+            "cluster_nsclc_initial",
+            "cluster_nsclc_continuation"
+          ],
+          "ask_timing": "after_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT"
+              }
+            ]
+          },
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental, investigational, or unproven.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "IV. Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        }
+      ],
+      "selected_logic_profiles": [],
+      "selected_inherited_diagnosis_clusters": [],
+      "effective_diagnosis_code_candidates": [
+        "C34.00 - C34.92"
+      ],
+      "selected_route_guard_criterion_ids": [
+        "CR_GUARD_NOT_CETUX_PANI"
+      ],
+      "selected_cluster_entry_guard_criterion_ids": [
+        "CR_NSCLC_NOT_PEMETREXED_MAINT"
+      ],
+      "selected_inherited_diagnosis_criterion_ids": [],
+      "selected_cluster_criterion_ids": [
+        "CR_NSCLC_ADVANCED"
+      ],
+      "selected_criteria_catalog": [
+        {
+          "criterion_id": "CR_NSCLC_ADVANCED",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+          "clinical_intent": "Confirm coverage for advanced non-squamous NSCLC.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C34.00 - C34.92"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "I. Non-small cell lung cancer (NSCLC)"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+          "criterion_kind": "route_guard",
+          "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
+          "clinical_intent": "Prevent coverage of the unproven EGFR inhibitor combinations.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "with the current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with cetuximab (Erbitux) or panitumumab (Vectibix) experimental, investigational, or unproven because the effectiveness and safety of these combinations has not been established.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "II. Aetna considers bevacizumab and its biosimilars in combination with cetuximab or panitumumab experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        },
+        {
+          "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+          "criterion_kind": "cluster_entry_guard",
+          "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+          "clinical_intent": "Prevent coverage of pemetrexed maintenance combinations for NSCLC.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "for the current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental, investigational, or unproven.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "IV. Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        }
+      ]
+    },
+    "policy_master_v4": {
+      "policy_id": "0685",
+      "document_type": "COVERAGE_POLICY",
+      "title": "Bevacizumab for Non-Ocular Indications",
+      "source": {
+        "policy_url": "https://www.aetna.com/cpb/medical/data/600_699/0685.html"
+      },
+      "billing_code_sets": [
+        {
+          "code": "J9035",
+          "system": "HCPCS",
+          "description": "Injection, bevacizumab, 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 9,
+            "page_end": 9
+          }
+        },
+        {
+          "code": "Q5107",
+          "system": "HCPCS",
+          "description": "Injection, bevacizumab-awwb, biosimilar, (mvasi), 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 9,
+            "page_end": 9
+          }
+        },
+        {
+          "code": "Q5118",
+          "system": "HCPCS",
+          "description": "Injection, bevacizumab-bvzr, biosimilar, (Zirabev), 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 9,
+            "page_end": 9
+          }
+        },
+        {
+          "code": "Q5126",
+          "system": "HCPCS",
+          "description": "Injection, bevacizumab-maly, biosimilar, (alymsys), 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 9,
+            "page_end": 9
+          }
+        },
+        {
+          "code": "Q5129",
+          "system": "HCPCS",
+          "description": "Injection, bevacizumab-adcd (vegzelma), biosimilar, 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 9,
+            "page_end": 9
+          }
+        },
+        {
+          "code": "Q5160",
+          "system": "HCPCS",
+          "description": "Injection, bevacizumab-nwgd (jobevne), biosimilar, 10 mg",
+          "code_role": "request",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 9,
+            "page_end": 9
+          }
+        },
+        {
+          "code": "C17.0 - C17.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of small intestine, including duodenum",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C18.0 - C21.8",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of colon, rectum, rectosigmoid junction and anus",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C22.0",
+          "system": "ICD-10",
+          "description": "Liver cell carcinoma [Unresectable or metastatic][Operable when high risk of recurrence][extrahepatic disease]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 10
+          }
+        },
+        {
+          "code": "C24.1",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of ampulla of Vater [Ampullary adenocarcinoma]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 10
+          }
+        },
+        {
+          "code": "C34.00 - C34.92",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of the bronchus and lung [non-squamous, non-small cell] [covered for non- small cell lung cancer and non -squamous cell lung cancer][Unresectable]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C38.4",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of pleura [solitary fibrous tumors]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C45.0",
+          "system": "ICD-10",
+          "description": "Mesothelioma of pleura",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C45.1",
+          "system": "ICD-10",
+          "description": "Mesothelioma of peritoneum",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C45.2",
+          "system": "ICD-10",
+          "description": "Mesothelioma of pericardium",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C45.7",
+          "system": "ICD-10",
+          "description": "Mesothelioma of other sites [tunica vaginalis testes mesothelioma]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C48.0 - C48.8",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of retroperitoneum and peritoneum",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C49.0 - C49.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of other connective and soft tissue, [angiosarcoma][hemangiopericytoma] [not covered for desmoplastic small round blue cell tumor]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C51.0 - C51.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of vulva",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C52",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of vagina",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C53.0 - C53.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of cervix uteri",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C54.1",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of endometrium",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C55",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of uterus, part unspecified",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C56.1 - C56.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of ovary [epithelial and mucinous]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C57.00 - C57.02",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of fallopian tube",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C57.10 - C57.4",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of broad ligament",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C64.1 - C64.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of kidney [renal cell carcinoma]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C71.0 - C71.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of brain [not covered for diffuse leptomeningeal glio-neuronal tumor] [Circumscribed glioma][H3-mutated high-grade glioma], [High-grade astrocytoma with piloid features (HGAP)], [Pleomorphic xanthoastrocytoma (PXA) (WHO Grade 2 or 3)]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "C72.0 - C72.9",
+          "system": "ICD-10",
+          "description": "Malignant neoplasm of spinal cord, cranial nerves and other parts of central nervous system  [not covered for diffuse leptomeningeal glio-neuronal tumor]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 10,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "D32.0 - D32.9",
+          "system": "ICD-10",
+          "description": "Benign neoplasm of meninges [treatment for surgically inaccessible recurrent or progressive disease when radiation is not possible]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "Q85.02",
+          "system": "ICD-10",
+          "description": "Neurofibromatosis, type 2",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        },
+        {
+          "code": "Q85.03",
+          "system": "ICD-10",
+          "description": "Schwannomatosis [Vestibular]",
+          "code_role": "diagnosis_inclusion",
+          "coverage_status": "covered",
+          "locator": {
+            "section_path": [
+              "Applicable CPT / HCPCS / ICD-10 Codes"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        }
+      ],
+      "request_routes": [
+        {
+          "route_id": "route_bevacizumab_nonocular",
+          "label": "Bevacizumab (Avastin and biosimilars) for non-ocular oncology indications",
+          "coverage_status": "covered",
+          "terminal_disposition": "continue",
+          "billing_codes": [
+            "J9035",
+            "Q5107",
+            "Q5118",
+            "Q5126",
+            "Q5129",
+            "Q5160"
+          ],
+          "route_kind": "covered_request",
+          "phase_prompt_required": true,
+          "phase_branches": [
+            {
+              "phase": "initial",
+              "is_default": true,
+              "route_guard_ids": [
+                "guard_no_cetuximab_panitumumab_combo"
+              ],
+              "cluster_ids": [
+                "cluster_ampullary_initial",
+                "cluster_appendiceal_colorectal_initial",
+                "cluster_cns_initial",
+                "cluster_cervical_initial",
+                "cluster_endometrial_initial",
+                "cluster_hepatic_initial",
+                "cluster_mesothelioma_initial",
+                "cluster_nsclc_initial",
+                "cluster_ovarian_initial",
+                "cluster_renal_cell_initial",
+                "cluster_small_bowel_initial",
+                "cluster_angiosarcoma_initial",
+                "cluster_solitary_fibrous_initial",
+                "cluster_vaginal_initial",
+                "cluster_vulvar_initial"
+              ]
+            },
+            {
+              "phase": "continuation",
+              "is_default": false,
+              "route_guard_ids": [
+                "guard_no_cetuximab_panitumumab_combo"
+              ],
+              "cluster_ids": [
+                "cluster_ampullary_continuation",
+                "cluster_appendiceal_colorectal_continuation",
+                "cluster_cns_continuation",
+                "cluster_cervical_continuation",
+                "cluster_endometrial_continuation",
+                "cluster_hepatic_continuation",
+                "cluster_mesothelioma_continuation",
+                "cluster_nsclc_continuation",
+                "cluster_ovarian_continuation",
+                "cluster_renal_cell_continuation",
+                "cluster_small_bowel_continuation",
+                "cluster_angiosarcoma_continuation",
+                "cluster_solitary_fibrous_continuation",
+                "cluster_vaginal_continuation",
+                "cluster_vulvar_continuation"
+              ]
+            }
+          ],
+          "routing_notes": "Coverage limited to the non-ocular oncology indications enumerated in this bulletin; ocular uses are addressed in CPB 0701.",
+          "evidence": "Aetna considers bevacizumab (Avastin) and its biosimilars medically necessary for the following non-ocular oncology indications when selection criteria are met.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval"
+            ],
+            "page_start": 3,
+            "page_end": 4
+          }
+        }
+      ],
+      "route_guards": [
+        {
+          "guard_id": "guard_no_cetuximab_panitumumab_combo",
+          "label": "Bevacizumab not combined with cetuximab or panitumumab",
+          "guard_type": "coverage_gate",
+          "applies_to_route_ids": [
+            "route_bevacizumab_nonocular"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "ask_timing": "before_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_GUARD_NOT_CETUX_PANI"
+              }
+            ]
+          },
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with cetuximab (Erbitux) or panitumumab (Vectibix) experimental, investigational, or unproven because the effectiveness and safety of these combinations has not been established.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "II. Aetna considers bevacizumab and its biosimilars in combination with cetuximab or panitumumab experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        }
+      ],
+      "cluster_entry_guards": [
+        {
+          "guard_id": "guard_nsclc_no_pemetrexed_maintenance",
+          "label": "Bevacizumab not maintenance therapy with pemetrexed for non-squamous NSCLC",
+          "guard_type": "coverage_gate",
+          "applies_to_route_ids": [
+            "route_bevacizumab_nonocular"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "applies_to_cluster_ids": [
+            "cluster_nsclc_initial",
+            "cluster_nsclc_continuation"
+          ],
+          "ask_timing": "after_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT"
+              }
+            ]
+          },
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental, investigational, or unproven.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "IV. Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        },
+        {
+          "guard_id": "guard_rcc_no_atezolizumab_combo",
+          "label": "Renal cell carcinoma without atezolizumab combination",
+          "guard_type": "coverage_gate",
+          "applies_to_route_ids": [
+            "route_bevacizumab_nonocular"
+          ],
+          "applies_to_phases": [
+            "initial",
+            "continuation"
+          ],
+          "applies_to_cluster_ids": [
+            "cluster_renal_cell_initial",
+            "cluster_renal_cell_continuation"
+          ],
+          "ask_timing": "after_cluster_selection",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_RCC_NOT_ATEZO_COMBO"
+              }
+            ]
+          },
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with atezolizumab for the treatment of renal cell carcinoma experimental, investigational, or unproven.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "III. Aetna considers bevacizumab and its biosimilars in combination with atezolizumab for the treatment of renal cell carcinoma experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        }
+      ],
+      "condition_clusters": [
+        {
+          "cluster_id": "cluster_ampullary_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "ampullary_adenocarcinoma",
+          "condition_label": "Intestinal-type ampullary adenocarcinoma that is progressive or metastatic",
+          "condition_synonyms": [
+            "Ampulla of Vater adenocarcinoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C24.1"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_AMPULLARY_INT_TYPE_PROG_OR_META"
+              }
+            ]
+          },
+          "evidence": "Ampullary adenocarcinoma - for treatment of intestinal-type ampullary adenocarcinoma that is progressive, or metastatic;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "A. Ampullary adenocarcinoma"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "cluster_id": "cluster_appendiceal_colorectal_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "appendiceal_colorectal_anal_cancer",
+          "condition_label": "Appendiceal neoplasms/cancers or colorectal/anal adenocarcinoma requiring treatment",
+          "condition_synonyms": [
+            "Appendiceal adenocarcinoma and mucinous neoplasms",
+            "Colorectal or anal adenocarcinoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C18.0 - C21.8",
+            "C26.0"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_APPENDICEAL_COLON_ANAL"
+              }
+            ]
+          },
+          "evidence": "Appendiceal neoplasms and cancers - for treatment of appendiceal neoplasms and appendiceal cancers (including appendiceal adenocarcinoma, goblet cell adenocarcinoma, undifferentiated carcinoma not otherwise specified, and low-grade and high-grade appendiceal mucinous neoplasm); Colorectal cancer, including appendiceal adenocarcinoma, and anal adenocarcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "B. Appendiceal neoplasms and cancers / E. Colorectal cancer"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "cluster_id": "cluster_cns_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "cns_cancers",
+          "condition_label": "Central nervous system cancers listed in the policy",
+          "condition_synonyms": [
+            "Gliomas including circumscribed glioma, diffuse high-grade gliomas, glioblastoma",
+            "H3-mutated high-grade glioma, HGAP, IDH mutant astrocytoma, oligodendroglioma, medulloblastoma, PXA",
+            "Primary CNS lymphoma, meningiomas, brain or spine metastases, primary spinal cord tumors"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C71.0 - C71.9",
+            "C72.0 - C72.9",
+            "D32.0 - D32.9",
+            "Q85.02",
+            "Q85.03"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CNS_CANCERS"
+              }
+            ]
+          },
+          "evidence": "Central nervous system (CNS) cancers - for treatment of the following types of CNS cancer: Circumscribed glioma; Diffuse high grade gliomas; Glioblastoma; H3-mutated high-grade glioma; High-grade astrocytoma with piloid features (HGAP); Intracranial and spinal ependymoma (excludes subependymoma); IDH mutant astrocytoma (WHO Grade 2, 3 or 4); Oligodendroglioma (WHO Grade 2 or 3); Medulloblastoma; Pleomorphic xanthoastrocytoma (PXA) (WHO Grade 2 or 3); Primary central nervous system lymphoma; Meningiomas; Limited and extensive brain metastases; Metastatic spine tumors; Primary spinal cord tumors;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "C. Central nervous system (CNS) cancers"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "cluster_id": "cluster_cervical_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "cervical_cancer",
+          "condition_label": "Persistent, recurrent, or metastatic cervical cancer",
+          "condition_synonyms": [
+            "Advanced cervical carcinoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C53.0 - C53.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CERVICAL_PERSISTENT_RECURRENCE"
+              }
+            ]
+          },
+          "evidence": "Cervical cancer - for treatment of persistent, recurrent, or metastatic cervical cancer;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "D. Cervical cancer"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "cluster_id": "cluster_endometrial_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "endometrial_carcinoma",
+          "condition_label": "Stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma",
+          "condition_synonyms": [
+            "Advanced endometrial cancer"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C54.1",
+            "C55"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_ENDOMETRIAL_STAGE3_4"
+              }
+            ]
+          },
+          "evidence": "Endometrial carcinoma - for treatment of stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "F. Endometrial carcinoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_hepatic_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "hepatocellular_carcinoma",
+          "condition_label": "Unresectable or extrahepatic/metastatic hepatocellular carcinoma used with atezolizumab",
+          "condition_synonyms": [
+            "Advanced hepatocellular carcinoma with atezolizumab"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C22.0"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_HEPATIC_UNRESECTABLE_ATEZO"
+              }
+            ]
+          },
+          "evidence": "For treatment of unresectable or extrahepatic/metastatic hepatocellular carcinoma, when the requested medication will be used in combination with atezolizumab;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "G. Hepatocellular carcinoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_mesothelioma_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "mesothelioma",
+          "condition_label": "Pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma with approved therapy context",
+          "condition_synonyms": [
+            "Mesothelioma first-line with pemetrexed",
+            "Mesothelioma subsequent therapy after immunotherapy",
+            "Mesothelioma induction pre-surgery stage I epithelioid",
+            "Mesothelioma subsequent therapy with atezolizumab"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C45.0",
+            "C45.1",
+            "C45.2",
+            "C45.7"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_MESO_DIAG"
+              },
+              {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_FIRST_LINE"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_SUBSEQ_AFTER_IMMUNO"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_INDUCTION_STAGE1"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_ATEZO_SUBSEQ"
+                  }
+                ]
+              }
+            ]
+          },
+          "evidence": "Mesothelioma - for treatment of pleural mesothelioma, peritoneal mesothelioma, pericardial mesothelioma, or tunica vaginalis testis mesothelioma when any of the following criteria are met: a. As first-line therapy in combination with pemetrexed and either cisplatin or carboplatin, followed by single-agent maintenance bevacizumab; or b. As subsequent therapy in combination with pemetrexed and either cisplatin or carboplatin if immunotherapy was administered as first-line treatment; 2. For induction treatment ... when used in combination with pemetrexed and either cisplatin or carboplatin prior to surgical exploration for clinical stage I disease with epithelioid histology; 3. For treatment ... when used in combination with atezolizumab as subsequent therapy;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "H. Mesothelioma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_nsclc_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "non_squamous_nsclc",
+          "condition_label": "Recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer",
+          "condition_synonyms": [
+            "Non-squamous NSCLC"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C34.00 - C34.92"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [
+            "guard_nsclc_no_pemetrexed_maintenance"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_NSCLC_ADVANCED"
+              }
+            ]
+          },
+          "evidence": "Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "I. Non-small cell lung cancer (NSCLC)"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_ovarian_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "ovarian_fallopian_peritoneal_cancer",
+          "condition_label": "Epithelial ovarian cancer, fallopian tube cancer, primary peritoneal cancer, or malignant sex cord stromal tumors requiring treatment",
+          "condition_synonyms": [
+            "Ovarian/fallopian tube/peritoneal cancer",
+            "Malignant sex cord stromal tumor"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C56.1 - C56.9",
+            "C57.00 - C57.02",
+            "C57.10 - C57.4",
+            "C48.0 - C48.8"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_OVARIAN_FALLOPIAN_PERITONEAL"
+              }
+            ]
+          },
+          "evidence": "Ovarian cancer/fallopian tube cancer/Primary peritoneal cancer - for treatment of: 1. Epithelial ovarian cancer; 2. Fallopian tube cancer; 3. Primary peritoneal cancer; 4. Malignant sex cord stromal tumors;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "J. Ovarian cancer/fallopian tube cancer/Primary peritoneal cancer"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_renal_cell_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "renal_cell_carcinoma",
+          "condition_label": "Relapsed or stage IV renal cell carcinoma",
+          "condition_synonyms": [
+            "Advanced renal cell carcinoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C64.1 - C64.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [
+            "guard_rcc_no_atezolizumab_combo"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_RCC_RELAPSED_STAGEIV"
+              }
+            ]
+          },
+          "evidence": "Renal cell carcinoma (RCC) - for treatment of relapsed or stage IV renal cell carcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "K. Renal cell carcinoma (RCC)"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_small_bowel_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "small_bowel_adenocarcinoma",
+          "condition_label": "Small bowel adenocarcinoma",
+          "condition_synonyms": [
+            "Malignant neoplasm of the small intestine"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C17.0 - C17.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_SMALL_BOWEL_ADENOCARC"
+              }
+            ]
+          },
+          "evidence": "Small bowel adenocarcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "L. Small bowel adenocarcinoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_angiosarcoma_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "angiosarcoma_single_agent",
+          "condition_label": "Angiosarcoma treated with single-agent bevacizumab",
+          "condition_synonyms": [
+            "Soft tissue sarcoma - angiosarcoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C49.0 - C49.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_ANGIOSARCOMA_SINGLE_AGENT"
+              }
+            ]
+          },
+          "evidence": "Angiosarcoma, as single agent therapy;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "M. Soft tissue sarcoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_solitary_fibrous_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "solitary_fibrous_hemangiopericytoma",
+          "condition_label": "Solitary fibrous tumor or hemangiopericytoma treated with bevacizumab plus temozolomide",
+          "condition_synonyms": [
+            "Soft tissue sarcoma - solitary fibrous tumor or hemangiopericytoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C38.4",
+            "C49.0 - C49.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_SOLITARY_FIBROUS_HEMANGIO"
+              }
+            ]
+          },
+          "evidence": "Solitary fibrous tumor or hemangiopericytoma, in combination with temozolomide;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "M. Soft tissue sarcoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_vaginal_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "vaginal_cancer",
+          "condition_label": "Recurrent or metastatic vaginal cancer",
+          "condition_synonyms": [
+            "Advanced vaginal carcinoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C52"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_VAGINAL_RECURRENCE"
+              }
+            ]
+          },
+          "evidence": "Vaginal cancer - for treatment of recurrent or metastatic vaginal cancer;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "N. Vaginal cancer"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_vulvar_initial",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "initial",
+          "condition_key": "vulvar_cancer",
+          "condition_label": "Advanced, recurrent, or metastatic vulvar cancer including squamous cell carcinoma and adenocarcinoma",
+          "condition_synonyms": [
+            "Vulvar carcinoma"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C51.0 - C51.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_VULVAR_ADVANCED"
+              }
+            ]
+          },
+          "evidence": "Vulvar cancer - for treatment of advanced, recurrent, or metastatic vulvar cancer, including squamous cell carcinoma and adenocarcinoma.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "O. Vulvar cancer"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "cluster_id": "cluster_ampullary_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "ampullary_adenocarcinoma_continuation",
+          "condition_label": "Continuation of therapy for intestinal-type ampullary adenocarcinoma",
+          "condition_synonyms": [
+            "Ampulla of Vater adenocarcinoma continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C24.1"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_ampullary_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_appendiceal_colorectal_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "appendiceal_colorectal_anal_cancer_continuation",
+          "condition_label": "Continuation of therapy for appendiceal neoplasms or colorectal/anal adenocarcinoma",
+          "condition_synonyms": [
+            "Appendiceal/colorectal continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C18.0 - C21.8",
+            "C26.0"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_appendiceal_colorectal_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_cns_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "cns_cancers_continuation",
+          "condition_label": "Continuation of bevacizumab for CNS cancers",
+          "condition_synonyms": [
+            "CNS cancer continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C71.0 - C71.9",
+            "C72.0 - C72.9",
+            "D32.0 - D32.9",
+            "Q85.02",
+            "Q85.03"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_cns_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_CNS_CONT_ADD_CHEMO"
+                  }
+                ]
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen; or disease progression occurred with single agent bevacizumab therapy and there is no evidence of unacceptable toxicity; carmustine, lomustine, or temozolomide can be added to the regimen for selected CNS cancers (glioblastoma; H3-mutated high-grade glioma; high-grade astrocytoma with piloid features; IDH mutant astrocytoma WHO Grade 3 or 4; oligodendroglioma WHO Grade 3; pleomorphic xanthoastrocytoma WHO Grade 3);",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy",
+              "B. CNS cancer"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_cervical_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "cervical_cancer_continuation",
+          "condition_label": "Continuation of therapy for persistent, recurrent, or metastatic cervical cancer",
+          "condition_synonyms": [
+            "Cervical cancer continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C53.0 - C53.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_cervical_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_endometrial_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "endometrial_carcinoma_continuation",
+          "condition_label": "Continuation of therapy for stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma",
+          "condition_synonyms": [
+            "Endometrial cancer continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C54.1",
+            "C55"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_endometrial_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_hepatic_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "hepatocellular_carcinoma_continuation",
+          "condition_label": "Continuation of therapy for unresectable or extrahepatic/metastatic hepatocellular carcinoma",
+          "condition_synonyms": [
+            "Hepatocellular carcinoma continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C22.0"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_hepatic_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_mesothelioma_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "mesothelioma_continuation",
+          "condition_label": "Continuation of therapy for mesothelioma",
+          "condition_synonyms": [
+            "Mesothelioma continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C45.0",
+            "C45.1",
+            "C45.2",
+            "C45.7"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_mesothelioma_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_FIRST_LINE"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_SUBSEQ_AFTER_IMMUNO"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_INDUCTION_STAGE1"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_MESO_ATEZO_SUBSEQ"
+                  }
+                ]
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen; or bevacizumab is being continued with pemetrexed/cisplatin or carboplatin as described in the initial criteria or with atezolizumab as subsequent therapy.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_nsclc_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "non_squamous_nsclc_continuation",
+          "condition_label": "Continuation of therapy for non-squamous non-small cell lung cancer",
+          "condition_synonyms": [
+            "NSCLC continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C34.00 - C34.92"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_nsclc_initial"
+          ],
+          "cluster_entry_guard_ids": [
+            "guard_nsclc_no_pemetrexed_maintenance"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "group",
+                "operator": "any",
+                "children": [
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+                  },
+                  {
+                    "node_type": "criterion_ref",
+                    "criterion_id": "CR_NSCLC_CONT_ERLOTINIB"
+                  }
+                ]
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen; or the medication will be used as continuation of therapy in combination with erlotinib when the disease is T790M negative and there is no evidence of unacceptable toxicity.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy",
+              "A. Non-small cell lung cancer (NSCLC)"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_ovarian_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "ovarian_fallopian_peritoneal_continuation",
+          "condition_label": "Continuation of therapy for epithelial ovarian, fallopian tube, primary peritoneal, or malignant sex cord stromal tumors",
+          "condition_synonyms": [
+            "Ovarian/fallopian/peritoneal continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C56.1 - C56.9",
+            "C57.00 - C57.02",
+            "C57.10 - C57.4",
+            "C48.0 - C48.8"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_ovarian_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_renal_cell_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "renal_cell_carcinoma_continuation",
+          "condition_label": "Continuation of therapy for relapsed or stage IV renal cell carcinoma",
+          "condition_synonyms": [
+            "RCC continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C64.1 - C64.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_renal_cell_initial"
+          ],
+          "cluster_entry_guard_ids": [
+            "guard_rcc_no_atezolizumab_combo"
+          ],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_small_bowel_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "small_bowel_adenocarcinoma_continuation",
+          "condition_label": "Continuation of therapy for small bowel adenocarcinoma",
+          "condition_synonyms": [
+            "Small intestine cancer continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C17.0 - C17.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_small_bowel_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_angiosarcoma_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "angiosarcoma_single_agent_continuation",
+          "condition_label": "Continuation of single-agent bevacizumab therapy for angiosarcoma",
+          "condition_synonyms": [
+            "Angiosarcoma continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C49.0 - C49.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_angiosarcoma_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_solitary_fibrous_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "solitary_fibrous_hemangiopericytoma_continuation",
+          "condition_label": "Continuation of bevacizumab plus temozolomide for solitary fibrous tumor or hemangiopericytoma",
+          "condition_synonyms": [
+            "Solitary fibrous/hemangiopericytoma continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C38.4",
+            "C49.0 - C49.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_solitary_fibrous_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_vaginal_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "vaginal_cancer_continuation",
+          "condition_label": "Continuation of therapy for recurrent or metastatic vaginal cancer",
+          "condition_synonyms": [
+            "Vaginal carcinoma continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C52"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_vaginal_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "cluster_id": "cluster_vulvar_continuation",
+          "route_id": "route_bevacizumab_nonocular",
+          "phase": "continuation",
+          "condition_key": "vulvar_cancer_continuation",
+          "condition_label": "Continuation of therapy for advanced, recurrent, or metastatic vulvar cancer",
+          "condition_synonyms": [
+            "Vulvar cancer continuation"
+          ],
+          "diagnosis_basis": "code_table_primary",
+          "diagnosis_code_candidates": [
+            "C51.0 - C51.9"
+          ],
+          "inherits_diagnosis_from_cluster_ids": [
+            "cluster_vulvar_initial"
+          ],
+          "cluster_entry_guard_ids": [],
+          "logic_profile_id": "UNKNOWN",
+          "logic_root": {
+            "node_type": "group",
+            "operator": "all",
+            "children": [
+              {
+                "node_type": "criterion_ref",
+                "criterion_id": "CR_CONT_NO_PROG_TOXICITY"
+              }
+            ]
+          },
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        }
+      ],
+      "logic_profiles": [],
+      "criteria_catalog": [
+        {
+          "criterion_id": "CR_AMPULLARY_INT_TYPE_PROG_OR_META",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have intestinal-type ampullary adenocarcinoma that is progressive or metastatic?",
+          "clinical_intent": "Confirm diagnosis and disease status for ampullary adenocarcinoma.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C24.1"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Ampullary adenocarcinoma - for treatment of intestinal-type ampullary adenocarcinoma that is progressive, or metastatic;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "A. Ampullary adenocarcinoma"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "criterion_id": "CR_APPENDICEAL_COLON_ANAL",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have an appendiceal neoplasm or appendiceal cancer (including appendiceal adenocarcinoma, goblet cell adenocarcinoma, undifferentiated carcinoma NOS, low-grade or high-grade mucinous neoplasm) or colorectal or anal adenocarcinoma?",
+          "clinical_intent": "Confirm covered appendiceal, colorectal, or anal malignancy.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C18.0 - C21.8",
+              "C26.0"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Appendiceal neoplasms and cancers - for treatment of appendiceal neoplasms and appendiceal cancers (including appendiceal adenocarcinoma, goblet cell adenocarcinoma, undifferentiated carcinoma not otherwise specified, and low-grade and high-grade appendiceal mucinous neoplasm); Colorectal cancer, including appendiceal adenocarcinoma, and anal adenocarcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "B. Appendiceal neoplasms and cancers / E. Colorectal cancer"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "criterion_id": "CR_CNS_CANCERS",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have one of the listed CNS cancers (circumscribed glioma; diffuse high-grade gliomas; glioblastoma; H3-mutated high-grade glioma; high-grade astrocytoma with piloid features; intracranial or spinal ependymoma excluding subependymoma; IDH mutant astrocytoma WHO Grade 2-4; oligodendroglioma WHO Grade 2-3; medulloblastoma; pleomorphic xanthoastrocytoma WHO Grade 2 or 3; primary CNS lymphoma; meningiomas; limited or extensive brain metastases; metastatic spine tumors; or primary spinal cord tumors)?",
+          "clinical_intent": "Confirm coverage for the enumerated CNS tumors.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C71.0 - C71.9",
+              "C72.0 - C72.9",
+              "D32.0 - D32.9",
+              "Q85.02",
+              "Q85.03"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Central nervous system (CNS) cancers - for treatment of the following types of CNS cancer: Circumscribed glioma; Diffuse high grade gliomas; Glioblastoma; H3-mutated high-grade glioma; High-grade astrocytoma with piloid features (HGAP); Intracranial and spinal ependymoma (excludes subependymoma); IDH mutant astrocytoma (WHO Grade 2, 3 or 4); Oligodendroglioma (WHO Grade 2 or 3); Medulloblastoma; Pleomorphic xanthoastrocytoma (PXA) (WHO Grade 2 or 3); Primary central nervous system lymphoma; Meningiomas; Limited and extensive brain metastases; Metastatic spine tumors; Primary spinal cord tumors;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "C. Central nervous system (CNS) cancers"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "criterion_id": "CR_CERVICAL_PERSISTENT_RECURRENCE",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have persistent, recurrent, or metastatic cervical cancer requiring treatment?",
+          "clinical_intent": "Confirm coverage for advanced cervical cancer.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C53.0 - C53.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Cervical cancer - for treatment of persistent, recurrent, or metastatic cervical cancer;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "D. Cervical cancer"
+            ],
+            "page_start": 3,
+            "page_end": 3
+          }
+        },
+        {
+          "criterion_id": "CR_ENDOMETRIAL_STAGE3_4",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma requiring treatment?",
+          "clinical_intent": "Confirm coverage for advanced endometrial cancer.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C54.1",
+              "C55"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Endometrial carcinoma - for treatment of stage III-IV, persistent, recurrent, or metastatic endometrial carcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "F. Endometrial carcinoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_HEPATIC_UNRESECTABLE_ATEZO",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have unresectable or extrahepatic/metastatic hepatocellular carcinoma and will bevacizumab be used in combination with atezolizumab?",
+          "clinical_intent": "Ensure HCC therapy is in combination with atezolizumab as required.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C22.0"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication"
+          ],
+          "policy_time_language": "current request",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "For treatment of unresectable or extrahepatic/metastatic hepatocellular carcinoma, when the requested medication will be used in combination with atezolizumab;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "G. Hepatocellular carcinoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_MESO_DIAG",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have pleural, peritoneal, pericardial, or tunica vaginalis testis mesothelioma requiring therapy?",
+          "clinical_intent": "Confirm mesothelioma diagnosis.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C45.0",
+              "C45.1",
+              "C45.2",
+              "C45.7"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Mesothelioma - for treatment of pleural mesothelioma, peritoneal mesothelioma, pericardial mesothelioma, or tunica vaginalis testis mesothelioma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "H. Mesothelioma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_MESO_FIRST_LINE",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Will bevacizumab be used as first-line therapy with pemetrexed plus cisplatin or carboplatin followed by single-agent bevacizumab maintenance?",
+          "clinical_intent": "Confirm first-line mesothelioma regimen.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication"
+          ],
+          "policy_time_language": "current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "As first-line therapy in combination with pemetrexed and either cisplatin or carboplatin, followed by single-agent maintenance bevacizumab;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "H. Mesothelioma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_MESO_SUBSEQ_AFTER_IMMUNO",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Will bevacizumab be used as subsequent therapy with pemetrexed plus cisplatin or carboplatin after prior immunotherapy?",
+          "clinical_intent": "Confirm eligible subsequent therapy for mesothelioma after immunotherapy.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication"
+          ],
+          "policy_time_language": "current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "As subsequent therapy in combination with pemetrexed and either cisplatin or carboplatin if immunotherapy was administered as first-line treatment;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "H. Mesothelioma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_MESO_INDUCTION_STAGE1",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Will bevacizumab be used for induction prior to surgical exploration for clinical stage I disease with epithelioid histology in combination with pemetrexed and cisplatin or carboplatin?",
+          "clinical_intent": "Confirm induction therapy context for mesothelioma.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication"
+          ],
+          "policy_time_language": "current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "For induction treatment ... when used in combination with pemetrexed and either cisplatin or carboplatin prior to surgical exploration for clinical stage I disease with epithelioid histology;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "H. Mesothelioma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_MESO_ATEZO_SUBSEQ",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Will bevacizumab be used with atezolizumab as subsequent therapy for mesothelioma?",
+          "clinical_intent": "Confirm subsequent mesothelioma therapy with atezolizumab.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication"
+          ],
+          "policy_time_language": "current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "For treatment ... when used in combination with atezolizumab as subsequent therapy;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "H. Mesothelioma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_NSCLC_ADVANCED",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have recurrent, unresectable, advanced, or metastatic non-squamous non-small cell lung cancer?",
+          "clinical_intent": "Confirm coverage for advanced non-squamous NSCLC.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C34.00 - C34.92"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Non-small cell lung cancer (NSCLC) - for treatment of recurrent, unresectable, advanced, or metastatic non-squamous NSCLC;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "I. Non-small cell lung cancer (NSCLC)"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_OVARIAN_FALLOPIAN_PERITONEAL",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have epithelial ovarian cancer, fallopian tube cancer, primary peritoneal cancer, or malignant sex cord stromal tumor requiring treatment?",
+          "clinical_intent": "Confirm coverage for the listed gynecologic cancers.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C56.1 - C56.9",
+              "C57.00 - C57.02",
+              "C57.10 - C57.4",
+              "C48.0 - C48.8"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Ovarian cancer/fallopian tube cancer/Primary peritoneal cancer - for treatment of: 1. Epithelial ovarian cancer; 2. Fallopian tube cancer; 3. Primary peritoneal cancer; 4. Malignant sex cord stromal tumors;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "J. Ovarian cancer/fallopian tube cancer/Primary peritoneal cancer"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_RCC_RELAPSED_STAGEIV",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have relapsed or stage IV renal cell carcinoma requiring treatment?",
+          "clinical_intent": "Confirm advanced RCC.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C64.1 - C64.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Renal cell carcinoma (RCC) - for treatment of relapsed or stage IV renal cell carcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "K. Renal cell carcinoma (RCC)"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_SMALL_BOWEL_ADENOCARC",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have small bowel adenocarcinoma requiring treatment?",
+          "clinical_intent": "Confirm small bowel adenocarcinoma.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C17.0 - C17.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Small bowel adenocarcinoma;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "L. Small bowel adenocarcinoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_ANGIOSARCOMA_SINGLE_AGENT",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have angiosarcoma requiring single-agent bevacizumab therapy?",
+          "clinical_intent": "Confirm angiosarcoma indication.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C49.0 - C49.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Angiosarcoma, as single agent therapy;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "M. Soft tissue sarcoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_SOLITARY_FIBROUS_HEMANGIO",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have solitary fibrous tumor or hemangiopericytoma requiring bevacizumab in combination with temozolomide?",
+          "clinical_intent": "Confirm the combination therapy for the specified soft tissue sarcomas.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C38.4",
+              "C49.0 - C49.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication"
+          ],
+          "policy_time_language": "current request",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Solitary fibrous tumor or hemangiopericytoma, in combination with temozolomide;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "M. Soft tissue sarcoma"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_VAGINAL_RECURRENCE",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have recurrent or metastatic vaginal cancer requiring treatment?",
+          "clinical_intent": "Confirm advanced vaginal cancer.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C52"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Vaginal cancer - for treatment of recurrent or metastatic vaginal cancer;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "N. Vaginal cancer"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_VULVAR_ADVANCED",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Does the member have advanced, recurrent, or metastatic vulvar cancer, including squamous cell carcinoma or adenocarcinoma?",
+          "clinical_intent": "Confirm advanced vulvar cancer.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C51.0 - C51.9"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition"
+          ],
+          "policy_time_language": "current",
+          "retrieval_priority": "high",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Vulvar cancer - for treatment of advanced, recurrent, or metastatic vulvar cancer, including squamous cell carcinoma and adenocarcinoma.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "I. Criteria for Initial Approval",
+              "O. Vulvar cancer"
+            ],
+            "page_start": 4,
+            "page_end": 4
+          }
+        },
+        {
+          "criterion_id": "CR_CONT_NO_PROG_TOXICITY",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Is there no evidence of unacceptable toxicity or disease progression while the member remains on the current bevacizumab regimen?",
+          "clinical_intent": "Confirm general continuation eligibility.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "observation"
+          ],
+          "policy_time_language": "while on the current regimen",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "There is no evidence of unacceptable toxicity or disease progression while on the current regimen;",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy",
+              "C. All other indications"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "criterion_id": "CR_NSCLC_CONT_ERLOTINIB",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Will bevacizumab be continued in combination with erlotinib while the disease is T790M negative and there is no evidence of unacceptable toxicity?",
+          "clinical_intent": "Confirm the erlotinib continuation scenario for NSCLC.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [
+              "C34.00 - C34.92"
+            ],
+            "code_role": "diagnosis_inclusion"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication",
+            "observation"
+          ],
+          "policy_time_language": "current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "The requested medication will be used as continuation of therapy in combination with erlotinib when both of the following criteria are met: a. Disease is T790M negative; and b. There is no evidence of unacceptable toxicity.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy",
+              "A. Non-small cell lung cancer (NSCLC)"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "criterion_id": "CR_CNS_CONT_ADD_CHEMO",
+          "criterion_kind": "cluster_criterion",
+          "prompt": "Did disease progression occur on single-agent bevacizumab therapy without unacceptable toxicity with intent to add carmustine, lomustine, or temozolomide for one of the listed CNS cancers (glioblastoma; H3-mutated high-grade glioma; high-grade astrocytoma with piloid features; IDH mutant astrocytoma WHO Grade 3 or 4; oligodendroglioma WHO Grade 3; pleomorphic xanthoastrocytoma WHO Grade 3)?",
+          "clinical_intent": "Confirm CNS reauthorization when adding chemotherapy after progression.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "condition",
+            "medication",
+            "observation"
+          ],
+          "policy_time_language": "with the current or planned regimen",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Disease progression occurred with single agent bevacizumab therapy and there is no evidence of unacceptable toxicity; carmustine, lomustine, or temozolomide can be added to the regimen for one of the following types of CNS cancer: Glioblastoma; H3-mutated high-grade glioma; High-grade astrocytoma with piloid features (HGAP); IDH mutant astrocytoma (WHO Grade 3 or 4); Oligodendroglioma (WHO Grade 3); Pleomorphic xanthoastrocytoma (PXA) (WHO Grade 3);",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "II. Continuation of Therapy",
+              "B. CNS cancer"
+            ],
+            "page_start": 5,
+            "page_end": 5
+          }
+        },
+        {
+          "criterion_id": "CR_GUARD_NOT_CETUX_PANI",
+          "criterion_kind": "route_guard",
+          "prompt": "Is bevacizumab not being requested in combination with cetuximab (Erbitux) or panitumumab (Vectibix)?",
+          "clinical_intent": "Prevent coverage of the unproven EGFR inhibitor combinations.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "with the current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with cetuximab (Erbitux) or panitumumab (Vectibix) experimental, investigational, or unproven because the effectiveness and safety of these combinations has not been established.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "II. Aetna considers bevacizumab and its biosimilars in combination with cetuximab or panitumumab experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        },
+        {
+          "criterion_id": "CR_NSCLC_NOT_PEMETREXED_MAINT",
+          "criterion_kind": "cluster_entry_guard",
+          "prompt": "Is bevacizumab not being used as maintenance therapy with pemetrexed for non-squamous non-small cell lung cancer?",
+          "clinical_intent": "Prevent coverage of pemetrexed maintenance combinations for NSCLC.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "for the current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental, investigational, or unproven.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "IV. Aetna considers bevacizumab and its biosimilars in combination with pemetrexed as maintenance therapy for non-squamous non-small cell lung cancer experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        },
+        {
+          "criterion_id": "CR_RCC_NOT_ATEZO_COMBO",
+          "criterion_kind": "cluster_entry_guard",
+          "prompt": "Is bevacizumab not being used in combination with atezolizumab for renal cell carcinoma?",
+          "clinical_intent": "Prevent coverage of the experimental RCC/atezolizumab combination.",
+          "answer_type": "boolean",
+          "required": true,
+          "code_binding": {
+            "source_codes": [],
+            "code_role": "UNKNOWN"
+          },
+          "preferred_data_domains": [
+            "medication"
+          ],
+          "policy_time_language": "for the current request",
+          "retrieval_priority": "medium",
+          "prefill_allowed": true,
+          "clinician_must_confirm": true,
+          "evidence": "Aetna considers bevacizumab and its biosimilars in combination with atezolizumab for the treatment of renal cell carcinoma experimental, investigational, or unproven.",
+          "locator": {
+            "section_path": [
+              "Policy",
+              "Experimental, Investigational, or Unproven",
+              "III. Aetna considers bevacizumab and its biosimilars in combination with atezolizumab for the treatment of renal cell carcinoma experimental"
+            ],
+            "page_start": 11,
+            "page_end": 11
+          }
+        }
+      ],
+      "notes": {
+        "parsing_notes": "Derived from Aetna Clinical Policy Bulletin 0685 for bevacizumab non-ocular indications.",
+        "confidence": "MEDIUM"
+      }
+    },
+    "retrieval_plan_v1": null,
+    "criterion_answers": {}
+  }
+}

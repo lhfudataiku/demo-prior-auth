@@ -180,10 +180,23 @@ def _load_policy_row_dss(policy_id: str):
     raise FileNotFoundError(f"Policy {policy_id} not found in DSS dataset {POLICY_ARTIFACTS_DATASET_NAME}.")
 
 
+def _load_policy_row_local(policy_id: str):
+    with POLICY_ARTIFACTS_CSV_PATH.open() as stream:
+        for row in DictReader(stream):
+            if row.get("policy_id") == policy_id:
+                return row
+    raise FileNotFoundError(f"Policy {policy_id} not found in local {POLICY_ARTIFACTS_CSV_PATH}.")
+
+
 def load_policy_master(policy_id: str, data_source: Optional[str] = None):
     if get_data_source(data_source) == "dss":
         row = _load_policy_row_dss(policy_id)
         return json.loads(row.get("policy_master_v4") or "{}")
+    try:
+        row = _load_policy_row_local(policy_id)
+        return json.loads(row.get("policy_master_v4") or "{}")
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
     return _load_json(policy_id, "policy_master_v4.json")
 
 
@@ -191,6 +204,11 @@ def load_route_index(policy_id: str, data_source: Optional[str] = None):
     if get_data_source(data_source) == "dss":
         row = _load_policy_row_dss(policy_id)
         return json.loads(row.get("route_index_v4") or "{}")
+    try:
+        row = _load_policy_row_local(policy_id)
+        return json.loads(row.get("route_index_v4") or "{}")
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
     return _load_json(policy_id, "route_index_v4.json")
 
 
