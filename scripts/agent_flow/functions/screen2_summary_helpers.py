@@ -112,3 +112,17 @@ def build_agent_review_summary(raw_review_result: Any) -> str:
             lines.extend(["No supporting evidence was cited.", ""])
 
     return "\n".join(lines)
+
+
+def get_agent_review_summary_metadata(raw_review_result: Any) -> Dict[str, Any]:
+    """Return trace metadata associated with a rendered review summary."""
+
+    result = _as_object(raw_review_result)
+    payload = _as_object(result.get("reviewed_screen_2_payload"))
+    inner = _as_object(payload.get("payload"))
+    criteria = inner.get("criteria", [])
+    return {
+        "summary_version": "agent_review_summary_v1",
+        "criterion_count": len(criteria) if isinstance(criteria, list) else 0,
+        "human_validated": bool(result.get("human_validated")),
+    }

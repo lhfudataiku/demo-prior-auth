@@ -446,9 +446,9 @@ modules.
 
 Migration status: the local branch now contains the explicit-runtime library
 and pure summary helper. `python_code_blocks.py` is retained only as a local
-simulation compatibility adapter. Updating the five live DSS block bodies to
-their minimal wrappers remains a separate deployment step and must use the
-approved DSS change workflow.
+simulation compatibility adapter. The five live `NkBiV9OM` DSS block bodies
+now use their minimal explicit-runtime wrappers; future behavior changes should
+be made in the versioned library and deployed through that wrapper contract.
 
 #### Runtime Boundary
 

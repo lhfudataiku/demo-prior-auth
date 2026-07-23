@@ -18,7 +18,10 @@ from scripts.agent_flow.functions.screen2_agent_runtime import (
     initialize_screen2_state_defaults as _initialize_screen2_state_defaults,
     prepare_screen2_review_payload as _prepare_screen2_review_payload,
 )
-from scripts.agent_flow.functions.screen2_summary_helpers import build_agent_review_summary
+from scripts.agent_flow.functions.screen2_summary_helpers import (
+    build_agent_review_summary,
+    get_agent_review_summary_metadata,
+)
 
 
 def _resolve_state() -> StateDict:
@@ -69,4 +72,6 @@ def build_agent_review_summary_from_state(trace: Any) -> None:
     )
     if trace:
         with trace.subspan("build_agent_review_summary") as span:
-            span.attributes["summary_version"] = "agent_review_summary_v1"
+            span.attributes.update(
+                get_agent_review_summary_metadata(state.get("screen_2_review_result"))
+            )

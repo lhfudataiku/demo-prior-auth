@@ -9,7 +9,10 @@ from scripts.agent_flow.functions.screen2_agent_runtime import (
     build_screen2_payload_from_state,
     prepare_screen2_review_payload,
 )
-from scripts.agent_flow.functions.screen2_summary_helpers import build_agent_review_summary
+from scripts.agent_flow.functions.screen2_summary_helpers import (
+    build_agent_review_summary,
+    get_agent_review_summary_metadata,
+)
 
 
 class _Span:
@@ -142,6 +145,10 @@ class Screen2AgentRuntimeTests(unittest.TestCase):
         self.assertIn("# Prior Authorization Eligibility Review", summary)
         self.assertIn("No direct evidence.", summary)
         self.assertIn("Policy: Unknown", build_agent_review_summary("not-json"))
+        self.assertEqual(
+            {"summary_version": "agent_review_summary_v1", "criterion_count": 0, "human_validated": False},
+            get_agent_review_summary_metadata("not-json"),
+        )
 
 
 if __name__ == "__main__":
