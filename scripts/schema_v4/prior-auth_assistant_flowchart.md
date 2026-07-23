@@ -4,7 +4,6 @@
 flowchart TD
   subgraph Stores["Dataiku datasets"]
     Tier1["Tier 1: policy_artifacts\npolicy_master_v4 canonical\nroute_index_v4 derived"]
-    Tier2["Tier 2: retrieval_plan_cache_v1\nretrieval_plan_v1 by selected scope"]
     SessionDS["Optional: prior_auth_session_state"]
   end
 
@@ -29,21 +28,21 @@ flowchart TD
 
   subgraph Backend["Deterministic app/backend"]
     B1["Screen 1 backend\n- load policy_master_v4\n- derive/load route_index_v4\n- run Selection Resolver\n- validate route + cluster-entry guards\n- build scoped_policy_context\n- return initial criterion_answers"]
-    CacheLookup{"retrieval_plan_v1 cache hit?"}
   end
 
   subgraph Orchestrator["Structured Visual Agent"]
     Init["init_state\nstore selected_scope_context\npreserve incoming criterion_answers"]
-    Planner["Retrieval Planner Agent\nretrieval_planner_agent_prompt_v1_1.md"]
+    Planner["Retrieval Planner Agent\nretrieval_planner_agent_prompt_v1_2.md"]
     PlanReady["retrieval_plan_v1 ready"]
     Exec["FOR_EACH plan_items\nflattened criterion execution"]
-    Reasoner["Criterion Reasoning Agent\ncriterion_reasoning_agent_prompt_v1_1.md"]
+    Reasoner["Criterion Reasoning Agent\ncriterion_reasoning_agent_prompt_v1_2.md"]
     Accumulate["accumulate_current_reasoning_result(...)"]
     UIMap["build_criterion_ui_map(...)\nmerge chart results + clinician input\nset conflict_flag"]
     LogicEval["evaluate_logic_tree_from_state(...)"]
     Screen2Payload["prepare_screen_2_review_payload\nbuild_screen2_payload(...)"]
     ReviewTool["request_screen_2_human_review\nmanaged Python tool\nhuman approval enforced"]
-    EmitReview["emit screen_2_review_result\nreviewed Screen 2 artifact"]
+    EmitReview["retain screen_2_review_result\nreviewed Screen 2 artifact"]
+    EmitSummary["emit agent_review_summary\nclinician-readable Markdown"]
   end
 
   subgraph PostReview["Deterministic post-review backend/webapp"]
@@ -57,11 +56,7 @@ flowchart TD
   B1 --> S1
 
   B1 -->|"screen_2 request:\nsubject_id, scoped_policy_context,\noptional initial criterion_answers"| Init
-  Init --> CacheLookup
-  CacheLookup -->|yes| Tier2
-  Tier2 --> PlanReady
-  CacheLookup -->|no| Planner
-  Planner --> Tier2
+  Init --> Planner
   Planner --> PlanReady
 
   PlanReady --> Exec
@@ -76,6 +71,7 @@ flowchart TD
 
   S2 -->|"human approval:\napprove or edit criterion_answers"| EmitReview
   ReviewTool --> EmitReview
+  EmitReview --> EmitSummary
   EmitReview --> CaptureReview
   CaptureReview --> Screen3Payload
   Screen3Payload --> Emit3

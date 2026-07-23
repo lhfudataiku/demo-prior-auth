@@ -144,7 +144,8 @@ Responsibilities:
 Implementation helpers:
 - `scripts/agent_flow/functions/route_index_builder.py`
 - `scripts/agent_flow/functions/selection_resolver.py`
-- `scripts/agent_flow/functions/python_code_blocks.py`
+- `scripts/agent_flow/functions/screen2_agent_runtime.py`
+- `scripts/agent_flow/functions/screen2_summary_helpers.py`
 
 ### Agent Layer
 
@@ -168,20 +169,20 @@ Platform:
 
 Responsibility:
 - begin after Screen 1 scope selection
-- look up or create `retrieval_plan_v1`
+- generate `retrieval_plan_v1` for the selected scope in the current live graph
 - orchestrate criterion traversal over flattened `plan_items`
 - call the Criterion Reasoning Agent once per criterion
 - build `criterion_result_map`
 - evaluate the selected logic tree
-- return the reviewed Screen 2 artifact for deterministic downstream
-  transformation
+- retain the reviewed Screen 2 artifact for deterministic downstream
+  transformation and emit a clinician-readable review summary
 
 Implementation spec:
 - `scripts/schema_v4/screen2_structured_agent_spec.md`
 
 #### 3. Retrieval Planner Agent
 Prompt:
-- `scripts/agent_flow/agents/retrieval_planner_agent_prompt_v1_1.md`
+- `scripts/agent_flow/agents/retrieval_planner_agent_prompt_v1_2.md`
 
 Responsibility:
 - consume `subject_id + scoped_policy_context`
@@ -193,7 +194,7 @@ Responsibility:
 
 #### 4. Criterion Reasoning Agent
 Prompt:
-- `scripts/agent_flow/agents/criterion_reasoning_agent_prompt_v1_1.md`
+- `scripts/agent_flow/agents/criterion_reasoning_agent_prompt_v1_2.md`
 
 Responsibility:
 - evaluate one atomic criterion using chart evidence
@@ -338,7 +339,7 @@ Backend should:
 ### Screen 2: Structured Agent
 Structured Agent should:
 1. receive `subject_id + scoped_policy_context`
-2. load or generate `retrieval_plan_v1`
+2. generate `retrieval_plan_v1` for the selected scope
 3. iterate over flattened `plan_items`
 4. call Criterion Reasoning Agent once per unique criterion
 5. build `criterion_result_map`
@@ -346,7 +347,9 @@ Structured Agent should:
 7. apply results to the selected logic tree
 8. build the Screen 2 review payload
 9. request human approval through the managed Screen 2 review tool
-10. emit the reviewed Screen 2 artifact as the stable downstream handoff object
+10. retain `screen_2_review_result` as the stable machine-readable downstream
+    handoff object and emit `agent_review_summary` as terminal clinician-readable
+    Markdown
 
 Conflict handling rule:
 - `criterion_ui_map` should compare chart-backed `criterion_result_map` against
@@ -361,7 +364,8 @@ Implementation note:
 
 ### Screen 3: Deterministic backend/webapp layer
 Backend/webapp should:
-1. consume the approved Screen 2 review result
+1. consume the stateful approved Screen 2 review result, not the terminal
+   `agent_review_summary` text
 2. merge clinician answers with chart-backed results
 3. recompute completeness and conflicts
 4. return final review payload
@@ -434,6 +438,12 @@ The evaluator runs after `criterion_result_map` is complete.
 - each note excerpt should be a focused local passage, not the full retrieved
   chunk
 - reasoning belongs in `justification`
+
+`criterion_trace_map` is a v0.2 internal audit map. For each accumulated
+criterion, it preserves the exact planner `plan_item`, the parsed raw reasoner
+result, and accumulation metadata. It supports production-to-component plan
+parity diagnosis and is not consumed by the webapp, logic evaluator, or HITL
+payload.
 
 ### Criterion normalization
 - `Found` + `meets_criterion=true` -> satisfied
@@ -590,11 +600,12 @@ The POC is successful if:
 - `scripts/agent_flow/agents/policy_parser_agent_prompt_v4_1.md`
 - `scripts/schema_v4/screen2_structured_agent_spec.md`
 - `scripts/schema_v4/screen2_human_review_tool_spec.md`
-- `scripts/agent_flow/agents/retrieval_planner_agent_prompt_v1_1.md`
+- `scripts/agent_flow/agents/retrieval_planner_agent_prompt_v1_2.md`
 - `scripts/agent_flow/functions/route_index_builder.py`
 - `scripts/agent_flow/functions/selection_resolver.py`
-- `scripts/agent_flow/functions/python_code_blocks.py`
+- `scripts/agent_flow/functions/screen2_agent_runtime.py`
+- `scripts/agent_flow/functions/screen2_summary_helpers.py`
 - `scripts/agent_flow/functions/logic_tree_evaluator.py`
 - `scripts/agent_flow/functions/evaluator_regression.py`
-- `scripts/agent_flow/agents/criterion_reasoning_agent_prompt_v1_1.md`
+- `scripts/agent_flow/agents/criterion_reasoning_agent_prompt_v1_2.md`
 - `scripts/schema_v4/prior-auth_assistant_flowchart.md`

@@ -586,9 +586,15 @@ core objects:
 - Screen 2 response shape matches the documented `screen_2_payload`
 - Screen 3 response shape still matches the documented `screen_3_payload`, but
   in `dss` mode it is now derived deterministically by the backend from the
-  reviewed `screen_2_review_result` artifact rather than emitted directly by
-  the Structured Agent
+  stateful reviewed `screen_2_review_result` artifact rather than emitted
+  directly by the Structured Agent
 - `criterion_answers` remains the working answer map
+
+Terminal-output rule:
+- the current Structured Agent emits clinician-readable `agent_review_summary`
+  Markdown as its terminal text output
+- the webapp does not parse that text as an API payload; it uses the paused
+  review request and retained `screen_2_review_result` state artifact instead
 
 Important translation rule:
 - the webapp/backend request uses `payload.scoped_policy_context`
