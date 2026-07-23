@@ -19,11 +19,6 @@
     "chart_result": {
       "status": "Found",
       "meets_criterion": true,
-      "extracted_value": {
-        "bevacizumab_with_cetuximab_or_panitumumab": "not documented",
-        "EHR_medication_exposure": "no records for bevacizumab, cetuximab, or panitumumab found",
-        "note_evidence": "no mention of cetuximab/Erbitux or panitumumab/Vectibix in retrieved notes"
-      },
       "justification": "For this subject, the structured EHR query found no medication request records showing bevacizumab, cetuximab (Erbitux), or panitumumab (Vectibix). The retrieved notes also do not document a request or use of bevacizumab in combination with cetuximab or panitumumab. This supports that the disqualifying combination is not present in the chart evidence reviewed.",
       "sources": {
         "structured": [
@@ -66,7 +61,6 @@
     "chart_result": {
       "status": "Missing",
       "meets_criterion": false,
-      "extracted_value": null,
       "justification": "Structured EHR retrieval found no medication, treatment plan, or encounter documentation showing bevacizumab being used with pemetrexed for maintenance therapy in non-squamous NSCLC for this subject. No contrary evidence was identified, but the required negative exclusion is also not explicitly documented, so the criterion cannot be confirmed as satisfied.",
       "sources": {
         "structured": [],
@@ -105,12 +99,6 @@
     "chart_result": {
       "status": "Ambiguous",
       "meets_criterion": false,
-      "extracted_value": {
-        "diagnosis": "Non-small cell lung cancer (NSCLC)",
-        "coded_support": "No structured condition/problem-list record matched C34.00-C34.92 in the EHR query",
-        "narrative_support": "Clinical notes describe NSCLC/adenocarcinoma of the lung with extrinsic compression of both main stem bronchi, tumor debulking and bronchial stenting, and planned palliative chemo/radiation",
-        "qualifier_status": "Advanced/unresectable/metastatic status is not explicitly documented as a coded or unambiguous structured fact"
-      },
       "justification": "The chart supports that the patient has NSCLC, and the notes suggest clinically advanced obstructive disease requiring stenting and palliative treatment. However, the required qualifier for this criterion is recurrent, unresectable, advanced, or metastatic non-squamous NSCLC, and the structured query did not find a matching coded condition while the narrative does not explicitly and unambiguously confirm the specific qualifier. Per instructions, diagnosis support alone is not sufficient to resolve the qualifier, so the criterion remains ambiguous.",
       "sources": {
         "structured": [

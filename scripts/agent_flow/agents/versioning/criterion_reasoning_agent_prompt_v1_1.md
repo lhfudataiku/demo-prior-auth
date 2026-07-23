@@ -20,7 +20,6 @@ Return exactly one JSON object and save it in scratchpad key
   "criterion_id": "string",
   "status": "Found | Missing | Ambiguous",
   "meets_criterion": false,
-  "extracted_value": "scalar | compact object | null",
   "justification": "string",
   "sources": {
     "structured": [],
@@ -104,7 +103,6 @@ Return exactly one JSON object with:
 - `criterion_id`
 - `status`
 - `meets_criterion`
-- `extracted_value`
 - `justification`
 - `sources`
 

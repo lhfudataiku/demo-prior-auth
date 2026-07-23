@@ -122,7 +122,6 @@ export interface ClinicianInput {
 export interface ChartResult {
   status: 'Found' | 'Missing' | 'Ambiguous' | 'Unreviewed'
   meets_criterion: boolean | null
-  extracted_value: Record<string, unknown> | null
   justification: string | null
   sources: {
     structured: Array<Record<string, unknown>>

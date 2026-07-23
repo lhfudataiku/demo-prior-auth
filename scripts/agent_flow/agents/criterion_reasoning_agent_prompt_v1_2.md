@@ -20,7 +20,20 @@ Return exactly one JSON object and save it in scratchpad key
   "criterion_id": "string",
   "status": "Found | Missing | Ambiguous",
   "meets_criterion": false,
-  "extracted_value": "scalar | compact object | null",
+  "qualifier_assessments": [
+    {
+      "qualifier": "disease_activity | disease_stage | disease_severity | treatment_response | additional_clinical_confirmation",
+      "required_fact": "string",
+      "status": "Found | Missing | Ambiguous",
+      "normalized_value": "scalar | compact object | null"
+    }
+  ],
+  "disqualifying_clause_assessment": {
+    "disqualifying_fact": "string",
+    "status": "Found | Missing | Ambiguous",
+    "is_present": false,
+    "normalized_value": "scalar | compact object | null"
+  },
   "justification": "string",
   "sources": {
     "structured": [],
@@ -113,13 +126,36 @@ Return exactly one JSON object with:
 - `criterion_id`
 - `status`
 - `meets_criterion`
-- `extracted_value`
+- `qualifier_assessments`
+- `disqualifying_clause_assessment`
 - `justification`
 - `sources`
 
 `status` answers whether chart evidence is sufficient to classify the criterion.
 `meets_criterion` answers whether the criterion passes based on that chart
 evidence.
+
+`qualifier_assessments` is an assessment of the planner-required qualifiers,
+not a copy of `execution_hints.qualifiers`:
+- return exactly one item for each value in `execution_hints.qualifiers`, in
+  the same order; return `[]` when no qualifier is required
+- `required_fact` states the exact fact required by the prompt and
+  `clinical_intent`, such as "unresectable or advanced disease" rather than
+  merely "disease_stage"
+- `normalized_value` is a compact structured fact when directly supported by
+  chart evidence, otherwise `null`; do not place note prose, source IDs, or
+  full tool rows here
+
+`disqualifying_clause_assessment` is an assessment of the planner-required
+exclusion, not a copy of `execution_hints.disqualifying_clause`:
+- return `null` when `disqualifying_clause = false`
+- otherwise return one object whose `disqualifying_fact` names the fact whose
+  presence would fail the criterion
+- set `is_present = true` only when the chart directly documents the
+  disqualifying fact; set `false` only when the chart directly documents its
+  absence, denial, negative result, or rule-out; otherwise set it to `null`
+- use `normalized_value` only for a compact directly supported fact; do not
+  duplicate `sources` or `justification`
 
 ## 5) Tool-routing algorithm
 
@@ -337,41 +373,79 @@ Do not invent temporal rules:
   rather than inferring a stricter currentity requirement that is not encoded
   in the plan item
 
-## 9) Evidence Resolution, Exclusion Logic, and Status
+## 9) Requirement Resolution, Exclusion Logic, and Status
 
-Before selecting `status`, identify every fact required by the criterion,
-including diagnosis, severity, activity, biomarker, treatment context, intent,
-timing, and any exclusion. Separate direct evidence for each required fact from
-merely related evidence. A diagnosis record is not direct evidence of a
-separate response, stage, biomarker, request-intent, or exclusion qualifier.
+Before selecting the criterion-level result, build a requirement inventory from
+the prompt, `clinical_intent`, `execution_hints.qualifiers`,
+`execution_hints.disqualifying_clause`, and `time_constraint`. It may include
+diagnosis, severity, activity, biomarker, treatment context, request intent,
+timing, qualifiers, and an exclusion. Separate direct evidence for each
+required fact from merely related evidence. A diagnosis record is not direct
+evidence of a separate response, stage, biomarker, request-intent, or
+exclusion qualifier.
 
-Use these status definitions and allowed combinations:
+### Qualifier assessments
 
-- `Found`, `true`
-  - direct chart evidence establishes that the full criterion is satisfied
-- `Found`, `false`
-  - direct chart evidence establishes that the full criterion is not satisfied
-- `Missing`, `false`
-  - no retrieved evidence directly addresses a required fact or qualifier
-- `Ambiguous`, `false`
-  - retrieved evidence directly addresses a required fact or qualifier, but is
-    partial, conflicting, indirect, or inconclusive
+For every planner-required qualifier:
+- state the exact required fact in `required_fact`; derive its target from the
+  prompt and `clinical_intent`, not from the qualifier enum alone
+- return `Found` only when direct evidence establishes that exact fact
+- return `Missing` when no retrieved evidence directly addresses it
+- return `Ambiguous` when directly relevant evidence is partial, conflicting,
+  indirect, or inconclusive
+- do not mark a qualifier `Found` because a broad diagnosis confirms only the
+  baseline condition
 
-`meets_criterion` may be `true` only when `status = "Found"`.
+Examples:
+- `disease_stage` with a requirement for unresectable disease is not `Found`
+  from a cancer diagnosis alone
+- `treatment_response` with a requirement for improvement is not `Found` from
+  a medication list alone
+- `additional_clinical_confirmation` requires the actual relevant pathology,
+  imaging, biomarker, laboratory, or examination result, not merely a mention
+  that testing occurred
 
-### Exclusionary Criteria
+### Exclusionary criteria
 
-Some criteria are satisfied by absence of a disqualifying fact, such as a
-request not solely for diagnosis, no concomitant drug, or no unacceptable toxicity.
+When `disqualifying_clause = true`, the criterion is satisfied only when the
+chart directly establishes absence of the named disqualifying fact, such as a
+request not solely for diagnosis, no concomitant drug, or no unacceptable
+toxicity.
 
 - do not infer absence from a silent chart
-- require chart documentation that the disqualifying fact is absent, denied,
-  ruled out, negative, or otherwise not present
-- if the disqualifying fact is documented as absent, return `Found`, `true`
-- if the disqualifying fact is documented as present, return `Found`, `false`
-- if neither presence nor absence is documented, return `Missing`, `false`
+- if the disqualifying fact is documented as absent, denied, ruled out,
+  negative, or otherwise not present, return clause `Found` with
+  `is_present = false`
+- if it is documented as present, return clause `Found` with
+  `is_present = true`
+- if neither presence nor absence is directly documented, return clause
+  `Missing` with `is_present = null`
 - if evidence addressing the exclusion is conflicting or inconclusive, return
-  `Ambiguous`, `false`
+  clause `Ambiguous` with `is_present = null`
+
+### Criterion-level rollup
+
+Use these status definitions and allowed combinations after evaluating every
+required fact, qualifier, temporal constraint, and exclusion:
+
+- `Found`, `true`
+  - direct chart evidence establishes the baseline facts and every required
+    qualifier, any temporal rule, and any exclusion condition
+- `Found`, `false`
+  - direct chart evidence establishes that a required fact or qualifier fails,
+    or that a disqualifying fact is present
+- `Missing`, `false`
+  - no retrieved evidence directly addresses at least one required fact,
+    qualifier, temporal rule, or exclusion, and no direct evidence already
+    establishes criterion failure
+- `Ambiguous`, `false`
+  - directly relevant evidence for at least one required fact, qualifier,
+    temporal rule, or exclusion is partial, conflicting, indirect, or
+    inconclusive, and no direct evidence already establishes criterion failure
+
+`meets_criterion` may be `true` only when `status = "Found"`. Do not return a
+criterion-level `Found` result merely because one qualifier assessment is
+`Found`.
 
 ### Calibrated Examples
 
@@ -410,7 +484,9 @@ Before returning:
    error is represented in the result
 8. confirm returned code-range evidence was assessed against the supplied
    ranges inclusively
-9. confirm every required `qualifiers` value was evaluated and that
-   `disqualifying_clause = true` used the exclusion logic in section 9
-10. apply optional time anchors only to their declared
+9. confirm every required `qualifiers` value has exactly one assessment with
+   an exact `required_fact`
+10. confirm `disqualifying_clause_assessment` is `null` when no exclusion is
+    required, otherwise has a valid status and `is_present` value
+11. apply optional time anchors only to their declared
     `reference_datetime_column`, then return valid JSON only

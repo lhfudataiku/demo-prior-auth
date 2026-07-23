@@ -298,13 +298,16 @@ production Screen 2 orchestration:
     whether a disqualifying clause applies
 - `2p7dFkWk` - Criterion Reasoning Evaluation Agent
   - uses the production `criterion_reasoning_agent_prompt_v1_2.md` and the
-    unchanged `current_reasoning_result` contract
+    `current_reasoning_result` contract, including internal qualifier and
+    exclusion assessments
   - accepts `session_id`, `subject_id`, `policy_id`, and one
     `current_plan_item` from `retrieval_plan_v1.plan_items`
   - renders the criterion, retrieval approach, adjudication, justification,
     and cited structured/note evidence as clinician-readable Markdown
   - also renders the governing data targets, required clinical qualifiers,
     disqualifying-clause flag, and time reference for review
+  - renders the reasoner's per-qualifier and disqualifying-clause assessments
+    in a clinician-readable Requirement Assessment section
 
 These component agents are evaluation harnesses. They do not replace the
 production agent or add state keys to its response contract.
@@ -386,8 +389,9 @@ checks around the existing reasoner rather than redesigning Screen 2.
 
 ### Design Principles
 
-- Preserve the current `current_reasoning_result` clinical result shape for
-  existing payload and webapp helpers.
+- Preserve the existing clinician-facing `current_reasoning_result` fields for
+  payload and webapp helpers while extending the internal result with explicit
+  qualifier and exclusion assessments.
 - Preserve the raw LLM adjudication for audit; never overwrite it in place.
 - Use a validated result for the logic tree, UI resolution, Screen 2 payload,
   and clinician-facing final summary.
@@ -423,6 +427,26 @@ expectation failures are retained as useful plan-parity regression signals.
    only the displayed archetype and strategy.
 6. Add Agent Review trajectory checks that each expected criterion received one
    corresponding plan item and no unexpected criterion was planned.
+
+### Phase 2: Explicit Qualifier and Exclusion Adjudication
+
+The reasoner result now records how each planner-required modifier and
+disqualifying clause was adjudicated, rather than relying only on a single
+criterion-level status.
+
+- `qualifier_assessments` contains exactly one item per planned qualifier, with
+  the exact required clinical fact, its evidence status, and a compact
+  normalized value when available.
+- `disqualifying_clause_assessment` is `null` when no exclusion is planned;
+  otherwise it records the named disqualifying fact, its evidence status, and
+  whether it is directly documented as present or absent.
+- The criterion-level result can be `Found`/`true` only when every required
+  baseline fact, qualifier, temporal rule, and exclusion is directly resolved
+  in favor of the criterion.
+- These fields are retained in `criterion_result_map` and
+  `criterion_trace_map` for component and integration review. They are not
+  exposed in the default Screen 2 `chart_result` until a clinician-facing
+  presentation is intentionally designed.
 
 ### Library-First Python Block Migration
 

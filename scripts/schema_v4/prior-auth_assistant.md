@@ -428,8 +428,6 @@ Use only if the webapp must support resume/reload.
 The evaluator runs after `criterion_result_map` is complete.
 
 `criterion_result_map` design rule:
-- `extracted_value` should contain only compact normalized result content useful
-  for prefill or downstream logic
 - raw structured rows and note excerpts belong in `sources`
 - `sources.structured` should include all relevant returned EHR records rather
   than a single aggregated source item
@@ -438,6 +436,13 @@ The evaluator runs after `criterion_result_map` is complete.
 - each note excerpt should be a focused local passage, not the full retrieved
   chunk
 - reasoning belongs in `justification`
+- `qualifier_assessments` must contain one result for every qualifier required
+  by the plan item, including the exact clinical fact being assessed
+- `disqualifying_clause_assessment` must be `null` when no exclusion applies;
+  otherwise it must record direct evidence of the named disqualifying fact as
+  present, absent, or unresolved. Silence is unresolved.
+- these assessments remain internal reasoner/audit data and are not copied
+  into the webapp-facing `chart_result`
 
 `criterion_trace_map` is a v0.2 internal audit map. For each accumulated
 criterion, it preserves the exact planner `plan_item`, the parsed raw reasoner
@@ -523,7 +528,6 @@ Recommended shape:
     "chart_result": {
       "status": "Found | Missing | Ambiguous | Unreviewed",
       "meets_criterion": false,
-      "extracted_value": null,
       "justification": null,
       "sources": {
         "structured": [],

@@ -45,12 +45,10 @@ def _normalize_chart_result(raw: Any) -> Dict[str, Any]:
     source = raw if isinstance(raw, dict) else {}
     chart_sources = source.get("sources") if isinstance(source.get("sources"), dict) else {}
     justification = source.get("justification")
-    extracted_value = source.get("extracted_value")
     normalized_status = str(source.get("status", "Unreviewed"))
     if (
         normalized_status == "Found"
         and _coerce_bool(source.get("meets_criterion"), default=False) is False
-        and extracted_value is not None
         and isinstance(justification, str)
     ):
         lowered = justification.lower()
@@ -69,7 +67,6 @@ def _normalize_chart_result(raw: Any) -> Dict[str, Any]:
     return {
         "status": normalized_status,
         "meets_criterion": _coerce_bool(source.get("meets_criterion"), default=False),
-        "extracted_value": extracted_value,
         "justification": justification,
         "sources": {
             "structured": list(chart_sources.get("structured", []) or []),
@@ -78,14 +75,9 @@ def _normalize_chart_result(raw: Any) -> Dict[str, Any]:
     }
 
 
-def _get_chart_prefill_value(chart_result: Dict[str, Any], answer_type: str) -> Any:
+def _get_chart_prefill_value(chart_result: Dict[str, Any]) -> Any:
     if chart_result.get("status") != "Found":
         return None
-    if answer_type == "boolean":
-        return chart_result.get("meets_criterion")
-    extracted_value = chart_result.get("extracted_value")
-    if extracted_value is not None:
-        return extracted_value
     return chart_result.get("meets_criterion")
 
 
@@ -148,9 +140,8 @@ def _derive_comment_requirement(
 def _derive_ui_resolution(
     chart_result: Dict[str, Any],
     clinician_input: Dict[str, Any],
-    answer_type: str,
 ) -> Dict[str, Any]:
-    chart_prefill = _get_chart_prefill_value(chart_result, answer_type)
+    chart_prefill = _get_chart_prefill_value(chart_result)
     clinician_final_value = _get_clinician_final_value(clinician_input)
     chart_status = chart_result.get("status", "Unreviewed")
     chart_meets = _coerce_bool(chart_result.get("meets_criterion"), default=False)
@@ -289,7 +280,6 @@ def build_criterion_ui_map_data(
             "ui_resolution": _derive_ui_resolution(
                 chart_result=chart_result,
                 clinician_input=clinician_input,
-                answer_type=str(criterion.get("answer_type", "boolean")),
             ),
         }
 
@@ -349,7 +339,6 @@ def _normalize_existing_criterion_ui_map_data(
             "ui_resolution": _derive_ui_resolution(
                 chart_result=chart_result,
                 clinician_input=clinician_input,
-                answer_type=answer_type,
             ),
         }
 
@@ -511,7 +500,6 @@ def _merge_reviewed_screen2_payload(
         ui_resolution = _derive_ui_resolution(
             chart_result=chart_result,
             clinician_input=clinician_input,
-            answer_type=answer_type,
         )
 
         criterion["clinician_input"] = clinician_input

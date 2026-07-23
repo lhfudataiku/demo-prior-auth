@@ -93,6 +93,16 @@ class Screen2AgentRuntimeTests(unittest.TestCase):
                     "criterion_id": "CR_TEST",
                     "status": "Found",
                     "meets_criterion": True,
+                    "extracted_value": {"legacy": "not forwarded"},
+                    "qualifier_assessments": [
+                        {
+                            "qualifier": "disease_stage",
+                            "required_fact": "advanced disease",
+                            "status": "Found",
+                            "normalized_value": {"stage": "advanced"},
+                        }
+                    ],
+                    "disqualifying_clause_assessment": None,
                     "sources": {"structured": [], "notes": []},
                 }
             },
@@ -118,6 +128,18 @@ class Screen2AgentRuntimeTests(unittest.TestCase):
             state["criterion_ui_map"]["CR_TEST"]["planner_context"]["criterion_archetype"],
         )
         self.assertIn("screen_2_payload", state["screen_2_review_tool_input"])
+        self.assertNotIn(
+            "extracted_value",
+            state["criterion_ui_map"]["CR_TEST"]["chart_result"],
+        )
+        self.assertEqual(
+            "advanced disease",
+            state["criterion_result_map"]["CR_TEST"]["qualifier_assessments"][0]["required_fact"],
+        )
+        self.assertNotIn(
+            "qualifier_assessments",
+            state["criterion_ui_map"]["CR_TEST"]["chart_result"],
+        )
 
     def test_summary_handles_sources_and_invalid_result_data(self) -> None:
         summary = build_agent_review_summary(

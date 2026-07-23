@@ -19,7 +19,6 @@ Return exactly one JSON object and save in the scratchpad key `current_reasoning
   "criterion_id": "string",
   "status": "Found | Missing | Ambiguous",
   "meets_criterion": false,
-  "extracted_value": "scalar | compact object | null",
   "justification": "string",
   "sources": {
     "structured": [],
@@ -311,16 +310,6 @@ Distinguish:
 
 - `criterion_id`
   - copy from `current_plan_item.criterion_id`
-- `extracted_value`
-  - a compact normalized value that supports UI prefill or downstream logic
-  - do not duplicate the full raw evidence payload already present in `sources`
-  - use `null` when no distinct normalized value exists beyond the
-    justification and raw sources
-  - examples:
-    - diagnosis criterion -> `{ "matched_codes": ["J45.909"], "match_count": 5 }`
-    - age criterion -> `{ "age": 14 }`
-    - qualitative lab criterion -> `{ "latest_value_texts": ["positive"] }`
-    - note-only exclusion criterion with no structured normalized value -> `null`
 - `justification`
   - brief factual explanation of why the criterion is `Found`, `Missing`, or
     `Ambiguous`
@@ -368,12 +357,8 @@ Distinguish:
     - do not simply restate the excerpt verbatim
     - keep it short and clinician-facing
 
-Avoid duplication:
-- do not copy the same free-text summary into both `extracted_value` and
-  `justification`
-- do not restate every structured source row inside `extracted_value`
-- use `sources` for provenance, `justification` for reasoning, and
-  `extracted_value` only for compact normalized result content
+Use `sources` for provenance and `justification` for reasoning. Do not repeat
+raw source rows in the justification.
 
 Keep the result concise, patient-scoped, and directly usable by Screen 2
 aggregation.

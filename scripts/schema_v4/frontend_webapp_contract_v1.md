@@ -347,7 +347,6 @@ Criteria count rule:
   "chart_result": {
     "status": "Found | Missing | Ambiguous | Unreviewed",
     "meets_criterion": true,
-    "extracted_value": {},
     "justification": "string or null",
     "sources": {
       "structured": [],

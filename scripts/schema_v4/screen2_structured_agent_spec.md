@@ -484,7 +484,20 @@ the Structured Agent graph itself.
   "CRITERION_ID": {
     "status": "Found | Missing | Ambiguous | Unreviewed",
     "meets_criterion": true,
-    "extracted_value": "compact normalized value or null",
+    "qualifier_assessments": [
+      {
+        "qualifier": "disease_activity | disease_stage | disease_severity | treatment_response | additional_clinical_confirmation",
+        "required_fact": "string",
+        "status": "Found | Missing | Ambiguous",
+        "normalized_value": "scalar | compact object | null"
+      }
+    ],
+    "disqualifying_clause_assessment": {
+      "disqualifying_fact": "string",
+      "status": "Found | Missing | Ambiguous",
+      "is_present": "boolean | null",
+      "normalized_value": "scalar | compact object | null"
+    },
     "sources": {},
     "justification": "string or null"
   }
@@ -500,8 +513,13 @@ Guidance:
   - `Unreviewed` means not yet evaluated
 - `meets_criterion` is the adjudication field and may be `true` only when
   `status = Found`
-- `extracted_value` should be a compact normalized result for UI prefill or
-  downstream logic, not a duplicate of raw sources
+- `qualifier_assessments` contains exactly one adjudication for each
+  planner-required qualifier and is empty when none is required. It is an
+  internal reasoner-result field, not a copy of the planner hint.
+- `disqualifying_clause_assessment` is `null` when no exclusion is required;
+  otherwise it records whether the named disqualifying fact is directly
+  documented as present, absent, or unresolved. Chart silence must remain
+  unresolved.
 - `sources.structured` should hold all relevant returned EHR records, not an
   aggregated summary row
 - `sources.notes` should hold clinician-reviewable excerpts plus why they
@@ -588,7 +606,6 @@ Guidance:
     "chart_result": {
       "status": "Found | Missing | Ambiguous | Unreviewed",
       "meets_criterion": false,
-      "extracted_value": null,
       "justification": null,
       "sources": {
         "structured": [],
@@ -613,7 +630,9 @@ Guidance:
 Guidance:
 - `criterion_ui_map` is a webapp-facing derived state, not the canonical
   adjudication artifact
-- `chart_result` should mirror `criterion_result_map[criterion_id]`
+- `chart_result` is the clinician-facing projection of
+  `criterion_result_map[criterion_id]`; it intentionally excludes internal
+  qualifier and exclusion assessments
 - `clinician_input` should mirror the latest user-entered answer for that
   criterion, regardless of whether it was first captured in Screen 1 or Screen
   2
@@ -627,7 +646,7 @@ Recommended merge rules:
 - if `chart_result.status = Found` and `clinician_input.answered = false`
   - set `display_state = satisfied` or `not_satisfied` based on
     `chart_result.meets_criterion`
-  - set `prefill_value` from `chart_result.extracted_value` when useful
+  - set `prefill_value` from the chart-backed Boolean adjudication
   - set `use_chart_as_prefill = true`
 - if `chart_result.status = Missing`
   - set `display_state = needs_clinician`
