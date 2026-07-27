@@ -443,6 +443,10 @@ The evaluator runs after `criterion_result_map` is complete.
   present, absent, or unresolved. Silence is unresolved.
 - these assessments remain internal reasoner/audit data and are not copied
   into the webapp-facing `chart_result`
+- the clinician-readable terminal `agent_review_summary` may render a compact
+  modifier and exclusion assessment from the agent-owned result map and
+  retrieval plan for Agent Review; it must not render clinician comments or
+  edited answers as agent evidence
 
 `criterion_trace_map` is a v0.2 internal audit map. For each accumulated
 criterion, it preserves the exact planner `plan_item`, the parsed raw reasoner

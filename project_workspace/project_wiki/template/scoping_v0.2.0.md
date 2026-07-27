@@ -102,8 +102,10 @@ Screen 2 payload after the HITL decision; it is not a raw JSON payload.
 
 When Agent Review is configured to automatically accept the human-in-the-loop
 tool validation request, the final agent output is the clinician-readable
-Markdown `agent_review_summary`. Its deterministic source is the nested
-`screen_2_review_result.reviewed_screen_2_payload` state object.
+Markdown `agent_review_summary`. Its case and UI disposition comes from the
+nested `screen_2_review_result.reviewed_screen_2_payload`; its per-criterion
+requirement-assessment text comes from the agent-owned `criterion_result_map`
+and `retrieval_plan_v1` state objects.
 
 The wrapper fields such as `approval_status`, `approved_criterion_answers`,
 `review_metadata`, and `human_validated` can be used to verify that the HITL
@@ -246,11 +248,26 @@ The main-suite trait configuration is:
   archetype and strategy
 - `Reasoning quality`: reference required
 
-The terminal summary does not expose planner-only fields such as
-`semantic_model_entities`, `qualifiers`, `disqualifying_clause`, or normalized
-time anchors. Those fields must be assessed in the Retrieval Planner Evaluation
-Agent review, not inferred by the main-suite traits. Each trait must explain
-its rating in a review note.
+The terminal summary exposes only the modifier and disqualifying-clause
+assessments needed to audit clinical reasoning. It does not expose planner-only
+fields such as `semantic_model_entities` or normalized time anchors. Those
+fields remain the responsibility of the Retrieval Planner Evaluation Agent
+review, not the main-suite traits. Each trait must explain its rating in a
+review note. Requirement-assessment text is agent-owned and excludes clinician
+comments and edited answers.
+
+Trait interpretation rules:
+
+- expectation traits evaluate only the explicitly listed expectations; they do
+  not infer additional requirements from a fuller reference answer
+- `Found`, `Missing`, and `Ambiguous` are distinct evidence-status values and
+  must match exactly when a trait compares them to a reference
+- a conservative unresolved result may pass evidence-quality review when it
+  cites relevant context and identifies the missing fact; it must not be marked
+  incorrect merely because the evidence needed for resolution is absent
+- a `Found` / `true` result is unsafe when the reference leaves a qualifier or
+  exclusion unresolved unless the answer cites direct evidence resolving that
+  exact fact
 
 Suggested per-criterion metrics:
 

@@ -400,9 +400,12 @@ Step 9 meaning:
 10. `generate_text_output` — `GENERATE_OUTPUT`
    - emit `state["agent_review_summary"]` as the terminal clinician-readable
      Markdown output from the Structured Agent
-   - build `agent_review_summary` from
-     `state["screen_2_review_result"].reviewed_screen_2_payload` after the
-     human-review tool result is available
+   - build `agent_review_summary` from the reviewed Screen 2 payload after the
+     human-review tool result is available, supplemented with the agent-owned
+     `criterion_result_map` and `retrieval_plan_v1` requirement assessments
+   - render the planned modifiers and disqualifying-clause assessment as
+     clinician-readable terminal text for Agent Review; do not add these
+     internal fields to the webapp-facing `chart_result`
    - retain `state["screen_2_review_result"]` as the machine-readable reviewed
      artifact for backend and deterministic Screen 3 processing; it is not the
      terminal text output
@@ -417,6 +420,8 @@ Step 9 meaning:
 Step 10 meaning:
 - the terminal summary is intentionally readable by clinicians and Agent Review
   judges; it is not a JSON transport contract
+- its requirement-assessment text is derived only from agent-owned planner and
+  reasoner state, never clinician comments or edited answers
 - downstream systems consume the approved review snapshot in
   `screen_2_review_result`, not the terminal summary text
 - treat `approved_criterion_answers` as the submitted clinician-reviewed answer

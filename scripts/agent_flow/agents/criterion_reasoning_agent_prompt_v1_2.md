@@ -412,6 +412,14 @@ chart directly establishes absence of the named disqualifying fact, such as a
 request not solely for diagnosis, no concomitant drug, or no unacceptable
 toxicity.
 
+**Exclusionary verdict invariant:** a medication query that returns no matching
+records, together with notes that do not mention the combination, is evidence
+that the retrieved chart does not establish the exclusion. It is not direct
+evidence that the disqualifying fact is absent. In that situation, return
+clause `Missing`, `is_present = null`, and criterion-level `Missing`, `false`.
+Only an explicit denial, negative result, rule-out, or other direct statement
+of absence permits clause `Found`, `is_present = false`.
+
 - do not infer absence from a silent chart
 - if the disqualifying fact is documented as absent, denied, ruled out,
   negative, or otherwise not present, return clause `Found` with

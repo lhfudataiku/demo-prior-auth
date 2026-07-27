@@ -29,7 +29,94 @@ def _source_text(source: Any) -> str:
     return str(source)
 
 
-def build_agent_review_summary(raw_review_result: Any) -> str:
+def _display(value: Any, fallback: str = "Not established") -> str:
+    if value is None or value == "":
+        return fallback
+    if isinstance(value, list):
+        return ", ".join(str(item) for item in value) or fallback
+    return str(value)
+
+
+def _display_json(value: Any, fallback: str = "Not established") -> str:
+    if value is None or value == "":
+        return fallback
+    return json.dumps(value, ensure_ascii=False, default=str)
+
+
+def _yes_no(value: Any) -> str:
+    if value is True:
+        return "Yes"
+    if value is False:
+        return "No"
+    return "Not established"
+
+
+def _plan_items_by_criterion_id(retrieval_plan: Any) -> Dict[str, Dict[str, Any]]:
+    plan = _as_object(retrieval_plan)
+    items = plan.get("plan_items")
+    if not isinstance(items, list):
+        return {}
+    return {
+        item["criterion_id"]: item
+        for item in items
+        if isinstance(item, dict) and isinstance(item.get("criterion_id"), str)
+    }
+
+
+def _requirement_assessment_lines(
+    criterion_id: str,
+    criterion_result_map: Dict[str, Any],
+    plan_items_by_criterion_id: Dict[str, Dict[str, Any]],
+) -> List[str]:
+    result = _as_object(criterion_result_map.get(criterion_id))
+    plan_item = _as_object(plan_items_by_criterion_id.get(criterion_id))
+    hints = _as_object(plan_item.get("execution_hints"))
+    planned_qualifiers = hints.get("qualifiers")
+    planned_qualifiers = planned_qualifiers if isinstance(planned_qualifiers, list) else []
+    assessments = result.get("qualifier_assessments")
+    assessments = assessments if isinstance(assessments, list) else []
+    assessments_by_qualifier = {
+        assessment.get("qualifier"): assessment
+        for assessment in assessments
+        if isinstance(assessment, dict) and assessment.get("qualifier")
+    }
+
+    lines = ["**Requirement assessment**", "", "Required modifiers:"]
+    if planned_qualifiers:
+        for qualifier in planned_qualifiers:
+            assessment = _as_object(assessments_by_qualifier.get(qualifier))
+            lines.extend(
+                [
+                    f"- Modifier: {_display(qualifier)}",
+                    f"  - Required fact: {_display(assessment.get('required_fact'))}",
+                    f"  - Evidence status: {_display(assessment.get('status'))}",
+                    f"  - Chart finding: {_display_json(assessment.get('normalized_value'))}",
+                ]
+            )
+    else:
+        lines.append("- No additional modifiers required.")
+
+    lines.extend(["", "Disqualifying clause:"])
+    if not hints.get("disqualifying_clause"):
+        lines.append("- Not required.")
+    else:
+        clause = _as_object(result.get("disqualifying_clause_assessment"))
+        lines.extend(
+            [
+                f"- Disqualifying fact: {_display(clause.get('disqualifying_fact'))}",
+                f"- Evidence status: {_display(clause.get('status'))}",
+                f"- Documented as present: {_yes_no(clause.get('is_present'))}",
+                f"- Chart finding: {_display_json(clause.get('normalized_value'))}",
+            ]
+        )
+    return lines
+
+
+def build_agent_review_summary(
+    raw_review_result: Any,
+    criterion_result_map: Any = None,
+    retrieval_plan: Any = None,
+) -> str:
     """Render the final reviewed Screen 2 payload as clinician-readable Markdown."""
 
     result = _as_object(raw_review_result)
@@ -40,6 +127,8 @@ def build_agent_review_summary(raw_review_result: Any) -> str:
     counts = _as_object(logic.get("criterion_counts"))
     raw_criteria = inner.get("criteria", [])
     criteria = raw_criteria if isinstance(raw_criteria, list) else []
+    result_map = criterion_result_map if isinstance(criterion_result_map, dict) else {}
+    plan_items = _plan_items_by_criterion_id(retrieval_plan)
 
     lines: List[str] = [
         "# Prior Authorization Eligibility Review",
@@ -83,6 +172,10 @@ def build_agent_review_summary(raw_review_result: Any) -> str:
                 f"- Display state: {ui_resolution.get('display_state', 'Unknown')}",
                 f"- Final source: {ui_resolution.get('final_source', 'Unknown')}",
                 "",
+                *_requirement_assessment_lines(
+                    str(criterion.get("criterion_id", "")), result_map, plan_items
+                ),
+                "",
                 "**Agent justification**",
                 "",
                 str(chart_result.get("justification") or "No justification provided."),
@@ -122,7 +215,7 @@ def get_agent_review_summary_metadata(raw_review_result: Any) -> Dict[str, Any]:
     inner = _as_object(payload.get("payload"))
     criteria = inner.get("criteria", [])
     return {
-        "summary_version": "agent_review_summary_v1",
+        "summary_version": "agent_review_summary_v2",
         "criterion_count": len(criteria) if isinstance(criteria, list) else 0,
         "human_validated": bool(result.get("human_validated")),
     }

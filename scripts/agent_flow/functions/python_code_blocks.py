@@ -68,7 +68,9 @@ def prepare_screen2_review_payload(trace: Any) -> None:
 def build_agent_review_summary_from_state(trace: Any) -> None:
     state = _resolve_state()
     state["agent_review_summary"] = build_agent_review_summary(
-        state.get("screen_2_review_result")
+        state.get("screen_2_review_result"),
+        criterion_result_map=state.get("criterion_result_map"),
+        retrieval_plan=state.get("retrieval_plan_v1"),
     )
     if trace:
         with trace.subspan("build_agent_review_summary") as span:

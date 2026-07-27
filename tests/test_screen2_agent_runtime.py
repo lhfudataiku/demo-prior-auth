@@ -161,14 +161,46 @@ class Screen2AgentRuntimeTests(unittest.TestCase):
                         ],
                     },
                 }
-            }
+            },
+            criterion_result_map={
+                "CR_TEST": {
+                    "qualifier_assessments": [
+                        {
+                            "qualifier": "disease_stage",
+                            "required_fact": "Advanced disease",
+                            "status": "Missing",
+                            "normalized_value": None,
+                        }
+                    ],
+                    "disqualifying_clause_assessment": {
+                        "disqualifying_fact": "Excluded treatment combination",
+                        "status": "Missing",
+                        "is_present": None,
+                        "normalized_value": None,
+                    },
+                }
+            },
+            retrieval_plan={
+                "plan_items": [
+                    {
+                        "criterion_id": "CR_TEST",
+                        "execution_hints": {
+                            "qualifiers": ["disease_stage"],
+                            "disqualifying_clause": True,
+                        },
+                    }
+                ]
+            },
         )
 
         self.assertIn("# Prior Authorization Eligibility Review", summary)
         self.assertIn("No direct evidence.", summary)
+        self.assertIn("**Requirement assessment**", summary)
+        self.assertIn("Required fact: Advanced disease", summary)
+        self.assertIn("Excluded treatment combination", summary)
         self.assertIn("Policy: Unknown", build_agent_review_summary("not-json"))
         self.assertEqual(
-            {"summary_version": "agent_review_summary_v1", "criterion_count": 0, "human_validated": False},
+            {"summary_version": "agent_review_summary_v2", "criterion_count": 0, "human_validated": False},
             get_agent_review_summary_metadata("not-json"),
         )
 
