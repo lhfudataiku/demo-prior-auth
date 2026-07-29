@@ -6,7 +6,7 @@ This is a demo only and thus should not be installed on customer instances.
 
 # Agent Golden Demo In Healthcare: Prior Authorization Agent #
 
-An intelligent prior authorization review experience that helps clinicians assemble, validate, and finalize a submission-ready authorization package. The centerpiece of the demo is a Dataiku Structured Agent that owns Screen 2 review orchestration: it translates scoped policy criteria into retrieval plans, gathers and reasons over chart evidence, prepares a clinician review payload, and returns a reviewed artifact for deterministic downstream packaging. In the current deployment, the standard webapp and the Structured Agent run in the same DSS project context (`DEMO_PRIOR_AUTH_AGENT`).
+An intelligent prior authorization review experience that helps clinicians assemble, validate, and finalize a submission-ready authorization package. The centerpiece of the demo is a Dataiku Structured Agent that owns clinical information retrieval orchestration: it translates scoped policy criteria into retrieval plans, gathers and reasons over chart evidence, prepares a clinician review payload, and returns a reviewed artifact for deterministic downstream packaging. 
 
 ## Industry Challenge
 
@@ -30,6 +30,28 @@ Through this experience, the demo shows how a clinician or prior-auth operations
 - review structured eligibility criteria alongside agent-prepared supporting evidence
 - inspect and edit unmet or uncertain criteria with a human-in-the-loop checkpoint
 - generate a consistent final submission package without relying on free-form agent output for the last mile
+
+## v0.2 Agent Review Guardrail
+
+Version 0.2 adds Dataiku Agent Review as a pre-deployment guardrail for the
+Prior Authorization Review Agent. It lets clinical subject matter experts
+evaluate a candidate Structured Agent version against repeatable clinical cases
+before that version is relied upon in the operational workflow.
+
+Agent Review is distinct from the Webapp's clinician approval step. The Webapp
+helps a clinician complete one prior authorization request; Agent Review helps
+clinical SMEs assess whether the agent's retrieval, evidence interpretation,
+and eligibility reasoning are reliable across known cases.
+
+The review experience provides:
+
+- case-level validation of the final eligibility disposition
+- per-criterion review of evidence, qualifiers, exclusions, and reasoning
+- reusable planner and criterion-reasoning evaluations for targeted diagnosis
+- clinician-readable references and outputs rather than raw execution JSON
+
+This creates a governed feedback loop for prompt refinement and regression
+testing while keeping the final coverage decision with human reviewers.
 
 ## Who This Demo Is For
 

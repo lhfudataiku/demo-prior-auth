@@ -7,13 +7,14 @@ already resolved the selected route, phase, cluster, and guards.
 
 It should:
 - accept `subject_id + scoped_policy_context`
-- load or generate `retrieval_plan_v1`
+- generate `retrieval_plan_v1` for the selected scope in the current live graph
 - execute one reasoning pass per flattened criterion
 - build `criterion_result_map`
 - evaluate the selected cluster logic tree
 - prepare the Screen 2 review payload
 - call an approval-enabled managed Python review tool
-- capture approved or edited review input and return the reviewed Screen 2 artifact
+- capture approved or edited review input, retain the reviewed Screen 2
+  artifact in state, and emit a clinician-readable review summary
 
 Screen 1 remains deterministic backend logic and is out of scope for this
 agent.
@@ -54,8 +55,11 @@ Notes:
   tree after criterion execution.
 - `session_id` is optional for the POC. When present, it is a correlation id
   from the webapp or backend request context and should be forwarded unchanged.
-- `retrieval_plan_v1` is optional. If present, the agent should skip planner
-  delegation.
+- `retrieval_plan_v1` is accepted as a compatibility placeholder in the request
+  shape. The current live `NkBiV9OM-v2` graph does not load it into state and
+  always generates a fresh plan with the Retrieval Planner block. A future
+  cache-aware graph must add an explicit validation and routing block before it
+  may reuse a supplied plan.
 - `criterion_answers` is optional, but when present it may already contain
   Screen 1 answers for selected route guards and cluster-entry guards.
 - skipped Screen 1 questions should remain unanswered rather than being set to
@@ -223,6 +227,7 @@ Persistent `state` keys:
 - `screen_2_payload`
 - `screen_2_review_tool_input`
 - `screen_2_review_result`
+- `agent_review_summary`
 - `messages`
 
 Temporary `scratchpad` keys:
@@ -234,7 +239,13 @@ Temporary `scratchpad` keys:
 ## Required deterministic helpers
 
 The agent depends on these Python helpers outside the block graph:
-- `scripts/agent_flow/functions/python_code_blocks.py`
+- `scripts/agent_flow/functions/screen2_agent_runtime.py`
+- `scripts/agent_flow/functions/screen2_summary_helpers.py`
+
+Each live DSS `PYTHON_CODE` block must contain only a small callable wrapper
+that passes DSS-injected `state`, optional `scratchpad`, and `trace` to the
+explicit-runtime library. `python_code_blocks.py` is retained only for local
+simulation compatibility and is not the production behavior owner.
 
 The agent does not need to run the Selection Resolver. That work is already done
 before Screen 2.
@@ -245,7 +256,8 @@ Recommended DSS 14.5+ flow:
 
 1. `init_state` — `SET_STATE_ENTRIES`
    - this is a required production ingestion step, not a test-only adapter
-   - initialize empty `criterion_result_map`, `messages`, and output containers
+   - initialize empty `criterion_result_map`, `criterion_trace_map`, `messages`,
+     and output containers
    - copy request fields into state:
      - `subject_id`
      - `policy_id`
@@ -261,7 +273,7 @@ Recommended DSS 14.5+ flow:
      available during conflict detection
 
 2. `plan_retrieval` — `DELEGATE_TO_OTHER_AGENT`
-   - call `scripts/agent_flow/agents/retrieval_planner_agent_prompt_v1_1.md`
+   - call `scripts/agent_flow/agents/retrieval_planner_agent_prompt_v1_2.md`
    - input:
      - `subject_id`
      - `selected_scope_context`
@@ -269,6 +281,14 @@ Recommended DSS 14.5+ flow:
    - note: `retrieval_plan_v1` is tool-agnostic; it carries archetypes,
      retrieval strategies, query fragments, and time rules, but not concrete
      tool-routing objects
+   - each `plan_item.execution_hints` includes the required
+     `semantic_model_entities`, `qualifiers`, and `disqualifying_clause`
+   - hybrid regimen plans always include `medication` and `document`; add
+     `condition` only when the criterion requires same-indication or
+     disease-specific treatment context
+   - `additional_clinical_confirmation` is reserved for a separately required
+     pathology, imaging, biomarker, laboratory, or examination fact, not a
+     medication exclusion or request-intent check
    - for diagnosis-grounded hybrid disease-state criteria, the plan must
      preserve a diagnosis-code structured leg plus a qualifier-resolution leg
 
@@ -277,7 +297,7 @@ Recommended DSS 14.5+ flow:
    - for each item, set `scratchpad["current_plan_item"]`
 
 4. `reason_one_criterion` — `DELEGATE_TO_OTHER_AGENT`
-   - call `scripts/agent_flow/agents/criterion_reasoning_agent_prompt_v1_1.md`
+   - call `scripts/agent_flow/agents/criterion_reasoning_agent_prompt_v1_2.md`
    - input:
      - `subject_id`
      - `current_plan_item`
@@ -294,8 +314,13 @@ Recommended DSS 14.5+ flow:
 
 5. `accumulate_result` — `PYTHON_CODE`
    - call
-     `scripts.agent_flow.functions.python_code_blocks.accumulate_current_reasoning_result(...)`
+     `scripts.agent_flow.functions.screen2_agent_runtime.accumulate_current_reasoning_result(state, scratchpad, trace)`
    - merge/update `state["criterion_result_map"][criterion_id]`
+   - persist `state["criterion_trace_map"][criterion_id]` with the exact
+     planner `current_plan_item`, parsed raw reasoning result, and accumulation
+     metadata for Agent Review plan-parity diagnosis
+   - `criterion_trace_map` is an internal audit artifact; it must not replace
+     the webapp-facing `criterion_result_map`
    - later iterations should overwrite earlier incomplete results for the same
      criterion if needed
 
@@ -311,7 +336,7 @@ Recommended DSS 14.5+ flow:
 
 7. `evaluate_logic_tree` — `PYTHON_CODE`
    - call
-     `scripts.agent_flow.functions.python_code_blocks.evaluate_logic_tree_from_state(...)`
+     `scripts.agent_flow.functions.screen2_agent_runtime.evaluate_logic_tree_from_state(state, trace)`
    - the helper derives the primary cluster root plus supporting route-guard,
      cluster-entry-guard, logic-profile, and inherited-diagnosis roots from
      `selected_scope_context`
@@ -319,7 +344,7 @@ Recommended DSS 14.5+ flow:
 
 8. `prepare_screen_2_review_payload` — `PYTHON_CODE`
    - call
-     `scripts.agent_flow.functions.python_code_blocks.prepare_screen2_review_payload(...)`
+     `scripts.agent_flow.functions.screen2_agent_runtime.prepare_screen2_review_payload(state, trace)`
    - build ordered criterion rows from `criterion_ui_map`
    - copy clinician-friendly scope labels from `selected_scope_context` into:
      - `screen_2_payload.payload.selected_scope_display.route_label`
@@ -372,9 +397,18 @@ Step 9 meaning:
   `approved_criterion_answers` directly from the clinician
 - keep the clinician-answer schema the same in both modes
 
-10. `emit_review_result_artifact` — `GENERATE_OUTPUT`
-   - emit `state["screen_2_review_result"]` as the terminal JSON artifact from
-     the Structured Agent
+10. `generate_text_output` — `GENERATE_OUTPUT`
+   - emit `state["agent_review_summary"]` as the terminal clinician-readable
+     Markdown output from the Structured Agent
+   - build `agent_review_summary` from the reviewed Screen 2 payload after the
+     human-review tool result is available, supplemented with the agent-owned
+     `criterion_result_map` and `retrieval_plan_v1` requirement assessments
+   - render the planned modifiers and disqualifying-clause assessment as
+     clinician-readable terminal text for Agent Review; do not add these
+     internal fields to the webapp-facing `chart_result`
+   - retain `state["screen_2_review_result"]` as the machine-readable reviewed
+     artifact for backend and deterministic Screen 3 processing; it is not the
+     terminal text output
    - do not build `screen_3_payload` inside the Structured Agent
    - do not call the Retrieval Planner Agent or Criterion Reasoning Agent on
      this path
@@ -384,11 +418,14 @@ Step 9 meaning:
      or other future targets
 
 Step 10 meaning:
-- consume the approved review snapshot, not raw chart evidence
+- the terminal summary is intentionally readable by clinicians and Agent Review
+  judges; it is not a JSON transport contract
+- its requirement-assessment text is derived only from agent-owned planner and
+  reasoner state, never clinician comments or edited answers
+- downstream systems consume the approved review snapshot in
+  `screen_2_review_result`, not the terminal summary text
 - treat `approved_criterion_answers` as the submitted clinician-reviewed answer
   map
-- keep the reviewed artifact flexible for downstream deterministic transforms
-  outside the Structured Agent
 
 Optional API fallback:
 - a separate `screen_2_submit` entry path can still be exposed for a custom
@@ -403,8 +440,11 @@ Optional API fallback:
 ### Initial Screen 2 path
 - the default deployable POC path goes directly from `init_state` to
   `plan_retrieval`
-- if a later deployment explicitly preloads a valid `retrieval_plan_v1`, an
-  optional routing step may skip planner and go directly to `execute_plan`
+- the current live `NkBiV9OM-v2` graph always generates `retrieval_plan_v1`;
+  it does not yet implement retrieval-plan cache lookup or preloaded-plan reuse
+- a future cache-aware deployment may skip planner execution only after an
+  explicit validation and routing step confirms that the supplied plan matches
+  the selected scope and the active planner/schema version
 - if `retrieval_plan_v1.plan_items` is empty, return warning payload
 - if any agent delegate fails, return warning/error payload with preserved state
 
@@ -429,8 +469,9 @@ Optional API fallback:
 
 ## Downstream deterministic Screen 3 rules
 
-These rules apply to the backend/webapp layer that consumes
-`screen_2_review_result`, not to the Structured Agent graph itself.
+These rules apply to the backend/webapp layer that consumes the stateful
+`screen_2_review_result`, not the terminal `agent_review_summary` text and not
+the Structured Agent graph itself.
 
 - if any required criterion remains unresolved and unanswered,
   `submission_ready=false`
@@ -448,7 +489,20 @@ These rules apply to the backend/webapp layer that consumes
   "CRITERION_ID": {
     "status": "Found | Missing | Ambiguous | Unreviewed",
     "meets_criterion": true,
-    "extracted_value": "compact normalized value or null",
+    "qualifier_assessments": [
+      {
+        "qualifier": "disease_activity | disease_stage | disease_severity | treatment_response | additional_clinical_confirmation",
+        "required_fact": "string",
+        "status": "Found | Missing | Ambiguous",
+        "normalized_value": "scalar | compact object | null"
+      }
+    ],
+    "disqualifying_clause_assessment": {
+      "disqualifying_fact": "string",
+      "status": "Found | Missing | Ambiguous",
+      "is_present": "boolean | null",
+      "normalized_value": "scalar | compact object | null"
+    },
     "sources": {},
     "justification": "string or null"
   }
@@ -464,8 +518,13 @@ Guidance:
   - `Unreviewed` means not yet evaluated
 - `meets_criterion` is the adjudication field and may be `true` only when
   `status = Found`
-- `extracted_value` should be a compact normalized result for UI prefill or
-  downstream logic, not a duplicate of raw sources
+- `qualifier_assessments` contains exactly one adjudication for each
+  planner-required qualifier and is empty when none is required. It is an
+  internal reasoner-result field, not a copy of the planner hint.
+- `disqualifying_clause_assessment` is `null` when no exclusion is required;
+  otherwise it records whether the named disqualifying fact is directly
+  documented as present, absent, or unresolved. Chart silence must remain
+  unresolved.
 - `sources.structured` should hold all relevant returned EHR records, not an
   aggregated summary row
 - `sources.notes` should hold clinician-reviewable excerpts plus why they
@@ -478,6 +537,34 @@ Guidance:
 - for exclusionary criteria, chart silence is not enough for satisfaction; if
   documented absence of the disqualifying fact is not found, use
   `status = Missing` and `meets_criterion = false`
+
+### `criterion_trace_map`
+
+`criterion_trace_map` is a v0.2 internal audit artifact. It captures the exact
+planner item supplied to the reasoner and the raw parsed reasoner output before
+future safety validation is introduced. It is not a frontend or HITL payload
+contract.
+
+```json
+{
+  "CRITERION_ID": {
+    "trace_schema_version": "criterion_trace_v1",
+    "plan_item": {},
+    "raw_reasoning_result": {},
+    "accumulation": {
+      "plan_item_criterion_id": "string",
+      "result_criterion_id": "string",
+      "parse_error": "string or null"
+    }
+  }
+}
+```
+
+The trace supports production-to-component plan parity checks. In particular,
+it preserves the archetype, retrieval strategy, semantic entities, qualifiers,
+disqualifying-clause flag, query fragment, and time constraint used in the
+production execution without exposing those implementation details in the
+clinician-facing summary.
 
 ### `logic_evaluation`
 
@@ -524,7 +611,6 @@ Guidance:
     "chart_result": {
       "status": "Found | Missing | Ambiguous | Unreviewed",
       "meets_criterion": false,
-      "extracted_value": null,
       "justification": null,
       "sources": {
         "structured": [],
@@ -549,7 +635,9 @@ Guidance:
 Guidance:
 - `criterion_ui_map` is a webapp-facing derived state, not the canonical
   adjudication artifact
-- `chart_result` should mirror `criterion_result_map[criterion_id]`
+- `chart_result` is the clinician-facing projection of
+  `criterion_result_map[criterion_id]`; it intentionally excludes internal
+  qualifier and exclusion assessments
 - `clinician_input` should mirror the latest user-entered answer for that
   criterion, regardless of whether it was first captured in Screen 1 or Screen
   2
@@ -563,7 +651,7 @@ Recommended merge rules:
 - if `chart_result.status = Found` and `clinician_input.answered = false`
   - set `display_state = satisfied` or `not_satisfied` based on
     `chart_result.meets_criterion`
-  - set `prefill_value` from `chart_result.extracted_value` when useful
+  - set `prefill_value` from the chart-backed Boolean adjudication
   - set `use_chart_as_prefill = true`
 - if `chart_result.status = Missing`
   - set `display_state = needs_clinician`
@@ -610,16 +698,18 @@ Agent.
 
 ## Suggested next implementation step
 
-Use `python_code_blocks.py` as the shared helper module for Screen 2 Python
-blocks:
-- `initialize_placeholder_state(...)`
-- `accumulate_current_reasoning_result(...)`
-- `build_criterion_ui_map(...)`
-- `evaluate_logic_tree(...)`
-- `evaluate_logic_tree_from_state(...)`
-- `build_screen2_payload(...)`
-- `build_screen2_review_tool_input_data(...)`
-- `prepare_screen2_review_payload(...)`
+Use `screen2_agent_runtime.py` as the versioned shared module for Screen 2
+state orchestration:
+- `initialize_screen2_state_defaults(state)`
+- `accumulate_current_reasoning_result(state, scratchpad, trace)`
+- `build_criterion_ui_map_from_state(state, trace)`
+- `evaluate_logic_tree_from_state(state, trace)`
+- `build_screen2_payload_from_state(state, trace)`
+- `prepare_screen2_review_payload(state, trace)`
+
+Use `screen2_summary_helpers.py` for pure terminal
+`agent_review_summary` Markdown construction. Keep only state/trace adapters
+inside DSS blocks.
 
 Use `scripts/agent_flow/agents/review_request_agent_prompt.md` as the
 dedicated Step 10 core-loop prompt in DSS 14.5.

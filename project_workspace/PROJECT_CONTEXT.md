@@ -46,8 +46,9 @@ What is complete:
 
 What is intentionally true for this release:
 
-- the Structured Agent ends with the reviewed Screen 2 artifact
-  `screen_2_review_result`
+- the Structured Agent retains the reviewed Screen 2 artifact
+  `screen_2_review_result` in state and emits clinician-readable
+  `agent_review_summary` Markdown as its terminal output
 - Screen 3 is built downstream from that reviewed artifact by deterministic
   helpers/backend logic
 - this keeps the post-review output flexible for future targets such as FHIR or
@@ -106,6 +107,12 @@ Backend:
 Core helper code:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/agent_flow/functions`
+  - `screen2_agent_runtime.py` owns explicit `state`/`scratchpad`
+    orchestration for deterministic Screen 2 Python blocks
+  - `screen2_summary_helpers.py` owns pure clinician-readable Agent Review
+    summary rendering
+  - `python_code_blocks.py` is a local compatibility adapter for simulated DSS
+    globals; production blocks should call the explicit-runtime library
 
 Artifacts and fixtures:
 
@@ -114,6 +121,34 @@ Artifacts and fixtures:
 Schema / scoping docs:
 
 - `/Users/li-hengfu/Documents/GitHub/demo-prior-auth/scripts/schema_v4`
+
+Evaluation agents:
+
+- `POEllEzU` - Retrieval Planner Evaluation Agent
+  - runs the production Retrieval Planner prompt v1.2 and renders
+    `retrieval_plan_v1` as clinician-readable Markdown
+  - each criterion summary shows its data targets, required clinical
+    qualifiers, disqualifying-clause status, and normalized time constraint
+- `2p7dFkWk` - Criterion Reasoning Evaluation Agent
+  - runs the production Criterion Reasoning prompt v1.2 for one plan item and
+    renders the criterion finding, justification, and cited evidence as
+    clinician-readable Markdown
+  - includes the governing retrieval approach, data targets, required clinical
+    qualifiers, disqualifying-clause flag, and time reference in the review
+    summary
+- these are independent Agent Review harnesses; they do not change the main
+  Screen 2 agent response contract
+- `Oh8ieqexla` - Main Structured Agent Integration Review
+  - evaluates the four representative end-to-end cases using final
+    `agent_review_summary` Markdown
+  - keeps case-level expectations as the guardrail and evaluates eligibility
+    status, evidence quality, visible retrieval approach, and reasoning quality
+    against the v1.2 reference baseline
+  - planner-only metadata remains owned by `POEllEzU`; criterion-level evidence
+    adjudication remains owned by `2p7dFkWk`
+  - production trace state now preserves `criterion_trace_map`, an internal
+    criterion-to-plan-item audit artifact that does not change the webapp
+    response contract
 
 ## Runtime Modes
 

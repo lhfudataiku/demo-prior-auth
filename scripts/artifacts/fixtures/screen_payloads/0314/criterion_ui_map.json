@@ -19,19 +19,6 @@
     "chart_result": {
       "status": "Ambiguous",
       "meets_criterion": false,
-      "extracted_value": {
-        "condition_records": [
-          {
-            "code": "C91.10",
-            "condition_name": "Chronic lymphocytic leukemia of B-cell type not having achieved remission"
-          },
-          {
-            "code": "C91.11",
-            "condition_name": "Chronic lymphocytic leukemia of B-cell type in remission"
-          }
-        ],
-        "cd20_positivity_confirmed": false
-      },
       "justification": "Structured EHR evidence shows qualifying CD20-positive B-cell malignancy code-range diagnoses (C91.10 and C91.11), but the required qualifier\u2014CD20 positivity confirmed by testing or analysis\u2014was not documented in linked observations, and no note evidence was found to confirm it. Because the diagnosis is present but the CD20 confirmation requirement remains unresolved, the criterion is ambiguous and not met on chart evidence alone.",
       "sources": {
         "structured": [

@@ -144,7 +144,6 @@ function buildPlaceholderCriterionRows(
         chart_result: {
           status: 'Unreviewed',
           meets_criterion: null,
-          extracted_value: null,
           justification: null,
           sources: {
             structured: [],

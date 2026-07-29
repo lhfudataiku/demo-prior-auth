@@ -19,50 +19,6 @@
     "criterion_id": "CR_CLUSTER_peakflow_obstructive_diagnosis",
     "status": "Found",
     "meets_criterion": true,
-    "extracted_value": {
-      "conditions": [
-        {
-          "condition_id": "d12baf5d-ed9f-5615-b6f9-79c24d01ee2f",
-          "code": "J45.909",
-          "description": "Unspecified asthma, uncomplicated",
-          "onset_date": "2022-01-23",
-          "abatement_date": "2022-02-26",
-          "encounter_id": "2c10e025-bc96-58d4-90c2-79bebdb0e7e5"
-        },
-        {
-          "condition_id": "c0c5eaad-0772-5a45-984a-6adf786c40b4",
-          "code": "J45.909",
-          "description": "Unspecified asthma, uncomplicated",
-          "onset_date": "2025-09-26",
-          "abatement_date": "2025-10-01",
-          "encounter_id": "68577c30-8973-5b58-a5d7-20497d146dfa"
-        },
-        {
-          "condition_id": "b9225571-7eb0-5863-b3ce-884d4492cc14",
-          "code": "J45.909",
-          "description": "Unspecified asthma, uncomplicated",
-          "onset_date": "2024-07-06",
-          "abatement_date": "2024-07-07",
-          "encounter_id": "f6ba0112-a909-5ff8-b696-d8340fea922c"
-        },
-        {
-          "condition_id": "fcc2651a-1209-566e-99bf-10e0ae38db7b",
-          "code": "J45.909",
-          "description": "Unspecified asthma, uncomplicated",
-          "onset_date": "2022-06-18",
-          "abatement_date": "2022-06-22",
-          "encounter_id": "b486c1ce-4567-57a8-94f3-7254272c50e4"
-        },
-        {
-          "condition_id": "66dca9ef-4edb-5e25-93a3-28747049034f",
-          "code": "J45.909",
-          "description": "Unspecified asthma, uncomplicated",
-          "onset_date": "2026-01-19",
-          "abatement_date": "2026-01-22",
-          "encounter_id": "0c4ee8c1-a9fb-5407-90d2-610a6921e92b"
-        }
-      ]
-    },
     "justification": "Structured EHR evidence shows five condition entries for the patient with ICD-10 J45.909 (unspecified asthma, uncomplicated). Asthma is one of the obstructive pulmonary conditions covered by the criterion, and no additional qualifier beyond documented diagnosis is required by the criterion text. No conflicting evidence was identified.",
     "sources": {
       "structured": [
