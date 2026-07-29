@@ -1,10 +1,44 @@
-<span id="version" style="color: grey; float: right">Version 0.1.0</span><br/>
-
 <div class="alert">
 This is a demo-only release and should not be installed on customer instances.
 </div>
 
 # Release Notes #
+
+## Version 0.2.0
+
+### New feature: Agent Review pre-deployment guardrail
+
+Version 0.2 adds a clinical quality-evaluation layer around the Prior
+Authorization Review Agent. Clinical subject matter experts can evaluate a
+candidate Structured Agent version against repeatable clinical cases before it
+is used in the operational workflow.
+
+Agent Review is separate from the Screen 2 clinician approval checkpoint. The
+operational checkpoint supports completion of an individual prior authorization
+request; Agent Review validates the agent's retrieval, evidence interpretation,
+eligibility disposition, and reasoning quality across known cases.
+
+Current v0.2 capabilities include:
+
+- four reusable clinical cases for end-to-end review
+- clinician-readable agent outputs and reference answers rather than raw JSON
+- case-level eligibility guardrails and managed HITL trajectory checks
+- per-criterion review of eligibility status, evidence quality, retrieval
+  approach, and reasoning safety
+- dedicated Retrieval Planner and Criterion Reasoning evaluation agents for
+  targeted regression diagnosis
+- review boundaries that exclude clinician comments and webapp edits from agent
+  scoring and ground truth
+- DSS completion handling that derives Screen 3 from the retained
+  `screen_2_review_result` artifact, rather than attempting to parse the
+  clinician-readable terminal Markdown
+
+This feature provides a governed feedback loop for prompt refinement and
+pre-deployment regression testing while retaining human ownership of the final
+coverage decision.
+
+## Version 0.1.1
+- Redesign UI with Dataiku webapp framework.
 
 ## Version 0.1.0
 

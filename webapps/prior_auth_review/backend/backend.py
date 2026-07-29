@@ -18,6 +18,10 @@ from scripts.agent_flow.functions.screen_payload_helpers import (
     build_screen3_payload_from_review_result_data,
     normalize_review_result_data,
 )
+from webapps.prior_auth_review.backend.agent_transport import (
+    extract_graph_state,
+    extract_review_result_from_graph,
+)
 from webapps.prior_auth_review.backend.data_access import (
     _build_screen2_agent_request,
     _parse_json_object_from_text,
@@ -97,27 +101,6 @@ def _parse_embedded_json(value):
         return _parse_json_object_from_text(value)
     except Exception:
         return None
-
-
-def _extract_graph_state(value):
-    if not isinstance(value, dict):
-        return None
-
-    if "_currentBlockId" in value:
-        return value
-
-    for nested in value.values():
-        if isinstance(nested, dict) and "_currentBlockId" in nested:
-            return nested
-
-    event_data = value.get("eventData")
-    if isinstance(event_data, dict):
-        context = event_data.get("context")
-        if isinstance(context, dict):
-            for nested in context.values():
-                if isinstance(nested, dict) and "_currentBlockId" in nested:
-                    return nested
-    return None
 
 
 def _extract_review_request_from_graph(graph_state):
@@ -291,7 +274,7 @@ def _extract_stream_state(chunk_data):
     if not isinstance(chunk_data, dict):
         return {}
 
-    graph_state = _extract_graph_state(chunk_data)
+    graph_state = extract_graph_state(chunk_data)
     review_request = _extract_review_request_from_graph(graph_state)
     progress = _extract_progress_from_graph(graph_state, chunk_data)
     screen2_snapshot = _extract_screen2_snapshot_from_graph(graph_state)
@@ -441,15 +424,18 @@ def _run_dss_completion(
                         )
                 else:
                     final_text = "".join(text_buf).strip()
-                    parsed = _parse_json_object_from_text(final_text) if final_text else None
-                    final_review_result = None
-                    if review_result is not None:
-                        final_review_result = normalize_review_result_data(parsed or review_result)
+                    final_graph_state = extract_graph_state(pending_context)
+                    final_review_result = (
+                        extract_review_result_from_graph(final_graph_state)
+                        or normalize_review_result_data(review_result)
+                    )
                     if isinstance(final_review_result, dict) and final_review_result:
                         pending_screen3 = build_screen3_payload_from_review_result_data(final_review_result)
                         pending_screen2_snapshot = final_review_result.get("reviewed_screen_2_payload")
-                    elif isinstance(parsed, dict) and parsed.get("payload"):
-                        pending_screen3 = parsed
+                    else:
+                        raise RuntimeError(
+                            "Structured Agent completed without a valid screen_2_review_result artifact in its context."
+                        )
                     with _run_lock:
                         _runs[run_id].update(
                             {

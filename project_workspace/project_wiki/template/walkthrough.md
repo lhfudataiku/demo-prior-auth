@@ -28,7 +28,7 @@ This process is repetitive, time-sensitive, and vulnerable to missing documentat
 
 ## Structured Agent Flow
 
-This POC is centered on the Structured Agent that owns Screen 2 after Screen 1 has already resolved the selected route, phase, cluster, and guard answers. In the current DSS deployment, the webapp and the Structured Agent are co-located in project `DEMO_PRIOR_AUTH_AGENT`, and the backend resolves the agent from that active project context.
+This POC is centered on the Structured Agent that owns Screen 2 after Screen 1 has already resolved the selected route, phase, cluster, and guard answers.
 
 At a high level, the flow is:
 
@@ -192,6 +192,33 @@ In the DSS runtime, the walkthrough should call attention to the native approval
 - Screen 3 is then generated deterministically outside the agent
 
 This is a strong proof point for governance, transparency, and controlled operationalization of AI-assisted workflows because the review boundary is explicit and the post-approval output is stable.
+
+## Agent Review: Pre-Deployment Clinical Validation
+
+Version 0.2 adds a separate Agent Review capability for validating the
+Structured Agent before deployment. This is not another step in an individual
+prior authorization request. Instead, clinical subject matter experts use
+repeatable cases to determine whether a candidate agent version retrieves the
+right evidence, handles missing evidence safely, and reaches clinically
+supportable eligibility dispositions.
+
+Each test begins with a saved Screen 2 request and compares the agent's
+clinician-readable review summary with a clinician-authored reference. The
+reviewer can inspect the case-level result and the reasoning for each policy
+criterion, including required clinical modifiers and disqualifying clauses.
+
+The evaluation is organized at three levels:
+
+- end-to-end validation of the complete Structured Agent flow and managed HITL
+  handoff
+- retrieval-planner evaluation to validate the planned evidence approach
+- criterion-reasoning evaluation to validate evidence status, safety, and
+  justification for one criterion at a time
+
+Agent Review evaluates deterministic agent-generated evidence and reasoning.
+It does not use clinician comments or edits from the operational webapp as
+ground truth. This separation makes it a practical pre-deployment guardrail for
+prompt changes and future agent versions.
 
 ## Business Outcomes to Emphasize
 
